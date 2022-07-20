@@ -1,8 +1,11 @@
 #include <string>
 #include <iostream>
 #include <unordered_set>
+#include <minisat/core/Solver.h>
+
 
 #include "course_offering.hh";
+
 
 using namespace std;
 
