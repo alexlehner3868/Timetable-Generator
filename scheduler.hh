@@ -15,7 +15,6 @@ using Minisat::lbool;
 class Scheduler {
 
   private:
-
     unordered_set<CourseOfferings> course_offerings_;
     unordered_set<TimeConstraint> time_constraints_;
     unordered_set<ChunkConstraint> chunk_constraints_;
@@ -24,9 +23,14 @@ class Scheduler {
   public:
    Scheduler();
 
+    // Setting Data 
    void add_course(CourseOfferings course);
    void remove_course(CourseOfferings course);
 
+    // Accessors 
+    // get highest priority constraints etc 
+
+    // MINISAT Solver Functions 
    void Solver::init_variables()
    bool Solver::apply_board(board const& b)
    void Solver::exactly_one_true(Minisat::vec<Minisat::Lit> const& literals)
