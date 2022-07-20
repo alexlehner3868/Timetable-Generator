@@ -16,14 +16,14 @@ using Minisat::lbool;
 class Scheduler {
   private:
     unordered_set<CourseOfferings> course_offerings_;
-    std::vector<std::unique_ptr<Constraint>> constraints_;
+    unordered_set<std::unique_ptr<Constraint>> constraints_;
   public:
    Scheduler();
 
    void add_course(CourseOfferings course);
    void remove_course(CourseOfferings course);
    void add_constraint(Constraint* constraint);
-   void remove_constraint(Constraint* constriant);
+   void remove_constraint(Constriant* constriant);
 
    void Solver::init_variables()
    bool Solver::apply_board(board const& b)

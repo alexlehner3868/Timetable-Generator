@@ -4,6 +4,7 @@
 using namespace std;
 using Minisat::mkLit;
 using Minisat::lbool;
+
 #include "scheduler.hh";
 
 
@@ -14,6 +15,7 @@ void Scheduler::add_course(CourseOfferings course){
 void Scheduler::remove_course(CourseOfferings course){
     course_offerings.erase(course);
 }
+
 
 
 
