@@ -1,5 +1,8 @@
 #include <string>
 #include <iostream>
+#include <vector>
+
+#include "section.hh"
 
 using namespace std;
 
