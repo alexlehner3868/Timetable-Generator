@@ -5,7 +5,6 @@
 
 
 #include "course_offering.hh";
-#include "constraints.hh";
 
 
 using namespace std;
@@ -15,13 +14,16 @@ using Minisat::lbool;
 
 class Scheduler {
   private:
+
     unordered_set<CourseOfferings> course_offerings_;
     unordered_set<std::unique_ptr<Constraint>> constraints_;
+
   public:
    Scheduler();
 
    void add_course(CourseOfferings course);
    void remove_course(CourseOfferings course);
+
    void add_constraint(Constraint* constraint);
    void remove_constraint(Constriant* constriant);
 
