@@ -1,3 +1,12 @@
+#include "scheduler.hh";
+
+void Scheduler::add_course(CourseOfferings course){
+    course_offerings.insert(course);
+}
+
+void Scheduler::remove_course(CourseOfferings course){
+    course_offerings.erase(course);
+}
 
 
 
