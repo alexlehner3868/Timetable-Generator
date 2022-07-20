@@ -6,7 +6,6 @@
 
 using namespace std;
 
-// CourseOfferings is a list of 
 class CourseOfferings {
   private:
     string name_;
