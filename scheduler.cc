@@ -76,12 +76,12 @@ void Solver::exactly_one_true(
 
 
 #each position contains only one number
-for (int value = 0; value < values; ++value) {
-  Minisat::vec<Minisat::Lit> literals;
-  for (int rr = 0; rr < 3; ++rr) {
-    for (int cc = 0; cc < 3; ++cc) {
-      literals.push(Minisat::mkLit(toVar(
-        r + rr, c + cc, value)));
+for (int row = 0; row < rows; ++rr) {
+    for (int column = 0; column < columns; ++cc) {
+	for (int value = 0; value < values; ++value) {
+  		Minisat::vec<Minisat::Lit> literals;
+      		literals.push(Minisat::mkLit(toVar(
+        		row, column, value)));
     }
   }
   exactly_one_true(literals);
