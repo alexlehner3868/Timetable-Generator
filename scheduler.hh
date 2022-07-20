@@ -5,7 +5,7 @@
 
 
 #include "course_offering.hh";
-
+#include "constraints.hh";
 
 using namespace std;
 using Minisat::mkLit;
