@@ -9,6 +9,9 @@
 
 
 using namespace std;
+using Minisat::mkLit;
+using Minisat::lbool;
+
 
 class Scheduler {
   private:
@@ -22,5 +25,8 @@ class Scheduler {
    void add_constraint(Constraint* constraint);
    void remove_constraint(Constraint* constriant);
 
+   void Solver::init_variables()
+   bool Solver::apply_board(board const& b)
+   void Solver::exactly_one_true(Minisat::vec<Minisat::Lit> const& literals)
 };
 
