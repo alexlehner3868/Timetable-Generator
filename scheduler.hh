@@ -27,12 +27,19 @@ class Scheduler {
         void add_course(CourseOfferings course);
         void remove_course(CourseOfferings course);
 
-        // Accessors 
-        // get highest priority constraints etc 
+        void add_time_constraint(TimeConstraint constraint);
+        void remove_time_constraint(TimeConstraint constraint);
+
+        void add_chunk_constraint(ChunkConstraint constraint);
+        void remove_chunk_constraint(ChunkConstraint constraint);
+
+        void add_cuttoff_constraint(CutOffTimeConstraint constraint);
+        void remove_cutoff_constraint(CutOffTimeConstraint constraint);
+
 
         // MINISAT Solver Functions 
-        void Solver::init_variables()
-        bool Solver::apply_board(board const& b)
-        void Solver::exactly_one_true(Minisat::vec<Minisat::Lit> const& literals)
+        void Solver::init_variables();
+        bool Solver::apply_board(board const& b);
+        void Solver::exactly_one_true(Minisat::vec<Minisat::Lit> const& literals);
 };
 

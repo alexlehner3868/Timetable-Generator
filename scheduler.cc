@@ -16,26 +16,52 @@ void Scheduler::remove_course(CourseOfferings course){
     course_offerings.erase(course);
 }
 
+void Scheduler::add_time_constraint(TimeConstraint constraint){
+  time_constraints_.insert(constraint);
+}
+
+void Scheduler::remove_time_constraint(TimeConstraint constraint){
+  time_constraints_.erase(constraint);
+}
+
+void Scheduler::add_chunk_constraint(ChunkConstraint constraint){
+  chunk_constraints_.insert(constraint);
+}
+
+void Scheduler::remove_chunk_constraint(ChunkConstraint constraint){
+  chunk_constraints_.erase(constraint);
+}
+
+void Scheduler::add_cutoff_constraint(CutOffTimeConstraint constraint){
+  cut_off_time_constraints_.insert(constraint);
+}
+
+void Scheduler::remove_cutoff_constraint(CutOffTimeConstraint constraint){
+  cut_off_time_constraints_.erase(constraint);
+}
 
 
 
-#Minisat::Solver – Implementation of the core solver and its algorithms.
-#Minisat::Var – Representation of a variable.
-#Minisat::Lit – Representation of a concrete (positive or negative) literal of a variable.
 
-#need to change this equation to represent our situation
+
+
+//Minisat::Solver – Implementation of the core solver and its algorithms.
+//Minisat::Var – Representation of a variable.
+//Minisat::Lit – Representation of a concrete (positive or negative) literal of a variable.
+
+//need to change this equation to represent our situation
 Minisat::Var toVar(int row, int column, int value) {
     return row * columns * values + column * values + value;
 }
 
-#12 hours of class in a day
+//12 hours of class in a day
 int rows = 12;
-#5 days of class a week
+//5 days of class a week
 int columns = 5;
-#class/no class during time
+//class/no class during time
 int values = 1
 
-#allocate all possible variables
+//allocate all possible variables
 void Solver::init_variables() {
    for (int r = 0; r < rows; ++r) {
      for (int c = 0; c < columns; ++c) {
@@ -47,7 +73,7 @@ void Solver::init_variables() {
 }
 
 
-#add courses that are locked into the schedule
+//add courses that are locked into the schedule
 bool Solver::apply_board(board const& b) {
   for (int row = 0; row < rows; ++row) {
     for (int col = 0; col < columns; ++col) {
@@ -75,7 +101,7 @@ void Solver::exactly_one_true(
 
 
 
-#each position contains only one number
+//each position contains only one number
 for (int row = 0; row < rows; ++rr) {
     for (int column = 0; column < columns; ++cc) {
 	for (int value = 0; value < values; ++value) {
