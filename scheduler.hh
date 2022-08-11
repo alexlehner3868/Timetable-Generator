@@ -1,16 +1,11 @@
 #include <string>
 #include <iostream>
 #include <unordered_set>
-#include <minisat/core/Solver.h>
-
 
 #include "course_offering.hh";
 #include "constraints.hh";
 
 using namespace std;
-using Minisat::mkLit;
-using Minisat::lbool;
-
 
 class Scheduler {
 
@@ -37,9 +32,5 @@ class Scheduler {
         void remove_cutoff_constraint(CutOffTimeConstraint constraint);
 
 
-        // MINISAT Solver Functions 
-        void Solver::init_variables();
-        bool Solver::apply_board(board const& b);
-        void Solver::exactly_one_true(Minisat::vec<Minisat::Lit> const& literals);
 };
 

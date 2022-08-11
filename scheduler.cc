@@ -2,29 +2,13 @@
 #include <iostream>
 #include <stdlib.h>
 
-#include <atomic>
-#include <map>
-#include <numeric>
-#include <string>
-#include <tuple>
-#include <vector>
+#include "scheduler.hh"
 
-#include "absl/strings/str_format.h"
-#include "ortools/base/logging.h"
-#include "ortools/sat/cp_model.h"
-#include "ortools/sat/cp_model.pb.h"
-#include "ortools/sat/cp_model_solver.h"
-#include "ortools/sat/model.h"
-#include "ortools/sat/sat_parameters.pb.h"
-#include "ortools/util/time_limit.h"
+ void Scheduler::Scheduler(){
 
-using namespace std;
-using Minisat::mkLit;
-using Minisat::lbool;
+ }
 
-#include "scheduler.hh";
-
-
+// functions for later 
 void Scheduler::add_course(CourseOfferings course){
     course_offerings.insert(course);
 }
@@ -56,6 +40,7 @@ void Scheduler::add_cutoff_constraint(CutOffTimeConstraint constraint){
 void Scheduler::remove_cutoff_constraint(CutOffTimeConstraint constraint){
   cut_off_time_constraints_.erase(constraint);
 }
+
 
 
 
