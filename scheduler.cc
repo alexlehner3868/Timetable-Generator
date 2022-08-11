@@ -1,5 +1,13 @@
 #include <string>
 #include <iostream>
+#include <stdlib.h>
+
+#include <atomic>
+#include <map>
+#include <numeric>
+#include <string>
+#include <tuple>
+#include <vector>
 
 #include "absl/strings/str_format.h"
 #include "ortools/base/logging.h"
