@@ -1,6 +1,15 @@
 #include <string>
 #include <iostream>
 
+#include "absl/strings/str_format.h"
+#include "ortools/base/logging.h"
+#include "ortools/sat/cp_model.h"
+#include "ortools/sat/cp_model.pb.h"
+#include "ortools/sat/cp_model_solver.h"
+#include "ortools/sat/model.h"
+#include "ortools/sat/sat_parameters.pb.h"
+#include "ortools/util/time_limit.h"
+
 using namespace std;
 using Minisat::mkLit;
 using Minisat::lbool;
