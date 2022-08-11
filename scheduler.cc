@@ -53,7 +53,7 @@ void Scheduler::remove_cutoff_constraint(CutOffTimeConstraint constraint){
 
 
 
-
+/*
 //Minisat::Solver – Implementation of the core solver and its algorithms.
 //Minisat::Var – Representation of a variable.
 //Minisat::Lit – Representation of a concrete (positive or negative) literal of a variable.
@@ -133,3 +133,4 @@ for (int row = 0; row < rows; ++row) {
     exactly_one_true(literals);
   }
 }
+*/
