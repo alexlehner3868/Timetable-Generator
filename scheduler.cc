@@ -32,6 +32,7 @@ void Scheduler::schedule_classes(unordered_set<CourseOfferings>& course_offering
 void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings>& course_offerings, std::unordered_map<std::pair<int, int>, ClassChosen>& timetable){
   //std::unordered_set<std::pair<int,int>> timetable; // 5 days by 12 hours
 
+  // TODO -> ADD recursion exit condition and get courses from map 
   for(auto offering : course_offerings){
     for(int sec_id = 0; sec_id < offering.lecture_sections_.size(); sec_id++){
       auto sec = offering.lecture_sections_.at(sec_id);
