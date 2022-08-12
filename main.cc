@@ -9,8 +9,8 @@ int main(int argc, char *argv[])
 
 
     //--- Data Procesing ---- 
-    // 1. Parses csc to get classes 
-    // 2. Store csc in SQL database or something and related sql funcitons 
+    // 1. Parses csv to get classes 
+    // 2. Store csv in SQL database or something and related sql funcitons 
 
     // -- User input (later) 
     // 1. Search and add classes to timetable 
