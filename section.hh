@@ -8,7 +8,7 @@ class Section {
 	private:
 
 	public:
-		Section(string section_id, int duration, int start_time, char semester, int day, bool async = false) {
+		Section(string section_id, vector<int> duration, vector<int> start_time, vector<int> semester, vector<int> day, vector<int> async = false) {
 			int section_id_ = section_id;
 			duration_ = duration;
 			start_time_ = start_time;
@@ -16,11 +16,11 @@ class Section {
 			semester_ = semester; 
 			async_ = async;
 		}
-		string section_id_;
-		int duration_;
-		int start_time_;
-		int day_; // Monday = 0 .... Fri = 5
-		char semester_; 
-		bool async_; 
+		int section_id_;
+		vector<int> duration_;
+		vector<int> start_time_;
+		vector<int> day_; // Monday = 0 .... Fri = 5
+		vector<int> semester_; 
+		vector<int> async_; 
 
 };

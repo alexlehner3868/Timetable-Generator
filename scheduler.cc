@@ -10,22 +10,46 @@ void Scheduler::Scheduler(){
 
 }
 
-void Scheduler::schedule_classes(unordered_set<CourseOfferings>& course_offerings){
-  std::unordered_map<int, int> timetable; // 5 days by 12 hours 
+void Scheduler::schedule_classes(unordered_set<CourseOfferings>& course_offerings, std::unordered_set<std::pair<int, int>>& timetable){
+  //std::unordered_set<std::pair<int,int>> timetable; // 5 days by 12 hours 
 
 
   for(auto offering : course_offerings){
-    if(offering.lecture_sections_.size() > 1 ){
-      for(auto sec : offering.lecture_sections_){
-          for(int i = 0; i <= sec.duration_; i++){
-            timetable.insert(std::make_pair<int, int>(sec.day_, sec.start_time_ + i);
+    for(auto sec : offering.lecture_sections_){
+    //add to timetable for each section
+        bool successfully_inserted;
+        for (int lecture_in_section = 0; lecture_in_section < sec.duration_.size(); lecture_in_section++) {
+            for (int i = 0; i < sec.duration_.at(lecture_in_section); i++) {
+                successfully_inserted = timetable.insert(std::make_pair<int, int>(sec.day_, sec.start_time_ + i)).second();
+                if (!succesfully_inserted) {
+                    break;
+                    //combination is invalid
+                    //time occupied by another course offering
+                }
+                
+            }
+            //remove all occurences of lecture section if conflict
+            if (!successfully_inserted) {
+                for (int remove_class = 0; remove_class <= lecture_in_section; remove_class++) {
+                    for (int i = 0; i < sec.duration_.at(lecture_in_section); i++) {
+                        timetable.erase(std::make_pair<int, int>(sec.day_, sec.start_time_ + i));
+
+                    }
+                }
+                break;
+            }
         }
         unordered_set<CourseOfferings> remaining_classes = course_offerings;
         remaining_classes.remove(offering);
-        schedule_classes(remaining_classes);
-        timetable[sec.day_][] = 0
-      }
+        schedule_classes(remaining_classes, timetable);
+        for (int remove_class = 0; remove_class <= lecture_in_section; remove_class++) {
+            for (int i = 0; i < sec.duration_.at(lecture_in_section); i++) {
+                timetable.erase(std::make_pair<int, int>(sec.day_, sec.start_time_ + i));
+
+            }
+        }
     }
+    
   }
   
 }
