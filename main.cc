@@ -37,6 +37,42 @@ void test_sample_questions(){
         Scheduler scheduler;
         scheduler.schedule_classes(offerings);
     }
+
+    {
+        //Test 2: Mat186 Lec1 Lec2 (no conflicts)
+    }
+
+    {
+        //Test 3: Mat186 Lec1  (no conflicts )
+        //        LinAlg Lec1  
+    }
+
+    {
+        //Test 4: Mat186 Lec1 Lec2 (no conflicts )
+        //        LinAlg Lec1  
+    }
+
+    {
+        //Test 5: Mat186 Lec1 Lec2 (no conflicts )
+        //        LinAlg Lec1 Lec2
+    }
+
+    {
+        //Test 6: Mat186 Lec1 Lec2 (no conflicts )
+        //        LinAlg Lec1  Lec 2
+        //        Spanish Lec1 Lec2 
+    }
+
+    {
+        //Test 7: Mat186 Lec1 Lec2 (insert conflict wiht Mat lec1 and Lin1)
+        //        LinAlg Lec1  
+    }
+
+    {
+        //Test 8: Mat186 Lec1 Lec2 (Put in some conflicts)
+        //        LinAlg Lec1  Lec2
+        //        Spanish Lec1 Lec2
+    }
 } 
 
 int main(int argc, char *argv[])
