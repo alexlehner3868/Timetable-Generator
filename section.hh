@@ -9,7 +9,7 @@ class Section {
 
 	public:
 		Section(string section_id, int duration, int start_time, char semester, int day, bool async = false) {
-			string section_id_ = section_id;
+			int section_id_ = section_id;
 			duration_ = duration;
 			start_time_ = start_time;
 			day_ = day;
