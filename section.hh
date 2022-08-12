@@ -1,3 +1,6 @@
+#ifndef SECTION_H
+#define SECTION_H
+
 #include <string>
 #include <iostream>
 
@@ -8,7 +11,7 @@ class Section {
 	private:
 
 	public:
-		Section(string section_id, vector<int> duration, vector<int> start_time, vector<int> semester, vector<int> day, vector<int> async = false) {
+		Section(int section_id, vector<int> duration, vector<int> start_time, vector<char> semester, vector<int> day, vector<bool> async) {
 			int section_id_ = section_id;
 			duration_ = duration;
 			start_time_ = start_time;
@@ -17,10 +20,12 @@ class Section {
 			async_ = async;
 		}
 		int section_id_;
-		vector<int> duration_;
-		vector<int> start_time_;
+		vector<int> duration_; //length of class in hour integer segements 
+		vector<int> start_time_; //military time in hours 
 		vector<int> day_; // Monday = 0 .... Fri = 5
-		vector<int> semester_; 
-		vector<int> async_; 
+		vector<char> semester_; //'F' or 'W'
+		vector<bool> async_; 
 
 };
+
+#endif

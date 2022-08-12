@@ -1,3 +1,6 @@
+#ifndef OFFERING_H
+#define OFFERING_H
+
 #include <string>
 #include <iostream>
 #include <vector>
@@ -25,3 +28,5 @@ class CourseOfferings {
     vector<Section> practical_sections_;
 };
 
+
+#endif

@@ -1,7 +1,9 @@
+#ifndef CONSTRAINTS_H
+#define CONSTRAINTS_H
+
 #include <string>
 #include <iostream>
 #include <vector>
-#include <unordered
 
 using namespace std;
 
@@ -30,6 +32,7 @@ class TimeConstraint {
 class ChunkConstraint {
   private:
     int minutes_back_to_back_;
+    int priority_;
   public:
     ChunkConstraint(int chunk_size, int priority){
       minutes_back_to_back_ = chunk_size;
@@ -66,4 +69,4 @@ class MinimizeDaysSchoolConstraint {
     };
 };
 
-
+#endif

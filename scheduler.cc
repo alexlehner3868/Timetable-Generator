@@ -6,18 +6,6 @@
 
 using namespace std; 
 
-struct {
-  string course_code; 
-  int type; // 1 = lec, 2 = tut, 3 = pra 
-  int section;
-} ClassChosen;
-
-struct{ 
-    int lec;
-    int pra;
-    int tut;
-} sections_chosen;
-
 
 void Scheduler::Scheduler(){
 
@@ -29,10 +17,13 @@ void Scheduler::schedule_classes(unordered_set<CourseOfferings>& course_offering
 }
 
 
-void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings>& course_offerings, std::unordered_map<std::pair<int, int>, ClassChosen>& timetable){
-  //std::unordered_set<std::pair<int,int>> timetable; // 5 days by 12 hours
+void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings>& course_offerings, std::unordered_map<std::pair<int, int>, struct ClassChosen>& timetable){
+  //timetable is 5 days by 12 hours
 
-  // TODO -> ADD recursion exit condition and get courses from map 
+  if(course_offerings.size() == 0){
+    // Temporarty code 
+  }
+
   for(auto offering : course_offerings){
     for(int sec_id = 0; sec_id < offering.lecture_sections_.size(); sec_id++){
       auto sec = offering.lecture_sections_.at(sec_id);
@@ -75,6 +66,27 @@ void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings>& course_o
         }
     }
     
-  }
-  
+  } 
+}
+
+void Scheduler::print_timetable(std::unordered_map<std::pair<int, int>, struct ClassChosen>& timetable){
+  std::cout<<"Timetable option: "<<std::endl;
+  for(std::pair<std::pair<int, int>, ClassChosen> element : timetable){
+    auto day = element.first.first;
+    auto time = element.first.second;
+    auto course = element.second.course_code;
+    auto section_chosen = element.second.section;
+    auto type = element.second.type;
+
+    string class_type;
+    if(type == 0 ){
+      class_type = "lecture ";
+    }else if (type = 1){
+      class_type = "tutorial ";
+    }else{
+      class_type = "practical ";
+    }
+
+    std::cout<<"  course "<< course << " " << class_type << " section " << section_chosen << " on day " << day <<" at "<<time <<std::endl;
+   }
 }
