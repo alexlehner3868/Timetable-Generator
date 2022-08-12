@@ -22,6 +22,7 @@ struct{
 void Scheduler::Scheduler(){
 
 }
+
 void Scheduler::schedule_classes(unordered_set<CourseOfferings>& course_offerings ){
   std::unordered_map<std::pair<int, int>, class_chosen> timetable;
   schedule_classes_helper(course_offerings, timetable);
@@ -29,9 +30,7 @@ void Scheduler::schedule_classes(unordered_set<CourseOfferings>& course_offering
 
 
 void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings>& course_offerings, std::unordered_map<std::pair<int, int>, ClassChosen>& timetable){
-
-  //std::unordered_set<std::pair<int,int>> timetable; // 5 days by 12 hours 
-
+  //std::unordered_set<std::pair<int,int>> timetable; // 5 days by 12 hours
 
   for(auto offering : course_offerings){
     for(int sec_id = 0; sec_id < offering.lecture_sections_.size(); sec_id++){
