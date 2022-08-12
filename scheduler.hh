@@ -8,6 +8,7 @@
 
 #include "course_offering.hh"
 #include "constraints.hh"
+#include "period.hh"
 
 using namespace std;
 
@@ -25,8 +26,8 @@ class Scheduler {
     public:
         Scheduler();
         void schedule_classes(unordered_set<CourseOfferings>& course_offerings);
-        void schedule_classes_helper(unordered_set<CourseOfferings>& course_offerings,std::unordered_map<std::pair<int, int>, struct ClassChosen>& timetable);
-        void print_timetable(std::unordered_map<std::pair<int, int>, struct ClassChosen>& timetable);
+        void schedule_classes_helper(unordered_set<CourseOfferings>& course_offerings,std::unordered_map<Period, ClassChosen>& timetable);
+        void print_timetable(std::unordered_map<Period, ClassChosen>& timetable);
 
 };
 

@@ -3,6 +3,8 @@
 
 #include <string>
 #include <iostream>
+#include <unordered_map>
+#include <vector>
 
 using namespace std;
 
@@ -12,7 +14,7 @@ class Section {
 
 	public:
 		Section(int section_id, vector<int> duration, vector<int> start_time, vector<char> semester, vector<int> day, vector<bool> async) {
-			int section_id_ = section_id;
+			section_id_ = section_id;
 			duration_ = duration;
 			start_time_ = start_time;
 			day_ = day;

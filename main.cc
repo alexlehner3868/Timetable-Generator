@@ -1,5 +1,7 @@
 #include <iostream>
 #include <unordered_set>
+#include <unordered_map>
+#include <vector>
 
 #include "constraints.hh"
 #include "scheduler.hh"
@@ -7,7 +9,36 @@
 #include "section.hh"
 
 using namespace std;
-  
+
+void test_sample_questions(){
+     // Test 1: One class with one lecture section
+    {
+        vector<Section> calc_lecture_sections; 
+        vector<Section> empty_vec;
+        vector<int> calc_durations;
+        vector<int> calc_start_time;
+        vector<int> calc_day;
+        vector<char> calc_semester;
+        vector<bool> calc_async;
+        
+        calc_durations.push_back(1);
+        calc_start_time.push_back(9);
+        calc_day.push_back(1);
+        calc_semester.push_back('F');
+        calc_async.push_back(false);
+
+        Section calc_section_1(1, calc_durations, calc_start_time, calc_semester, calc_day, calc_async);
+        calc_lecture_sections.push_back(calc_section_1);
+
+        CourseOfferings calculus("Calculus 1", "MAT186", calc_lecture_sections, empty_vec, empty_vec);
+
+        unordered_set<CourseOfferings> offerings;
+        offerings.insert(calculus);
+        Scheduler scheduler;
+        scheduler.schedule_classes(offerings);
+    }
+} 
+
 int main(int argc, char *argv[])
 {
     //--- Data Procesing ---- 
@@ -26,6 +57,9 @@ int main(int argc, char *argv[])
 
     
 
-    // GUI  
-    // Web stuff 
+    // -- GUI  
+    // -- Web stuff 
+
+    // -- Testing Code
+    test_sample_questions();
 }

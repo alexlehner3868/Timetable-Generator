@@ -1,25 +1,25 @@
 #include <string>
 #include <iostream>
 #include <stdlib.h>
+#include <unordered_set>
+#include <unordered_map> 
+
+#include "period.hh"
 
 #include "scheduler.hh"
 
 using namespace std; 
 
 
-void Scheduler::Scheduler(){
-
-}
-
 void Scheduler::schedule_classes(unordered_set<CourseOfferings>& course_offerings ){
-  std::unordered_map<std::pair<int, int>, class_chosen> timetable;
+  std::unordered_map<Period, ClassChosen> timetable;
   schedule_classes_helper(course_offerings, timetable);
 }
 
 
-void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings>& course_offerings, std::unordered_map<std::pair<int, int>, struct ClassChosen>& timetable){
+void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings>& course_offerings, std::unordered_map<Period, ClassChosen>& timetable){
   //timetable is 5 days by 12 hours
-
+  // TODO, add in only add if semester is the same 
   if(course_offerings.size() == 0){
     // TODO -> save this for later as a potential option 
     print_timetable(timetable);
@@ -36,7 +36,8 @@ void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings>& course_o
         class_chosen.section = sec_id;
         for (int lecture_in_section = 0; lecture_in_section < sec.duration_.size(); lecture_in_section++) {
             for (int i = 0; i < sec.duration_.at(lecture_in_section); i++) {
-                successfully_inserted = timetable.insert({std::make_pair<int, int>(sec.day_, sec.start_time_ + i), class_chosen}).second();
+                Period p(sec.day_, sec.start_time_ +i);
+                successfully_inserted = timetable.insert({p, class_chosen}).second;
                 if (!succesfully_inserted) {
                     break;
                     //combination is invalid
@@ -49,7 +50,8 @@ void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings>& course_o
             if (!successfully_inserted) {
                 for (int remove_class = 0; remove_class <= lecture_in_section; remove_class++) {
                     for (int i = 0; i < sec.duration_.at(lecture_in_section); i++) {
-                        timetable.erase(std::make_pair<int, int>(sec.day_, sec.start_time_ + i));
+                        Period p(sec.day_, sec.start_time_ + i);
+                        timetable.erase(p);
 
                     }
                 }
@@ -57,11 +59,12 @@ void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings>& course_o
             }
         }
         unordered_set<CourseOfferings> remaining_classes = course_offerings;
-        remaining_classes.remove(offering);
-        schedule_classes(remaining_classes, timetable);
+        remaining_classes.erase(offering);
+        schedule_classes_helper(remaining_classes, timetable);
         for (int remove_class = 0; remove_class <= lecture_in_section; remove_class++) {
             for (int i = 0; i < sec.duration_.at(lecture_in_section); i++) {
-                timetable.erase(std::make_pair<int, int>(sec.day_, sec.start_time_ + i));
+              Period p(sec.day_, sec.start_time_ + i);
+              timetable.erase(p);
 
             }
         }
@@ -70,9 +73,9 @@ void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings>& course_o
   } 
 }
 
-void Scheduler::print_timetable(std::unordered_map<std::pair<int, int>, struct ClassChosen>& timetable){
+void Scheduler::print_timetable(std::unordered_map<Period, ClassChosen>& timetable){
   std::cout<<"Timetable option: "<<std::endl;
-  for(std::pair<std::pair<int, int>, ClassChosen> element : timetable){
+  for(std::pair<Period, ClassChosen> element : timetable){
     auto day = element.first.first;
     auto time = element.first.second;
     auto course = element.second.course_code;
