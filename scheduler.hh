@@ -13,5 +13,6 @@ class Scheduler {
 
     public:
         Scheduler();
+        void schedule_classes(unordered_set<CourseOfferings>& course_offerings);
 };
 
