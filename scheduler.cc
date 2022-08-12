@@ -21,7 +21,8 @@ void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings>& course_o
   //timetable is 5 days by 12 hours
 
   if(course_offerings.size() == 0){
-    // Temporarty code 
+    // TODO -> save this for later as a potential option 
+    print_timetable(timetable);
   }
 
   for(auto offering : course_offerings){
@@ -88,5 +89,5 @@ void Scheduler::print_timetable(std::unordered_map<std::pair<int, int>, struct C
     }
 
     std::cout<<"  course "<< course << " " << class_type << " section " << section_chosen << " on day " << day <<" at "<<time <<std::endl;
-   }
+  }
 }

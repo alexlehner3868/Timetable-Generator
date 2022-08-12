@@ -26,6 +26,8 @@ class Scheduler {
         Scheduler();
         void schedule_classes(unordered_set<CourseOfferings>& course_offerings);
         void schedule_classes_helper(unordered_set<CourseOfferings>& course_offerings,std::unordered_map<std::pair<int, int>, struct ClassChosen>& timetable);
+        void print_timetable(std::unordered_map<std::pair<int, int>, struct ClassChosen>& timetable);
+
 };
 
 #endif
