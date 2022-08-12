@@ -4,5 +4,24 @@ using namespace std;
  
 int main(int argc, char *argv[])
 {
-    
+    // TODO 
+
+
+    //--- Data Procesing ---- 
+    // 1. Parses csc to get classes 
+    // 2. Store csc in SQL database or something and related sql funcitons 
+
+    // -- User input (later) 
+    // 1. Search and add classes to timetable 
+    // 2. Remove classes 
+    // 3. Add constraints 
+
+    // -- Scheduling Algo 
+    // 1. Loop through all options and see what works 
+    // 2. Evaluate all possible options based on constraints 
+    // 3. What happens if no solution 
+
+
+    // GUI  
+    // Web stuff 
 }
