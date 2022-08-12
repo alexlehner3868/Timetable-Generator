@@ -14,5 +14,6 @@ class Scheduler {
     public:
         Scheduler();
         void schedule_classes(unordered_set<CourseOfferings>& course_offerings);
+        void schedule_classes_helper(unordered_set<CourseOfferings>& course_offerings, std::unordered_set<std::pair<int, int>>& timetable);
 };
 

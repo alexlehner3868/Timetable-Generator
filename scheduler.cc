@@ -9,8 +9,12 @@ using namespace std;
 void Scheduler::Scheduler(){
 
 }
+void Scheduler::schedule_classes(unordered_set<CourseOfferings>& course_offerings ){
+  std::unordered_set<std::pair<int, int>> timetable;
+  schedule_classes_helper(course_offerings, timetable);
+}
 
-void Scheduler::schedule_classes(unordered_set<CourseOfferings>& course_offerings, std::unordered_set<std::pair<int, int>>& timetable){
+void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings>& course_offerings, std::unordered_set<std::pair<int, int>>& timetable){
   //std::unordered_set<std::pair<int,int>> timetable; // 5 days by 12 hours 
 
 
