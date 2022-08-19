@@ -16,10 +16,10 @@ void Scheduler::schedule_classes(unordered_set<CourseOfferings, CourseOfferings:
   schedule_classes_helper(course_offerings, timetable);
 }
 
-
+// TODO: add support and checking for courses specified in diff semesters (maybe make 10 days x 21 dours where first 5 days are fall, 2nd 5 daus are winter)
 void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& course_offerings, std::unordered_map<day_time, ClassChosen, day_time_hash>& timetable){
   //timetable is 5 days by 12 hours
-  // TODO, add in only add if semester is the same 
+
   if(course_offerings.size() == 0){
     // TODO -> save this for later as a potential option 
     print_timetable(timetable);
@@ -63,9 +63,9 @@ void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings, CourseOff
         unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> remaining_classes = course_offerings;
         remaining_classes.erase(offering);
         schedule_classes_helper(remaining_classes, timetable);
-        for (int remove_class = 0; remove_class <= lecture_in_section; remove_class++) {
-            for (int i = 0; i < sec.duration_.at(lecture_in_section); i++) {
-              day_time period = make_pair(sec.day_.at(lecture_in_section), sec.start_time_.at(lecture_in_section) + i);
+        for (int remove_class = 0; remove_class < lecture_in_section; remove_class++) { //should this be < or <= (<= seg faults)
+            for (int i = 0; i < sec.duration_.at(remove_class); i++) {
+              day_time period = make_pair(sec.day_.at(remove_class), sec.start_time_.at(remove_class) + i);
               timetable.erase(period);
 
             }
@@ -73,6 +73,7 @@ void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings, CourseOff
     }
     
   } 
+
 }
 
 void Scheduler::print_timetable(std::unordered_map<day_time, ClassChosen, day_time_hash>& timetable){

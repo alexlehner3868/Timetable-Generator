@@ -98,4 +98,5 @@ int main(int argc, char *argv[])
 
     // -- Testing Code
     test_sample_questions();
+    return 0;
 }
