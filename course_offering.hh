@@ -22,11 +22,23 @@ class CourseOfferings {
       practical_sections_ = pra;
     }
 
+    bool operator==(const CourseOfferings& otherCourse) const{
+      return course_id_ == (otherCourse.course_id_);
+    }
+    
+    struct CourseOfferingHash{
+      size_t operator()(const CourseOfferings& c) const
+      {
+        return hash<string>()(c.course_id_);
+      }
+    };
+
     string name_;
     string course_id_;
     vector<Section> lecture_sections_; 
     vector<Section> tutorial_sections_;
     vector<Section> practical_sections_;
+
 };
 
 

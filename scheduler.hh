@@ -18,6 +18,15 @@ struct ClassChosen{
   int section;
 };
 
+typedef std::pair<int, int> day_time;
+
+struct day_time_hash
+{
+    template <class T1, class T2>
+    std::size_t operator() (const std::pair<T1, T2> &pair) const {
+        return std::hash<T1>()(pair.first) ^ std::hash<T2>()(pair.second);
+    }
+};
 
 class Scheduler {
 
@@ -25,9 +34,9 @@ class Scheduler {
 
     public:
         Scheduler();
-        void schedule_classes(unordered_set<CourseOfferings>& course_offerings);
-        void schedule_classes_helper(unordered_set<CourseOfferings>& course_offerings,std::unordered_map<Period, ClassChosen>& timetable);
-        void print_timetable(std::unordered_map<Period, ClassChosen>& timetable);
+        void schedule_classes(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& course_offerings);
+        void schedule_classes_helper(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& course_offerings, std::unordered_map<day_time, ClassChosen>& timetable);
+        void print_timetable(std::unordered_map<day_time, ClassChosen>& timetable);
 
 };
 

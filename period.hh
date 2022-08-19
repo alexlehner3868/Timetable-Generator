@@ -19,7 +19,26 @@ class Period {
 
 		int day_;
 		int time_hour_;
-
+	
+		bool operator==(const Period & other){
+			return (other.day_ == day_) && (other.time_hour_ == time_hour_);
+		}
 };
+
+template <>
+struct hash<Period> {
+	std::size_t operator()(const Period& p) const{
+      using std::size_t;
+      using std::hash;
+      using std::string;
+
+      // Compute individual hash values for first,
+      // second and third and combine them using XOR
+      // and bit shifting:
+
+      return ((hash<int>()(p.day_)
+               ^ (hash<int>()(p.time_hour_) << 1)) >> 1);
+    }
+  };
 
 #endif

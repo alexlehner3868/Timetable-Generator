@@ -11,13 +11,13 @@
 using namespace std; 
 
 
-void Scheduler::schedule_classes(unordered_set<CourseOfferings>& course_offerings ){
-  std::unordered_map<Period, ClassChosen> timetable;
+void Scheduler::schedule_classes(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& course_offerings ){
+  std::unordered_map<day_time, ClassChosen, day_time_hash> timetable;
   schedule_classes_helper(course_offerings, timetable);
 }
 
 
-void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings>& course_offerings, std::unordered_map<Period, ClassChosen>& timetable){
+void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& course_offerings, std::unordered_map<day_time, ClassChosen>& timetable){
   //timetable is 5 days by 12 hours
   // TODO, add in only add if semester is the same 
   if(course_offerings.size() == 0){

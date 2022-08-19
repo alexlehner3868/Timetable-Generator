@@ -32,7 +32,7 @@ void test_sample_questions(){
 
         CourseOfferings calculus("Calculus 1", "MAT186", calc_lecture_sections, empty_vec, empty_vec);
 
-        unordered_set<CourseOfferings> offerings;
+        unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> offerings;
         offerings.insert(calculus);
         Scheduler scheduler;
         scheduler.schedule_classes(offerings);
