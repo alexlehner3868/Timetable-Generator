@@ -1,4 +1,4 @@
-#include "section.hh";
+#include "section.hh"
 
 #include <string>
 #include <iostream>

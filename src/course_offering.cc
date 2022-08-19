@@ -1,4 +1,4 @@
-#include "course_offering.hh";
+#include "course_offering.hh"
 
 #include <string>
 #include <iostream>
