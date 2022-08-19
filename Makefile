@@ -221,9 +221,9 @@ CXX ?= c++
 DEVNULL = /dev/null
 # Flags
 ARFLAGS   = crs
-CFLAGS   ?= -Wall -g -std=c18
+CFLAGS   ?= -Wall -g
 CPPFLAGS += $(INCLUDES)
-CXXFLAGS ?= -Wall -g -std=c++20
+CXXFLAGS ?= -Wall -g
 DEPFLAGS  = -MM -MF $@ -MT $(OBJ)/$*$(.o)
 LDFLAGS  +=
 LDLIBS   +=
