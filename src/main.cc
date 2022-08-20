@@ -11,6 +11,7 @@
 using namespace std;
 
 void test_sample_questions(){
+    Scheduler scheduler;
      // Test 1: One class with one lecture section
     {
         vector<Section> calc_lecture_sections; 
@@ -34,7 +35,6 @@ void test_sample_questions(){
 
         unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> offerings;
         offerings.insert(calculus);
-        Scheduler scheduler;
         scheduler.schedule_classes(offerings);
     }
 
