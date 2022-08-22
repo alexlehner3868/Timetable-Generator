@@ -13,7 +13,7 @@
 
 using namespace std;
 
-struct ClassChosen{
+struct ClassSection{
   string course_code; 
   int type; // 1 = lec, 2 = tut, 3 = pra 
   int section;
@@ -25,13 +25,13 @@ class Scheduler {
 
     private:
 
-    vector<std::unordered_map<Date, ClassChosen, Date_Hash>> timetables_;
+    vector<std::unordered_map<Date, ClassSection, Date_Hash>> timetables_;
     
     public:
         Scheduler();
         void schedule_classes(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& courses);
-        void schedule_classes_helper(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& courses, std::unordered_map<Date, ClassChosen, Date_Hash>& timetable);
-        void print_timetable(std::unordered_map<Date, ClassChosen, Date_Hash>& timetable);
+        void schedule_classes_helper(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& courses, std::unordered_map<Date, ClassSection, Date_Hash>& timetable);
+        void print_timetable(std::unordered_map<Date, ClassSection, Date_Hash>& timetable);
 
 };
 

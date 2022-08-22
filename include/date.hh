@@ -6,10 +6,6 @@
 #include <unordered_set>
 #include <unordered_map>
 
-#include "course_offering.hh"
-#include "constraints.hh"
-#include "period.hh"
-
 using namespace std;
 
 typedef std::pair<int, int> Date;
