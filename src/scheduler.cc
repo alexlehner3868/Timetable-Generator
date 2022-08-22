@@ -10,6 +10,8 @@
 
 using namespace std; 
 
+// TODO: when allowing courses to be in either semester, check ensure that its pre-reqs are met (only if the prereq is a given course)
+// TODO: also allow people to set confine all or some courses to a specific semester
 
 void Scheduler::schedule_classes(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& course_offerings ){
   std::unordered_map<day_time, ClassChosen, day_time_hash> timetable;
@@ -22,6 +24,7 @@ void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings, CourseOff
 
   if(course_offerings.size() == 0){
     // TODO -> save this for later as a potential option 
+    timetables_.push_back(timetable);
     print_timetable(timetable);
   }
 
@@ -76,6 +79,7 @@ void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings, CourseOff
 
 }
 
+// TODO: add better support printing for courses longer than 1 hour
 void Scheduler::print_timetable(std::unordered_map<day_time, ClassChosen, day_time_hash>& timetable){
   std::cout<<"Timetable option: "<<std::endl;
   for(std::pair<day_time, ClassChosen> element : timetable){
