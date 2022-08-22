@@ -16,6 +16,7 @@ struct ClassChosen{
   string course_code; 
   int type; // 1 = lec, 2 = tut, 3 = pra 
   int section;
+  char semester;
 };
 
 typedef std::pair<int, int> day_time;
@@ -36,8 +37,8 @@ class Scheduler {
     
     public:
         Scheduler();
-        void schedule_classes(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& course_offerings);
-        void schedule_classes_helper(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& course_offerings, std::unordered_map<day_time, ClassChosen, day_time_hash>& timetable);
+        void schedule_classes(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& courses);
+        void schedule_classes_helper(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& courses, std::unordered_map<day_time, ClassChosen, day_time_hash>& timetable);
         void print_timetable(std::unordered_map<day_time, ClassChosen, day_time_hash>& timetable);
 
 };
