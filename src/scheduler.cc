@@ -17,17 +17,16 @@ using namespace std;
  * TODO: If a course has a prereq also being schedule, make sure the pre req is first 
  * TODO: Add better time table printing for courses longer than one hour  
  * TODO: make ClassChosen a class 
- * TODO: make day_time a class (with hash function)
  * TODO: Do we need to add parallelism to speed it up?? 
  */
 
 
 void Scheduler::schedule_classes(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& courses ){
-  std::unordered_map<day_time, ClassChosen, day_time_hash> timetable;
+  std::unordered_map<Date, ClassChosen, Date_Hash> timetable;
   schedule_classes_helper(courses, timetable);
 }
 
-void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& courses, std::unordered_map<day_time, ClassChosen, day_time_hash>& timetable){
+void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& courses, std::unordered_map<Date, ClassChosen, Date_Hash>& timetable){
 
   // When all classes have been added to the timetable, save this valid timetable (base case)
   if(courses.size() == 0){
@@ -58,7 +57,7 @@ void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings, CourseOff
             for (int i = 0; i < section.duration_.at(lecture_in_section); i++) {
                 // If the class is in the winter offset the day by 5 ([1,5] = fall, [6,10] = winter)
                 int semester_offset = (class_chosen.semester == 'F') ? 0 : 5;
-                day_time period = make_pair(section.day_.at(lecture_in_section) + semester_offset, section.start_time_.at(lecture_in_section) + i);
+                Date period = make_pair(section.day_.at(lecture_in_section) + semester_offset, section.start_time_.at(lecture_in_section) + i);
                 
                 // Insert into the timetable  
                 auto it = timetable.insert(std::make_pair(period, class_chosen));
@@ -77,7 +76,7 @@ void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings, CourseOff
             if (!successfully_inserted) {
                 for (int remove_class = 0; remove_class <= lecture_in_section; remove_class++) {
                     for (int i = 0; i < section.duration_.at(lecture_in_section); i++) {
-                        day_time period = make_pair(section.day_.at(lecture_in_section), section.start_time_.at(lecture_in_section) + i);
+                        Date period = make_pair(section.day_.at(lecture_in_section), section.start_time_.at(lecture_in_section) + i);
                         timetable.erase(period);
                     }
                 }
@@ -95,7 +94,7 @@ void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings, CourseOff
         schedule_classes_helper(remaining_classes, timetable);
         for (int remove_class = 0; remove_class < lecture_in_section; remove_class++) { //should this be < or <= (<= seg faults)
             for (int i = 0; i < section.duration_.at(remove_class); i++) {
-              day_time period = make_pair(section.day_.at(remove_class), section.start_time_.at(remove_class) + i);
+              Date period = make_pair(section.day_.at(remove_class), section.start_time_.at(remove_class) + i);
               timetable.erase(period);
 
             }
@@ -106,9 +105,9 @@ void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings, CourseOff
 
 }
 
-void Scheduler::print_timetable(std::unordered_map<day_time, ClassChosen, day_time_hash>& timetable){
+void Scheduler::print_timetable(std::unordered_map<Date, ClassChosen, Date_Hash>& timetable){
   std::cout<<"Timetable option: "<<std::endl;
-  for(std::pair<day_time, ClassChosen> element : timetable){
+  for(std::pair<Date, ClassChosen> element : timetable){
     auto day = element.first.first;
     auto time = element.first.second;
     auto course = element.second.course_code;

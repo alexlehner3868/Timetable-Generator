@@ -8,6 +8,7 @@
 
 #include "course_offering.hh"
 #include "constraints.hh"
+#include "date.hh"
 #include "period.hh"
 
 using namespace std;
@@ -19,27 +20,18 @@ struct ClassChosen{
   char semester;
 };
 
-typedef std::pair<int, int> day_time;
-
-struct day_time_hash
-{
-    template <class T1, class T2>
-    std::size_t operator() (const std::pair<T1, T2> &pair) const {
-        return std::hash<T1>()(pair.first) ^ std::hash<T2>()(pair.second);
-    }
-};
 
 class Scheduler {
 
     private:
 
-    vector<std::unordered_map<day_time, ClassChosen, day_time_hash>> timetables_;
+    vector<std::unordered_map<Date, ClassChosen, Date_Hash>> timetables_;
     
     public:
         Scheduler();
         void schedule_classes(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& courses);
-        void schedule_classes_helper(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& courses, std::unordered_map<day_time, ClassChosen, day_time_hash>& timetable);
-        void print_timetable(std::unordered_map<day_time, ClassChosen, day_time_hash>& timetable);
+        void schedule_classes_helper(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& courses, std::unordered_map<Date, ClassChosen, Date_Hash>& timetable);
+        void print_timetable(std::unordered_map<Date, ClassChosen, Date_Hash>& timetable);
 
 };
 
