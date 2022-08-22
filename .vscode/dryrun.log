@@ -1,24 +1,14 @@
 make --dry-run --always-make --keep-going --print-directory
-make: realpath: Command not found
-
 make: Entering directory `/Users/alex/Documents/Programming/SchedulerAssistant'
-
-make: Entering directory `/Users/alex/Documents/Programming/SchedulerAssistant'
- 
-make: Leaving directory `/Users/alex/Documents/Programming/SchedulerAssistant'
- 
-make: realpath: Command not found
-
-make: Entering directory `/Users/alex/Documents/Programming/SchedulerAssistant'
-
-make: Entering directory `/Users/alex/Documents/Programming/SchedulerAssistant'
+mkdir -p build/dep
+c++ -Wall -g -I./include   -MM -MF build/dep/main.d -MT ./build/obj/.o src/main.cc
 mkdir -p build/obj
 c++ -Wall -g -I./include  -c -o build/obj/main.o src/main.cc
+ 
 mkdir -p build/dep
 c++ -Wall -g -I./include   -MM -MF build/dep/scheduler.d -MT ./build/obj/scheduler.o ./src/scheduler.cc
 mkdir -p build/obj
 c++ -Wall -g -I./include  -c -o build/obj/scheduler.o ./src/scheduler.cc
- 
 mkdir -p build/dep
 c++ -Wall -g -I./include   -MM -MF build/dep/course_offering.d -MT ./build/obj/course_offering.o ./src/course_offering.cc
 mkdir -p build/obj
@@ -30,9 +20,8 @@ c++ -Wall -g -I./include  -c -o build/obj/section.o ./src/section.cc
 mkdir -p build/bin
 c++ -Wall -g -I./include   -o build/bin/main build/obj/main.o  ./build/obj/scheduler.o ./build/obj/course_offering.o ./build/obj/section.o 
  
-make: realpath: Command not found
-
 mkdir -p bin
-ln -sf  bin/main
+ln -sf ../build/bin/main bin/main
+ 
 make: Leaving directory `/Users/alex/Documents/Programming/SchedulerAssistant'
  
