@@ -16,17 +16,17 @@ using namespace std;
  * TODO: Add in constraints that force course to be in a certain semester. 
  * TODO: If a course has a prereq also being schedule, make sure the pre req is first 
  * TODO: Add better time table printing for courses longer than one hour  
- * TODO: make ClassSection a class 
+ * TODO: make SelectedCourseSection a class 
  * TODO: Do we need to add parallelism to speed it up?? 
  */
 
 
 void Scheduler::schedule_classes(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& courses ){
-  std::unordered_map<Date, ClassSection, Date_Hash> timetable;
+  std::unordered_map<Date, SelectedCourseSection, Date_Hash> timetable;
   schedule_classes_helper(courses, timetable);
 }
 
-void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& courses, std::unordered_map<Date, ClassSection, Date_Hash>& timetable){
+void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& courses, std::unordered_map<Date, SelectedCourseSection, Date_Hash>& timetable){
 
   // When all classes have been added to the timetable, save this valid timetable (base case)
   if(courses.size() == 0){
@@ -43,7 +43,7 @@ void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings, CourseOff
         Section section = course.lecture_sections_.at(section_id);
         
         // Create an object to represent the section that was chosen 
-        ClassSection class_chosen{
+        SelectedCourseSection class_chosen{
           .course_code = course.course_id_,
           .section = section_id,
           .type = 1, // Lecture
@@ -105,9 +105,9 @@ void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings, CourseOff
 
 }
 
-void Scheduler::print_timetable(std::unordered_map<Date, ClassSection, Date_Hash>& timetable){
+void Scheduler::print_timetable(std::unordered_map<Date, SelectedCourseSection, Date_Hash>& timetable){
   std::cout<<"Timetable option: "<<std::endl;
-  for(std::pair<Date, ClassSection> element : timetable){
+  for(std::pair<Date, SelectedCourseSection> element : timetable){
     auto day = element.first.first;
     auto time = element.first.second;
     auto course = element.second.course_code;
