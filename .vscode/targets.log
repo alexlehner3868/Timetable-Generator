@@ -8,7 +8,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This program built for i386-apple-darwin11.3.0
  
 
-# Make data base, printed on Mon Aug 22 10:10:28 2022
+# Make data base, printed on Wed Aug 24 12:39:30 2022
 
 # Variables
 
@@ -54,6 +54,8 @@ RM = rm -rf
 # makefile (from `Makefile', line 90)
 BIN = $(ROOT)/bin
 # environment
+FZF_DEFAULT_COMMAND = fd
+# environment
 VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
 # environment
 _ = /usr/bin/make
@@ -69,8 +71,8 @@ DEPFLAGS = -MM -MF $@ -MT $(OBJ)/$*$(.o)
 .o = .o
 # makefile (from `Makefile', line 202)
 DISTFILES = $(or $(shell git ls-files 2> $(DEVNULL)), $(MAKEFILE_LIST) $(HEADERS) $(SOURCES))
-# makefile (from `Cake.mk', line 1)
-MAKEFILE_LIST :=  Makefile Cake.mk
+# makefile (from `build/dep/section.d', line 1)
+MAKEFILE_LIST :=  Makefile Cake.mk build/dep/main.d build/dep/scheduler.d build/dep/course_offering.d build/dep/section.d
 # makefile (from `Makefile', line 196)
 LINCS = $(INCS:$(INCLUDE)/%=$(LINC)/%)
 # makefile (from `Makefile', line 140)
@@ -78,15 +80,23 @@ MAINDEP = $(if $(MAIN),$(DEP)/$(NAME)$(.d))
 # makefile (from `Makefile', line 208)
 CP = cp -fLR
 # makefile (from `Makefile', line 494)
-INSTALL := /usr/local/bin/main /usr/local/include/period.hh /usr/local/include/course_offering.hh /usr/local/include/constraints.hh /usr/local/include/scheduler.hh /usr/local/include/section.hh
+INSTALL := /usr/local/bin/main /usr/local/include/period.hh /usr/local/include/date.hh /usr/local/include/course_offering.hh /usr/local/include/constraints.hh /usr/local/include/scheduler.hh /usr/local/include/section.hh
 # makefile (from `Makefile', line 135)
 SOURCES = $(CSOURCES) $(CXXSOURCES)
-# makefile (from `Makefile', line 226)
-CXXFLAGS = -Wall -g
+# makefile (from `Cake.mk', line 12)
+CXXFLAGS = -Wall -g -std=c++20
 # makefile (from `Makefile', line 199)
 TAGFILE = $(BUILD)/tags
 # makefile (from `Makefile', line 46)
 VERSION = $(shell date +%s)
+# environment
+define FZF_CTRL_R_OPTS
+
+    --sort
+    --preview 'echo {}'
+    --preview-window down:3:hidden:wrap
+
+endef
 # makefile (from `Makefile', line 180)
 BINNAMES = $(BINS:$(BBIN)/%=%)
 # makefile (from `Makefile', line 122)
@@ -112,7 +122,7 @@ VSCODE_CWD = /
 # makefile (from `Makefile', line 36)
 CAKEFILE = $(ROOT)/Cake.mk
 # environment
-PATH = /opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+PATH = /Users/alex/.local/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/homebrew/opt/fzf/bin
 # makefile (from `Makefile', line 35)
 MAKEFILE = $(firstword $(MAKEFILE_LIST))
 # makefile (from `Makefile', line 171)
@@ -123,6 +133,18 @@ DEP = $(BUILD)/dep
 FMT = clang-format --verbose -i
 # makefile (from `Makefile', line 223)
 ARFLAGS = crs
+# environment
+define FZF_CTRL_T_OPTS
+
+    --preview '([[ -d {} ]] && (tree -C {})) ||
+               ([[ -f {} ]] &&
+                   (! grep -Iq . {} && file {}) ||
+                   bat --style=numbers --color=always {} ||
+                   cat {}
+               ) ||
+               (echo {} 2> /dev/null | head -200)'
+
+endef
 # makefile (from `Makefile', line 32)
 ROOT = .
 # makefile (from `Makefile', line 234)
@@ -137,10 +159,14 @@ FIX = clang-tidy --fix-errors
 ELECTRON_RUN_AS_NODE = 1
 # makefile (from `Makefile', line 228)
 LDFLAGS = 
+# makefile (from `Makefile', line 91)
+LIB = $(ROOT)/lib
 # makefile (from `Makefile', line 87)
 SLIB = $(SRC)/lib
 # default
 .FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
+# environment
+LS_COLORS = 
 # makefile (from `Makefile', line 100)
 LBIN = $(LOCAL)/bin
 # environment
@@ -151,18 +177,22 @@ SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.7uBNqqXgBO/Listeners
 LIBARS = $(LIBDS:$(SLIB)/%=$(BLIB)/lib%$(.a))
 # makefile (from `Makefile', line 86)
 SBIN = $(SRC)/bin
-# makefile (from `Makefile', line 189)
-LIBLINKS = $(LIBS:$(BLIB)/%=$(LIB)/%)
+# environment
+VISUAL = nvim
 # makefile (from `Makefile', line 174)
 OBJS = $(BINOBJS) $(LIBOBJS) $(SRCOBJS)
 # environment
 PWD = /Users/alex/Documents/Programming/SchedulerAssistant
+# environment
+FZF_CTRL_T_COMMAND = $FZF_DEFAULT_COMMAND --strip-cwd-prefix
 # makefile (from `Makefile', line 162)
 CXXBINOS = $(CXXBINS:$(SBIN)/%$(.cc)=$(OBJ)/%$(.o))
 # makefile (from `Makefile', line 239)
 LINKAGE := STATIC
 # environment
 HOMEBREW_CELLAR = /opt/homebrew/Cellar
+# environment
+BAT_THEME = Nord
 # makefile (from `Makefile', line 230)
 TARFLAGS = -zchvf
 # makefile (from `Makefile', line 178)
@@ -176,6 +206,7 @@ NOINSTALL :=
 # makefile (from `Makefile', line 190)
 LIBNAMES = $(LIBDS:$(SLIB)/%=%)
 # makefile (from `Makefile', line 124)
+ 
 .so = .so
 # environment
 MANPATH = /opt/homebrew/share/man::
@@ -187,6 +218,8 @@ HOME = /Users/alex
 CTSTS := 
 # makefile (from `Makefile', line 138)
 CXXMAIN = $(wildcard $(SRC)/main$(.cc))
+# environment
+DOTFILES = /Users/alex/.dotfiles
 # default
 MAKEFILEPATH = $(shell /usr/bin/xcode-select -print-path 2>/dev/null || echo /Developer)/Makefiles
 # environment
@@ -204,7 +237,9 @@ relpath = $(shell realpath -m $(1) --relative-to $(2))
 # environment
 APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
 # makefile (from `Makefile', line 132)
-HEADERS := ./include/period.hh ./include/course_offering.hh ./include/constraints.hh ./include/scheduler.hh ./include/section.hh
+HEADERS := ./include/period.hh ./include/date.hh ./include/course_offering.hh ./include/constraints.hh ./include/scheduler.hh ./include/section.hh
+# environment
+KEYTIMEOUT = 1
 # makefile (from `Makefile', line 519)
 UNINSTALL := 
 # environment
@@ -217,6 +252,8 @@ MKDIR = mkdir -p
 TEST = $(ROOT)/test
 # environment
 XPC_FLAGS = 0x0
+# makefile (from `Makefile', line 139)
+MAIN = $(lastword $(CMAIN) $(CXXMAIN))
 # default
 MAKE = $(MAKE_COMMAND)
 # default
@@ -253,8 +290,8 @@ CXXLIBS :=
 BINOBJS = $(CBINOS) $(CXXBINOS) $(MAINOBJ)
 # makefile (from `Makefile', line 193)
 TESTNAMES = $(TESTS:$(BBIN)/%=%)
-# makefile (from `Makefile', line 139)
-MAIN = $(lastword $(CMAIN) $(CXXMAIN))
+# environment
+LESS = -MRi
 # automatic
 %D = $(patsubst %/,%,$(dir $%))
 # makefile (from `Makefile', line 195)
@@ -277,15 +314,14 @@ TMPDIR = /var/folders/s1/_5nmv9jj06zfst6hfdbspt740000gn/T/
 *F = $(notdir $*)
 # makefile (from `Makefile', line 167)
 CTSTOS = $(CTSTS:$(ROOT)/%$(.c)=$(OBJ)/%$(.o))
- 
 # environment
 VSCODE_IPC_HOOK = /Users/alex/Library/Application Support/Code/1.70.2-main.sock
 # environment
 MallocNanoZone = 0
 # makefile
-MAKEFLAGS = Rrqp
+MAKEFLAGS = Rrqpk --jobserver-fds=3,5 -j
 # environment
-MFLAGS = -Rrqp
+MFLAGS = -Rrqpk --jobserver-fds=3,5 -j
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # makefile (from `Makefile', line 137)
@@ -304,6 +340,8 @@ HOMEBREW_PREFIX = /opt/homebrew
 HOMEBREW_REPOSITORY = /opt/homebrew
 # makefile (from `Makefile', line 168)
 CXXTSTOS = $(CXXTSTS:$(ROOT)/%$(.cc)=$(OBJ)/%$(.o))
+# makefile (from `Makefile', line 63)
+selector = $(or $(firstword $(foreach ITEM,$(2),$(if $($(ITEM)),$(ITEM)))), $(if $($(1)),,$(firstword $(2))), $(filter $($(1)),$(2)), $(error invalid $(1): `$($(1))`))
 # makefile (from `Makefile', line 144)
 CXXBINS := 
 # environment
@@ -314,8 +352,8 @@ COMMAND_MODE = unix2003
 .SHELLSTATUS = $(shell test -w $(LOCAL); echo $$?)
 # default
 MAKEFILES := 
-# makefile (from `Makefile', line 706)
-PERCENT := %
+# environment
+FZF_ALT_C_OPTS = --preview 'tree -C {}'
 # makefile (from `Makefile', line 154)
 CXXTSTS := 
 # makefile (from `Makefile', line 89)
@@ -328,12 +366,14 @@ LOCAL = /usr/local
 relbase = $(shell realpath -m --relative-base=$(1) $(2))
 # makefile (from `Makefile', line 219)
 CXX = c++
-# makefile (from `Makefile', line 91)
-LIB = $(ROOT)/lib
-# makefile (from `Makefile', line 63)
-selector = $(or $(firstword $(foreach ITEM,$(2),$(if $($(ITEM)),$(ITEM)))), $(if $($(1)),,$(firstword $(2))), $(filter $($(1)),$(2)), $(error invalid $(1): `$($(1))`))
+# environment
+EDITOR = nvim
+# environment
+PAGER = less
 # environment
 LC_ALL = C
+# makefile (from `Makefile', line 189)
+LIBLINKS = $(LIBS:$(BLIB)/%=$(LIB)/%)
 # makefile (from `Makefile', line 233)
 LIBRARIES = $(addprefix -L,$(if $(LIBDS),$(BLIB)))
 # makefile (from `Makefile', line 94)
@@ -350,14 +390,20 @@ SUFFIXES :=
 LN = ln -sf
 # makefile (from `Makefile', line 126)
 .c = .c
+# environment
+FZF_ALT_C_COMMAND = $FZF_DEFAULT_COMMAND --type d --follow --strip-cwd-prefix
 # makefile (from `Makefile', line 173)
 TSTOBJS = $(CTSTOS) $(CXXTSTOS)
+# makefile (from `Makefile', line 706)
+PERCENT := %
 # makefile (from `Makefile', line 214)
 TAGS = ctags
 # makefile (from `Makefile', line 185)
 LIBDS := 
 # makefile (from `Makefile', line 172)
 SRCOBJS = $(CSRCOS) $(CXXSRCOS)
+# environment
+HELPDIR = /usr/local/share/zsh/help
 # makefile (from `Makefile', line 188)
 LIBS := $(subst ,, )
 # environment
@@ -366,12 +412,29 @@ MAKELEVEL := 0
 DEVNULL = /dev/null
 # makefile (from `Makefile', line 143)
 CBINS := 
+# environment
+DIRCOLORS = /Users/alex/.dotfiles/share/dircolors/playtime.dircolors
 # makefile (from `Makefile', line 161)
 CBINOS = $(CBINS:$(SBIN)/%$(.c)=$(OBJ)/%$(.o))
 # environment
+define FZF_DEFAULT_OPTS
+
+    --bind '?:toggle-preview'
+    --bind 'ctrl-a:toggle-all'
+    --bind 'ctrl-v:execute(echo {+} | xargs -o nvim)'
+    --bind 'ctrl-y:execute-silent(echo {+} | pbcopy)'
+    --color='prompt:25,pointer:110,marker:222'
+    --exit-0
+    --info=inline
+    --multi
+    --prompt='~ '
+    --select-1
+
+endef
+# environment
 LANG = C
 # environment
-VSCODE_PID = 30581
+VSCODE_PID = 65375
 # makefile (from `Makefile', line 163)
 CLIBOS = $(CLIBS:$(SLIB)/%$(.c)=$(OBJ)/%$(.o))
 # makefile (from `Makefile', line 201)
@@ -379,7 +442,7 @@ TARFILE = $(TARDIR).tar.gz
 # makefile (from `Makefile', line 159)
 STSTS := $(subst ,, )
 # variable set hash-table stats:
-# Load=182/1024=18%, Rehash=0, Collisions=341/1394=24%
+# Load=199/1024=19%, Rehash=0, Collisions=370/1421=26%
 
 # Pattern-specific Variable Values
 
@@ -394,12 +457,12 @@ build/lib/lib%.so :
 # 2 pattern-specific variable values
 # Directories
 
-# ./build/dep: could not be stat'd.
-# build/obj: could not be stat'd.
-# . (device 16777230, inode 924640): 10 files, no impossibilities.
+# ./build/dep (device 16777230, inode 1358797): 6 files, no impossibilities so far.
+# build/obj (device 16777230, inode 1358799): No files, no impossibilities so far.
+# . (device 16777230, inode 924640): 11 files, no impossibilities.
 # ./src (device 16777230, inode 925556): 6 files, no impossibilities.
 # ./test: could not be stat'd.
-# build/dep: could not be stat'd.
+# build/dep (device 16777230, inode 1358797): 6 files, no impossibilities so far.
 # ./src/bin: could not be stat'd.
 # /usr/local/main: could not be stat'd.
 # /usr/local/include: could not be stat'd.
@@ -407,7 +470,7 @@ build/lib/lib%.so :
 # ./src/lib: could not be stat'd.
 # /usr/local (device 16777230, inode 441462): 2 files, no impossibilities.
 
-# 18 files, no impossibilities in 12 directories.
+# 31 files, no impossibilities in 12 directories.
 
 # Implicit Rules
 
@@ -417,6 +480,7 @@ build/bin/%: ./build/obj/%.o  ./build/obj/scheduler.o ./build/obj/course_offerin
 	$(LINK.cc) -o $@ $< $(SRCOBJS) $(LDLIBS)
 	
 
+ 
 build/dep/%.d: %.c
 #  commands to execute (from `Makefile', line 377):
 	@$(MKDIR) $(@D)
@@ -465,7 +529,7 @@ build/obj/%.o: %.cc | ./build/dep/%.d
 	@$(CP) -vi $< $@
 	
 
-main-1661177428/%: %
+main-1661359170/%: %
 #  commands to execute (from `Makefile', line 556):
 	@$(MKDIR) $(@D)
 	@$(LN) -vi $(call relpath,$<,$(@D)) $@
@@ -476,20 +540,21 @@ main-1661177428/%: %
 # Files
 
 # Not a target:
-main-1661177428/include/scheduler.hh:
-#  Implicit rule search has not been done.
-#  File is an intermediate prerequisite.
-#  Modification time never checked.
-#  File has not been updated.
-
-main-1661177428: main-1661177428/.vscode/configurationCache.log main-1661177428/.vscode/dryrun.log main-1661177428/.vscode/settings.json main-1661177428/.vscode/targets.log main-1661177428/Cake.mk main-1661177428/Makefile main-1661177428/README.md main-1661177428/data/courses.sql main-1661177428/include/constraints.hh main-1661177428/include/course_offering.hh main-1661177428/include/period.hh main-1661177428/include/scheduler.hh main-1661177428/include/section.hh main-1661177428/src/course_offering.cc main-1661177428/src/main.cc main-1661177428/src/scheduler.cc main-1661177428/src/section.cc
+main-1661359170/data/courses.sql:
 #  Implicit rule search has not been done.
 #  File is an intermediate prerequisite.
 #  Modification time never checked.
 #  File has not been updated.
 
 # Not a target:
-main-1661177428/.vscode/configurationCache.log:
+main-1661359170/Cake.mk:
+#  Implicit rule search has not been done.
+#  File is an intermediate prerequisite.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+main-1661359170/include/period.hh:
 #  Implicit rule search has not been done.
 #  File is an intermediate prerequisite.
 #  Modification time never checked.
@@ -497,17 +562,21 @@ main-1661177428/.vscode/configurationCache.log:
 
 # Not a target:
 include/section.hh:
-#  Implicit rule search has not been done.
+#  Implicit rule search has been done.
 #  File is an intermediate prerequisite.
-#  Modification time never checked.
-#  File has not been updated.
+#  Last modified 2022-08-19 23:49:20
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
-build/obj/section.o: ./src/section.cc | build/dep/section.d
+build/obj/section.o: ./src/section.cc src/section.cc include/section.hh | build/dep/section.d
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: `section'
 #  File is an intermediate prerequisite.
-#  File does not exist.
-#  File has not been updated.
+#  Last modified 2022-08-22 22:00:08
+#  File has been updated.
+#  Successfully updated.
 # automatic
 # @ := build/obj/section.o
 # automatic
@@ -515,13 +584,13 @@ build/obj/section.o: ./src/section.cc | build/dep/section.d
 # automatic
 # * := section
 # automatic
-# + := 
+# + := src/section.cc include/section.hh
 # automatic
 # | := 
 # automatic
 # < := build/obj/section.o
 # automatic
-# ^ := 
+# ^ := src/section.cc include/section.hh
 # automatic
 # ? := 
 # variable set hash-table stats:
@@ -554,7 +623,6 @@ config: about
 #  commands to execute (from `Makefile', line 600):
 	@echo
 	@echo 'BUILD:'
- 
 	@echo "\t"'CONFIG    = $(CONFIG)'
 	@echo "\t"'LINKAGE   = $(LINKAGE)'
 	@echo
@@ -627,14 +695,27 @@ t: test
 #  File does not exist.
 #  File has not been updated.
 
-# Not a target:
-main-1661177428/include/constraints.hh:
+.PHONY: all debug release b build rebuild bin r run dep lib obj t test clean binclean depclean libclean objclean install uninstall c check dist fix fmt tag about config help info FORCE
 #  Implicit rule search has not been done.
 #  File is an intermediate prerequisite.
 #  Modification time never checked.
 #  File has not been updated.
 
-.PHONY: all debug release b build rebuild bin r run dep lib obj t test clean binclean depclean libclean objclean install uninstall c check dist fix fmt tag about config help info FORCE
+# Not a target:
+main-1661359170/include/scheduler.hh:
+#  Implicit rule search has not been done.
+#  File is an intermediate prerequisite.
+#  Modification time never checked.
+#  File has not been updated.
+
+main-1661359170: main-1661359170/.vscode/configurationCache.log main-1661359170/.vscode/dryrun.log main-1661359170/.vscode/settings.json main-1661359170/.vscode/targets.log main-1661359170/Cake.mk main-1661359170/Makefile main-1661359170/README.md main-1661359170/data/courses.sql main-1661359170/include/constraints.hh main-1661359170/include/course_offering.hh main-1661359170/include/date.hh main-1661359170/include/period.hh main-1661359170/include/scheduler.hh main-1661359170/include/section.hh main-1661359170/src/course_offering.cc main-1661359170/src/main.cc main-1661359170/src/scheduler.cc main-1661359170/src/section.cc
+#  Implicit rule search has not been done.
+#  File is an intermediate prerequisite.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+main-1661359170/.vscode/configurationCache.log:
 #  Implicit rule search has not been done.
 #  File is an intermediate prerequisite.
 #  Modification time never checked.
@@ -648,31 +729,36 @@ main-1661177428/include/constraints.hh:
 
 # Not a target:
 include/course_offering.hh:
-#  Implicit rule search has not been done.
+#  Implicit rule search has been done.
 #  File is an intermediate prerequisite.
-#  Modification time never checked.
-#  File has not been updated.
+#  Last modified 2022-08-19 23:49:20
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
-build/obj/course_offering.o: ./src/course_offering.cc | build/dep/course_offering.d
+build/obj/course_offering.o: ./src/course_offering.cc src/course_offering.cc include/course_offering.hh include/section.hh | build/dep/course_offering.d
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: `course_offering'
 #  File is an intermediate prerequisite.
-#  File does not exist.
-#  File has not been updated.
+#  Last modified 2022-08-22 22:00:08
+#  File has been updated.
+#  Successfully updated.
 # automatic
 # @ := build/obj/course_offering.o
 # automatic
 # % := 
 # automatic
 # * := course_offering
+ 
 # automatic
-# + := 
+# + := src/course_offering.cc include/course_offering.hh include/section.hh
 # automatic
 # | := 
 # automatic
 # < := build/obj/course_offering.o
 # automatic
-# ^ := 
+# ^ := src/course_offering.cc include/course_offering.hh include/section.hh
 # automatic
 # ? := 
 # variable set hash-table stats:
@@ -683,6 +769,13 @@ build/obj/course_offering.o: ./src/course_offering.cc | build/dep/course_offerin
 	
 
 # Not a target:
+main-1661359170/include/constraints.hh:
+#  Implicit rule search has not been done.
+#  File is an intermediate prerequisite.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
 ./src/section.cc:
 #  Implicit rule search has been done.
 #  Last modified 2022-08-19 23:49:20
@@ -691,14 +784,7 @@ build/obj/course_offering.o: ./src/course_offering.cc | build/dep/course_offerin
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
-# Not a target:
-main-1661177428/src/section.cc:
-#  Implicit rule search has not been done.
-#  File is an intermediate prerequisite.
-#  Modification time never checked.
-#  File has not been updated.
-
-build/tags: include/period.hh include/course_offering.hh include/constraints.hh include/scheduler.hh include/section.hh src/main.cc src/scheduler.cc src/course_offering.cc src/section.cc
+build/tags: include/period.hh include/date.hh include/course_offering.hh include/constraints.hh include/scheduler.hh include/section.hh src/main.cc src/scheduler.cc src/course_offering.cc src/section.cc
 #  Implicit rule search has not been done.
 #  File is an intermediate prerequisite.
 #  Modification time never checked.
@@ -750,18 +836,23 @@ Makefile:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
 # Not a target:
-main-1661177428/Makefile:
-#  Implicit rule search has not been done.
-#  File is an intermediate prerequisite.
-#  Modification time never checked.
-#  File has not been updated.
+src/main.cc:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-22 12:04:16
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
 # Not a target:
 src/scheduler.cc:
-#  Implicit rule search has not been done.
+#  Implicit rule search has been done.
 #  File is an intermediate prerequisite.
-#  Modification time never checked.
-#  File has not been updated.
+#  Last modified 2022-08-22 22:05:03
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
 rebuild: clean
 #  Phony target (prerequisite of .PHONY).
@@ -790,9 +881,9 @@ debug:
 build/dep/section.d: ./src/section.cc
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: `section'
-#  File is an intermediate prerequisite.
-#  File does not exist.
-#  File has not been updated.
+#  Last modified 2022-08-24 12:39:29
+#  File has been updated.
+#  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 #  commands to execute (from `Makefile', line 381):
@@ -810,18 +901,19 @@ test: | all
 	@$(foreach TEST,$(TESTNAMES),$(MAKE) $(TEST);)
 	
 
-# Not a target:
-main-1661177428/README.md:
-#  Implicit rule search has not been done.
-#  File is an intermediate prerequisite.
-#  Modification time never checked.
-#  File has not been updated.
-
 dep: build/dep/main.d build/dep/scheduler.d build/dep/course_offering.d build/dep/section.d
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
 #  File is an intermediate prerequisite.
 #  File does not exist.
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+main-1661359170/src/section.cc:
+#  Implicit rule search has not been done.
+#  File is an intermediate prerequisite.
+#  Modification time never checked.
 #  File has not been updated.
 
 build: bin dep lib obj
@@ -835,7 +927,6 @@ build: bin dep lib obj
 # Load=0/32=0%, Rehash=0, Collisions=0/10=0%
 
 # Not a target:
- 
 ./src/course_offering.cc:
 #  Implicit rule search has been done.
 #  Last modified 2022-08-19 23:49:20
@@ -843,13 +934,6 @@ build: bin dep lib obj
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-# Not a target:
-main-1661177428/src/course_offering.cc:
-#  Implicit rule search has not been done.
-#  File is an intermediate prerequisite.
-#  Modification time never checked.
-#  File has not been updated.
 
 fix:
 #  Phony target (prerequisite of .PHONY).
@@ -862,35 +946,25 @@ fix:
 	
 
 # Not a target:
-main-1661177428/.vscode/settings.json:
+main-1661359170/Makefile:
 #  Implicit rule search has not been done.
 #  File is an intermediate prerequisite.
 #  Modification time never checked.
 #  File has not been updated.
-
-build/main-1661177428.tar.gz: main-1661177428
-#  Implicit rule search has not been done.
-#  File is an intermediate prerequisite.
-#  Modification time never checked.
-#  File has not been updated.
-#  commands to execute (from `Makefile', line 549):
-	@$(MKDIR) $(@D)
-	@$(TAR) $(TARFLAGS) $@ $<
-	@$(RM) $<
-	
 
 build/dep/course_offering.d: ./src/course_offering.cc
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: `course_offering'
-#  File is an intermediate prerequisite.
-#  File does not exist.
-#  File has not been updated.
+#  Last modified 2022-08-24 12:39:29
+#  File has been updated.
+#  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 #  commands to execute (from `Makefile', line 381):
 	@$(MKDIR) $(@D)
 	@$(LINK.cc) $(DEPFLAGS) $<
 	
+ 
 
 tag: build/tags
 #  Phony target (prerequisite of .PHONY).
@@ -901,10 +975,13 @@ tag: build/tags
 
 # Not a target:
 include/period.hh:
-#  Implicit rule search has not been done.
+#  Implicit rule search has been done.
 #  File is an intermediate prerequisite.
-#  Modification time never checked.
-#  File has not been updated.
+#  Last modified 2022-08-19 23:49:20
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
 help: about
 #  Phony target (prerequisite of .PHONY).
@@ -951,14 +1028,45 @@ help: about
 	@echo "\t"'info          Print build information.'
 	
 
+# Not a target:
+main-1661359170/src/course_offering.cc:
+#  Implicit rule search has not been done.
+#  File is an intermediate prerequisite.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+main-1661359170/include/date.hh:
+#  Implicit rule search has not been done.
+#  File is an intermediate prerequisite.
+#  Modification time never checked.
+#  File has not been updated.
+
 build/obj/main.o: src/main.cc | build/dep/main.d
 #  Implicit rule search has not been done.
+#  Implicit/static pattern stem: `'
 #  File is an intermediate prerequisite.
 #  File does not exist.
 #  File has been updated.
 #  Needs to be updated (-q is set).
+# automatic
+# @ := build/obj/main.o
+# automatic
+# % := 
+# automatic
+# * := 
+# automatic
+# + := src/main.cc
+# automatic
+# | := build/dep/main.d
+# automatic
+# < := src/main.cc
+# automatic
+# ^ := src/main.cc
+# automatic
+# ? := src/main.cc
 # variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/10=0%
+# Load=8/32=25%, Rehash=0, Collisions=1/16=6%
 #  commands to execute (from `Makefile', line 427):
 	@$(MKDIR) $(@D)
 	$(COMPILE.cc) -o $@ $<
@@ -969,6 +1077,14 @@ lib:
 #  Implicit rule search has not been done.
 #  File is an intermediate prerequisite.
 #  File does not exist.
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+main-1661359170/.vscode/settings.json:
+#  Implicit rule search has not been done.
+#  File is an intermediate prerequisite.
+#  Modification time never checked.
 #  File has not been updated.
 
 .SECONDEXPANSION:
@@ -979,17 +1095,21 @@ lib:
 
 # Not a target:
 include/scheduler.hh:
-#  Implicit rule search has not been done.
+#  Implicit rule search has been done.
 #  File is an intermediate prerequisite.
-#  Modification time never checked.
-#  File has not been updated.
+#  Last modified 2022-08-22 22:05:03
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
-build/obj/scheduler.o: ./src/scheduler.cc | build/dep/scheduler.d
+build/obj/scheduler.o: ./src/scheduler.cc src/scheduler.cc include/period.hh include/scheduler.hh include/course_offering.hh include/section.hh include/constraints.hh include/date.hh | build/dep/scheduler.d
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: `scheduler'
 #  File is an intermediate prerequisite.
 #  File does not exist.
-#  File has not been updated.
+#  File has been updated.
+#  Needs to be updated (-q is set).
 # automatic
 # @ := build/obj/scheduler.o
 # automatic
@@ -997,38 +1117,29 @@ build/obj/scheduler.o: ./src/scheduler.cc | build/dep/scheduler.d
 # automatic
 # * := scheduler
 # automatic
-# + := 
+# + := ./src/scheduler.cc src/scheduler.cc include/period.hh include/scheduler.hh include/course_offering.hh include/section.hh include/constraints.hh include/date.hh
 # automatic
-# | := 
+# | := build/dep/scheduler.d
 # automatic
-# < := build/obj/scheduler.o
+# < := ./src/scheduler.cc
 # automatic
-# ^ := 
+# ^ := ./src/scheduler.cc src/scheduler.cc include/period.hh include/scheduler.hh include/course_offering.hh include/section.hh include/constraints.hh include/date.hh
 # automatic
-# ? := 
+# ? := ./src/scheduler.cc src/scheduler.cc include/period.hh include/scheduler.hh include/course_offering.hh include/section.hh include/constraints.hh include/date.hh
 # variable set hash-table stats:
-# Load=8/32=25%, Rehash=0, Collisions=2/20=10%
+# Load=8/32=25%, Rehash=0, Collisions=3/36=8%
 #  commands to execute (from `Makefile', line 423):
 	@$(MKDIR) $(@D)
 	$(COMPILE.cc) -o $@ $<
 	
-
-# Not a target:
-src/main.cc:
-#  Implicit rule search has been done.
-#  File is an intermediate prerequisite.
-#  Last modified 2022-08-20 15:46:48
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
 obj: build/obj/main.o build/obj/scheduler.o build/obj/course_offering.o build/obj/section.o
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
 #  File is an intermediate prerequisite.
 #  File does not exist.
-#  File has not been updated.
+#  File has been updated.
+#  Needs to be updated (-q is set).
 
 binclean:
 #  Phony target (prerequisite of .PHONY).
@@ -1040,11 +1151,22 @@ binclean:
 	@$(RM) -v $(BIN) $(BBIN)
 	
 
+build/main-1661359170.tar.gz: main-1661359170
+#  Implicit rule search has not been done.
+#  File is an intermediate prerequisite.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `Makefile', line 549):
+	@$(MKDIR) $(@D)
+	@$(TAR) $(TARFLAGS) $@ $<
+	@$(RM) $<
+	
+
 # Not a target:
 Cake.mk:
 #  A default, MAKEFILES, or -include/sinclude makefile.
 #  Implicit rule search has been done.
-#  Last modified 2022-08-19 23:49:20
+#  Last modified 2022-08-22 10:33:28
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1065,13 +1187,6 @@ release:
 	
 
 # Not a target:
-main-1661177428/include/section.hh:
-#  Implicit rule search has not been done.
-#  File is an intermediate prerequisite.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
 .DEFAULT:
 #  Implicit rule search has not been done.
 #  File is an intermediate prerequisite.
@@ -1079,18 +1194,22 @@ main-1661177428/include/section.hh:
 #  File has not been updated.
 
 # Not a target:
-include/constraints.hh:
+main-1661359170/README.md:
 #  Implicit rule search has not been done.
 #  File is an intermediate prerequisite.
 #  Modification time never checked.
 #  File has not been updated.
 
 # Not a target:
-main-1661177428/src/main.cc:
-#  Implicit rule search has not been done.
+include/constraints.hh:
+#  Implicit rule search has been done.
 #  File is an intermediate prerequisite.
-#  Modification time never checked.
-#  File has not been updated.
+#  Last modified 2022-08-19 23:49:20
+#  File has been updated.
+#  Successfully updated.
+ 
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
 run: main
 #  Phony target (prerequisite of .PHONY).
@@ -1102,22 +1221,14 @@ run: main
 # Not a target:
 ./src/scheduler.cc:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-19 23:49:20
+#  Last modified 2022-08-22 22:05:03
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
-# Not a target:
-main-1661177428/src/scheduler.cc:
-#  Implicit rule search has not been done.
-#  File is an intermediate prerequisite.
-#  Modification time never checked.
-#  File has not been updated.
-
 clean:
 #  Phony target (prerequisite of .PHONY).
- 
 #  Implicit rule search has not been done.
 #  File is an intermediate prerequisite.
 #  File does not exist.
@@ -1127,20 +1238,13 @@ clean:
 	
 
 # Not a target:
-main-1661177428/.vscode/dryrun.log:
+main-1661359170/include/section.hh:
 #  Implicit rule search has not been done.
 #  File is an intermediate prerequisite.
 #  Modification time never checked.
 #  File has not been updated.
 
-# Not a target:
-main-1661177428/include/course_offering.hh:
-#  Implicit rule search has not been done.
-#  File is an intermediate prerequisite.
-#  Modification time never checked.
-#  File has not been updated.
-
-dist: build/main-1661177428.tar.gz
+dist: build/main-1661359170.tar.gz
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
 #  File is an intermediate prerequisite.
@@ -1149,40 +1253,29 @@ dist: build/main-1661177428.tar.gz
 
 build/dep/main.d: src/main.cc
 #  Implicit rule search has not been done.
-#  Implicit/static pattern stem: `'
-#  File is an intermediate prerequisite.
-#  File does not exist.
+#  Last modified 2022-08-24 12:39:29
 #  File has been updated.
-#  Needs to be updated (-q is set).
-# automatic
-# @ := build/dep/main.d
-# automatic
-# % := 
-# automatic
-# * := 
-# automatic
-# + := src/main.cc
-# automatic
-# | := 
-# automatic
-# < := src/main.cc
-# automatic
-# ^ := src/main.cc
-# automatic
-# ? := src/main.cc
+#  Successfully updated.
 # variable set hash-table stats:
-# Load=8/32=25%, Rehash=0, Collisions=3/22=14%
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 #  commands to execute (from `Makefile', line 385):
 	@$(MKDIR) $(@D)
 	@$(LINK.cc) $(DEPFLAGS) $<
 	
 
+# Not a target:
+main-1661359170/src/main.cc:
+#  Implicit rule search has not been done.
+#  File is an intermediate prerequisite.
+#  Modification time never checked.
+#  File has not been updated.
+
 build/dep/scheduler.d: ./src/scheduler.cc
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: `scheduler'
-#  File is an intermediate prerequisite.
-#  File does not exist.
-#  File has not been updated.
+#  Last modified 2022-08-24 12:39:29
+#  File has been updated.
+#  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 #  commands to execute (from `Makefile', line 381):
@@ -1200,6 +1293,13 @@ depclean:
 	@$(RM) -v $(DEP)
 	
 
+# Not a target:
+main-1661359170/src/scheduler.cc:
+#  Implicit rule search has not been done.
+#  File is an intermediate prerequisite.
+#  Modification time never checked.
+#  File has not been updated.
+
 about:
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
@@ -1209,6 +1309,19 @@ about:
 #  commands to execute (from `Makefile', line 588):
 	@echo '$(NAME)' '$(VERSION)'
 	
+
+build/obj/.o: src/main.cc include/constraints.hh include/scheduler.hh include/course_offering.hh include/section.hh include/date.hh include/period.hh
+#  Implicit rule search has not been done.
+#  File is an intermediate prerequisite.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+main-1661359170/.vscode/dryrun.log:
+#  Implicit rule search has not been done.
+#  File is an intermediate prerequisite.
+#  Modification time never checked.
+#  File has not been updated.
 
 fmt:
 #  Phony target (prerequisite of .PHONY).
@@ -1225,14 +1338,15 @@ bin/main: build/bin/main FORCE
 #  Implicit/static pattern stem: `bin/main'
 #  File is an intermediate prerequisite.
 #  File does not exist.
-#  File has not been updated.
+#  File has been updated.
+#  Needs to be updated (-q is set).
 #  commands to execute (from `Makefile', line 343):
 	@$(MKDIR) $(@D)
 	@$(LN) $(call relpath,$<,$(@D)) $@
 	
 
 # Not a target:
-main-1661177428/.vscode/targets.log:
+main-1661359170/include/course_offering.hh:
 #  Implicit rule search has not been done.
 #  File is an intermediate prerequisite.
 #  Modification time never checked.
@@ -1249,11 +1363,23 @@ libclean:
 	
 
 # Not a target:
-src/section.cc:
-#  Implicit rule search has not been done.
+include/date.hh:
+#  Implicit rule search has been done.
 #  File is an intermediate prerequisite.
-#  Modification time never checked.
-#  File has not been updated.
+#  Last modified 2022-08-22 22:05:03
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+src/section.cc:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-19 23:49:20
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
 .DELETE_ON_ERROR:
 #  Implicit rule search has not been done.
@@ -1282,7 +1408,7 @@ check:
 	
 
 # Not a target:
-main-1661177428/data/courses.sql:
+main-1661359170/.vscode/targets.log:
 #  Implicit rule search has not been done.
 #  File is an intermediate prerequisite.
 #  Modification time never checked.
@@ -1297,20 +1423,6 @@ objclean:
 #  commands to execute (from `Makefile', line 477):
 	@$(RM) -v $(OBJ)
 	
-
-# Not a target:
-main-1661177428/Cake.mk:
-#  Implicit rule search has not been done.
-#  File is an intermediate prerequisite.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
-main-1661177428/include/period.hh:
-#  Implicit rule search has not been done.
-#  File is an intermediate prerequisite.
-#  Modification time never checked.
-#  File has not been updated.
 
 info: about
 #  Phony target (prerequisite of .PHONY).
@@ -1341,30 +1453,32 @@ install:
 	$(error Insufficient permissions for `$(LOCAL)`)
 	
 
- 
 # Not a target:
 src/course_offering.cc:
-#  Implicit rule search has not been done.
-#  File is an intermediate prerequisite.
-#  Modification time never checked.
-#  File has not been updated.
+#  Implicit rule search has been done.
+#  Last modified 2022-08-19 23:49:20
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
 # files hash-table stats:
-# Load=83/1024=8%, Rehash=0, Collisions=23/317=7%
+# Load=86/1024=8%, Rehash=0, Collisions=19/345=6%
 # VPATH Search Paths
 
 vpath %.c ./src
 vpath %.cc ./src
 
 # 2 `vpath' search paths.
+ 
 
 # No general (`VPATH' variable) search path.
 
-# # of strings in strcache: 2
+# # of strings in strcache: 6
 # # of strcache buffers: 1
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
-# strcache free: total = 4079 / max = 4079 / min = 4079 / avg = 4079
+# strcache free: total = 3992 / max = 3992 / min = 3992 / avg = 3992
 
-# Finished Make data base on Mon Aug 22 10:10:28 2022
+# Finished Make data base on Wed Aug 24 12:39:30 2022
 
  

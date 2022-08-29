@@ -1,24 +1,20 @@
 make --dry-run --always-make --keep-going --print-directory
 make: Entering directory `/Users/alex/Documents/Programming/SchedulerAssistant'
-mkdir -p build/dep
-c++ -Wall -g -I./include   -MM -MF build/dep/main.d -MT ./build/obj/.o src/main.cc
-mkdir -p build/obj
-c++ -Wall -g -I./include  -c -o build/obj/main.o src/main.cc
  
-mkdir -p build/dep
-c++ -Wall -g -I./include   -MM -MF build/dep/scheduler.d -MT ./build/obj/scheduler.o ./src/scheduler.cc
+make: Leaving directory `/Users/alex/Documents/Programming/SchedulerAssistant'
+ 
+make: Entering directory `/Users/alex/Documents/Programming/SchedulerAssistant'
 mkdir -p build/obj
-c++ -Wall -g -I./include  -c -o build/obj/scheduler.o ./src/scheduler.cc
-mkdir -p build/dep
-c++ -Wall -g -I./include   -MM -MF build/dep/course_offering.d -MT ./build/obj/course_offering.o ./src/course_offering.cc
+c++ -Wall -g -std=c++20 -I./include  -c -o build/obj/main.o src/main.cc
+ 
 mkdir -p build/obj
-c++ -Wall -g -I./include  -c -o build/obj/course_offering.o ./src/course_offering.cc
-mkdir -p build/dep
-c++ -Wall -g -I./include   -MM -MF build/dep/section.d -MT ./build/obj/section.o ./src/section.cc
+c++ -Wall -g -std=c++20 -I./include  -c -o build/obj/scheduler.o ./src/scheduler.cc
 mkdir -p build/obj
-c++ -Wall -g -I./include  -c -o build/obj/section.o ./src/section.cc
+c++ -Wall -g -std=c++20 -I./include  -c -o build/obj/course_offering.o ./src/course_offering.cc
+mkdir -p build/obj
+c++ -Wall -g -std=c++20 -I./include  -c -o build/obj/section.o ./src/section.cc
 mkdir -p build/bin
-c++ -Wall -g -I./include   -o build/bin/main build/obj/main.o  ./build/obj/scheduler.o ./build/obj/course_offering.o ./build/obj/section.o 
+c++ -Wall -g -std=c++20 -I./include   -o build/bin/main build/obj/main.o  ./build/obj/scheduler.o ./build/obj/course_offering.o ./build/obj/section.o 
  
 mkdir -p bin
 ln -sf ../build/bin/main bin/main

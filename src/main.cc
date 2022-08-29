@@ -108,10 +108,10 @@ void test_one_class_multiple_sections(){
 
 void test_sample_questions(){
     // One class, with one section 
-    cout<<"Test ONE: "<<endl;
+    cout<<"Test 1: One Class, One Section "<<endl;
     test_one_class_one_section();
     // One class with multiple sections 
-    cout<<"Test TWO: "<<endl;
+    cout<<"Test 2: One Class, Multiple Sections "<<endl;
     test_one_class_multiple_sections();
 
     {
