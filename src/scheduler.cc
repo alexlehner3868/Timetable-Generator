@@ -5,6 +5,7 @@
 #include <unordered_map> 
 
 #include "period.hh"
+#include "print_functions.hh"
 
 #include "scheduler.hh"
 
@@ -126,16 +127,8 @@ void Scheduler::print_timetable(std::unordered_map<Date, SelectedCourseSection, 
     auto section_chosen = element.second.section;
     auto type = element.second.type;
     auto semester = element.second.semester;
-    string class_type;
-    if(type == LEC ){
-      class_type = "lecture ";
-    }else if (type == TUT){
-      class_type = "tutorial ";
-    }else{
-      class_type = "practical ";
-    }
 
-    std::cout<<"  "<<semester<<": course "<< course << " " << class_type << " section " << (section_chosen+1) << " on day " << day <<" at "<<time <<std::endl;
+    std::cout<<"  "<<semester<<": "<< course << " " << toClassType(type) << " section " << (section_chosen+1) << " on " << toDay(day) <<" at "<<toTime(time) <<std::endl;
   }
 }
 
