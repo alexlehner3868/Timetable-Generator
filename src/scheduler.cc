@@ -64,8 +64,8 @@ void Scheduler::attempt_to_add_section(std::unordered_map<Date, SelectedCourseSe
           // Create an object to represent the section that was chosen 
         SelectedCourseSection class_chosen{
           .course_code = course.course_id_,
-          .section = section_id,
           .type = class_type, // Lecture
+          .section = section_id,
           .semester = section.semester_.at(section_id)
         };
 

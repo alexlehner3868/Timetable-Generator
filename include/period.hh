@@ -26,7 +26,7 @@ class Period {
 };
 
 template <>
-struct hash<Period> {
+struct std::hash<Period> {
 	std::size_t operator()(const Period& p) const{
       using std::size_t;
       using std::hash;
