@@ -120,11 +120,11 @@ void test_two_classes_one_section() {
     // Monday 9 - 10
     // Wednesday 10 - 12
     // Thursday 1 - 2
-    math_durations.insert(calc_durations.end(), { 1, 2, 1 });
-    math_start_time.insert(calc_start_time.end(), { 9, 10, 13 });
-    math_day.insert(calc_day.end(), { 1, 3, 4 });
-    math_semester.insert(calc_semester.end(), { 'F', 'F', 'F' });
-    math_async.insert(calc_async.end(), { false, false, false });
+    math_durations.insert(math_durations.end(), { 1, 2, 1 });
+    math_start_time.insert(math_start_time.end(), { 9, 10, 13 });
+    math_day.insert(math_day.end(), { 1, 3, 4 });
+    math_semester.insert(math_semester.end(), { 'F', 'F', 'F' });
+    math_async.insert(math_async.end(), { false, false, false });
 
     Section calc_section_1(1, math_durations, math_start_time, math_semester, math_day, math_async);
     calc_lecture_sections.push_back(calc_section_1);
@@ -140,11 +140,11 @@ void test_two_classes_one_section() {
     math_day.clear();
     math_semester.clear();
     math_async.clear();
-    math_durations.insert(calc_durations.end(), { 1, 1, 1 });
-    math_start_time.insert(calc_start_time.end(), { 9, 13, 11 });
-    math_day.insert(calc_day.end(), { 2, 3, 5 });
-    math_semester.insert(calc_semester.end(), { 'F', 'F', 'F' });
-    math_async.insert(calc_async.end(), { false, false, false });
+    math_durations.insert(math_durations.end(), { 1, 1, 1 });
+    math_start_time.insert(math_start_time.end(), { 9, 13, 11 });
+    math_day.insert(math_day.end(), { 2, 3, 5 });
+    math_semester.insert(math_semester.end(), { 'F', 'F', 'F' });
+    math_async.insert(math_async.end(), { false, false, false });
 
     Section linalg_section_1(1, math_durations, math_start_time, math_semester, math_day, math_async);
     linalg_lecture_sections.push_back(linalg_section_1);
@@ -178,11 +178,11 @@ void test_two_classes_two_sections() {
     // Monday 9 - 10
     // Wednesday 10 - 12
     // Thursday 1 - 2
-    math_durations.insert(calc_durations.end(), { 1, 2, 1 });
-    math_start_time.insert(calc_start_time.end(), { 9, 10, 13 });
-    math_day.insert(calc_day.end(), { 1, 3, 4 });
-    math_semester.insert(calc_semester.end(), { 'F', 'F', 'F' });
-    math_async.insert(calc_async.end(), { false, false, false });
+    math_durations.insert(math_durations.end(), { 1, 2, 1 });
+    math_start_time.insert(math_start_time.end(), { 9, 10, 13 });
+    math_day.insert(math_day.end(), { 1, 3, 4 });
+    math_semester.insert(math_semester.end(), { 'F', 'F', 'F' });
+    math_async.insert(math_async.end(), { false, false, false });
 
     Section calc_section_1(1, math_durations, math_start_time, math_semester, math_day, math_async);
     calc_lecture_sections.push_back(calc_section_1);
@@ -193,8 +193,8 @@ void test_two_classes_two_sections() {
     // Tuesday 10 - 11
     // Thursday 10 - 11
 
-    Section calc_section_1(2, math_durations, math_start_time, math_semester, math_day, math_async);
-    calc_lecture_sections.push_back(calc_section_1);
+    Section calc_section_2(2, math_durations, math_start_time, math_semester, math_day, math_async);
+    calc_lecture_sections.push_back(calc_section_2);
 
     // Linear Algebra
     // -- Section 1
@@ -206,11 +206,11 @@ void test_two_classes_two_sections() {
     math_day.clear();
     math_semester.clear();
     math_async.clear();
-    math_durations.insert(calc_durations.end(), { 1, 1, 1 });
-    math_start_time.insert(calc_start_time.end(), { 9, 13, 11 });
-    math_day.insert(calc_day.end(), { 2, 3, 5 });
-    math_semester.insert(calc_semester.end(), { 'F', 'F', 'F' });
-    math_async.insert(calc_async.end(), { false, false, false });
+    math_durations.insert(math_durations.end(), { 1, 1, 1 });
+    math_start_time.insert(math_start_time.end(), { 9, 13, 11 });
+    math_day.insert(math_day.end(), { 2, 3, 5 });
+    math_semester.insert(math_semester.end(), { 'F', 'F', 'F' });
+    math_async.insert(math_async.end(), { false, false, false });
 
     Section linalg_section_1(1, math_durations, math_start_time, math_semester, math_day, math_async);
     linalg_lecture_sections.push_back(linalg_section_1);
@@ -221,8 +221,8 @@ void test_two_classes_two_sections() {
     // Wednesday 4 - 5
     // Friday 4 - 5
 
-    Section linalg_section_1(2, math_durations, math_start_time, math_semester, math_day, math_async);
-    linalg_lecture_sections.push_back(linalg_section_1);
+    Section linalg_section_2(2, math_durations, math_start_time, math_semester, math_day, math_async);
+    linalg_lecture_sections.push_back(linalg_section_2);
 
     CourseOfferings calculus("Calculus 1", "MAT186", calc_lecture_sections, empty_vec, empty_vec);
     CourseOfferings linear_algebra("Linear Algebra", "MAT188", linalg_lecture_sections, empty_vec, empty_vec);
