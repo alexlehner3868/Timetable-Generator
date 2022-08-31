@@ -32,7 +32,7 @@ void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings, CourseOff
 
   // When all classes have been added to the timetable, save this valid timetable (base case)
   if(courses.size() == 0){
-    timetables_.insert(timetable);
+    timetables_.push_back(timetable);
     // Print out valid timetable (used for debuggin)
     print_timetable(timetable);
   }
