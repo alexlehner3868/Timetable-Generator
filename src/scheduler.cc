@@ -50,7 +50,7 @@ void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings, CourseOff
 
 void Scheduler::attempt_to_add_section(std::unordered_map<Date, SelectedCourseSection, Date_Hash>& timetable, int class_type, CourseOfferings course, unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& courses){
     // Loop through all of the possible lecture sections in the course 
-    for(int section_id = 0; section_id < course.lecture_sections_.size(); section_id++){
+    for(int section_id = 0; section_id < (int) course.lecture_sections_.size(); section_id++){
         Section section;
         if(class_type == LEC){
           section = course.lecture_sections_.at(section_id);
@@ -71,7 +71,7 @@ void Scheduler::attempt_to_add_section(std::unordered_map<Date, SelectedCourseSe
 
       bool successfully_inserted; 
       // Try adding all of the lecture sections for that section and class to the timetable 
-      for (class_in_section = 0; class_in_section < section.duration_.size(); class_in_section++) {
+      for (class_in_section = 0; class_in_section < (int)section.duration_.size(); class_in_section++) {
           // Add a entry for every hour that the lecure has
           for (int i = 0; i < section.duration_.at(class_in_section); i++) {
               // If the class is in the winter offset the day by 5 ([1,5] = fall, [6,10] = winter)
