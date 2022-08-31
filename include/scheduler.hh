@@ -26,18 +26,11 @@ enum class_type {
   PRA = 3
 };
 
-struct TimetablesHash{
-    size_t operator()(const std::unordered_map<Date, SelectedCourseSection, Date_Hash>& mp) const
-    {
-      return hash<string>()();
-    }
-};
-
 class Scheduler {
 
     private:
 
-    std::unordered_set<std::unordered_map<Date, SelectedCourseSection, Date_Hash>> timetables_;
+    std::vector<std::unordered_map<Date, SelectedCourseSection, Date_Hash>> timetables_;
     
     public:
         Scheduler();
