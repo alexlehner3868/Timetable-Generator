@@ -37,7 +37,7 @@ void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings, CourseOff
 
   // Loop through all of the Course Offerings (ie the course and all its sections)
   for(auto course : courses){
-    // Loop through all of the possible sections in the course 
+    // Loop through all of the possible lecture sections in the course 
     for(int section_id = 0; section_id < course.lecture_sections_.size(); section_id++){
         Section section = course.lecture_sections_.at(section_id);
         int lecture_in_section;
@@ -51,6 +51,50 @@ void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings, CourseOff
         remaining_classes.erase(course);
         schedule_classes_helper(remaining_classes, timetable);
         for (int remove_class = 0; remove_class < lecture_in_section; remove_class++) { //should this be < or <= (<= seg faults)
+            for (int i = 0; i < section.duration_.at(remove_class); i++) {
+              Date period = make_pair(section.day_.at(remove_class), section.start_time_.at(remove_class) + i);
+              timetable.erase(period);
+
+            }
+        }
+    }
+
+    // Loop through all of the possible tutorial sections in the course 
+    for(int section_id = 0; section_id < course.tutorial_sections_.size(); section_id++){
+        Section section = course.tutorial_sections_.at(section_id);
+        int tut_in_section;
+        attempt_to_add_section(timetable, TUT, section, section_id, course, tut_in_section);
+
+        /** 
+         * Call this function recusviely to place the remaining classes 
+         * Remove the current class from the courses list and then recall this function to place the rest of the classes
+         */
+        unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> remaining_classes = courses;
+        remaining_classes.erase(course);
+        schedule_classes_helper(remaining_classes, timetable);
+        for (int remove_class = 0; remove_class < tut_in_section; remove_class++) { //should this be < or <= (<= seg faults)
+            for (int i = 0; i < section.duration_.at(remove_class); i++) {
+              Date period = make_pair(section.day_.at(remove_class), section.start_time_.at(remove_class) + i);
+              timetable.erase(period);
+
+            }
+        }
+    }
+
+    // Loop through all of the possible practical sections in the course 
+    for(int section_id = 0; section_id < course.practical_sections_.size(); section_id++){
+        Section section = course.practical_sections_.at(section_id);
+        int pra_in_section;
+        attempt_to_add_section(timetable, PRA, section, section_id, course, pra_in_section);
+
+        /** 
+         * Call this function recusviely to place the remaining classes 
+         * Remove the current class from the courses list and then recall this function to place the rest of the classes
+         */
+        unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> remaining_classes = courses;
+        remaining_classes.erase(course);
+        schedule_classes_helper(remaining_classes, timetable);
+        for (int remove_class = 0; remove_class < pra_in_section; remove_class++) { //should this be < or <= (<= seg faults)
             for (int i = 0; i < section.duration_.at(remove_class); i++) {
               Date period = make_pair(section.day_.at(remove_class), section.start_time_.at(remove_class) + i);
               timetable.erase(period);
