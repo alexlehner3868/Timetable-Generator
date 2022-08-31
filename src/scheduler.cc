@@ -39,51 +39,10 @@ void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings, CourseOff
   for(auto course : courses){
     // Loop through all of the possible sections in the course 
     for(int section_id = 0; section_id < course.lecture_sections_.size(); section_id++){
-        bool successfully_inserted; 
         Section section = course.lecture_sections_.at(section_id);
-        
-        // Create an object to represent the section that was chosen 
-        SelectedCourseSection class_chosen{
-          .course_code = course.course_id_,
-          .section = section_id,
-          .type = 1, // Lecture
-          .semester = section.semester_.at(section_id)
-        };
-
-        // Try adding all of the lecture sections for that section and class to the timetable 
         int lecture_in_section;
-        for (lecture_in_section = 0; lecture_in_section < section.duration_.size(); lecture_in_section++) {
-            // Add a entry for every hour that the lecure has
-            for (int i = 0; i < section.duration_.at(lecture_in_section); i++) {
-                // If the class is in the winter offset the day by 5 ([1,5] = fall, [6,10] = winter)
-                int semester_offset = (class_chosen.semester == 'F') ? 0 : 5;
-                Date period = make_pair(section.day_.at(lecture_in_section) + semester_offset, section.start_time_.at(lecture_in_section) + i);
-                
-                // Insert into the timetable  
-                auto it = timetable.insert(std::make_pair(period, class_chosen));
-                successfully_inserted = it.second;
-                
-                // Check if the class was sucessfully inserted 
-                if (!successfully_inserted) {
-                    break;
-                    //Combination is invalid
-                    //Time occupied by another course offering
-                }
-                
-            }
-
-            // There is a conflict with the class section that was just inputted so remove it 
-            if (!successfully_inserted) {
-                for (int remove_class = 0; remove_class <= lecture_in_section; remove_class++) {
-                    for (int i = 0; i < section.duration_.at(lecture_in_section); i++) {
-                        Date period = make_pair(section.day_.at(lecture_in_section), section.start_time_.at(lecture_in_section) + i);
-                        timetable.erase(period);
-                    }
-                }
-                break;
-            }
-
-        }
+  /// CALL FUNCTION HERE
+        attempt_to_add_section(timetable, 1, section, section_id, course, lecture_in_section);
 
         /** 
          * Call this function recusviely to place the remaining classes 
@@ -105,6 +64,53 @@ void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings, CourseOff
 
 }
 
+
+void Scheduler::attempt_to_add_section(std::unordered_map<Date, SelectedCourseSection, Date_Hash>& timetable, int class_type, Section section, int section_id, CourseOfferings course, int& lecture_in_section){
+          // Create an object to represent the section that was chosen 
+        SelectedCourseSection class_chosen{
+          .course_code = course.course_id_,
+          .section = section_id,
+          .type = class_type, // Lecture
+          .semester = section.semester_.at(section_id)
+        };
+
+      bool successfully_inserted; 
+      // Try adding all of the lecture sections for that section and class to the timetable 
+      for (lecture_in_section = 0; lecture_in_section < section.duration_.size(); lecture_in_section++) {
+          // Add a entry for every hour that the lecure has
+          for (int i = 0; i < section.duration_.at(lecture_in_section); i++) {
+              // If the class is in the winter offset the day by 5 ([1,5] = fall, [6,10] = winter)
+              int semester_offset = (class_chosen.semester == 'F') ? 0 : 5;
+              Date period = make_pair(section.day_.at(lecture_in_section) + semester_offset, section.start_time_.at(lecture_in_section) + i);
+                
+              // Insert into the timetable  
+              auto it = timetable.insert(std::make_pair(period, class_chosen));
+              successfully_inserted = it.second;
+                
+              // Check if the class was sucessfully inserted 
+              if (!successfully_inserted) {
+                  break;
+                  //Combination is invalid
+                  //Time occupied by another course offering
+              }
+                
+          }
+
+          // There is a conflict with the class section that was just inputted so remove it 
+          if (!successfully_inserted) {
+              for (int remove_class = 0; remove_class <= lecture_in_section; remove_class++) {
+                for (int i = 0; i < section.duration_.at(lecture_in_section); i++) {
+                      Date period = make_pair(section.day_.at(lecture_in_section), section.start_time_.at(lecture_in_section) + i);
+                      timetable.erase(period);
+                  }
+              }
+              break;
+          }
+                  
+      }
+}
+
+
 void Scheduler::print_timetable(std::unordered_map<Date, SelectedCourseSection, Date_Hash>& timetable){
   std::cout<<"Timetable option: "<<std::endl;
   for(std::pair<Date, SelectedCourseSection> element : timetable){
@@ -123,7 +129,7 @@ void Scheduler::print_timetable(std::unordered_map<Date, SelectedCourseSection, 
       class_type = "practical ";
     }
 
-    std::cout<<"  "<<semester<<": course "<< course << " " << class_type << " section " << section_chosen << " on day " << day <<" at "<<time <<std::endl;
+    std::cout<<"  "<<semester<<": course "<< course << " " << class_type << " section " << (section_chosen+1) << " on day " << day <<" at "<<time <<std::endl;
   }
 }
 
