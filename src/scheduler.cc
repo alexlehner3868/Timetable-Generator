@@ -37,78 +37,27 @@ void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings, CourseOff
 
   // Loop through all of the Course Offerings (ie the course and all its sections)
   for(auto course : courses){
-    // Loop through all of the possible lecture sections in the course 
-    for(int section_id = 0; section_id < course.lecture_sections_.size(); section_id++){
-        Section section = course.lecture_sections_.at(section_id);
-        int lecture_in_section;
-        attempt_to_add_section(timetable, LEC, section, section_id, course, lecture_in_section);
 
-        /** 
-         * Call this function recusviely to place the remaining classes 
-         * Remove the current class from the courses list and then recall this function to place the rest of the classes
-         */
-        unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> remaining_classes = courses;
-        remaining_classes.erase(course);
-        schedule_classes_helper(remaining_classes, timetable);
-        for (int remove_class = 0; remove_class < lecture_in_section; remove_class++) { //should this be < or <= (<= seg faults)
-            for (int i = 0; i < section.duration_.at(remove_class); i++) {
-              Date period = make_pair(section.day_.at(remove_class), section.start_time_.at(remove_class) + i);
-              timetable.erase(period);
-
-            }
-        }
-    }
-
-    // Loop through all of the possible tutorial sections in the course 
-    for(int section_id = 0; section_id < course.tutorial_sections_.size(); section_id++){
-        Section section = course.tutorial_sections_.at(section_id);
-        int tut_in_section;
-        attempt_to_add_section(timetable, TUT, section, section_id, course, tut_in_section);
-
-        /** 
-         * Call this function recusviely to place the remaining classes 
-         * Remove the current class from the courses list and then recall this function to place the rest of the classes
-         */
-        unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> remaining_classes = courses;
-        remaining_classes.erase(course);
-        schedule_classes_helper(remaining_classes, timetable);
-        for (int remove_class = 0; remove_class < tut_in_section; remove_class++) { //should this be < or <= (<= seg faults)
-            for (int i = 0; i < section.duration_.at(remove_class); i++) {
-              Date period = make_pair(section.day_.at(remove_class), section.start_time_.at(remove_class) + i);
-              timetable.erase(period);
-
-            }
-        }
-    }
-
-    // Loop through all of the possible practical sections in the course 
-    for(int section_id = 0; section_id < course.practical_sections_.size(); section_id++){
-        Section section = course.practical_sections_.at(section_id);
-        int pra_in_section;
-        attempt_to_add_section(timetable, PRA, section, section_id, course, pra_in_section);
-
-        /** 
-         * Call this function recusviely to place the remaining classes 
-         * Remove the current class from the courses list and then recall this function to place the rest of the classes
-         */
-        unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> remaining_classes = courses;
-        remaining_classes.erase(course);
-        schedule_classes_helper(remaining_classes, timetable);
-        for (int remove_class = 0; remove_class < pra_in_section; remove_class++) { //should this be < or <= (<= seg faults)
-            for (int i = 0; i < section.duration_.at(remove_class); i++) {
-              Date period = make_pair(section.day_.at(remove_class), section.start_time_.at(remove_class) + i);
-              timetable.erase(period);
-
-            }
-        }
-    }
-    
+    attempt_to_add_section(timetable, LEC, course, courses);
   } 
-
 }
 
 
-void Scheduler::attempt_to_add_section(std::unordered_map<Date, SelectedCourseSection, Date_Hash>& timetable, int class_type, Section section, int section_id, CourseOfferings course, int& lecture_in_section){
+
+
+void Scheduler::attempt_to_add_section(std::unordered_map<Date, SelectedCourseSection, Date_Hash>& timetable, int class_type, CourseOfferings course, unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& courses){
+    // Loop through all of the possible lecture sections in the course 
+    for(int section_id = 0; section_id < course.lecture_sections_.size(); section_id++){
+        Section section;
+        if(class_type == LEC){
+          section = course.lecture_sections_.at(section_id);
+        }else if(class_type == TUT){
+          section = course.tutorial_sections_.at(section_id);
+        }else{
+          section = course.practical_sections_.at(section_id);
+        }
+        int class_in_section;
+          
           // Create an object to represent the section that was chosen 
         SelectedCourseSection class_chosen{
           .course_code = course.course_id_,
@@ -119,12 +68,12 @@ void Scheduler::attempt_to_add_section(std::unordered_map<Date, SelectedCourseSe
 
       bool successfully_inserted; 
       // Try adding all of the lecture sections for that section and class to the timetable 
-      for (lecture_in_section = 0; lecture_in_section < section.duration_.size(); lecture_in_section++) {
+      for (class_in_section = 0; class_in_section < section.duration_.size(); class_in_section++) {
           // Add a entry for every hour that the lecure has
-          for (int i = 0; i < section.duration_.at(lecture_in_section); i++) {
+          for (int i = 0; i < section.duration_.at(class_in_section); i++) {
               // If the class is in the winter offset the day by 5 ([1,5] = fall, [6,10] = winter)
               int semester_offset = (class_chosen.semester == 'F') ? 0 : 5;
-              Date period = make_pair(section.day_.at(lecture_in_section) + semester_offset, section.start_time_.at(lecture_in_section) + i);
+              Date period = make_pair(section.day_.at(class_in_section) + semester_offset, section.start_time_.at(class_in_section) + i);
                 
               // Insert into the timetable  
               auto it = timetable.insert(std::make_pair(period, class_chosen));
@@ -141,18 +90,32 @@ void Scheduler::attempt_to_add_section(std::unordered_map<Date, SelectedCourseSe
 
           // There is a conflict with the class section that was just inputted so remove it 
           if (!successfully_inserted) {
-              for (int remove_class = 0; remove_class <= lecture_in_section; remove_class++) {
-                for (int i = 0; i < section.duration_.at(lecture_in_section); i++) {
-                      Date period = make_pair(section.day_.at(lecture_in_section), section.start_time_.at(lecture_in_section) + i);
+              for (int remove_class = 0; remove_class <= class_in_section; remove_class++) {
+                for (int i = 0; i < section.duration_.at(class_in_section); i++) {
+                      Date period = make_pair(section.day_.at(class_in_section), section.start_time_.at(class_in_section) + i);
                       timetable.erase(period);
                   }
               }
               break;
           }
                   
-      }
-}
+    }
+          /** 
+         * Call this function recusviely to place the remaining classes 
+         * Remove the current class from the courses list and then recall this function to place the rest of the classes
+         */
+        unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> remaining_classes = courses;
+        remaining_classes.erase(course);
+        schedule_classes_helper(remaining_classes, timetable);
+        for (int remove_class = 0; remove_class < class_in_section; remove_class++) { //should this be < or <= (<= seg faults)
+            for (int i = 0; i < section.duration_.at(remove_class); i++) {
+              Date period = make_pair(section.day_.at(remove_class), section.start_time_.at(remove_class) + i);
+              timetable.erase(period);
 
+            }
+    }
+  }
+}
 
 void Scheduler::print_timetable(std::unordered_map<Date, SelectedCourseSection, Date_Hash>& timetable){
   std::cout<<"Timetable option: "<<std::endl;

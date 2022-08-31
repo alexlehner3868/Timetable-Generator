@@ -21,6 +21,9 @@ class Section {
 			semester_ = semester; 
 			async_ = async;
 		}
+		Section(){
+			
+		}
 		int section_id_;
 		vector<int> duration_; //length of class in hour integer segements 
 		vector<int> start_time_; //military time in hours 
