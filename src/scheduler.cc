@@ -49,8 +49,17 @@ void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings, CourseOff
 
 
 void Scheduler::attempt_to_add_section(std::unordered_map<Date, SelectedCourseSection, Date_Hash>& timetable, int class_type, CourseOfferings course, unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& courses){
+    int num_sections = 0;
+    if(class_type == LEC){
+          num_sections = (int) course.lecture_sections_.size();
+    }else if(class_type == TUT){
+          num_sections = (int) course.tutorial_sections_.size();
+        }else{
+          num_sections = (int) course.practical_sections_.size();
+        }
+
     // Loop through all of the possible lecture sections in the course 
-    for(int section_id = 0; section_id < (int) course.lecture_sections_.size(); section_id++){
+    for(int section_id = 0; section_id < num_sections; section_id++){
         Section section;
         if(class_type == LEC){
           section = course.lecture_sections_.at(section_id);
