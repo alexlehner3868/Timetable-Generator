@@ -20,6 +20,11 @@ struct SelectedCourseSection{
   char semester;
 };
 
+enum class_type {
+  LEC = 1,
+  TUT = 2,
+  PRA = 3
+};
 
 class Scheduler {
 

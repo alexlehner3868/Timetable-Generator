@@ -41,8 +41,7 @@ void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings, CourseOff
     for(int section_id = 0; section_id < course.lecture_sections_.size(); section_id++){
         Section section = course.lecture_sections_.at(section_id);
         int lecture_in_section;
-  /// CALL FUNCTION HERE
-        attempt_to_add_section(timetable, 1, section, section_id, course, lecture_in_section);
+        attempt_to_add_section(timetable, LEC, section, section_id, course, lecture_in_section);
 
         /** 
          * Call this function recusviely to place the remaining classes 
@@ -121,9 +120,9 @@ void Scheduler::print_timetable(std::unordered_map<Date, SelectedCourseSection, 
     auto type = element.second.type;
     auto semester = element.second.semester;
     string class_type;
-    if(type == 0 ){
+    if(type == LEC ){
       class_type = "lecture ";
-    }else if (type == 1){
+    }else if (type == TUT){
       class_type = "tutorial ";
     }else{
       class_type = "practical ";
