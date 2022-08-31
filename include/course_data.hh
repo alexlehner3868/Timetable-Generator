@@ -1,3 +1,4 @@
+/*
 #ifndef COURSE_DATA_H
 #define COURSE_DATA_H
 
@@ -20,3 +21,5 @@ class CourseData {
 };
 
 #endif
+
+*/

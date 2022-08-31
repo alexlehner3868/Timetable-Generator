@@ -1,3 +1,5 @@
+
+/* commenting out for now
 #include <string>
 #include <iostream>
 #include <stdlib.h>
@@ -33,5 +35,6 @@ CourseData::CourseData(){
             sqlite3_free(messaggeError);
         }
     }
-    */
+    
 }
+*/
