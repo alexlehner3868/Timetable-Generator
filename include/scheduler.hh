@@ -26,6 +26,13 @@ enum class_type {
   PRA = 3
 };
 
+struct TimetablesHash{
+    size_t operator()(const std::unordered_map<Date, SelectedCourseSection, Date_Hash>& mp) const
+    {
+      return hash<string>()();
+    }
+};
+
 class Scheduler {
 
     private:

@@ -70,6 +70,9 @@
         "compare": "cpp",
         "concepts": "cpp",
         "variant": "cpp",
-        "__functional_base_03": "cpp"
+        "__functional_base_03": "cpp",
+        "deque": "cpp",
+        "fstream": "cpp",
+        "stack": "cpp"
     }
 }
