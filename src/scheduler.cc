@@ -19,7 +19,6 @@ using namespace std;
  * TODO: Add in constraints that force course to be in a certain semester. 
  * TODO: If a course has a prereq also being schedule, make sure the pre req is first 
  * TODO: Add better time table printing for courses longer than one hour  
- * TODO: make SelectedCourseSection a class 
  * TODO: Do we need to add parallelism to speed it up?? 
  */
 
