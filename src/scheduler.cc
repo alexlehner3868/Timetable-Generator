@@ -12,7 +12,9 @@
 using namespace std; 
 
 /**
- * TODO: add support for tutorials and practicals 
+ * TODO: add support for tutorials and practicals (verify it works)
+ * TODO: add/remove classes 
+ * TODO: add constraints 
  * TODO: add support for async classes 
  * TODO: Add in constraints that force course to be in a certain semester. 
  * TODO: If a course has a prereq also being schedule, make sure the pre req is first 
@@ -38,8 +40,9 @@ void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings, CourseOff
 
   // Loop through all of the Course Offerings (ie the course and all its sections)
   for(auto course : courses){
-
     attempt_to_add_section(timetable, LEC, course, courses);
+    attempt_to_add_section(timetable, TUT, course, courses);
+    attempt_to_add_section(timetable, PRA, course, courses);
   } 
 }
 
