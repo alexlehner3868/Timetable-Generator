@@ -10,6 +10,7 @@
 using namespace std; 
 
 CourseData::CourseData(){
+    /*
     int action_succes = 0;
     char* messaggeError;
 
@@ -24,13 +25,13 @@ CourseData::CourseData(){
 
     while (std::getline(infile, sql)){
         stringstream iss(sql);
-        int a, b;
         if (!(iss >> sql)) { break; } // error
-        action_succes = sqlite3_exec(DB, sql.c_str(), NULL, 0, &messaggeError);
+        action_succes = sqlite3_exec(DB_, sql.c_str(), NULL, 0, &messaggeError);
 
         if (action_succes != SQLITE_OK) {
             cout<<"Error running sql command"<<std::endl;
             sqlite3_free(messaggeError);
         }
     }
+    */
 }
