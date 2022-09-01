@@ -7,9 +7,9 @@
 using namespace std; 
 
 string toClassType(int type){
-    if(type == 0){
+    if(type == 1){
         return "lecture";
-    }else if(type == 1){
+    }else if(type == 2){
         return "tutorial";
     }else{
         return "practical";
