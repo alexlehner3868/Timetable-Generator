@@ -104,6 +104,7 @@ void test_one_class_multiple_sections(){
     Scheduler scheduler;
     scheduler.schedule_classes(offerings);   
 }
+
 void test_two_classes_one_section() {
     vector<Section> calc_lecture_sections;
     vector<Section> linalg_lecture_sections;
@@ -160,8 +161,6 @@ void test_two_classes_one_section() {
     scheduler.schedule_classes(offerings);
 }
 
-
-
 void test_two_classes_two_sections() {
     vector<Section> calc_lecture_sections;
     vector<Section> linalg_lecture_sections;
@@ -192,6 +191,16 @@ void test_two_classes_two_sections() {
     // Monday 10 - 11
     // Tuesday 10 - 11
     // Thursday 10 - 11
+    math_durations.clear();
+    math_start_time.clear();
+    math_day.clear();
+    math_semester.clear();
+    math_async.clear();
+    math_durations.insert(math_durations.end(), { 11, 11, 11 });
+    math_start_time.insert(math_start_time.end(), { 10, 10, 10 });
+    math_day.insert(math_day.end(), { 1, 2, 4 });
+    math_semester.insert(math_semester.end(), { 'F', 'F', 'F' });
+    math_async.insert(math_async.end(), { false, false, false });
 
     Section calc_section_2(2, math_durations, math_start_time, math_semester, math_day, math_async);
     calc_lecture_sections.push_back(calc_section_2);
@@ -221,6 +230,17 @@ void test_two_classes_two_sections() {
     // Wednesday 4 - 5
     // Friday 4 - 5
 
+    math_durations.clear();
+    math_start_time.clear();
+    math_day.clear();
+    math_semester.clear();
+    math_async.clear();
+    math_durations.insert(math_durations.end(), { 16, 16, 16 });
+    math_start_time.insert(math_start_time.end(), { 17, 17, 17 });
+    math_day.insert(math_day.end(), { 2, 3, 5 });
+    math_semester.insert(math_semester.end(), { 'F', 'F', 'F' });
+    math_async.insert(math_async.end(), { false, false, false });
+
     Section linalg_section_2(2, math_durations, math_start_time, math_semester, math_day, math_async);
     linalg_lecture_sections.push_back(linalg_section_2);
 
@@ -233,19 +253,22 @@ void test_two_classes_two_sections() {
     Scheduler scheduler;
     scheduler.schedule_classes(offerings);
 }
+
 void test_two_classes_multiple_sections() {
 
 }
+
 void test_three_classes_multiple_sections() {
 
 }
+
 void test_two_classes_conflict() {
 
 }
+
 void test_three_classes_conflict() {
 
 }
-
 
 void test_sample_questions(){
     // One class, with one section 
