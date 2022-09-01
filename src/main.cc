@@ -300,6 +300,24 @@ void test_two_classes_multiple_sections() {
     Section linalg_section_1(1, class_durations, class_start_time, class_semester, class_day, class_async);
     linalg_lecture_sections.push_back(linalg_section_1);
 
+    
+    // -- Section 2
+    // Tuesday 4 - 5
+    // Wednesday 4 - 5
+    // Friday 4 - 5
+    class_durations.clear();
+    class_start_time.clear();
+    class_day.clear();
+    class_semester.clear();
+    class_async.clear();
+    class_durations.insert(class_durations.end(), { 1, 1, 1 });
+    class_start_time.insert(class_start_time.end(), { 16, 16, 16 });
+    class_day.insert(class_day.end(), { 2, 3, 5 });
+    class_semester.insert(class_semester.end(), { 'F', 'F', 'F' });
+    class_async.insert(class_async.end(), { false, false, false });
+
+    Section linalg_section_2(2, class_durations, class_start_time, class_semester, class_day, class_async);
+    linalg_lecture_sections.push_back(linalg_section_2);
 
     CourseOfferings calculus("Calculus 1", "MAT186", calc_lecture_sections, empty_vec, empty_vec);
     CourseOfferings linear_algebra("Linear Algebra", "MAT188", linalg_lecture_sections, empty_vec, empty_vec);
@@ -310,7 +328,7 @@ void test_two_classes_multiple_sections() {
     Scheduler scheduler;
     scheduler.schedule_classes(offerings);
 }
-
+// Test 6
 void test_three_classes_multiple_sections() {
     vector<Section> calc_lecture_sections;
     vector<Section> linalg_lecture_sections;
@@ -375,6 +393,24 @@ void test_three_classes_multiple_sections() {
     Section linalg_section_1(1, class_durations, class_start_time, class_semester, class_day, class_async);
     linalg_lecture_sections.push_back(linalg_section_1);
 
+    // -- Section 2
+    // Tuesday 4 - 5
+    // Wednesday 4 - 5
+    // Friday 4 - 5
+    class_durations.clear();
+    class_start_time.clear();
+    class_day.clear();
+    class_semester.clear();
+    class_async.clear();
+    class_durations.insert(class_durations.end(), { 1, 1, 1 });
+    class_start_time.insert(class_start_time.end(), { 16, 16, 16 });
+    class_day.insert(class_day.end(), { 2, 3, 5 });
+    class_semester.insert(class_semester.end(), { 'F', 'F', 'F' });
+    class_async.insert(class_async.end(), { false, false, false });
+
+    Section linalg_section_2(2, class_durations, class_start_time, class_semester, class_day, class_async);
+    linalg_lecture_sections.push_back(linalg_section_2);
+
     // Mechanics
     // -- Section 1
     // Monday 3 - 6
@@ -392,6 +428,23 @@ void test_three_classes_multiple_sections() {
     Section mech_section_1(1, class_durations, class_start_time, class_semester, class_day, class_async);
     mech_lecture_sections.push_back(mech_section_1);
 
+    // -- Section 2
+    // Friday 3 - 6
+    class_durations.clear();
+    class_start_time.clear();
+    class_day.clear();
+    class_semester.clear();
+    class_async.clear();
+    class_durations.insert(class_durations.end(), { 3 });
+    class_start_time.insert(class_start_time.end(), { 13 });
+    class_day.insert(class_day.end(), { 5 });
+    class_semester.push_back({ 'F' });
+    class_async.insert(class_async.end(), { false });
+
+    
+    Section mech_section_2(2, class_durations, class_start_time, class_semester, class_day, class_async);
+    mech_lecture_sections.push_back(mech_section_2);
+    
     CourseOfferings calculus("Calculus 1", "MAT186", calc_lecture_sections, empty_vec, empty_vec);
     CourseOfferings linear_algebra("Linear Algebra", "MAT188", linalg_lecture_sections, empty_vec, empty_vec);
     CourseOfferings mechanics("Mechanics", "CIV100", mech_lecture_sections, empty_vec, empty_vec);
@@ -403,11 +456,11 @@ void test_three_classes_multiple_sections() {
     Scheduler scheduler;
     scheduler.schedule_classes(offerings);
 }
-
+// Test 7
 void test_two_classes_conflict() {
 
 }
-
+// Test 8
 void test_three_classes_conflict() {
 
 }
@@ -415,19 +468,19 @@ void test_three_classes_conflict() {
 void test_sample_questions(){
     // One class, with one section 
     cout<<"Test 1: One Class, One Section "<<endl;
-    test_one_class_one_section();
+   // test_one_class_one_section();
     // One class with multiple sections 
     cout<<"Test 2: One Class, Multiple Sections "<<endl;
-    test_one_class_multiple_sections();
+   // test_one_class_multiple_sections();
     // Two classes with one section each
     cout << "Test 3: Two Classes, One Section " << endl;
-    test_two_classes_one_section();
+   // test_two_classes_one_section();
     // Two classes with two sections
     cout << "Test 4: Two Classes, Two Sections " << endl;
-    test_two_classes_two_sections();
+   // test_two_classes_two_sections();
     // Two classes with two sections each
     cout << "Test 5: Two Classes, Multiple Sections " << endl;
-    test_two_classes_multiple_sections();
+   // test_two_classes_multiple_sections();
     // Three classes with two sections each
     cout << "Test 6: Three Classes, Multiple Sections " << endl;
     test_three_classes_multiple_sections();
@@ -446,7 +499,7 @@ void test_sample_questions(){
     {
         //Test 6: Mat186 Lec1 Lec2 (no conflicts )
         //        LinAlg Lec1  Lec 2
-        //        Spanish Lec1 Lec2 
+        //        Mechanics Lec1 Lec2 
     }
 
     {
@@ -457,7 +510,7 @@ void test_sample_questions(){
     {
         //Test 8: Mat186 Lec1 Lec2 (Put in some conflicts)
         //        LinAlg Lec1  Lec2
-        //        Spanish Lec1 Lec2
+        //        Mechanics Lec1 Lec2
     }
 } 
 

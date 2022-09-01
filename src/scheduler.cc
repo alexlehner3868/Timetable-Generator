@@ -36,6 +36,7 @@ void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings, CourseOff
     timetables_.push_back(timetable);
     // Print out valid timetable (used for debuggin)
     print_timetable(timetable);
+    //possibly need a return here?
   }
 
   // Loop through all of the Course Offerings (ie the course and all its sections)
@@ -58,7 +59,7 @@ void Scheduler::attempt_to_add_section(std::unordered_map<Date, SelectedCourseSe
         }else{
           num_sections = (int) course.practical_sections_.size();
         }
-
+    
     // Loop through all of the possible lecture sections in the course 
     for(int section_id = 0; section_id < num_sections; section_id++){
         Section section;
@@ -70,16 +71,14 @@ void Scheduler::attempt_to_add_section(std::unordered_map<Date, SelectedCourseSe
           section = course.practical_sections_.at(section_id);
         }
         int class_in_section;
-          
-          // Create an object to represent the section that was chosen 
+        // Create an object to represent the section that was chosen 
         SelectedCourseSection class_chosen{
           .course_code = course.course_id_,
           .type = class_type, // Lecture
           .section = section_id,
           .semester = section.semester_.at(section_id)
         };
-
-      bool successfully_inserted; 
+      bool successfully_inserted;
       // Try adding all of the lecture sections for that section and class to the timetable 
       for (class_in_section = 0; class_in_section < (int)section.duration_.size(); class_in_section++) {
           // Add a entry for every hour that the lecure has
@@ -100,7 +99,6 @@ void Scheduler::attempt_to_add_section(std::unordered_map<Date, SelectedCourseSe
               }
                 
           }
-
           // There is a conflict with the class section that was just inputted so remove it 
           if (!successfully_inserted) {
               for (int remove_class = 0; remove_class <= class_in_section; remove_class++) {
@@ -114,7 +112,7 @@ void Scheduler::attempt_to_add_section(std::unordered_map<Date, SelectedCourseSe
                   
     }
           /** 
-         * Call this function recusviely to place the remaining classes 
+         * Call this function recursively to place the remaining classes 
          * Remove the current class from the courses list and then recall this function to place the rest of the classes
          */
         unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> remaining_classes = courses;
