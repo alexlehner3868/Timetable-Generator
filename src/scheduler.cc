@@ -78,6 +78,7 @@ void Scheduler::attempt_to_add_section(std::unordered_map<Date, SelectedCourseSe
           .section = section_id,
           .semester = section.semester_.at(0) // Each section should only be in either F or W (need support for full year courses)
           // semester can be a char instead of a vector
+          // F - FALL W - WINTER B - BOTH
         };
       bool successfully_inserted;
       // Try adding all of the lecture sections for that section and class to the timetable 
