@@ -468,19 +468,19 @@ void test_three_classes_conflict() {
 void test_sample_questions(){
     // One class, with one section 
     cout<<"Test 1: One Class, One Section "<<endl;
-   // test_one_class_one_section();
+    test_one_class_one_section();
     // One class with multiple sections 
     cout<<"Test 2: One Class, Multiple Sections "<<endl;
-   // test_one_class_multiple_sections();
+    test_one_class_multiple_sections();
     // Two classes with one section each
     cout << "Test 3: Two Classes, One Section " << endl;
-   // test_two_classes_one_section();
+    test_two_classes_one_section();
     // Two classes with two sections
     cout << "Test 4: Two Classes, Two Sections " << endl;
-   // test_two_classes_two_sections();
+    test_two_classes_two_sections();
     // Two classes with two sections each
     cout << "Test 5: Two Classes, Multiple Sections " << endl;
-   // test_two_classes_multiple_sections();
+    test_two_classes_multiple_sections();
     // Three classes with two sections each
     cout << "Test 6: Three Classes, Multiple Sections " << endl;
     test_three_classes_multiple_sections();
