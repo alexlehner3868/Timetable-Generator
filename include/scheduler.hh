@@ -31,7 +31,7 @@ class Scheduler {
     private:
 
     std::vector<std::unordered_map<Date, SelectedCourseSection, Date_Hash>> timetables_;
-    
+    std::vector<std::vector<std::string>> timetables_str;
     public:
         Scheduler();
         void schedule_classes(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& courses);

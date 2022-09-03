@@ -27,16 +27,29 @@ using namespace std;
 void Scheduler::schedule_classes(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& courses ){
   std::unordered_map<Date, SelectedCourseSection, Date_Hash> timetable;
   schedule_classes_helper(courses, timetable);
+  //cout << endl << timetables_str[0][0] << endl;
+  
+  for (std::vector<std::string> timetable_str: timetables_str) {
+    
+    std::sort(timetable_str.begin(), timetable_str.end());
+    cout << "New Option: " << endl;
+    for (std::string class_str: timetable_str) {
+       cout << class_str << endl;
+    }
+  }
 }
 
 void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& courses, std::unordered_map<Date, SelectedCourseSection, Date_Hash>& timetable){
 
   // When all classes have been added to the timetable, save this valid timetable (base case)
   if(courses.size() == 0){
-    timetables_.push_back(timetable);
-    // Print out valid timetable (used for debuggin)
-    print_timetable(timetable);
-    //possibly need a return here?
+    // TODO: check for uniqueness here
+    //if (unique_check(timetable)) {
+      timetables_.push_back(timetable);
+      // Print out valid timetable (used for debuggin)
+      print_timetable(timetable);
+    //}
+    
   }
 
   // Loop through all of the Course Offerings (ie the course and all its sections)
@@ -132,6 +145,9 @@ void Scheduler::attempt_to_add_section(std::unordered_map<Date, SelectedCourseSe
 
 void Scheduler::print_timetable(std::unordered_map<Date, SelectedCourseSection, Date_Hash>& timetable){
   std::cout<<"Timetable option: "<<std::endl;
+  
+  std::string class_str;
+  std::vector<std::string> timetable_str;
   for(std::pair<Date, SelectedCourseSection> element : timetable){
     auto day = element.first.first;
     auto time = element.first.second;
@@ -141,7 +157,15 @@ void Scheduler::print_timetable(std::unordered_map<Date, SelectedCourseSection, 
     auto semester = element.second.semester;
 
     std::cout<<"  "<<semester<<": "<< course << " " << toClassType(type) << " section " << (section_chosen+1) << " on " << toDay(day) <<" at "<<toTime(time) <<std::endl;
+    
+    class_str.push_back(semester);
+    class_str.append(course);
+    class_str.append(toClassType(type));
+    class_str.append(std::to_string(section_chosen+1));
+    timetable_str.push_back(class_str);
+    class_str = "";
   }
+  timetables_str.push_back(timetable_str);
 }
 
 // Default constructor

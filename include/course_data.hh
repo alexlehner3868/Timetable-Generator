@@ -1,4 +1,5 @@
 
+/*
 #ifndef COURSE_DATA_H
 #define COURSE_DATA_H
 
@@ -6,7 +7,7 @@
 #include <iostream>
 #include <stdlib.h>
 #include <dlfcn.h>
-#include "sqlite3.h"
+//#include "sqlite3.h"
 
 using namespace std; 
 
@@ -25,4 +26,5 @@ class CourseData {
 };
 
 #endif
+*/
 

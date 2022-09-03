@@ -681,28 +681,28 @@ void test_three_classes_conflict() {
 void test_sample_questions() {
     // One class, with one section 
     cout<<"Test 1: One Class, One Section " << endl;
-    test_one_class_one_section();
+    //test_one_class_one_section();
     // One class with multiple sections 
     cout<<"Test 2: One Class, Multiple Sections " << endl;
-    test_one_class_multiple_sections();
+    //test_one_class_multiple_sections();
     // Two classes with one section each
     cout << "Test 3: Two Classes, One Section " << endl;
-    test_two_classes_one_section();
+    //test_two_classes_one_section();
     // Two classes with two sections
     cout << "Test 4: Two Classes, Two Sections " << endl;
     test_two_classes_two_sections();
     // Two classes with two sections each
     cout << "Test 5: Two Classes, Multiple Sections " << endl;
-    test_two_classes_multiple_sections();
+    //test_two_classes_multiple_sections();
     // Three classes with two sections each
     cout << "Test 6: Three Classes, Multiple Sections " << endl;
-    test_three_classes_multiple_sections();
+    //test_three_classes_multiple_sections();
     // Two classes with multiple sections and a conflict 
     cout << "Test 7: Two Classes, Multiple Sections, Conflict " << endl;
-    test_two_classes_conflict();
+    //test_two_classes_conflict();
     // Three classes with multiple sections and conflicts
     cout << "Test 8: Three Classes, Multiple Sections, Conflicts " << endl;
-    test_three_classes_conflict();
+    //test_three_classes_conflict();
 } 
 
 int main(int argc, char *argv[])
@@ -710,8 +710,8 @@ int main(int argc, char *argv[])
     //--- Data Procesing ---- 
     // 1. Parses csv to get classes 
     // 2. Store csv in SQL database or something and related sql funcitons 
-    CourseData course_data;
-    course_data.find_course_times("APS100H1");
+    //CourseData course_data;
+    //course_data.find_course_times("APS100H1");
     // -- User input (later) 
     // 1. Search and add classes to timetable 
     // 2. Remove classes 
@@ -728,6 +728,6 @@ int main(int argc, char *argv[])
     // -- Web stuff 
 
     // -- Testing Code
-   // test_sample_questions();
+    test_sample_questions();
     return 0;
 }
