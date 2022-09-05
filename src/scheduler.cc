@@ -33,10 +33,10 @@ void Scheduler::schedule_classes(unordered_set<CourseOfferings, CourseOfferings:
   for (std::vector<std::string> timetable_str: timetables_str) {
     
     std::sort(timetable_str.begin(), timetable_str.end());
-    /*cout << "New Option: " << endl;
+    cout << "New Option: " << endl;
     for (std::string class_str: timetable_str) {
        cout << class_str << endl;
-    } */
+    }
   }
 }
 
@@ -45,11 +45,11 @@ void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings, CourseOff
   // When all classes have been added to the timetable, save this valid timetable (base case)
   if(courses.size() == 0){
     // TODO: check for uniqueness here
-    //if (unique_check(timetable)) {
+    if (unique_check(timetable)) {
       timetables_.push_back(timetable);
-      // Print out valid timetable (used for debuggin)
+      // Print out valid timetable (used for debugging)
       print_timetable(timetable);
-    //}
+    }
     
   }
 
@@ -129,15 +129,18 @@ void Scheduler::attempt_to_add_section(std::unordered_map<Date, SelectedCourseSe
                 for (int i = 0; i < section.duration_.at(remove_class); i++) {
                       Date remove_period = make_pair(section.day_.at(remove_class), section.start_time_.at(remove_class) + i);
                       if (remove_period != period) {
+                        cout << "Conflict detected, not able to add class " << course.course_id_ << " to schedule." << endl;
                         timetable.erase(remove_period);
                       }
-                      cout << "Removing class " << course.course_id_ << " section " << (section.section_id_-1) << endl;
                   }
               }
+              
               break;
           }
+          
                   
     }
+        
           /** 
          * Call this function recursively to place the remaining classes 
          * Remove the current class from the courses list and then recall this function to place the rest of the classes
@@ -180,6 +183,24 @@ void Scheduler::print_timetable(std::unordered_map<Date, SelectedCourseSection, 
   timetables_str.push_back(timetable_str);
 }
 
+
+/*
+* Function to check if a timetable already exists before adding it to
+* timetables_
+*/
+bool Scheduler::unique_check(std::unordered_map<Date, SelectedCourseSection, Date_Hash>& timetable) {
+  // timetables_str contains all timetables as vectors of strings
+  if (timetables_str.size() == 0) {
+    //no timetables exist, so the first added must be valid
+    return true;
+  } else {
+    //other time tables exist so let's check them for uniqueness
+    //iterate through timetables_str to see if the one we are trying to add already exists
+  }
+
+
+  return true;
+}
 // Default constructor
 Scheduler::Scheduler(){
   
