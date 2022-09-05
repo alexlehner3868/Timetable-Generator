@@ -33,10 +33,10 @@ void Scheduler::schedule_classes(unordered_set<CourseOfferings, CourseOfferings:
   for (std::vector<std::string> timetable_str: timetables_str) {
     
     std::sort(timetable_str.begin(), timetable_str.end());
-    cout << "New Option: " << endl;
+    /*cout << "New Option: " << endl;
     for (std::string class_str: timetable_str) {
        cout << class_str << endl;
-    }
+    } */
   }
 }
 
