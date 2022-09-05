@@ -9,5 +9,5 @@ CONFIG ?= BASIC
 .h  = .hh
 
 # Flags
-#LDLIBS = -L/usr/lib/x86_64-linux-gnu -lsqlite3 --verbose
+LDLIBS = -lsqlite3 
 CXXFLAGS ?= -Wall -g -std=c++20 
