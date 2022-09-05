@@ -34,4 +34,5 @@
 # Build directories
 /bin/
 /build/
+/dep/
 /lib/
