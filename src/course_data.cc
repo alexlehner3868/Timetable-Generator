@@ -15,9 +15,9 @@ CourseData::CourseData(){
     int action_succes = 0;
     //char* messaggeError;
 
-    string db_name = "course_data.db"; 
-    /* The .db file is initiazed so we shouldnt need to run this code again
-    action_succes = sqlite3_open(db_name.c_str(), &DB_);
+    string db_name = "CourseData.db"; 
+     //The .db file is initiazed so we shouldnt need to run this code again
+   /* action_succes = sqlite3_open(db_name.c_str(), &DB_);
     if (action_succes != SQLITE_OK) {
         cout<<"Error creating account"<<std::endl;
     }
@@ -39,8 +39,8 @@ CourseData::CourseData(){
         }
         datafile.close(); //close the file object.
     }
-    */
-
+    
+*/
    // Open the Database and store it in DB_
      action_succes = sqlite3_open(db_name.c_str(), &DB_);
     if (action_succes != SQLITE_OK) {
@@ -52,7 +52,7 @@ CourseData::CourseData(){
 
 void CourseData::find_course_times(string course_id){
     int action_succes = 0;
-    string sql = "SELECT * FROM Courses WHERE ACAD_ACT_CD = " +quotesql(course_id) + ";";
+   string sql = "SELECT * FROM Courses WHERE ACAD_ACT_CD = " +quotesql(course_id) + ";";
     action_succes = sqlite3_exec(DB_, sql.c_str(), callback, NULL, NULL);
     if (action_succes != SQLITE_OK) {
         cout<<"Error finding class"<<std::endl;
