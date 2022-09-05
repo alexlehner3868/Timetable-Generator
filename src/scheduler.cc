@@ -118,8 +118,8 @@ void Scheduler::attempt_to_add_section(std::unordered_map<Date, SelectedCourseSe
           // There is a conflict with the class section that was just inputted so remove it 
           if (!successfully_inserted) {
               for (int remove_class = 0; remove_class <= class_in_section; remove_class++) {
-                for (int i = 0; i < section.duration_.at(class_in_section); i++) {
-                      Date period = make_pair(section.day_.at(class_in_section), section.start_time_.at(class_in_section) + i);
+                for (int i = 0; i < section.duration_.at(remove_class); i++) {
+                      Date period = make_pair(section.day_.at(remove_class), section.start_time_.at(remove_class) + i);
                       timetable.erase(period);
                   }
               }
