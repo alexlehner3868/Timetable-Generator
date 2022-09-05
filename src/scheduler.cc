@@ -32,7 +32,7 @@ void Scheduler::schedule_classes(unordered_set<CourseOfferings, CourseOfferings:
   
   for (std::vector<std::string> timetable_str: timetables_str) {
     
-    std::sort(timetable_str.begin(), timetable_str.end());
+    
     cout << "New Option: " << endl;
     for (std::string class_str: timetable_str) {
        cout << class_str << endl;
@@ -161,8 +161,6 @@ void Scheduler::attempt_to_add_section(std::unordered_map<Date, SelectedCourseSe
 void Scheduler::print_timetable(std::unordered_map<Date, SelectedCourseSection, Date_Hash>& timetable){
   std::cout<<"Timetable option: "<<std::endl;
   
-  std::string class_str;
-  std::vector<std::string> timetable_str;
   for(std::pair<Date, SelectedCourseSection> element : timetable){
     auto day = element.first.first;
     auto time = element.first.second;
@@ -173,6 +171,18 @@ void Scheduler::print_timetable(std::unordered_map<Date, SelectedCourseSection, 
 
     std::cout<<"  "<<semester<<": "<< course << " " << toClassType(type) << " section " << (section_chosen+1) << " on " << toDay(day) <<" at "<<toTime(time) <<std::endl;
     
+  }
+}
+
+std::vector<std::string> Scheduler::make_timetable_str(std::unordered_map<Date, SelectedCourseSection, Date_Hash>& timetable) {
+  std::string class_str;
+  std::vector<std::string> timetable_str;
+  for(std::pair<Date, SelectedCourseSection> element : timetable){
+    auto course = element.second.course_code;
+    auto section_chosen = element.second.section;
+    auto type = element.second.type;
+    auto semester = element.second.semester;
+
     class_str.push_back(semester);
     class_str.append(course);
     class_str.append(toClassType(type));
@@ -180,25 +190,42 @@ void Scheduler::print_timetable(std::unordered_map<Date, SelectedCourseSection, 
     timetable_str.push_back(class_str);
     class_str = "";
   }
-  timetables_str.push_back(timetable_str);
+  //timetable_str is the vector of strings containing one whole timetable option
+  
+  //sort timetables_str 
+  std::sort(timetable_str.begin(), timetable_str.end());
+  return timetable_str;
 }
-
 
 /*
 * Function to check if a timetable already exists before adding it to
 * timetables_
 */
 bool Scheduler::unique_check(std::unordered_map<Date, SelectedCourseSection, Date_Hash>& timetable) {
+  
+  //first get the timetable that was just generated
+  std::vector<std::string> new_timetable_str = make_timetable_str(timetable);
+
   // timetables_str contains all timetables as vectors of strings
   if (timetables_str.size() == 0) {
     //no timetables exist, so the first added must be valid
+    //add timetable
+    timetables_str.push_back(new_timetable_str);
     return true;
-  } else {
-    //other time tables exist so let's check them for uniqueness
-    //iterate through timetables_str to see if the one we are trying to add already exists
+  } 
+
+  //other time tables exist so let's check them for uniqueness
+  //iterate through timetables_str to see if the one we are trying to add already exists
+  for (auto timetable: timetables_str) {
+    //check if timetable in our generated timetables is equivalent to the one we are trying to add
+    if (timetable == new_timetable_str) {
+      //if it does exist, nothing needs to be done - don't add
+      return false;
+    }
+    //if it does exist, nothing needs to be done - don't add 
+    //return false;
   }
-
-
+  timetables_str.push_back(new_timetable_str);
   return true;
 }
 // Default constructor
