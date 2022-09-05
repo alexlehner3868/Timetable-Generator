@@ -16,11 +16,11 @@ using namespace std;
  * TODO: add/remove classes 
  * TODO: add constraints 
  * TODO: add support for async classes 
+ * TODO: add option to allow conflicts? -> uoft allows you to enroll even when you have 3 conflicts at once
  * TODO: Add in constraints that force course to be in a certain semester. 
  * TODO: If a course has a prereq also being schedule, make sure the pre req is first 
  * TODO: Add better time table printing for courses longer than one hour  
  * TODO: Do we need to add parallelism to speed it up?? 
- * TODO: remove duplicate timetables 
  * TODO: set max courses per semester to 6
  */
 
@@ -28,23 +28,12 @@ using namespace std;
 void Scheduler::schedule_classes(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& courses ){
   std::unordered_map<Date, SelectedCourseSection, Date_Hash> timetable;
   schedule_classes_helper(courses, timetable);
-  //cout << endl << timetables_str[0][0] << endl;
-  
-  for (std::vector<std::string> timetable_str: timetables_str) {
-    
-    
-    cout << "New Option: " << endl;
-    for (std::string class_str: timetable_str) {
-       cout << class_str << endl;
-    }
-  }
 }
 
 void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& courses, std::unordered_map<Date, SelectedCourseSection, Date_Hash>& timetable){
 
   // When all classes have been added to the timetable, save this valid timetable (base case)
   if(courses.size() == 0){
-    // TODO: check for uniqueness here
     if (unique_check(timetable)) {
       timetables_.push_back(timetable);
       // Print out valid timetable (used for debugging)
@@ -58,9 +47,9 @@ void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings, CourseOff
     //std::cout<<"TRYING TO ADD LEC "<< course.courseID()<<endl;
     attempt_to_add_section(timetable, LEC, course, courses);
     //std::cout<<"TRYING TO ADD TUT "<< course.courseID()<<endl;
-    //attempt_to_add_section(timetable, TUT, course, courses);
+    attempt_to_add_section(timetable, TUT, course, courses);
     //std::cout<<"TRYING TO ADD PRA "<< course.courseID()<<endl;
-    //attempt_to_add_section(timetable, PRA, course, courses);
+    attempt_to_add_section(timetable, PRA, course, courses);
   } 
 }
 
@@ -128,8 +117,8 @@ void Scheduler::attempt_to_add_section(std::unordered_map<Date, SelectedCourseSe
               for (int remove_class = 0; remove_class <= class_in_section; remove_class++) {
                 for (int i = 0; i < section.duration_.at(remove_class); i++) {
                       Date remove_period = make_pair(section.day_.at(remove_class), section.start_time_.at(remove_class) + i);
+                      cout << "Conflict detected, not able to add class " << course.course_id_ << " to schedule." << endl;
                       if (remove_period != period) {
-                        cout << "Conflict detected, not able to add class " << course.course_id_ << " to schedule." << endl;
                         timetable.erase(remove_period);
                       }
                   }
@@ -176,6 +165,8 @@ void Scheduler::print_timetable(std::unordered_map<Date, SelectedCourseSection, 
 
 std::vector<std::string> Scheduler::make_timetable_str(std::unordered_map<Date, SelectedCourseSection, Date_Hash>& timetable) {
   std::string class_str;
+  
+  //timetable_str is the vector of strings containing one whole timetable option
   std::vector<std::string> timetable_str;
   for(std::pair<Date, SelectedCourseSection> element : timetable){
     auto course = element.second.course_code;
@@ -190,7 +181,6 @@ std::vector<std::string> Scheduler::make_timetable_str(std::unordered_map<Date, 
     timetable_str.push_back(class_str);
     class_str = "";
   }
-  //timetable_str is the vector of strings containing one whole timetable option
   
   //sort timetables_str 
   std::sort(timetable_str.begin(), timetable_str.end());
@@ -222,9 +212,8 @@ bool Scheduler::unique_check(std::unordered_map<Date, SelectedCourseSection, Dat
       //if it does exist, nothing needs to be done - don't add
       return false;
     }
-    //if it does exist, nothing needs to be done - don't add 
-    //return false;
   }
+  //couldn't find matching timetable - so add it to timetables
   timetables_str.push_back(new_timetable_str);
   return true;
 }
