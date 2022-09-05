@@ -26,6 +26,22 @@ class CourseOfferings {
       return course_id_ == (otherCourse.course_id_);
     }
     
+    string courseID(){
+      return course_id_;
+    }
+
+    int numLecSections(){
+      return lecture_sections_.size();
+    }
+
+    int numTutSections(){
+      return tutorial_sections_.size();
+    }
+    
+    int numPraSections(){
+      return practical_sections_.size();
+    }
+
     struct CourseOfferingHash{
       size_t operator()(const CourseOfferings& c) const
       {

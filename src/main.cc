@@ -690,7 +690,7 @@ void test_sample_questions() {
     //test_two_classes_one_section();
     // Two classes with two sections
     cout << "Test 4: Two Classes, Two Sections " << endl;
-    test_two_classes_two_sections();
+    //test_two_classes_two_sections();
     // Two classes with two sections each
     cout << "Test 5: Two Classes, Multiple Sections " << endl;
     //test_two_classes_multiple_sections();
