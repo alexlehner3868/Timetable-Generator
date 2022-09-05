@@ -67,8 +67,11 @@ int CourseData::callback(void* data, int argc, char** argv, char** azColName){
     int i;
     fprintf(stderr, "%s: ", (const char*)data);
   
-    for (i = 0; i < argc; i++) {
-        printf("%s = %s\n", azColName[i], argv[i] ? argv[i] : "NULL");
+   // for (i = 0; i < argc; i++) {
+    //    printf("%s = %s\n", azColName[i], argv[i] ? argv[i] : "NULL");
+    //}
+    for( i = 0; i < argc; i++){
+        cout<<azColName[i]<<" ---> " << argv[i]<<endl;
     }
   
     printf("\n");

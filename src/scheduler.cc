@@ -21,6 +21,7 @@ using namespace std;
  * TODO: Add better time table printing for courses longer than one hour  
  * TODO: Do we need to add parallelism to speed it up?? 
  * TODO: remove duplicate timetables 
+ * TODO: set max courses per semester to 6
  */
 
 
