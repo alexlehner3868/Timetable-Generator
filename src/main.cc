@@ -486,7 +486,7 @@ void test_two_classes_conflict() {
 
     // -- Section 2
     // Monday 10 - 11
-    // Tuesday 9 - 10
+    // Tuesday 10 - 11
     // Thursday 10 - 11
     class_durations.clear();
     class_start_time.clear();
@@ -494,7 +494,7 @@ void test_two_classes_conflict() {
     class_semester.clear();
     class_async.clear();
     class_durations.insert(class_durations.end(), { 1, 1, 1 });
-    class_start_time.insert(class_start_time.end(), { 10, 9, 10 });
+    class_start_time.insert(class_start_time.end(), { 10, 10, 10 });
     class_day.insert(class_day.end(), { 1, 2, 4 });
     class_semester.insert(class_semester.end(), { 'F', 'F', 'F' });
     class_async.insert(class_async.end(), { false, false, false });
@@ -711,7 +711,7 @@ int main(int argc, char *argv[])
     // 1. Parses csv to get classes 
     // 2. Store csv in SQL database or something and related sql funcitons 
     CourseData course_data;
-    course_data.find_course_times("APS100H1");
+    //course_data.find_course_times("APS100H1");
     // -- User input (later) 
     // 1. Search and add classes to timetable 
     // 2. Remove classes 
