@@ -486,7 +486,7 @@ void test_two_classes_conflict() {
 
     // -- Section 2
     // Monday 10 - 11
-    // Tuesday 10 - 11
+    // Tuesday 9 - 10
     // Thursday 10 - 11
     class_durations.clear();
     class_start_time.clear();
@@ -494,7 +494,7 @@ void test_two_classes_conflict() {
     class_semester.clear();
     class_async.clear();
     class_durations.insert(class_durations.end(), { 1, 1, 1 });
-    class_start_time.insert(class_start_time.end(), { 10, 10, 10 });
+    class_start_time.insert(class_start_time.end(), { 10, 9, 10 });
     class_day.insert(class_day.end(), { 1, 2, 4 });
     class_semester.insert(class_semester.end(), { 'F', 'F', 'F' });
     class_async.insert(class_async.end(), { false, false, false });
@@ -699,7 +699,7 @@ void test_sample_questions() {
     //test_three_classes_multiple_sections();
     // Two classes with multiple sections and a conflict 
     cout << "Test 7: Two Classes, Multiple Sections, Conflict " << endl;
-    //test_two_classes_conflict();
+    test_two_classes_conflict();
     // Three classes with multiple sections and conflicts
     cout << "Test 8: Three Classes, Multiple Sections, Conflicts " << endl;
     //test_three_classes_conflict();
@@ -745,6 +745,6 @@ int main(int argc, char *argv[])
     // -- Web stuff 
 
     // -- Testing Code
-    //test_sample_questions();
+    test_sample_questions();
     return 0;
 }
