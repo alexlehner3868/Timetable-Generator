@@ -55,12 +55,12 @@ void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings, CourseOff
 
   // Loop through all of the Course Offerings (ie the course and all its sections)
   for(auto course : courses){
-    std::cout<<"TRYING TO ADD LEC "<< course.courseID()<<endl;
+    //std::cout<<"TRYING TO ADD LEC "<< course.courseID()<<endl;
     attempt_to_add_section(timetable, LEC, course, courses);
-    std::cout<<"TRYING TO ADD TUT "<< course.courseID()<<endl;
-    attempt_to_add_section(timetable, TUT, course, courses);
-    std::cout<<"TRYING TO ADD PARA "<< course.courseID()<<endl;
-    attempt_to_add_section(timetable, PRA, course, courses);
+    //std::cout<<"TRYING TO ADD TUT "<< course.courseID()<<endl;
+    //attempt_to_add_section(timetable, TUT, course, courses);
+    //std::cout<<"TRYING TO ADD PRA "<< course.courseID()<<endl;
+    //attempt_to_add_section(timetable, PRA, course, courses);
   } 
 }
 
@@ -79,7 +79,7 @@ void Scheduler::attempt_to_add_section(std::unordered_map<Date, SelectedCourseSe
     
     // Loop through all of the possible lecture sections in the course 
     for(int section_id = 0; section_id < num_sections; section_id++){
-      cout<<"Looking at section id "<<section_id<<endl;
+      //cout<<"Looking at section id "<<section_id<<endl;
         Section section;
         if(class_type == LEC){
           section = course.lecture_sections_.at(section_id);
@@ -99,14 +99,17 @@ void Scheduler::attempt_to_add_section(std::unordered_map<Date, SelectedCourseSe
           // F - FALL W - WINTER B - BOTH
         };
       bool successfully_inserted;
+      Date period;
       // Try adding all of the lecture sections for that section and class to the timetable 
       for (class_in_section = 0; class_in_section < (int)section.duration_.size(); class_in_section++) {
           // Add a entry for every hour that the lecure has
+          //cout << "On section " << class_in_section << " of class" << endl; 
           for (int i = 0; i < section.duration_.at(class_in_section); i++) {
               // If the class is in the winter offset the day by 5 ([1,5] = fall, [6,10] = winter)
               int semester_offset = (class_chosen.semester == 'F') ? 0 : 5;
-              Date period = make_pair(section.day_.at(class_in_section) + semester_offset, section.start_time_.at(class_in_section) + i);
-                
+              period = make_pair(section.day_.at(class_in_section) + semester_offset, section.start_time_.at(class_in_section) + i);
+              //cout << "Inserting class " << class_chosen.course_code << endl;
+              //cout << "Inserting section " << class_in_section << endl;
               // Insert into the timetable  
               auto it = timetable.insert(std::make_pair(period, class_chosen));
               successfully_inserted = it.second;
@@ -120,11 +123,15 @@ void Scheduler::attempt_to_add_section(std::unordered_map<Date, SelectedCourseSe
                 
           }
           // There is a conflict with the class section that was just inputted so remove it 
+          // Don't remove the class that it conflicted with - simply remove the others
           if (!successfully_inserted) {
               for (int remove_class = 0; remove_class <= class_in_section; remove_class++) {
                 for (int i = 0; i < section.duration_.at(remove_class); i++) {
-                      Date period = make_pair(section.day_.at(remove_class), section.start_time_.at(remove_class) + i);
-                      timetable.erase(period);
+                      Date remove_period = make_pair(section.day_.at(remove_class), section.start_time_.at(remove_class) + i);
+                      if (remove_period != period) {
+                        timetable.erase(remove_period);
+                      }
+                      cout << "Removing class " << course.course_id_ << " section " << (section.section_id_-1) << endl;
                   }
               }
               break;
