@@ -680,46 +680,29 @@ void test_three_classes_conflict() {
 
 void test_sample_questions() {
     // One class, with one section 
-    cout<<"Test 1: One Class, One Section "<<endl;
-    test_one_class_one_section();
+    cout<<"Test 1: One Class, One Section " << endl;
+    //test_one_class_one_section();
     // One class with multiple sections 
-    cout<<"Test 2: One Class, Multiple Sections "<<endl;
-    test_one_class_multiple_sections();
+    cout<<"Test 2: One Class, Multiple Sections " << endl;
+    //test_one_class_multiple_sections();
     // Two classes with one section each
     cout << "Test 3: Two Classes, One Section " << endl;
-    test_two_classes_one_section();
+    //test_two_classes_one_section();
     // Two classes with two sections
     cout << "Test 4: Two Classes, Two Sections " << endl;
     test_two_classes_two_sections();
     // Two classes with two sections each
     cout << "Test 5: Two Classes, Multiple Sections " << endl;
-    test_two_classes_multiple_sections();
+    //test_two_classes_multiple_sections();
     // Three classes with two sections each
     cout << "Test 6: Three Classes, Multiple Sections " << endl;
-    test_three_classes_multiple_sections();
-    // Two classes with two sections and a conflict 
-    cout << "Test 7: Two Classes, Two Sections, Conflict " << endl;
-    test_two_classes_conflict();
+    //test_three_classes_multiple_sections();
+    // Two classes with multiple sections and a conflict 
+    cout << "Test 7: Two Classes, Multiple Sections, Conflict " << endl;
+    //test_two_classes_conflict();
     // Three classes with multiple sections and conflicts
-    cout << "Test 8: Three Classes, Multiple Sections, Conflicts" << endl;
-    test_three_classes_conflict();
-
-    {
-        //Test 6: Mat186 Lec1 Lec2 (no conflicts )
-        //        LinAlg Lec1  Lec 2
-        //        Mechanics Lec1 Lec2 
-    }
-
-    {
-        //Test 7: Mat186 Lec1 Lec2 (insert conflict with Mat lec1 and Lin1)
-        //        LinAlg Lec1  
-    }
-
-    {
-        //Test 8: Mat186 Lec1 Lec2 (Put in some conflicts)
-        //        LinAlg Lec1  Lec2
-        //        Mechanics Lec1 Lec2
-    }
+    cout << "Test 8: Three Classes, Multiple Sections, Conflicts " << endl;
+    //test_three_classes_conflict();
 } 
 
 int main(int argc, char *argv[])
@@ -745,6 +728,6 @@ int main(int argc, char *argv[])
     // -- Web stuff 
 
     // -- Testing Code
-   // test_sample_questions();
+    //test_sample_questions();
     return 0;
 }

@@ -74,3 +74,4 @@ int CourseData::callback(void* data, int argc, char** argv, char** azColName){
     printf("\n");
     return 0;
 }
+
