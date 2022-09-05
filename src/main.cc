@@ -471,7 +471,7 @@ void test_two_classes_conflict() {
 
     // Calculus
     // -- Section 1 
-    // Monday 9 - 10
+    // Tuesday 9 - 10
     // Wednesday 10 - 12
     // Thursday 1 - 2
     class_durations.insert(class_durations.end(), { 1, 2, 1 });
