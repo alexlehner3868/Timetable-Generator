@@ -1,4 +1,4 @@
-/*
+
 #include <string>
 #include <iostream>
 #include <stdlib.h>
@@ -39,7 +39,7 @@ CourseData::CourseData(){
         }
         datafile.close(); //close the file object.
     }
-    // PLACE END COMMENT HERE
+    */
 
    // Open the Database and store it in DB_
      action_succes = sqlite3_open(db_name.c_str(), &DB_);
@@ -75,4 +75,3 @@ int CourseData::callback(void* data, int argc, char** argv, char** azColName){
     return 0;
 }
 
-*/
