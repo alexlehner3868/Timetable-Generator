@@ -225,7 +225,7 @@ CFLAGS   ?= -Wall -g
 CPPFLAGS += $(INCLUDES)
 CXXFLAGS ?= -Wall -g
 DEPFLAGS  = -MM -MF $@ -MT $(OBJ)/$*$(.o)
-LDFLAGS  +=
+LDFLAGS  += 
 LDLIBS   +=
 TARFLAGS  = -zchvf
 # Flag partials
