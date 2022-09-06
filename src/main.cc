@@ -699,7 +699,7 @@ void test_sample_questions() {
     //test_three_classes_multiple_sections();
     // Two classes with multiple sections and a conflict 
     cout << "Test 7: Two Classes, Multiple Sections, Conflict " << endl;
-    test_two_classes_conflict();
+    //test_two_classes_conflict();
     // Three classes with multiple sections and conflicts
     cout << "Test 8: Three Classes, Multiple Sections, Conflicts " << endl;
     //test_three_classes_conflict();
@@ -711,7 +711,7 @@ int main(int argc, char *argv[])
     // 1. Parses csv to get classes 
     // 2. Store csv in SQL database or something and related sql funcitons 
     CourseData course_data;
-    course_data.find_course_times("APS100H1");
+    course_data.get_course_info("APS100H1");
     // -- User input (later) 
     // 1. Search and add classes to timetable 
     // 2. Remove classes 
