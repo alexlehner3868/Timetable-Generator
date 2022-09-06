@@ -149,25 +149,19 @@ int CourseData::get_sql_data(void * course_data, int argc, char** argv, char** a
     return 0;
 }
 
-/**
- * @brief 
- * 
- * 
- * @param course_id 
- * @return Section 
- */
-void CourseData::get_course_info(string course_id) {
+std::vector<Section> CourseData::get_course_info(string course_id) {
     vector<int> class_durations;
     vector<int> class_start_time;
     vector<int> class_day;
     vector<char> class_semester;
     vector<bool> class_async;
-    
+    int section_num;
     std::vector<std::vector<std::string>> course_data;
+    std::vector<Section> available_sections;
 
     
     // we want to add lectures first
-    std::string sql = "SELECT * FROM Courses WHERE ACAD_ACT_CD = " + quotesql(course_id) + " AND TEACH_METHOD = 'LEC';";
+    std::string sql = "SELECT * FROM Courses WHERE ACAD_ACT_CD = " + quotesql(course_id) + " ;";
     int action_success = sqlite3_exec(DB_, sql.c_str(), get_sql_data, &course_data, NULL);
     if (action_success != SQLITE_OK) {
         cout << "No lectures in class" << std::endl;
@@ -187,6 +181,8 @@ void CourseData::get_course_info(string course_id) {
         // 4 - class start time
         // 5 - class end time
 
+        // error checking on this - make sure it is valid
+        section_num = stoi(section[2]);
         
         //if class start time doesn't exist, then class is async
         class_async.push_back(!empty(section[4]));
@@ -194,6 +190,7 @@ void CourseData::get_course_info(string course_id) {
         class_start_time.push_back(stoi(section[4]));
         //take the first char of the string 'F' or 'W' or 'Y'
         class_semester.push_back(section[0][0]);
+
         if (section[3] == "MO") {
             class_day.push_back(1);
         } else if (section[3] == "TU") {
@@ -207,36 +204,12 @@ void CourseData::get_course_info(string course_id) {
         } else {
             class_day.push_back(2);
         }
+
+        //create a section containing all the information we just queried from SQL DB
+        Section add_section(section_num, class_durations, class_start_time, class_semester, class_day, class_async);  
+        available_sections.push_back(add_section);
     }
 
-
-
-
-    // then we get all tutorials
-
-
-    // then we get all practicals
-
-
-
-
-    //vector<int> class_durations_ = 
-    // Calculus
-    // -- Section 1 
-    // Monday 9 - 10
-    // Wednesday 10 - 12
-    // Thursday 1 - 2
-    //first get SQL for the durations of each class
-    class_durations.insert(class_durations.end(), { 1, 2, 1 });
-    //then get start times of each class
-    class_start_time.insert(class_start_time.end(), { 9, 10, 13 });
-    //get the days that the classes occur on
-    class_day.insert(class_day.end(), { 1, 3, 4 });
-    //get the semester that the class occurs in
-    class_semester.insert(class_semester.end(), { 'F', 'F', 'F' });
-    //is the class async?
-    class_async.insert(class_async.end(), { false, false, false });
-
-    //create a section containing all the information we just queried from SQL DB
-    Section calc_section_1(1, class_durations, class_start_time, class_semester, class_day, class_async);  
+    //make sure this is error free
+    return available_sections;
 }

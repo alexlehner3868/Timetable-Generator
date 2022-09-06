@@ -29,7 +29,7 @@ class CourseData {
         void find_course_times(string course_id);
         void add_course(string course_id);
         void remove_course(string course_id);
-        void get_course_info(string course_id);
+        std::vector<Section> get_course_info(string course_id);
 
 };
 
