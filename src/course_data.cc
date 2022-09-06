@@ -208,7 +208,7 @@ void CourseData::get_course_info(string course_id) {
             class_day.push_back(2);
         }
     }
-}
+
 
 
 
