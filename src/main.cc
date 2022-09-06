@@ -711,7 +711,7 @@ int main(int argc, char *argv[])
     // 1. Parses csv to get classes 
     // 2. Store csv in SQL database or something and related sql funcitons 
     CourseData course_data;
-    //course_data.find_course_times("APS100H1");
+    course_data.find_course_times("APS100H1");
     // -- User input (later) 
     // 1. Search and add classes to timetable 
     // 2. Remove classes 
@@ -745,6 +745,6 @@ int main(int argc, char *argv[])
     // -- Web stuff 
 
     // -- Testing Code
-    test_sample_questions();
+    //test_sample_questions();
     return 0;
 }
