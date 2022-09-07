@@ -146,7 +146,8 @@ std::vector<Section> CourseData::add_course(string course_id, int section_type) 
     vector<int> class_day;
     vector<char> class_semester;
     vector<bool> class_async;
-    int section_num;
+    int old_section_num = 0;
+    int current_section_num = 0;
     std::vector<std::vector<std::string>> course_data;
     std::vector<Section> available_sections;
 
@@ -159,14 +160,14 @@ std::vector<Section> CourseData::add_course(string course_id, int section_type) 
         }
     } else if (section_type == TUT) {
         // we want to add tutorials 
-        std::string sql = "SELECT * FROM Courses WHERE ACAD_ACT_CD = " + quotesql(course_id) + " AND TEACH_METHOD = 'TUT';";
+        std::string sql = "SELECT * FROM Courses WHERE ACAD_ACT_CD = " + quotesql(course_id) + " AND TEACH_METHOD = 'TUT' AND SECTION_CD != 'S' ;";
         int action_success = sqlite3_exec(DB_, sql.c_str(), get_sql_data, &course_data, NULL);
         if (action_success != SQLITE_OK) {
             cout << "No tutorials in class" << std::endl;
         }
     } else if (section_type == PRA) {
         // we want to add practicals
-        std::string sql = "SELECT * FROM Courses WHERE ACAD_ACT_CD = " + quotesql(course_id) + " AND TEACH_METHOD = 'PRA';";
+        std::string sql = "SELECT * FROM Courses WHERE ACAD_ACT_CD = " + quotesql(course_id) + " AND TEACH_METHOD = 'PRA' AND SECTION_CD != 'S' ;";
         int action_success = sqlite3_exec(DB_, sql.c_str(), get_sql_data, &course_data, NULL);
         if (action_success != SQLITE_OK) {
             cout << "No practicals in class" << std::endl;
@@ -179,20 +180,10 @@ std::vector<Section> CourseData::add_course(string course_id, int section_type) 
     
     // now course_data is in
     // let's loop through it and add it to a section
-
+    old_section_num = stoi(course_data[0][2]) - SECTION_OFFSET;
     for (std::vector<std::string> section : course_data) {
         
-        class_durations.clear();
-        class_start_time.clear();
-        class_day.clear();
-        class_semester.clear();
-        class_async.clear();
-        cout << section[0] <<endl;
-        cout << section[1] <<endl;
-        cout << section[2] <<endl;
-        cout << section[3] <<endl;
-        cout << section[4] <<endl;
-        cout << section[5] <<endl;
+        
 
         // each vector contains all the info for one section of a lecture
 
@@ -204,20 +195,27 @@ std::vector<Section> CourseData::add_course(string course_id, int section_type) 
         // 5 - class end time
 
         // error checking on this - make sure it is valid
-        section_num = stoi(section[2]) - SECTION_OFFSET;
-        cout << "Section num is " << section_num << endl;
+        current_section_num = stoi(section[2]) - SECTION_OFFSET;
+        //if no more sections need to be added to the vectors
+        if (old_section_num != current_section_num) {
+            old_section_num = current_section_num;
+            //create a section containing all the information we just queried from SQL DB
+            Section add_section(old_section_num, class_durations, class_start_time, class_semester, class_day, class_async);  
+            available_sections.push_back(add_section);
+            class_durations.clear();
+            class_start_time.clear();
+            class_day.clear();
+            class_semester.clear();
+            class_async.clear();
+        } 
         
         //if class start time doesn't exist, then class is async
-        cout << "is async? " << empty(section[4]) << endl;
         class_async.insert(class_async.end(), {empty(section[4])});
-        cout << "duration : " << stoi(section[5]) - stoi(section[4]) << endl;
         class_durations.insert(class_durations.end(),{(stoi(section[5]) - stoi(section[4]))});
         class_start_time.insert(class_start_time.end(), {stoi(section[4])});
-        cout << "start time : " << stoi(section[4]) << endl;
         //take the first char of the string 'F' or 'W' or 'Y'
         class_semester.insert(class_semester.end(), {section[0][0]});
 
-        cout << section[3] << " is the day" << endl << endl;
         if (section[3] == "MO") {
             class_day.insert(class_day.end(), {1});
         } else if (section[3] == "TU") {
@@ -230,17 +228,11 @@ std::vector<Section> CourseData::add_course(string course_id, int section_type) 
             class_day.insert(class_day.end(), {5});
         } else {
             //error, fix
-            class_day.insert(class_day.end(), { 5 });
+            class_day.insert(class_day.end(), { 6 });
         }
-
-        //create a section containing all the information we just queried from SQL DB
-        Section add_section(section_num, class_durations, class_start_time, class_semester, class_day, class_async);  
-        available_sections.push_back(add_section);
+        
     }
 
-    std::cout << available_sections[0].day_[1] << std::endl;
-    cout << available_sections[0].duration_[1] << endl;
-    cout << available_sections[0].start_time_[1] << endl;
     //make sure this is error free
     return available_sections;
 }

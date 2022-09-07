@@ -31,9 +31,11 @@ string toDay(int day){
 }
 
 string toTime(int militaryTime){
-    if(militaryTime < 12){
+    if (militaryTime < 12) {
         return to_string(militaryTime) + "AM";
-    }else{
+    } else if (militaryTime == 12) {
+        return "12PM";
+    } else {
         return to_string(militaryTime - 12) + "PM";
     }
 }
