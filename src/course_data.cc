@@ -124,7 +124,7 @@ int CourseData::get_sql_data(void * course_data, int argc, char** argv, char** a
     cout << azColName[7] << " ---> " << argv[7] << endl;
     */
    
-    cout << azColName[1] << " ---> " << argv[1] << endl;
+    //cout << azColName[1] << " ---> " << argv[1] << endl;
     // need error checking here so that no errors results
     // this can probably be broken :( 
     one_sections_data.push_back(argv[1]);
