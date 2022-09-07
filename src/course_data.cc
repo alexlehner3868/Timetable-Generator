@@ -162,14 +162,14 @@ std::vector<Section> CourseData::add_course(string course_id, int section_type) 
         std::string sql = "SELECT * FROM Courses WHERE ACAD_ACT_CD = " + quotesql(course_id) + " AND TEACH_METHOD = 'TUT';";
         int action_success = sqlite3_exec(DB_, sql.c_str(), get_sql_data, &course_data, NULL);
         if (action_success != SQLITE_OK) {
-            cout << "No lectures in class" << std::endl;
+            cout << "No tutorials in class" << std::endl;
         }
     } else if (section_type == PRA) {
         // we want to add practicals
         std::string sql = "SELECT * FROM Courses WHERE ACAD_ACT_CD = " + quotesql(course_id) + " AND TEACH_METHOD = 'PRA';";
         int action_success = sqlite3_exec(DB_, sql.c_str(), get_sql_data, &course_data, NULL);
         if (action_success != SQLITE_OK) {
-            cout << "No lectures in class" << std::endl;
+            cout << "No practicals in class" << std::endl;
         }
     } else {
         //bad
@@ -181,6 +181,12 @@ std::vector<Section> CourseData::add_course(string course_id, int section_type) 
     // let's loop through it and add it to a section
 
     for (std::vector<std::string> section : course_data) {
+        
+        class_durations.clear();
+        class_start_time.clear();
+        class_day.clear();
+        class_semester.clear();
+        class_async.clear();
         cout << section[0] <<endl;
         cout << section[1] <<endl;
         cout << section[2] <<endl;
@@ -199,32 +205,32 @@ std::vector<Section> CourseData::add_course(string course_id, int section_type) 
 
         // error checking on this - make sure it is valid
         section_num = stoi(section[2]) - SECTION_OFFSET;
-        cout << "Section: " << section_num << endl;
+        cout << "Section num is " << section_num << endl;
         
         //if class start time doesn't exist, then class is async
         cout << "is async? " << empty(section[4]) << endl;
-        class_async.push_back(empty(section[4]));
+        class_async.insert(class_async.end(), {empty(section[4])});
         cout << "duration : " << stoi(section[5]) - stoi(section[4]) << endl;
-        class_durations.push_back(stoi(section[5]) - stoi(section[4]));
-        class_start_time.push_back(stoi(section[4]));
+        class_durations.insert(class_durations.end(),{(stoi(section[5]) - stoi(section[4]))});
+        class_start_time.insert(class_start_time.end(), {stoi(section[4])});
         cout << "start time : " << stoi(section[4]) << endl;
         //take the first char of the string 'F' or 'W' or 'Y'
-        class_semester.push_back(section[0][0]);
+        class_semester.insert(class_semester.end(), {section[0][0]});
 
         cout << section[3] << " is the day" << endl << endl;
         if (section[3] == "MO") {
-            class_day.push_back(1);
+            class_day.insert(class_day.end(), {1});
         } else if (section[3] == "TU") {
-            class_day.push_back(2);
+            class_day.insert(class_day.end(), {2});
         } else if (section[3] == "WE") {
-            class_day.push_back(3);
+            class_day.insert(class_day.end(), {3});
         } else if (section[3] == "TH") {
-            class_day.push_back(4);
+            class_day.insert(class_day.end(), {4});
         } else if (section[3] == "FR") {
-            class_day.push_back(5);
+            class_day.insert(class_day.end(), {5});
         } else {
             //error, fix
-            class_day.push_back(5);
+            class_day.insert(class_day.end(), { 5 });
         }
 
         //create a section containing all the information we just queried from SQL DB
@@ -233,8 +239,8 @@ std::vector<Section> CourseData::add_course(string course_id, int section_type) 
     }
 
     std::cout << available_sections[0].day_[1] << std::endl;
-    cout << available_sections[0].duration_[0] << endl;
-    cout << available_sections[0].start_time_[0] << endl;
+    cout << available_sections[0].duration_[1] << endl;
+    cout << available_sections[0].start_time_[1] << endl;
     //make sure this is error free
     return available_sections;
 }
