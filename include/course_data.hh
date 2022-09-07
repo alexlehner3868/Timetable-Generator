@@ -14,7 +14,6 @@
 using namespace std; 
 
 
-
 class CourseData {
 
     private:
@@ -27,9 +26,8 @@ class CourseData {
     public:
         CourseData();
         void find_course_times(string course_id);
-        void add_course(string course_id);
         void remove_course(string course_id);
-        std::vector<Section> get_course_info(string course_id);
+        std::vector<Section> add_course(string course_id, int section_type);
 
 };
 

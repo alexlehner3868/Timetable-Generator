@@ -7,8 +7,11 @@
 #include <sstream>
 
 #include "course_data.hh"
+#include "scheduler.hh"
 
 using namespace std; 
+
+#define SECTION_OFFSET 100
 
 CourseData::CourseData(){
     
@@ -17,7 +20,7 @@ CourseData::CourseData(){
 
     string db_name = "CourseData.db"; 
      //The .db file is initiazed so we shouldnt need to run this code again
-   /* action_succes = sqlite3_open(db_name.c_str(), &DB_);
+    /* action_succes = sqlite3_open(db_name.c_str(), &DB_);
     if (action_succes != SQLITE_OK) {
         cout<<"Error creating account"<<std::endl;
     }
@@ -90,21 +93,6 @@ int CourseData::callback(void* data, int argc, char** argv, char** azColName){
     return 0;
 }
 
-
-/** 
- * 
- * 
- * 
- * 
- * 
-*/
-void CourseData::add_course(string course_id) {
-    //we need to keep a list of the courses we are trying to add
-
-
-    //
-}
-
 void CourseData::remove_course(string course_id) {
 
 }
@@ -116,7 +104,7 @@ int CourseData::get_sql_data(void * course_data, int argc, char** argv, char** a
     /**
      *  azColName[i] - the header of the data
      *  0 - course id
-     *  1 - section (fall or winter)
+     *  1 - section (fall/winter/summer/full year)
      *  2 - session (likely won't need this)
      *  3 - type of class - lecture, tutorial, or practical
      *  4 - section # 
@@ -124,17 +112,21 @@ int CourseData::get_sql_data(void * course_data, int argc, char** argv, char** a
      *  6 - class start time
      *  7 - class end time
      */
+
     // argv[i] - the data at that header
+
+    /*
     cout << azColName[1] << " ---> " << argv[1] << endl;
     cout << azColName[3] << " ---> " << argv[3] << endl;
     cout << azColName[4] << " ---> " << argv[4] << endl;
     cout << azColName[5] << " ---> " << argv[5] << endl;
     cout << azColName[6] << " ---> " << argv[6] << endl;
     cout << azColName[7] << " ---> " << argv[7] << endl;
-
+    */
+   
+    cout << azColName[1] << " ---> " << argv[1] << endl;
     // need error checking here so that no errors results
     // this can probably be broken :( 
-        
     one_sections_data.push_back(argv[1]);
     one_sections_data.push_back(argv[3]);
     one_sections_data.push_back(argv[4]);
@@ -145,11 +137,10 @@ int CourseData::get_sql_data(void * course_data, int argc, char** argv, char** a
     std::vector<std::vector<std::string>> * pointer_to_course_data = (std::vector<std::vector<std::string>> *) course_data;
     (*pointer_to_course_data).push_back(one_sections_data);
     
-    printf("\n");
     return 0;
 }
 
-std::vector<Section> CourseData::get_course_info(string course_id) {
+std::vector<Section> CourseData::add_course(string course_id, int section_type) {
     vector<int> class_durations;
     vector<int> class_start_time;
     vector<int> class_day;
@@ -159,19 +150,44 @@ std::vector<Section> CourseData::get_course_info(string course_id) {
     std::vector<std::vector<std::string>> course_data;
     std::vector<Section> available_sections;
 
-    
-    // we want to add lectures first
-    std::string sql = "SELECT * FROM Courses WHERE ACAD_ACT_CD = " + quotesql(course_id) + " ;";
-    int action_success = sqlite3_exec(DB_, sql.c_str(), get_sql_data, &course_data, NULL);
-    if (action_success != SQLITE_OK) {
-        cout << "No lectures in class" << std::endl;
+    if (section_type == LEC) {
+        // we want to add lectures 
+        std::string sql = "SELECT * FROM Courses WHERE ACAD_ACT_CD = " + quotesql(course_id) + " AND TEACH_METHOD = 'LEC' AND SECTION_CD != 'S' ;";
+        int action_success = sqlite3_exec(DB_, sql.c_str(), get_sql_data, &course_data, NULL);
+        if (action_success != SQLITE_OK) {
+            cout << "No lectures in class" << std::endl;
+        }
+    } else if (section_type == TUT) {
+        // we want to add tutorials 
+        std::string sql = "SELECT * FROM Courses WHERE ACAD_ACT_CD = " + quotesql(course_id) + " AND TEACH_METHOD = 'TUT';";
+        int action_success = sqlite3_exec(DB_, sql.c_str(), get_sql_data, &course_data, NULL);
+        if (action_success != SQLITE_OK) {
+            cout << "No lectures in class" << std::endl;
+        }
+    } else if (section_type == PRA) {
+        // we want to add practicals
+        std::string sql = "SELECT * FROM Courses WHERE ACAD_ACT_CD = " + quotesql(course_id) + " AND TEACH_METHOD = 'PRA';";
+        int action_success = sqlite3_exec(DB_, sql.c_str(), get_sql_data, &course_data, NULL);
+        if (action_success != SQLITE_OK) {
+            cout << "No lectures in class" << std::endl;
+        }
+    } else {
+        //bad
     }
+    
     
     
     // now course_data is in
     // let's loop through it and add it to a section
 
     for (std::vector<std::string> section : course_data) {
+        cout << section[0] <<endl;
+        cout << section[1] <<endl;
+        cout << section[2] <<endl;
+        cout << section[3] <<endl;
+        cout << section[4] <<endl;
+        cout << section[5] <<endl;
+
         // each vector contains all the info for one section of a lecture
 
         // 0 - section F/W
@@ -182,15 +198,20 @@ std::vector<Section> CourseData::get_course_info(string course_id) {
         // 5 - class end time
 
         // error checking on this - make sure it is valid
-        section_num = stoi(section[2]);
+        section_num = stoi(section[2]) - SECTION_OFFSET;
+        cout << "Section: " << section_num << endl;
         
         //if class start time doesn't exist, then class is async
-        class_async.push_back(!empty(section[4]));
+        cout << "is async? " << empty(section[4]) << endl;
+        class_async.push_back(empty(section[4]));
+        cout << "duration : " << stoi(section[5]) - stoi(section[4]) << endl;
         class_durations.push_back(stoi(section[5]) - stoi(section[4]));
         class_start_time.push_back(stoi(section[4]));
+        cout << "start time : " << stoi(section[4]) << endl;
         //take the first char of the string 'F' or 'W' or 'Y'
         class_semester.push_back(section[0][0]);
 
+        cout << section[3] << " is the day" << endl << endl;
         if (section[3] == "MO") {
             class_day.push_back(1);
         } else if (section[3] == "TU") {
@@ -202,7 +223,8 @@ std::vector<Section> CourseData::get_course_info(string course_id) {
         } else if (section[3] == "FR") {
             class_day.push_back(5);
         } else {
-            class_day.push_back(2);
+            //error, fix
+            class_day.push_back(5);
         }
 
         //create a section containing all the information we just queried from SQL DB
@@ -210,6 +232,9 @@ std::vector<Section> CourseData::get_course_info(string course_id) {
         available_sections.push_back(add_section);
     }
 
+    std::cout << available_sections[0].day_[1] << std::endl;
+    cout << available_sections[0].duration_[0] << endl;
+    cout << available_sections[0].start_time_[0] << endl;
     //make sure this is error free
     return available_sections;
 }
