@@ -22,6 +22,7 @@ using namespace std;
  * TODO: Add better time table printing for courses longer than one hour  
  * TODO: Do we need to add parallelism to speed it up?? 
  * TODO: set max courses per semester to 6
+ * TODO: currently only prints timetable if all classes are inserted. add a config to output half complete ones too
  */
 
 
@@ -37,7 +38,7 @@ void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings, CourseOff
     if (unique_check(timetable)) {
       timetables_.push_back(timetable);
       // Print out valid timetable (used for debugging)
-      print_timetable(timetable);
+     // print_timetable(timetable);
     }
     
   }
@@ -117,7 +118,7 @@ void Scheduler::attempt_to_add_section(std::unordered_map<Date, SelectedCourseSe
               for (int remove_class = 0; remove_class <= class_in_section; remove_class++) {
                 for (int i = 0; i < section.duration_.at(remove_class); i++) {
                       Date remove_period = make_pair(section.day_.at(remove_class), section.start_time_.at(remove_class) + i);
-                      cout << "Conflict detected, not able to add class " << course.course_id_ << " to schedule." << endl;
+                      cout << "Conflict detected, not able to add class " << course.course_id_ << " section " << section_id<< " to schedule." << endl;
                       if (remove_period != period) {
                         timetable.erase(remove_period);
                       }
@@ -144,6 +145,25 @@ void Scheduler::attempt_to_add_section(std::unordered_map<Date, SelectedCourseSe
 
             }
     }
+  }
+}
+
+int Scheduler::max_sections_scheduled(){
+  int max_placed = 0;
+    for(auto timetable : timetables_){
+      max_placed = max((int)timetable.size(), max_placed);
+    }
+    return max_placed;
+}
+
+void Scheduler::print_timetables(){
+  int max_scheduled = max_sections_scheduled();
+
+  for(auto timetable : timetables_){
+    if(timetable.size() >= max_scheduled){
+      print_timetable(timetable);
+    }
+    
   }
 }
 
