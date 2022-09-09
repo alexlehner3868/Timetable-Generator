@@ -48,9 +48,9 @@ void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings, CourseOff
     //std::cout<<"TRYING TO ADD LEC "<< course.courseID()<<endl;
     attempt_to_add_section(timetable, LEC, course, courses);
     //std::cout<<"TRYING TO ADD TUT "<< course.courseID()<<endl;
-    attempt_to_add_section(timetable, TUT, course, courses);
+    //attempt_to_add_section(timetable, TUT, course, courses);
     //std::cout<<"TRYING TO ADD PRA "<< course.courseID()<<endl;
-    attempt_to_add_section(timetable, PRA, course, courses);
+    //attempt_to_add_section(timetable, PRA, course, courses);
   } 
 }
 
@@ -59,93 +59,103 @@ void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings, CourseOff
 
 void Scheduler::attempt_to_add_section(std::unordered_map<Date, SelectedCourseSection, Date_Hash>& timetable, int class_type, CourseOfferings course, unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& courses){
     int num_sections = 0;
-    if(class_type == LEC){
-          num_sections = (int) course.numLecSections();
-    }else if(class_type == TUT){
+    Section section;
+    // Loop through all of the possible lecture sections in the course 
+    for (int type_of_class = 0; type_of_class < 3; type_of_class++) {
+        if(type_of_class == 0){
+            num_sections = (int) course.numLecSections();
+        }else if(type_of_class == 1){
           num_sections = (int) course.numTutSections();
         }else{
           num_sections = (int) course.numPraSections();
         }
-    
-    // Loop through all of the possible lecture sections in the course 
-    for(int section_id = 0; section_id < num_sections; section_id++){
-      //cout<<"Looking at section id "<<section_id<<endl;
-        Section section;
-        if(class_type == LEC){
-          section = course.lecture_sections_.at(section_id);
-        }else if(class_type == TUT){
-          section = course.tutorial_sections_.at(section_id);
-        }else{
-          section = course.practical_sections_.at(section_id);
-        }
-        int class_in_section;
-        // Create an object to represent the section that was chosen 
-        SelectedCourseSection class_chosen{
-          .course_code = course.course_id_,
-          .type = class_type, // Lecture
-          .section = section_id,
-          .semester = section.semester_.at(0) // Each section should only be in either F or W (need support for full year courses)
-          // semester can be a char instead of a vector
-          // F - FALL W - WINTER B - BOTH
-        };
-      bool successfully_inserted;
-      Date period;
-      // Try adding all of the lecture sections for that section and class to the timetable 
-      for (class_in_section = 0; class_in_section < (int)section.duration_.size(); class_in_section++) {
-          // Add a entry for every hour that the lecure has
-          //cout << "On section " << class_in_section << " of class" << endl; 
-          for (int i = 0; i < section.duration_.at(class_in_section); i++) {
-              // If the class is in the winter offset the day by 5 ([1,5] = fall, [6,10] = winter)
-              int semester_offset = (class_chosen.semester == 'F') ? 0 : 5;
-              period = make_pair(section.day_.at(class_in_section) + semester_offset, section.start_time_.at(class_in_section) + i);
-              //cout << "Inserting class " << class_chosen.course_code << endl;
-              //cout << "Inserting section " << class_in_section << endl;
-              // Insert into the timetable  
-              auto it = timetable.insert(std::make_pair(period, class_chosen));
-              successfully_inserted = it.second;
-                
-              // Check if the class was sucessfully inserted 
-              if (!successfully_inserted) {
-                  break;
-                  //Combination is invalid
-                  //Time occupied by another course offering
+        
+        
+        
+        
+        
+        
+        for(int section_id = 0; section_id < num_sections; section_id++){
+          //cout<<"Looking at section id "<<section_id<<endl;
+            
+            if(type_of_class == 0){
+            section = course.lecture_sections_.at(section_id);
+            }else if(type_of_class == 1){
+              section = course.tutorial_sections_.at(section_id);
+            }else{
+              section = course.practical_sections_.at(section_id);
+            }
+            
+            int class_in_section;
+            // Create an object to represent the section that was chosen 
+            SelectedCourseSection class_chosen{
+              .course_code = course.course_id_,
+              .type = class_type, // Lecture
+              .section = section_id,
+              .semester = section.semester_.at(0) // Each section should only be in either F or W (need support for full year courses)
+              // semester can be a char instead of a vector
+              // F - FALL W - WINTER B - BOTH
+            };
+          bool successfully_inserted;
+          Date period;
+          // Try adding all of the lecture sections for that section and class to the timetable 
+          for (class_in_section = 0; class_in_section < (int)section.duration_.size(); class_in_section++) {
+              // Add a entry for every hour that the lecure has
+              //cout << "On section " << class_in_section << " of class" << endl; 
+              for (int i = 0; i < section.duration_.at(class_in_section); i++) {
+                  // If the class is in the winter offset the day by 5 ([1,5] = fall, [6,10] = winter)
+                  int semester_offset = (class_chosen.semester == 'F') ? 0 : 5;
+                  period = make_pair(section.day_.at(class_in_section) + semester_offset, section.start_time_.at(class_in_section) + i);
+                  //cout << "Inserting class " << class_chosen.course_code << endl;
+                  //cout << "Inserting section " << class_in_section << endl;
+                  // Insert into the timetable  
+                  auto it = timetable.insert(std::make_pair(period, class_chosen));
+                  successfully_inserted = it.second;
+
+                  // Check if the class was sucessfully inserted 
+                  if (!successfully_inserted) {
+                      break;
+                      //Combination is invalid
+                      //Time occupied by another course offering
+                  }
+
               }
-                
-          }
-          // There is a conflict with the class section that was just inputted so remove it 
-          // Don't remove the class that it conflicted with - simply remove the others
-          if (!successfully_inserted) {
-              for (int remove_class = 0; remove_class <= class_in_section; remove_class++) {
-                for (int i = 0; i < section.duration_.at(remove_class); i++) {
-                      Date remove_period = make_pair(section.day_.at(remove_class), section.start_time_.at(remove_class) + i);
-                      cout << "Conflict detected, not able to add class " << course.course_id_ << " section " << section_id<< " to schedule." << endl;
-                      if (remove_period != period) {
-                        timetable.erase(remove_period);
+
+              // There is a conflict with the class section that was just inputted so remove it 
+              // Don't remove the class that it conflicted with - simply remove the others
+              if (!successfully_inserted) {
+                  for (int remove_class = 0; remove_class <= class_in_section; remove_class++) {
+                    for (int i = 0; i < section.duration_.at(remove_class); i++) {
+                          Date remove_period = make_pair(section.day_.at(remove_class), section.start_time_.at(remove_class) + i);
+                          cout << "Conflict detected, not able to add class " << course.course_id_ << " to schedule." << endl;
+                          if (remove_period != period) {
+                            timetable.erase(remove_period);
+                          }
                       }
                   }
-              }
-              
-              break;
-          }
-          
-                  
-    }
-        
-          /** 
-         * Call this function recursively to place the remaining classes 
-         * Remove the current class from the courses list and then recall this function to place the rest of the classes
-         */
-        unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> remaining_classes = courses;
-        remaining_classes.erase(course);
-        schedule_classes_helper(remaining_classes, timetable);
-        for (int remove_class = 0; remove_class < class_in_section; remove_class++) { //should this be < or <= (<= seg faults)
-            for (int i = 0; i < section.duration_.at(remove_class); i++) {
-              Date period = make_pair(section.day_.at(remove_class), section.start_time_.at(remove_class) + i);
-              timetable.erase(period);
 
-            }
+                  break;
+              }
+
+
+        }
+
+              /** 
+             * Call this function recursively to place the remaining classes 
+             * Remove the current class from the courses list and then recall this function to place the rest of the classes
+             */
+            unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> remaining_classes = courses;
+            remaining_classes.erase(course);
+            schedule_classes_helper(remaining_classes, timetable);
+            for (int remove_class = 0; remove_class < class_in_section; remove_class++) { //should this be < or <= (<= seg faults)
+                for (int i = 0; i < section.duration_.at(remove_class); i++) {
+                  Date period = make_pair(section.day_.at(remove_class), section.start_time_.at(remove_class) + i);
+                  timetable.erase(period);
+
+                }
+        }
+      }
     }
-  }
 }
 
 int Scheduler::max_sections_scheduled(){
