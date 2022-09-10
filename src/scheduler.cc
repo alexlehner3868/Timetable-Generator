@@ -46,15 +46,95 @@ void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings, CourseOff
   // Loop through all of the Course Offerings (ie the course and all its sections)
   for(auto course : courses){
     //std::cout<<"TRYING TO ADD LEC "<< course.courseID()<<endl;
+    schedule_lectures
     attempt_to_add_section(timetable, LEC, course, courses);
     //std::cout<<"TRYING TO ADD TUT "<< course.courseID()<<endl;
     //attempt_to_add_section(timetable, TUT, course, courses);
     //std::cout<<"TRYING TO ADD PRA "<< course.courseID()<<endl;
-    //attempt_to_add_section(timetable, PRA, course, courses);
+   // attempt_to_add_section(timetable, PRA, course, courses);
+    
+    //we are removing the course from courses after all LECs are placed, but we should
+    //remove the course once all TUTs and PRAs are placed too
   } 
 }
 
+void Scheduler::schedule_lectures_helper(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& courses, std::unordered_map<Date, SelectedCourseSection, Date_Hash>& timetable){
 
+  // When all classes have been added to the timetable, save this valid timetable (base case)
+  if(courses.size() == 0){
+    if (unique_check(timetable)) {
+      timetables_.push_back(timetable);
+      // Print out valid timetable (used for debugging)
+      print_timetable(timetable);
+    }
+    
+  }
+
+  // Loop through all of the Course Offerings (ie the course and all its sections)
+  for(auto course : courses){
+    //std::cout<<"TRYING TO ADD LEC "<< course.courseID()<<endl;
+    attempt_to_add_section(timetable, LEC, course, courses);
+    //std::cout<<"TRYING TO ADD TUT "<< course.courseID()<<endl;
+    //attempt_to_add_section(timetable, TUT, course, courses);
+    //std::cout<<"TRYING TO ADD PRA "<< course.courseID()<<endl;
+   // attempt_to_add_section(timetable, PRA, course, courses);
+    
+    //we are removing the course from courses after all LECs are placed, but we should
+    //remove the course once all TUTs and PRAs are placed too
+  } 
+}
+
+void Scheduler::schedule_tutorials_helper(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& courses, std::unordered_map<Date, SelectedCourseSection, Date_Hash>& timetable){
+
+  // When all classes have been added to the timetable, save this valid timetable (base case)
+  if(courses.size() == 0){
+    if (unique_check(timetable)) {
+      timetables_.push_back(timetable);
+      // Print out valid timetable (used for debugging)
+      print_timetable(timetable);
+    }
+    
+  }
+
+  // Loop through all of the Course Offerings (ie the course and all its sections)
+  for(auto course : courses){
+    //std::cout<<"TRYING TO ADD LEC "<< course.courseID()<<endl;
+    attempt_to_add_section(timetable, LEC, course, courses);
+    //std::cout<<"TRYING TO ADD TUT "<< course.courseID()<<endl;
+    //attempt_to_add_section(timetable, TUT, course, courses);
+    //std::cout<<"TRYING TO ADD PRA "<< course.courseID()<<endl;
+   // attempt_to_add_section(timetable, PRA, course, courses);
+    
+    //we are removing the course from courses after all LECs are placed, but we should
+    //remove the course once all TUTs and PRAs are placed too
+  } 
+}
+
+void Scheduler::schedule_practicals_helper(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& courses, std::unordered_map<Date, SelectedCourseSection, Date_Hash>& timetable){
+
+  // When all classes have been added to the timetable, save this valid timetable (base case)
+  if(courses.size() == 0){
+    if (unique_check(timetable)) {
+      timetables_.push_back(timetable);
+      // Print out valid timetable (used for debugging)
+      print_timetable(timetable);
+    }
+    
+  }
+
+  // Loop through all of the Course Offerings (ie the course and all its sections)
+  for(auto course : courses){
+    //std::cout<<"TRYING TO ADD LEC "<< course.courseID()<<endl;
+    attempt_to_add_section(timetable, LEC, course, courses);
+    //std::cout<<"TRYING TO ADD TUT "<< course.courseID()<<endl;
+    //attempt_to_add_section(timetable, TUT, course, courses);
+    //std::cout<<"TRYING TO ADD PRA "<< course.courseID()<<endl;
+   // attempt_to_add_section(timetable, PRA, course, courses);
+    
+    //we are removing the course from courses after all LECs are placed, but we should
+    //remove the course once all TUTs and PRAs are placed too
+  } 
+}
 
 
 void Scheduler::attempt_to_add_section(std::unordered_map<Date, SelectedCourseSection, Date_Hash>& timetable, int class_type, CourseOfferings course, unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& courses){
@@ -90,7 +170,7 @@ void Scheduler::attempt_to_add_section(std::unordered_map<Date, SelectedCourseSe
             // Create an object to represent the section that was chosen 
             SelectedCourseSection class_chosen{
               .course_code = course.course_id_,
-              .type = class_type, // Lecture
+              .type = type_of_class + 1, // Lecture
               .section = section_id,
               .semester = section.semester_.at(0) // Each section should only be in either F or W (need support for full year courses)
               // semester can be a char instead of a vector
