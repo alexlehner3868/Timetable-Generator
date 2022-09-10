@@ -728,7 +728,6 @@ int main(int argc, char *argv[])
     //std::vector<Section> course_three_practical_sections = course_data.add_course("CIV100H1", 3);
 
     CourseOfferings class_one("Calculus 1", "MAT186", course_one_lecture_sections, course_one_tutorial_sections, empty_vec);
-<<<<<<< HEAD
     CourseOfferings class_two("Linear Algebra", "MAT188", course_two_lecture_sections, empty_vec, empty_vec);
     CourseOfferings class_three("Mechanics", "CIV100", course_three_lecture_sections, empty_vec, empty_vec);
 
@@ -740,17 +739,7 @@ int main(int argc, char *argv[])
     Scheduler scheduler;
     scheduler.schedule_classes(offerings);
     scheduler.print_timetables();
-=======
-    //CourseOfferings class_two("Linear Algebra", "MAT188", course_two_lecture_sections, course_two_tutorial_sections, empty_vec);
-    //CourseOfferings class_three("Mechanics", "CIV100", course_three_lecture_sections, course_three_tutorial_sections, course_three_practical_sections);
 
-    unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> offerings;
-    offerings.insert(class_one);
-    //offerings.insert(class_two);
-    //offerings.insert(class_three);
-    Scheduler scheduler;
-    scheduler.schedule_classes(offerings);
->>>>>>> 30a49df (Commiting to pull, don't use this commit)
     // -- User input (later) 
     // 1. Search and add classes to timetable 
     // 2. Remove classes 
