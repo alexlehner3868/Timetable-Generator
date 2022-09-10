@@ -728,7 +728,7 @@ int main(int argc, char *argv[])
     //std::vector<Section> course_two_practical_sections = course_data.add_course("MAT188H1", 3);
     //std::vector<Section> course_three_practical_sections = course_data.add_course("CIV100H1", 3);
 
-    CourseOfferings class_one("Calculus 1", "MAT186", course_one_lecture_sections, course_one_tutorial_sections, empty_vec);
+    CourseOfferings class_one("Calculus 1", "MAT186", course_one_lecture_sections, course_one_tutorial_sections, course_one_practical_sections);
     CourseOfferings class_two("Linear Algebra", "MAT188", course_two_lecture_sections, course_two_tutorial_sections, empty_vec);
     CourseOfferings class_three("Mechanics", "CIV100", course_three_lecture_sections, empty_vec, empty_vec);
 

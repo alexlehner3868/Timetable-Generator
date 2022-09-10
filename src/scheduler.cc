@@ -156,17 +156,21 @@ void Scheduler::attempt_to_add_section(std::unordered_map<Date, SelectedCourseSe
       //add TUT now
       attempt_to_add_section(timetable, TUT, course, courses);
       //remove class from timetable
-
-      
       for (int remove_class = 0; remove_class < class_in_section; remove_class++) { //should this be < or <= (<= seg faults)
             for (int i = 0; i < section.duration_.at(remove_class); i++) {
               Date period = make_pair(section.day_.at(remove_class), section.start_time_.at(remove_class) + i);
               timetable.erase(period);
             }
       } 
-    } /*else if (class_type == TUT) {
+    } else if (class_type == TUT) {
       attempt_to_add_section(timetable, PRA, course, courses);
-    } */else {
+      for (int remove_class = 0; remove_class < class_in_section; remove_class++) { //should this be < or <= (<= seg faults)
+            for (int i = 0; i < section.duration_.at(remove_class); i++) {
+              Date period = make_pair(section.day_.at(remove_class), section.start_time_.at(remove_class) + i);
+              timetable.erase(period);
+            }
+      } 
+    } else {
       //cout << "type TUT and removing course" << endl;
       print_timetable(timetable);
       unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> remaining_classes = courses;
@@ -193,18 +197,16 @@ void Scheduler::attempt_to_add_section(std::unordered_map<Date, SelectedCourseSe
         //add TUT now
         attempt_to_add_section(timetable, TUT, course, courses);
         //remove class from timetable
-
-      } /*else if (class_type == TUT) {
+    } else if (class_type == TUT) {
         attempt_to_add_section(timetable, PRA, course, courses);
-      } */else {
+    } else {
         //cout << "type TUT and removing course" << endl;
         print_timetable(timetable);
         unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> remaining_classes = courses;
         remaining_classes.erase(course);
         //cout << "erasing course: " << course.course_id_ << endl;
         schedule_classes_helper(remaining_classes, timetable);
-        
-      }
+    }
   }
 }
 
