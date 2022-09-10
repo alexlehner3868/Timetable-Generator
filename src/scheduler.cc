@@ -92,7 +92,7 @@ void Scheduler::attempt_to_add_section(std::unordered_map<Date, SelectedCourseSe
             // Create an object to represent the section that was chosen 
             SelectedCourseSection class_chosen{
               .course_code = course.course_id_,
-              .type = type_of_class + 1, // Lecture
+              .type = class_type, // Lecture
               .section = section_id,
               .semester = section.semester_.at(0) // Each section should only be in either F or W (need support for full year courses)
               // semester can be a char instead of a vector
