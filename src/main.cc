@@ -723,7 +723,8 @@ int main(int argc, char *argv[])
     std::vector<Section> course_two_tutorial_sections = course_data.add_course("MAT188H1", 2);
     //std::vector<Section> course_three_tutorial_sections = course_data.add_course("CIV100H1", 2);
     //add practicals
-    //std::vector<Section> course_one_practical_sections = course_data.add_course("MAT186H1", 3);
+    cout << "THIS IS WHERE PRA STARTS" << endl;
+    std::vector<Section> course_one_practical_sections = course_data.add_course("MAT186H1", 3);
     //std::vector<Section> course_two_practical_sections = course_data.add_course("MAT188H1", 3);
     //std::vector<Section> course_three_practical_sections = course_data.add_course("CIV100H1", 3);
 

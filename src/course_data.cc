@@ -127,7 +127,9 @@ int CourseData::get_sql_data(void * course_data, int argc, char** argv, char** a
     //cout << azColName[1] << " ---> " << argv[1] << endl;
     // need error checking here so that no errors results
     // this can probably be broken :( 
+    cout << "section" << endl;
     one_sections_data.push_back(argv[1]);
+    cout << "type of class" << endl;
     one_sections_data.push_back(argv[3]);
     one_sections_data.push_back(argv[4]);
     one_sections_data.push_back(argv[5]);
@@ -172,6 +174,7 @@ std::vector<Section> CourseData::add_course(string course_id, int section_type) 
         if (action_success != SQLITE_OK) {
             cout << "No practicals in class" << std::endl;
         }
+        cout << "got the pras" << endl;
     } else {
         //bad
     }
@@ -180,7 +183,9 @@ std::vector<Section> CourseData::add_course(string course_id, int section_type) 
     
     // now course_data is in
     // let's loop through it and add it to a section
-    old_section_num = stoi(course_data[0][2]) - SECTION_OFFSET;
+    cout << "this access is broken" << endl;
+    //cout << course_data[0][2] << endl;
+    cout << "this section is not broken" << endl;
     for (std::vector<std::string> section : course_data) {
         
         
@@ -193,7 +198,8 @@ std::vector<Section> CourseData::add_course(string course_id, int section_type) 
         // 3 - day
         // 4 - class start time
         // 5 - class end time
-
+        
+        old_section_num = stoi(course_data[0][2]) - SECTION_OFFSET;
         // error checking on this - make sure it is valid
         current_section_num = stoi(section[2]) - SECTION_OFFSET;
         //if no more sections need to be added to the vectors
@@ -201,6 +207,7 @@ std::vector<Section> CourseData::add_course(string course_id, int section_type) 
             old_section_num = current_section_num;
             //create a section containing all the information we just queried from SQL DB
             Section add_section(old_section_num, class_durations, class_start_time, class_semester, class_day, class_async);  
+            cout << "pushing back" << endl;
             available_sections.push_back(add_section);
             class_durations.clear();
             class_start_time.clear();
@@ -234,5 +241,6 @@ std::vector<Section> CourseData::add_course(string course_id, int section_type) 
     }
 
     //make sure this is error free
+    cout << "about to return" << endl;
     return available_sections;
 }
