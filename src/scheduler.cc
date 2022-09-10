@@ -3,6 +3,9 @@
 #include <stdlib.h>
 #include <unordered_set>
 #include <unordered_map> 
+#include <thread>
+//#include <tbb/parallel_for.h>
+//#include <tbb/atomic.h>
 
 #include "period.hh"
 #include "print_functions.hh"
@@ -28,10 +31,10 @@ using namespace std;
 
 void Scheduler::schedule_classes(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& courses ){
   std::unordered_map<Date, SelectedCourseSection, Date_Hash> timetable;
-  schedule_classes_helper(courses, timetable);
+  schedule_classes_helper(courses, timetable, true);
 }
 
-void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& courses, std::unordered_map<Date, SelectedCourseSection, Date_Hash>& timetable){
+void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& courses, std::unordered_map<Date, SelectedCourseSection, Date_Hash>& timetable, bool first_iteration){
 
   // When all classes have been added to the timetable, save this valid timetable (base case)
   if(courses.size() == 0){
@@ -48,6 +51,9 @@ void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings, CourseOff
     
   // Loop through all of the Course Offerings (ie the course and all its sections)
   for(auto course : courses){
+    if(first_iteration){
+
+    }
     //std::cout<<"TRYING TO ADD LEC "<< course.courseID()<<endl;
     //cout << "is it done? " << is_done << endl;
     attempt_to_add_section(timetable, LEC, course, courses);

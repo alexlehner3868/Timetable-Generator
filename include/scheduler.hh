@@ -36,7 +36,7 @@ class Scheduler {
     public:
         Scheduler();
         void schedule_classes(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& courses);
-        void schedule_classes_helper(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& courses, std::unordered_map<Date, SelectedCourseSection, Date_Hash>& timetable);
+        void schedule_classes_helper(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& courses, std::unordered_map<Date, SelectedCourseSection, Date_Hash>& timetable, bool first_itartion = false);
         void print_timetable(std::unordered_map<Date, SelectedCourseSection, Date_Hash>& timetable);
         void attempt_to_add_section(std::unordered_map<Date, SelectedCourseSection, Date_Hash>& timetable, int class_type, CourseOfferings course, unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& courses);
         bool unique_check(std::unordered_map<Date, SelectedCourseSection, Date_Hash>& timetable);
