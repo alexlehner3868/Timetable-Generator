@@ -34,20 +34,24 @@ void Scheduler::schedule_classes(unordered_set<CourseOfferings, CourseOfferings:
 void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& courses, std::unordered_map<Date, SelectedCourseSection, Date_Hash>& timetable){
 
   // When all classes have been added to the timetable, save this valid timetable (base case)
-  /*
+  int is_done = 0;
   if(courses.size() == 0){
+    cout << "no more courses left" << endl;
     if (unique_check(timetable)) {
+      cout << "Appending unique timetable" << endl;
+      is_done = 1;
       timetables_.push_back(timetable);
 
       // Print out valid timetable (used for debugging)
-      print_timetable(timetable);
+      //print_timetable(timetable);
     }
     
   }
-    */
+    
   // Loop through all of the Course Offerings (ie the course and all its sections)
   for(auto course : courses){
     //std::cout<<"TRYING TO ADD LEC "<< course.courseID()<<endl;
+    cout << "is it done? " << is_done << endl;
     attempt_to_add_section(timetable, LEC, course, courses);
     //std::cout<<"TRYING TO ADD TUT "<< course.courseID()<<endl;
     //attempt_to_add_section(timetable, TUT, course, courses);
@@ -62,14 +66,17 @@ void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings, CourseOff
 
 void Scheduler::attempt_to_add_section(std::unordered_map<Date, SelectedCourseSection, Date_Hash>& timetable, int class_type, CourseOfferings course, unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& courses){
   
-  // if no courses remain, we should have a complete timetable
-  // let's 
   if(courses.size() == 0){
+    //cout << "no more courses left" << endl;
     if (unique_check(timetable)) {
+      cout << "weird" << endl;
       timetables_.push_back(timetable);
+
+      // Print out valid timetable (used for debugging)
+      //print_timetable(timetable);
     }
+    
   }
-  
   
   int num_sections = 0;
   if(class_type == LEC){
@@ -171,11 +178,11 @@ void Scheduler::attempt_to_add_section(std::unordered_map<Date, SelectedCourseSe
             }
       } 
     } else {
-      //cout << "type TUT and removing course" << endl;
-      print_timetable(timetable);
+      //cout << "type PRA and removing course" << endl;
+      //print_timetable(timetable);
       unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> remaining_classes = courses;
       remaining_classes.erase(course);
-      //cout << "erasing course: " << course.course_id_ << endl;
+      //cout << " (section exists) is courses empty?: " << remaining_classes.empty() << endl;
       schedule_classes_helper(remaining_classes, timetable);
       
       //remove class from timetable
@@ -201,9 +208,10 @@ void Scheduler::attempt_to_add_section(std::unordered_map<Date, SelectedCourseSe
         attempt_to_add_section(timetable, PRA, course, courses);
     } else {
         //cout << "type TUT and removing course" << endl;
-        print_timetable(timetable);
+        //print_timetable(timetable);
         unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> remaining_classes = courses;
         remaining_classes.erase(course);
+        //cout << "(section doesn't exist) is courses empty?: " << remaining_classes.empty() << endl;
         //cout << "erasing course: " << course.course_id_ << endl;
         schedule_classes_helper(remaining_classes, timetable);
     }
