@@ -47,9 +47,9 @@ CourseData::CourseData(){
    // Open the Database and store it in DB_
      action_succes = sqlite3_open(db_name.c_str(), &DB_);
     if (action_succes != SQLITE_OK) {
-        cout<<"Error openning database"<<std::endl;
+        cout<<"Error opening database"<<std::endl;
     }else{
-        cout<<"Databse opened sucessful"<<std::endl;
+        //cout<<"Database opened sucessful"<<std::endl;
     }
 }
 
