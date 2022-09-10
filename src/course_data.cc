@@ -132,6 +132,7 @@ int CourseData::get_sql_data(void * course_data, int argc, char** argv, char** a
     //cout << "type of class" << endl;
     one_sections_data.push_back(argv[3]);
     one_sections_data.push_back(argv[4]);
+    //cout << argv[4] << endl;
     one_sections_data.push_back(argv[5]);
     one_sections_data.push_back(argv[6]);
     one_sections_data.push_back(argv[7]);
@@ -174,22 +175,23 @@ std::vector<Section> CourseData::add_course(string course_id, int section_type) 
         if (action_success != SQLITE_OK) {
             cout << "No practicals in class" << std::endl;
         }
-        cout << "got the pras" << endl;
     } else {
         //bad
     }
     
     
-    
+    /*
     // now course_data is in
     // let's loop through it and add it to a section
     //cout << course_data[0][2] << endl;
     if (!course_data.empty()) {
         old_section_num = (stoi(course_data[0][2]) - SECTION_OFFSET);
+        cout << (stoi(course_data[0][2]) - SECTION_OFFSET) << endl;
     } else {
         //there is no course_data so skip setting the old_section_num
         old_section_num = 1;
-    }
+    }*/
+    old_section_num = 1;
     for (std::vector<std::string> section : course_data) {
         
         

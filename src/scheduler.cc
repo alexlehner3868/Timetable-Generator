@@ -34,12 +34,10 @@ void Scheduler::schedule_classes(unordered_set<CourseOfferings, CourseOfferings:
 void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& courses, std::unordered_map<Date, SelectedCourseSection, Date_Hash>& timetable){
 
   // When all classes have been added to the timetable, save this valid timetable (base case)
-  int is_done = 0;
   if(courses.size() == 0){
-    cout << "no more courses left" << endl;
+    //cout << "no more courses left" << endl;
     if (unique_check(timetable)) {
-      cout << "Appending unique timetable" << endl;
-      is_done = 1;
+      //cout << "Appending unique timetable" << endl;
       timetables_.push_back(timetable);
 
       // Print out valid timetable (used for debugging)
@@ -51,7 +49,7 @@ void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings, CourseOff
   // Loop through all of the Course Offerings (ie the course and all its sections)
   for(auto course : courses){
     //std::cout<<"TRYING TO ADD LEC "<< course.courseID()<<endl;
-    cout << "is it done? " << is_done << endl;
+    //cout << "is it done? " << is_done << endl;
     attempt_to_add_section(timetable, LEC, course, courses);
     //std::cout<<"TRYING TO ADD TUT "<< course.courseID()<<endl;
     //attempt_to_add_section(timetable, TUT, course, courses);
@@ -65,18 +63,7 @@ void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings, CourseOff
 
 
 void Scheduler::attempt_to_add_section(std::unordered_map<Date, SelectedCourseSection, Date_Hash>& timetable, int class_type, CourseOfferings course, unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& courses){
-  
-  if(courses.size() == 0){
-    //cout << "no more courses left" << endl;
-    if (unique_check(timetable)) {
-      cout << "weird" << endl;
-      timetables_.push_back(timetable);
 
-      // Print out valid timetable (used for debugging)
-      //print_timetable(timetable);
-    }
-    
-  }
   
   int num_sections = 0;
   if(class_type == LEC){
@@ -84,9 +71,9 @@ void Scheduler::attempt_to_add_section(std::unordered_map<Date, SelectedCourseSe
   }else if(class_type == TUT){
         num_sections = (int) course.numTutSections();
   }else{
-    num_sections = (int) course.numPraSections();
+        num_sections = (int) course.numPraSections();
   }
-  
+  //cout << "there are " << num_sections << " sections of course" << course.course_id_ << endl;
   // Loop through all of the possible lecture sections in the course 
   for(int section_id = 0; section_id < num_sections; section_id++){
     //cout<<"Looking at section id "<<section_id<<endl;
@@ -170,6 +157,7 @@ void Scheduler::attempt_to_add_section(std::unordered_map<Date, SelectedCourseSe
             }
       } 
     } else if (class_type == TUT) {
+      //cout << "type tut and about to call PRA" << endl;
       attempt_to_add_section(timetable, PRA, course, courses);
       for (int remove_class = 0; remove_class < class_in_section; remove_class++) { //should this be < or <= (<= seg faults)
             for (int i = 0; i < section.duration_.at(remove_class); i++) {
@@ -198,8 +186,9 @@ void Scheduler::attempt_to_add_section(std::unordered_map<Date, SelectedCourseSe
     
     
   }
-  if (!num_sections) {
-    //if tut is empty DO SOMETHING
+  if (num_sections < 1) {
+    //if section is empty DO SOMETHING
+    //cout << "there are no sections for class "<< course.course_id_ << " and of type " << class_type << endl;
     if (class_type == LEC) {
         //add TUT now
         attempt_to_add_section(timetable, TUT, course, courses);
@@ -207,7 +196,7 @@ void Scheduler::attempt_to_add_section(std::unordered_map<Date, SelectedCourseSe
     } else if (class_type == TUT) {
         attempt_to_add_section(timetable, PRA, course, courses);
     } else {
-        //cout << "type TUT and removing course" << endl;
+       // cout << "type PRA and removing course" << endl;
         //print_timetable(timetable);
         unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> remaining_classes = courses;
         remaining_classes.erase(course);
