@@ -32,7 +32,17 @@ code {
 
 .empty-period{
   display: inline-block;
-  height: 30px;
-  width: 30px;
+  height: 40px;
+  width: 100px;
   background-color: #555;  
+  margin-left: 5px;
+}
+.class-name {
+  margin: auto;
+  font-size: x-small;
+}
+
+.class-id{
+  margin: auto;
+  font-size: xx-small;
 }
