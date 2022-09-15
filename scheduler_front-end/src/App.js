@@ -2,8 +2,10 @@ import logo from './logo.svg';
 import './App.css';
 import calculatorAPI from './calculatorAPI';
 import Calculator from './Calculator';
+import ScheduleButton from './ScheduleButton';
+import Timetable from './Timetable';
 
-
+/*
 function App() {
   return (
     <div className="App">
@@ -13,5 +15,15 @@ function App() {
     </div>
   );
 }
+*/
 
+function App() {
+  return (
+    <div className="App">
+      <header className="App-header">
+        <Timetable/>
+      </header>
+    </div>
+  );
+}
 export default App;
