@@ -45,8 +45,13 @@ code {
   margin: auto;
   font-size: xx-small;
 }
-
 .search-bar {
+    width: 100%;
+
+
+} 
+
+.search-results {
     display:block;
     background-color: #FDEEFF;
     grid-column: 1 / span 4;

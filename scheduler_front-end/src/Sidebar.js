@@ -28,7 +28,7 @@ const Sidebar = (props) =>{
     //sidebar[1] = new Array(1).fill(null);  
   // place sidebar and {class_button} in here below
   return (
-        <div> 
+        <div class_name="search-bar"> 
             <input placeholder="Search For Class" onChange={event => setQuery(event.target.value)} />
             {
                 
@@ -42,9 +42,8 @@ const Sidebar = (props) =>{
                     return class_result;
                 } // TODO: add searching by class name here once we add class-Name to the database
              }).map((class_result, index) => (
-                    <div className="search-bar" key={index}>
+                    <div className="search-results" key={index}>
                         <p>Course code:{class_result.ACAD_ACT_CD}</p>
-                        
                     </div>
         
                ))
