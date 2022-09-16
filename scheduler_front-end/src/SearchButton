@@ -1,0 +1,17 @@
+
+
+
+
+import React from "react";
+
+const Sidebar = (props) =>{
+
+
+<div className="empty-period" style ={{
+            backgroundColor: classData[2],
+        }}>
+        
+        
+        
+
+export default SearchButton;

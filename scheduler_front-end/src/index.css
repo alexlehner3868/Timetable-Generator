@@ -48,3 +48,10 @@ code {
   margin: auto;
   font-size: xx-small;
 }
+
+
+.add-class-button {
+    font-size: small;
+    height: 40px;
+    width: 300px;
+}
