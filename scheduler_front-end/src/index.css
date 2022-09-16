@@ -7,7 +7,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
@@ -21,7 +20,6 @@ code {
   padding: 10px;
 }
 
-
 .calculator-equal-button {
   grid-column: 1 / span 4;
 }
@@ -29,7 +27,6 @@ code {
 .calculator-display {
   grid-column: 1/ span 4;
 }
-
 
 .empty-period{
   display: inline-block;
@@ -49,8 +46,8 @@ code {
   font-size: xx-small;
 }
 
-
-.add-class-button {
+.search-button {
+    grid-column: 1 / span 4;
     font-size: small;
     height: 40px;
     width: 300px;

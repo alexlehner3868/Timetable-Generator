@@ -1,4 +1,5 @@
 import React from "react";
+import SearchButton from "./SearchButton";
 
 const Sidebar = (props) =>{
   
@@ -7,24 +8,24 @@ const Sidebar = (props) =>{
     
     // two main sections of sidebar: 
     // the buttons on top, and the bottom 'display' section
-    const sidebar = new Array(2);
+    const sidebar = new Array(1);
+    const buttons = [
+        {text: "Search", handler: () => props.searchForClass("0")},
+        {text: "Add Class", handler: () => props.addClass("1")}    
+    ]
+    const class_button = buttons.map((value, index) => {
+        return <SearchButton 
+        caption={value.text}
+        onClick={value.handler} />
+    });
     // buttons
-    sidebar[0] = new Array(2).fill(null);
+    //sidebar[0] = new Array(2).fill(null);
     // display
-    sidebar[1] = new Array(1).fill(null);  
+    //sidebar[1] = new Array(1).fill(null);  
   
   return (
         <div> 
-        {sidebar.map((row)=>{
-            return (
-                <div>{
-                
-                    row.map(()=> <Period  ClassID={props.classID} classSection={props.classSection} classNum={props.classNum}/>)
-                    
-                }
-                </div>
-            )
-        })}
+        {class_button}
         </div>
 
     )
