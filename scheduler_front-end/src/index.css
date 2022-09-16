@@ -49,6 +49,7 @@ code {
 }
 .search-bar {
     width: 20%;
+    background-color: black;
 } 
 
 .search-results {
@@ -70,6 +71,10 @@ code {
   flex-direction:row;
   column-gap: 30px;
   width: 80%;
+  padding-top: 5%;
+  padding-left: 5%;
+  padding-bottom: 5%;
+  border-style: dashed;
 }
 
 .whole-webpage > div {

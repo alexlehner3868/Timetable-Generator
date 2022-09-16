@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
+import './index.css'
 import calculatorAPI from './calculatorAPI';
 import Calculator from './Calculator';
 import ScheduleButton from './ScheduleButton';
