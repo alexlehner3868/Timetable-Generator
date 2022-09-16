@@ -1,6 +1,9 @@
 import React from "react";
 import Period from "./Period";
 
+//TODO:
+// Currently only printing for one semester. Need to do both semesters. 
+// Decide how to view the 2 semesters
 const Timetable = () =>{
     //make sidebar for seaching classes, adding and removing
     //const sidebar = new Array(2);
