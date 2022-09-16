@@ -47,7 +47,7 @@ code {
 }
 
 .search-bar {
-    display:inline-block;
+    display:block;
     background-color: #FDEEFF;
     grid-column: 1 / span 4;
     font-size: small;
