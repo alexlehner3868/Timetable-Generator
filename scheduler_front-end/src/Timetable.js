@@ -13,7 +13,7 @@ const Timetable = (props) =>{
         timetable[i] = new Array(5).fill(null); 
     }
     return (
-        <div> 
+        <div className="timetable"> 
         {timetable.map((row)=>{
             return (
                 <div>{

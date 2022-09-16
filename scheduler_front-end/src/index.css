@@ -27,7 +27,10 @@ code {
 .calculator-display {
   grid-column: 1/ span 4;
 }
-
+.timetable {
+    margin:0px;
+    padding:0px;
+}
 .empty-period{
   display: inline-block;
   height: 40px;
@@ -46,17 +49,22 @@ code {
   font-size: xx-small;
 }
 .search-bar {
-    width: 100%;
-
-
+    position: absolute;
+    top: 10px;
+    right: 0px;
 } 
 
 .search-results {
     display:block;
     background-color: #FDEEFF;
-    grid-column: 1 / span 4;
     font-size: small;
     color: black;
     height: 40px;
     width: 300px;
+}
+
+.whole-webpage {
+    display:flex;
+    flex-direction:row;
+
 }
