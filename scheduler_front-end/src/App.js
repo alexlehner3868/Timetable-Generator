@@ -5,7 +5,6 @@ import Calculator from './Calculator';
 import ScheduleButton from './ScheduleButton';
 import Timetable from './Timetable';
 import Sidebar from './Sidebar';
-import Both from './Both';
 import MainWindow from './MainWindow';
 /*
 function App() {
