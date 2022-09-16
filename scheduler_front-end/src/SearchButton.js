@@ -5,7 +5,7 @@ const SearchButton = (props) =>{
     return (
     <input 
         type='button'
-        value="Search"
+        value={props.caption}
         onClick = {props.onClick}/>
     );
 }
