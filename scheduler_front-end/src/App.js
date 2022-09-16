@@ -6,7 +6,7 @@ import ScheduleButton from './ScheduleButton';
 import Timetable from './Timetable';
 import Sidebar from './Sidebar';
 import Both from './Both';
-
+import MainWindow from './MainWindow';
 /*
 function App() {
   return (
@@ -31,8 +31,12 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <Both/>
+        <h1>Live Timetable Love</h1>
       </header>
+      <div className='whole-webpage'>
+        <MainWindow className="main-window"/>
+        <Sidebar className="search-bar"/>
+      </div>
     </div>
   );
 }

@@ -29,10 +29,11 @@ code {
 }
 .timetable {
 }
+
 .empty-period{
   display: inline-block;
   height: 40px;
-  width: 100px;
+  width: 80px;
   background-color: #555;  
   margin-left: 5px;
   margin-bottom: 2px;
@@ -47,7 +48,7 @@ code {
   font-size: xx-small;
 }
 .search-bar {
-    
+    width: 20%;
 } 
 
 .search-results {
@@ -63,6 +64,12 @@ code {
     display:flex;
     flex-direction:row;
     column-gap: 100px;
+}
+.main-window {
+  display:flex;
+  flex-direction:row;
+  column-gap: 30px;
+  width: 80%;
 }
 
 .whole-webpage > div {
