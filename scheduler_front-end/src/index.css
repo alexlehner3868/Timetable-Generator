@@ -47,8 +47,11 @@ code {
 }
 
 .search-bar {
+    display:inline-block;
+    background-color: #FDEEFF;
     grid-column: 1 / span 4;
     font-size: small;
+    color: black;
     height: 40px;
     width: 300px;
 }
