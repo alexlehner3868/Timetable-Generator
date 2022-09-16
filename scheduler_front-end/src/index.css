@@ -46,7 +46,7 @@ code {
   font-size: xx-small;
 }
 
-.search-button {
+.search-bar {
     grid-column: 1 / span 4;
     font-size: small;
     height: 40px;
