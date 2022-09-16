@@ -10,10 +10,8 @@ const Both = (props) =>{
     
     return (
         <div className="whole-webpage">
-        <Timetable/>
-        <Sidebar/>
-        
-        
+            <Timetable/>
+            <Sidebar/>
         </div>
     
     
