@@ -12,16 +12,17 @@ const Timetable = (props) =>{
     for(let i = 0; i < timetable.length; i++){
         timetable[i] = new Array(5).fill(null); 
     }
+
     return (
         <div className="timetable"> 
         {timetable.map((row)=>{
             return (
-                <div>{
-                
+                <div>
+                {    
                     row.map(()=> <Period  ClassID={props.classID} classSection={props.classSection} classNum={props.classNum}/>)
-                    
                 }
                 </div>
+                
             )
         })}
         </div>
