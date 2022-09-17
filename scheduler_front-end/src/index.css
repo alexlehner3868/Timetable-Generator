@@ -3,6 +3,7 @@
   src: url(./data/fonts/FONTSPRINGDEMO-CeraRoundProBlackRegular.woff);
 }
 
+
 @font-face {
   font-family: cera-bold;
   src: url(./data/fonts/FONTSPRINGDEMO-CeraRoundProBold.woff);
@@ -81,6 +82,9 @@ code {
   border-color: #93b4f7;
   border-width: 5px;
   border-radius: 15px;
+}
+.semester{
+  margin: auto;
 }
 
 
