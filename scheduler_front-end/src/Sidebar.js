@@ -45,7 +45,7 @@ const Sidebar = (props) =>{
             }).map((class_result, index) => (
                     <div className="search-results" key={index}>
                            
-                        <button type="button" className="add-course-button" id="add-course-button" value="Course code: "></button>
+                        <button type="button" className="add-course-button" id="add-course-button" >Course code: {class_result.ACAD_ACT_CD}</button>
                             
                         
                     </div>
