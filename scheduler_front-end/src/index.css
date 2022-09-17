@@ -55,8 +55,8 @@ code {
   font-size: xx-small;
 }
 .search-bar {
-    width: 20%;
-    background-color: black;
+    width: 250px;
+    background-color: #ffffff;
 } 
 
 .search-results {

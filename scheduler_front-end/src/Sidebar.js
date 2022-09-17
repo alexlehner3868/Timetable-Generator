@@ -29,30 +29,30 @@ const Sidebar = (props) =>{
   // place sidebar and {class_button} in here below
   return (
         <div className="sidebar">
-            <div class_name="search-bar"> 
-                <input placeholder="Search For Class" onChange={event => setQuery(event.target.value)} />
-                <div className="search-results-box">
-                {
-                    
+             
+            <input placeholder="Search For Class" class="search-bar" onChange={event => setQuery(event.target.value)} />
+            <div className="search-results-box">
+            {
                 
-                Data.filter( class_result => {
-                    if (query === "") {
-                        //nothing in the search bar, don't show anything
-                        //return class_result;
-                    } else if (class_result.ACAD_ACT_CD.toLowerCase().includes(query.toLowerCase())) {
-                        //returns array with all matches
-                        return class_result;
-                    } // TODO: add searching by class name here once we add class-Name to the database
-                }).map((class_result, index) => (
-                        <div className="search-results" key={index}>
-                            <p>Course code:{class_result.ACAD_ACT_CD}</p>
-                        </div>
             
-                ))
-                
-                }
-                </div>
+            Data.filter( class_result => {
+                if (query === "") {
+                    //nothing in the search bar, don't show anything
+                    //return class_result;
+                } else if (class_result.ACAD_ACT_CD.toLowerCase().includes(query.toLowerCase())) {
+                    //returns array with all matches
+                    return class_result;
+                } // TODO: add searching by class name here once we add class-Name to the database
+            }).map((class_result, index) => (
+                    <div className="search-results" key={index}>
+                        <p>Course code:{class_result.ACAD_ACT_CD}</p>
+                    </div>
+        
+            ))
+            
+            }
             </div>
+            
         </div>
         
       
