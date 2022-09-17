@@ -6,7 +6,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
@@ -68,9 +67,19 @@ code {
   font-size: medium;
   width:100%;
   height:80px;
-
+  background-color: #ffffff;
 }
-
+.course-code {
+  line-height: 1;
+}
+.course-name {
+  line-height: 2;
+}
+.icon {
+  position: absolute;
+  left: 5%;
+  top: 35%;
+}
 .search-results {
     display:block;
     margin: auto;
