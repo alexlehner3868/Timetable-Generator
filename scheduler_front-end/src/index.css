@@ -66,6 +66,13 @@ code {
     color: black;
     height: 40px;
     width: 300px;
+    
+    
+}
+.search-results-box {
+  background-color: #39163d;
+  height: 700px;
+  overflow: auto;
 }
 
 .semester-label {
@@ -89,10 +96,5 @@ code {
   padding-left: 3%;
   padding-bottom: 5%;
   border-style: dashed;
-}
-
-.whole-webpage > div {
-
-
 }
 

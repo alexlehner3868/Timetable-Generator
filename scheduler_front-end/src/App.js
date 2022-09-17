@@ -36,6 +36,7 @@ function App() {
       <div className='whole-webpage'>
         <MainWindow className="main-window"/>
         <Sidebar className="search-bar"/>
+       
       </div>
     </div>
   );
