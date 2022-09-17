@@ -8,6 +8,7 @@ import Timetable from './Timetable';
 import Sidebar from './Sidebar';
 import MainWindow from './MainWindow';
 
+/*
 function App() {
   return (
     <div className="App">
@@ -16,7 +17,7 @@ function App() {
       </header>
     </div>
   );
-}
+}*/
 
 // TODO: Get course data with class names
 // TODO: Properly space timetable and sidebar so they're on left and right side
@@ -28,7 +29,7 @@ function App() {
 // TODO: Button to show only winter schedule
 // TODO: Button to show both schedules
 // TODO: Button to cycle through time tables 
-/*
+
 // TODO: Find fonts that aren't the ugliest fonts known to man
 function App() {
   return (
@@ -44,5 +45,5 @@ function App() {
     </div>
   );
 }
-*/
+
 export default App;

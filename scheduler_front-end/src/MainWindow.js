@@ -1,6 +1,7 @@
 import Semester from './data/Semester';
 import Timetable from './Timetable';
 
+
 const MainWindow = (props) =>{
 
     const both = new Array(2);

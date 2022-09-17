@@ -4,6 +4,7 @@ import Data from "./data/courses.json";
 import {useState} from "react";
 
 
+
 const Sidebar = (props) =>{
     // for search bar
     const [query, setQuery] = useState("")

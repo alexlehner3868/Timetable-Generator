@@ -36,23 +36,9 @@ code {
     monospace;
 }
 
-.calculator-grid-containter {
-  display: grid;
-  grid-template-columns: auto auto auto auto;
-  grid-template-rows: auto auto auto auto;
-  grid-gap: 10px;
-  padding: 10px;
-}
-
-.calculator-equal-button {
-  grid-column: 1 / span 4;
-}
-
-.calculator-display {
-  grid-column: 1/ span 4;
-}
 .timetable {
   border-style: dotted;
+  border-radius: 10px;
 }
 
 .horizontal {
@@ -69,6 +55,48 @@ code {
   margin-left: 5px;
   margin-bottom: 2px;
 }
+.semester-label {
+  color:rgb(25, 25, 106);
+  font-size: calc(7px + 2vmin);
+  font-weight: bold;
+}
+
+.whole-webpage {
+    display:flex;
+    flex-direction:row;
+    /*column-gap: 100px;*/
+}
+
+.main-window {
+  display:flex;
+  flex-direction:row;
+  column-gap: 30px;
+  width: 80%;
+  margin: 1%;
+  padding-top: 3%;
+  padding-left: 1%;
+  padding-right: 1%;
+  padding-bottom: 5%;
+  border-style: solid;
+  border-color: #93b4f7;
+  border-width: 5px;
+  border-radius: 15px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*way too much garbage*/
+
 .class-name {
   margin: auto;
   font-size: x-small;
@@ -176,29 +204,3 @@ code {
   margin-top: 5px; 
   overflow: auto;
 }
-
-.semester-label {
-  color:rgb(25, 25, 106);
-  font-size: calc(7px + 2vmin);
-  font-weight: bold;
-}
-
-.whole-webpage {
-    display:flex;
-    flex-direction:row;
-    /*column-gap: 100px;*/
-}
-
-.main-window {
-  display:flex;
-  flex-direction:row;
-  column-gap: 30px;
-  width: 80%;
-  margin-left: 5px;
-  padding-top: 3%;
-  padding-left: 3%;
-  padding-bottom: 5%;
-  border-style: dashed;
-}
-
-
