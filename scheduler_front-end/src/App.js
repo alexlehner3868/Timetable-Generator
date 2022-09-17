@@ -27,6 +27,7 @@ function App() {
 // TODO: Button to show only fall schedule
 // TODO: Button to show only winter schedule
 // TODO: Button to show both schedules
+// TODO: Find fonts that aren't the ugliest fonts known to man
 function App() {
   return (
     <div className="App">
