@@ -29,6 +29,7 @@ function App() {
 // TODO: Button to show both schedules
 // TODO: Button to cycle through time tables 
 /*
+// TODO: Find fonts that aren't the ugliest fonts known to man
 function App() {
   return (
     <div className="App">
