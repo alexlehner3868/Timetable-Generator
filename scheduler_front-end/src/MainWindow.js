@@ -7,6 +7,7 @@ const MainWindow = (props) =>{
     return (
         <div className='main-window'>
             <Timetable/>
+            
             <Timetable/>
         </div>
     

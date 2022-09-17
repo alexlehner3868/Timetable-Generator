@@ -30,6 +30,7 @@ const Sidebar = (props) =>{
   return (
         <div class_name="search-bar"> 
             <input placeholder="Search For Class" onChange={event => setQuery(event.target.value)} />
+            <div className="search-results-box">
             {
                 
                
@@ -47,7 +48,9 @@ const Sidebar = (props) =>{
                     </div>
         
                ))
+               
             }
+            </div>
            </div>
         
       

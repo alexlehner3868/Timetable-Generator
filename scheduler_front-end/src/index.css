@@ -27,8 +27,6 @@ code {
 .calculator-display {
   grid-column: 1/ span 4;
 }
-.timetable {
-}
 
 .horizontal {
   display: inline;
@@ -65,6 +63,13 @@ code {
     color: black;
     height: 40px;
     width: 300px;
+    
+    
+}
+.search-results-box {
+  background-color: #39163d;
+  height: 700px;
+  overflow: auto;
 }
 
 .whole-webpage {
@@ -82,10 +87,5 @@ code {
   padding-left: 5%;
   padding-bottom: 5%;
   border-style: dashed;
-}
-
-.whole-webpage > div {
-
-
 }
 
