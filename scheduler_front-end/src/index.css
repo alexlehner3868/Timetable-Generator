@@ -4,6 +4,7 @@
 }
 
 
+
 @font-face {
   font-family: cera-bold;
   src: url(./data/fonts/FONTSPRINGDEMO-CeraRoundProBold.woff);
@@ -105,26 +106,34 @@ code {
     border-radius: 5px;
     border-color: #125948;
 } 
-.add-course-button {
+.add-course-button {/*
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-bottom-width: 1px;
+  border-top-color: white;*/
+  background-color: white;
   padding: 0;
-  border: 1px;
   position: absolute;
-  left: 0;
   display:inline-block;
   font-size: medium;
   width:100%;
   height:80px;
   background-color: white;
   transition: box-shadow 150ms cubic-bezier(0.61, 1, 0.88, 1);
+  /*border: white;
+  border-style: solid;
+  border-width: 3px; */
   
 }
-.add-course-button:hover{
-  padding: 5px;
+.add-course-button:hover{/*
   border-top-style: solid;
   border-top-width: 1px;
   border-bottom-width: 1px;
-  border-top-color: rgb(236, 236, 236);
-  background-color: white;
+  border-top-color: rgb(236, 236, 236);*/
+  border: black;
+  border-style: solid;
+  border-width: 3px; 
+  background-color: grey;
 }
 .course-code {
   position: absolute;
@@ -148,9 +157,9 @@ code {
   top: 30%;
 }
 .search-results {
+
     display:block;
     margin: 3px;
-    padding: 5px;
     background-color: white;
     font-size: medium;
     color: black;
