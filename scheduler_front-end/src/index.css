@@ -56,24 +56,36 @@ code {
 }
 .search-bar {
     width: 250px;
+    height: 40px;
+    font-size: x-large;
     background-color: #ffffff;
+    border-radius: 5px;
 } 
+.add-course-button {
+  position: absolute;
+  display:inline-block;
+  width:100%;
+  height:100%;
 
+}
 .search-results {
     display:block;
+    margin: auto;
     background-color: #ffffff;
-    font-size: small;
+    font-size: medium;
     text-align: center;
     color: black;
     height: 40px;
-    width: 250px;
+    width: 200px;
     border-radius: 5px;
     
 }
 .search-results-box {
-  background-color: #39163d;
+  position: relative;
+  background-color: #ada9ad;
   height: 700px;
   width: 100%;
+  margin-top: 5px; 
   overflow: auto;
 }
 
@@ -88,6 +100,7 @@ code {
     flex-direction:row;
     /*column-gap: 100px;*/
 }
+
 .main-window {
   display:flex;
   flex-direction:row;
@@ -99,4 +112,5 @@ code {
   padding-bottom: 5%;
   border-style: dashed;
 }
+
 

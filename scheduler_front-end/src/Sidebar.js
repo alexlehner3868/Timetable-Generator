@@ -1,8 +1,8 @@
 import React from "react";
 import SearchButton from "./SearchButton";
 import Data from "./data/courses.json";
-
 import {useState} from "react";
+
 
 const Sidebar = (props) =>{
     // for search bar
@@ -30,11 +30,11 @@ const Sidebar = (props) =>{
   return (
         <div className="sidebar">
              
-            <input placeholder="Search For Class" class="search-bar" onChange={event => setQuery(event.target.value)} />
+            <input type="text" placeholder="Search For Class" class="search-bar" onChange={event => setQuery(event.target.value)} />
             <div className="search-results-box">
             {
                 
-            
+            //{class_result.ACAD_ACT_CD}
             Data.filter( class_result => {
                 if (query === "") {
                     //nothing in the search bar, don't show anything
@@ -45,12 +45,17 @@ const Sidebar = (props) =>{
                 } // TODO: add searching by class name here once we add class-Name to the database
             }).map((class_result, index) => (
                     <div className="search-results" key={index}>
-                        <p>Course code:{class_result.ACAD_ACT_CD}</p>
+                        <div className="result-entry">
+                            
+                            <button type="button" className="add-course-button" id="add-course-button" value="Course code: "></button>
+                            
+                        </div>
+                        
                     </div>
-        
-            ))
             
+            ))
             }
+            
             </div>
             
         </div>
