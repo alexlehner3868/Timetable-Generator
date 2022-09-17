@@ -6,11 +6,9 @@ import Period from "./Period";
 // Decide how to view the 2 semesters
 const Timetable = (props) =>{
      
-    
-
-    const timetable = new Array(10); 
+    const timetable = new Array(11); 
     for(let i = 0; i < timetable.length; i++){
-        timetable[i] = new Array(5).fill(null); 
+        timetable[i] = new Array(6).fill(null); 
     }
 
     return (
@@ -19,7 +17,7 @@ const Timetable = (props) =>{
             return (
                 <div>
                 {    
-                    row.map(()=> <Period  ClassID={props.classID} classSection={props.classSection} classNum={props.classNum}/>)
+                    row.map((col)=> <Period  ClassID={props.classID} classSection={props.classSection} classNum={props.classNum}/>)
                 }
                 </div>
                 

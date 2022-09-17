@@ -28,6 +28,7 @@ code {
   grid-column: 1/ span 4;
 }
 .timetable {
+  border-style: dotted;
 }
 
 .horizontal {
@@ -39,7 +40,7 @@ code {
 .empty-period{
   display: inline-block;
   height: 40px;
-  width: 80px;
+  width: 70px;
   background-color: #555;  
   margin-left: 5px;
   margin-bottom: 2px;
@@ -67,6 +68,12 @@ code {
     width: 300px;
 }
 
+.semester-label {
+  color:rgb(25, 25, 106);
+  font-size: calc(7px + 2vmin);
+  font-weight: bold;
+}
+
 .whole-webpage {
     display:flex;
     flex-direction:row;
@@ -78,8 +85,8 @@ code {
   column-gap: 30px;
   width: 80%;
   margin-left: 5px;
-  padding-top: 5%;
-  padding-left: 5%;
+  padding-top: 3%;
+  padding-left: 3%;
   padding-bottom: 5%;
   border-style: dashed;
 }

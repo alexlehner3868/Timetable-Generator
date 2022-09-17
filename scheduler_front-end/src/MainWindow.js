@@ -1,3 +1,4 @@
+import Semester from './data/Semester';
 import Timetable from './Timetable';
 
 const MainWindow = (props) =>{
@@ -6,8 +7,8 @@ const MainWindow = (props) =>{
     
     return (
         <div className='main-window'>
-            <Timetable/>
-            <Timetable/>
+            <Semester semester="Fall"/>
+            <Semester semester="Winter"/>
         </div>
     
     
