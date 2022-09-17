@@ -3,6 +3,8 @@ import SearchButton from "./SearchButton";
 import Data from "./data/courses.json";
 import {useState} from "react";
 
+
+
 const Sidebar = (props) =>{
     // for search bar
     const [query, setQuery] = useState("")
@@ -28,8 +30,12 @@ const Sidebar = (props) =>{
   // place sidebar and {class_button} in here below
   return (
         <div className="sidebar">
-             
-            <input type="text" placeholder="Search For Class" class="search-bar" onChange={event => setQuery(event.target.value)} />
+            
+            <input type="text" placeholder="Search For Class" class="search-bar" onChange={event => setQuery(event.target.value)}/> 
+            <div className="search-bar">
+                <i class="fa fa-user fa-lg"></i>
+            </div>
+            
             <div className="search-results-box">
             {
                 
@@ -49,7 +55,10 @@ const Sidebar = (props) =>{
                             
 
                             <div> 
-                            <svg className="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6 13h-5v5h-2v-5h-5v-2h5v-5h2v5h5v2z"/></svg>
+                            <svg className="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" 
+                            viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.373-12 
+                            12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6 
+                            13h-5v5h-2v-5h-5v-2h5v-5h2v5h5v2z"/></svg>
                             </div>
                             <span className="course-code"> {class_result.ACAD_ACT_CD} </span> <br></br>
                             <span className="course-name">  this is a course </span>

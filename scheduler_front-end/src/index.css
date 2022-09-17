@@ -7,6 +7,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
@@ -54,16 +56,34 @@ code {
   margin: auto;
   font-size: xx-small;
 }
+.search-bar i {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+}
+
+
+.input-icons {
+  width: 250px;
+  height: 40px;
+}
+
+.icon {
+  padding: 10px;
+  min-width: 40px;
+}
+
 .search-bar {
+    position: relative;
     width: 250px;
     height: 40px;
     font-size: x-large;
-    background-color: #ffffff;
     border-radius: 5px;
+    border-color: #125948;
 } 
 .add-course-button {
   padding: 0;
-  border: none;
+  border: 1px;
   position: absolute;
   left: 0;
   display:inline-block;
