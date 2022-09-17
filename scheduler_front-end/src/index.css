@@ -73,6 +73,7 @@ code {
 .search-results-box {
   background-color: #39163d;
   height: 700px;
+  width: 100%;
   overflow: auto;
 }
 
@@ -85,7 +86,7 @@ code {
 .whole-webpage {
     display:flex;
     flex-direction:row;
-    column-gap: 100px;
+    /*column-gap: 100px;*/
 }
 .main-window {
   display:flex;
