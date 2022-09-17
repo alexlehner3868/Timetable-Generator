@@ -4,7 +4,6 @@ import Data from "./data/courses.json";
 import {useState} from "react";
 
 
-
 const Sidebar = (props) =>{
     // for search bar
     const [query, setQuery] = useState("")
@@ -30,10 +29,11 @@ const Sidebar = (props) =>{
   // place sidebar and {class_button} in here below
   return (
         <div className="sidebar">
+            <div className="search-bar">
+                
             
             <input type="text" placeholder="Search For Class" class="search-bar" onChange={event => setQuery(event.target.value)}/> 
-            <div className="search-bar">
-                <i class="fa fa-user fa-lg"></i>
+            <i class="fa fa-user fa-lg"></i>
             </div>
             
             <div className="search-results-box">

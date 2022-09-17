@@ -58,7 +58,7 @@ code {
 }
 .search-bar i {
   position: absolute;
-  top: -35px;
+  top: 10px;
   left: 10px;
 }
 
