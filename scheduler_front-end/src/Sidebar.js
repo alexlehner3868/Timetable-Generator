@@ -3,7 +3,6 @@ import SearchButton from "./SearchButton";
 import Data from "./data/courses.json";
 import {useState} from "react";
 
-
 const Sidebar = (props) =>{
     // for search bar
     const [query, setQuery] = useState("")
@@ -45,11 +44,9 @@ const Sidebar = (props) =>{
                 } // TODO: add searching by class name here once we add class-Name to the database
             }).map((class_result, index) => (
                     <div className="search-results" key={index}>
-                        <div className="result-entry">
+                           
+                        <button type="button" className="add-course-button" id="add-course-button" value="Course code: "></button>
                             
-                            <button type="button" className="add-course-button" id="add-course-button" value="Course code: "></button>
-                            
-                        </div>
                         
                     </div>
             
