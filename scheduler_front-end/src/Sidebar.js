@@ -3,7 +3,6 @@ import SearchButton from "./SearchButton";
 import Data from "./data/courses.json";
 import {useState} from "react";
 
-
 const Sidebar = (props) =>{
     // for search bar
     const [query, setQuery] = useState("")
@@ -33,7 +32,7 @@ const Sidebar = (props) =>{
                 
             
             <input type="text" placeholder="Search For Class" class="search-bar" onChange={event => setQuery(event.target.value)}/> 
-            <i class="fa fa-user fa-lg"></i>
+            <i class="fa fa-magnifying-glass fa-lg"></i>
             </div>
             
             <div className="search-results-box">
