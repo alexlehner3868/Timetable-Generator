@@ -7,7 +7,7 @@ import ScheduleButton from './ScheduleButton';
 import Timetable from './Timetable';
 import Sidebar from './Sidebar';
 import MainWindow from './MainWindow';
-/*
+
 function App() {
   return (
     <div className="App">
@@ -17,7 +17,7 @@ function App() {
     </div>
   );
 }
-*/
+
 // TODO: Get course data with class names
 // TODO: Properly space timetable and sidebar so they're on left and right side
 // TODO: When searching for a class, each result should be a button
@@ -27,6 +27,8 @@ function App() {
 // TODO: Button to show only fall schedule
 // TODO: Button to show only winter schedule
 // TODO: Button to show both schedules
+// TODO: Button to cycle through time tables 
+/*
 function App() {
   return (
     <div className="App">
@@ -41,5 +43,5 @@ function App() {
     </div>
   );
 }
-
+*/
 export default App;

@@ -1,5 +1,5 @@
 import React from 'react'
-import ScheduleButton from './ScheduleButton'
+import CalculatorButton from './CalculatorButton';
 import CalculatorDisplay from './CalculatorDisplay';
 
 function CalculatorPanel(props){
@@ -25,7 +25,7 @@ function CalculatorPanel(props){
     ];
 
     const calc_button = buttons.map((value, index) => {
-        return <ScheduleButton 
+        return <CalculatorButton 
         caption={value.text}
         onClick={value.handler} />
     });
