@@ -39,7 +39,7 @@ function App() {
       </header>
       <div className='whole-webpage'>
         <MainWindow className="main-window"/>
-        <Sidebar className="search-bar"/>
+        <Sidebar className="sidebar"/>
        
       </div>
     </div>

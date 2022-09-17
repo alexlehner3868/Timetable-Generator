@@ -60,6 +60,7 @@ code {
   color:rgb(25, 25, 106);
   font-size: calc(7px + 2vmin);
   font-weight: bold;
+  font-family: cera-regular;
 }
 
 .whole-webpage {
@@ -96,7 +97,12 @@ code {
 
 
 
-
+.sidebar {
+  padding-top: 3%;
+  padding-left: 1%;
+  padding-right: 1%;
+  padding-bottom: 5%;
+}
 
 
 /*way too much garbage*/
