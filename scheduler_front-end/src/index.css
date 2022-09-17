@@ -61,12 +61,13 @@ code {
 
 .search-results {
     display:block;
-    background-color: #FDEEFF;
+    background-color: #ffffff;
     font-size: small;
+    text-align: center;
     color: black;
     height: 40px;
-    width: 300px;
-    
+    width: 250px;
+    border-radius: 5px;
     
 }
 .search-results-box {
