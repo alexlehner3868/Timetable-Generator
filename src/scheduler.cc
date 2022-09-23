@@ -44,7 +44,6 @@ void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings, CourseOff
     if (timetables_.size() < max_number_of_timetables && unique_check(timetable)) {
       //cout << "Appending unique timetable" << endl;
       timetables_.push_back(timetable);
-      cout<<"Added "<< timetables_.size()<<endl;
       // Print out valid timetable (used for debugging)
       //print_timetable(timetable);
     }

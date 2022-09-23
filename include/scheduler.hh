@@ -36,7 +36,7 @@ class Scheduler {
         std::vector<std::vector<std::string>> timetables_str;
         int max_sections_scheduled();
         int number_of_timetables = 5;
-        int max_number_of_timetables = 200;
+        int max_number_of_timetables = 400;
        
     public:
         Scheduler();
