@@ -750,8 +750,8 @@ int main(int argc, char *argv[])
     offerings.insert(class_two);
     offerings.insert(class_three);
     offerings.insert(class_four);
-   //offerings.insert(class_five);
-    //offerings.insert(class_six);
+   offerings.insert(class_five);
+    offerings.insert(class_six);
 
     Scheduler scheduler;
     scheduler.schedule_classes(offerings);

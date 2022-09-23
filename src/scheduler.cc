@@ -53,12 +53,10 @@ void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings, CourseOff
     return;
   }
 
-  auto rng = std::default_random_engine {};
-  vector<CourseOfferings> randomly_sorted_courses(courses.begin(), courses.end());
-  shuffle(begin(randomly_sorted_courses), end(randomly_sorted_courses), rng);
+  
 
   // Loop through all of the Course Offerings (ie the course and all its sections)
-  for(auto course : randomly_sorted_courses){
+  for(auto course : courses){
     attempt_to_add_section(timetable, LEC, course, courses);
   } 
 }
@@ -77,7 +75,13 @@ void Scheduler::attempt_to_add_section(std::unordered_map<Date, SelectedCourseSe
   }
   //cout << "there are " << num_sections << " sections of course" << course.course_id_ << endl;
   // Loop through all of the possible lecture sections in the course 
-  for(int section_id = 0; section_id < num_sections; section_id++){
+  vector<int> shuffled_sections;
+  for(int i = 0; i < num_sections; i++){
+    shuffled_sections.push_back(i);
+  }
+  auto rng = std::default_random_engine {};
+  shuffle(begin(shuffled_sections), end(shuffled_sections), rng);
+  for(int section_id : shuffled_sections){
     //cout<<"Looking at section id "<<section_id<<endl;
       Section section;
       if(class_type == LEC){
