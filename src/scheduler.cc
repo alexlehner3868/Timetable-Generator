@@ -4,6 +4,8 @@
 #include <unordered_set>
 #include <unordered_map> 
 #include <thread>
+#include <algorithm>
+#include <random>
 //#include <tbb/parallel_for.h>
 //#include <tbb/atomic.h>
 
@@ -39,31 +41,26 @@ void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings, CourseOff
   // When all classes have been added to the timetable, save this valid timetable (base case)
   if(courses.size() == 0){
     //cout << "no more courses left" << endl;
-    if (unique_check(timetable)) {
+    if (timetables_.size() < max_number_of_timetables && unique_check(timetable)) {
       //cout << "Appending unique timetable" << endl;
       timetables_.push_back(timetable);
-
+      cout<<"Added "<< timetables_.size()<<endl;
       // Print out valid timetable (used for debugging)
       //print_timetable(timetable);
     }
-    
   }
-    
-  // Loop through all of the Course Offerings (ie the course and all its sections)
-  for(auto course : courses){
-    if(first_iteration){
 
-    }
-    //std::cout<<"TRYING TO ADD LEC "<< course.courseID()<<endl;
-    //cout << "is it done? " << is_done << endl;
+  if(timetables_.size() >= max_number_of_timetables){
+    return;
+  }
+
+  auto rng = std::default_random_engine {};
+  vector<CourseOfferings> randomly_sorted_courses(courses.begin(), courses.end());
+  shuffle(begin(randomly_sorted_courses), end(randomly_sorted_courses), rng);
+
+  // Loop through all of the Course Offerings (ie the course and all its sections)
+  for(auto course : randomly_sorted_courses){
     attempt_to_add_section(timetable, LEC, course, courses);
-    //std::cout<<"TRYING TO ADD TUT "<< course.courseID()<<endl;
-    //attempt_to_add_section(timetable, TUT, course, courses);
-    //std::cout<<"TRYING TO ADD PRA "<< course.courseID()<<endl;
-    //attempt_to_add_section(timetable, PRA, course, courses);
-    
-    //we are removing the course from courses after all LECs are placed, but we should
-    //remove the course once all TUTs and PRAs are placed too
   } 
 }
 
@@ -222,11 +219,16 @@ int Scheduler::max_sections_scheduled(){
 }
 
 void Scheduler::print_timetables(){
-  int max_scheduled = max_sections_scheduled();
-
-  for(auto timetable : timetables_){
-    if((int)timetable.size() >= max_scheduled){
-      print_timetable(timetable);
+  // TODO: can probably get this as a constant and then add a check here if no full timetable is created
+  //int max_scheduled = max_sections_scheduled(); //too slow
+  int offset = max_number_of_timetables / number_of_timetables;
+  // TODO: add error checking here becuase we could run into an issue where we arent finding full timetables 
+  // ie here are sizes [10, 10, 10, 2, 2] where the only full timetbales are the first options but we skip them
+  for(int i = 0; i < max_number_of_timetables; i++){
+    int index = i *offset;
+  // TODO: if a full timetable exists print it here
+    if(index < timetables_.size()){
+      print_timetable(timetables_[index]);
     }
     
   }

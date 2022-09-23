@@ -5,6 +5,8 @@
 #include <iostream>
 #include <unordered_set>
 #include <unordered_map>
+#include <algorithm>
+#include <random>
 
 #include "course_offering.hh"
 #include "constraints.hh"
@@ -33,6 +35,9 @@ class Scheduler {
         std::vector<std::unordered_map<Date, SelectedCourseSection, Date_Hash>> timetables_;
         std::vector<std::vector<std::string>> timetables_str;
         int max_sections_scheduled();
+        int number_of_timetables = 5;
+        int max_number_of_timetables = 200;
+       
     public:
         Scheduler();
         void schedule_classes(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& courses);
