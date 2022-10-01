@@ -705,6 +705,29 @@ void test_sample_questions() {
     //test_three_classes_conflict();
 } 
 
+void remove_course(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& offerings, string course_id) {
+    // We need to find the element with the matching course code then remove it
+    CourseData course_data;
+
+    std::vector<Section> lec_sections = course_data.add_course(course_id, 1);
+    std::vector<Section> tut_sections = course_data.add_course(course_id, 2);
+    std::vector<Section> pra_sections = course_data.add_course(course_id, 3);
+
+    
+    CourseOfferings class_offering("Circuit Analysis", course_id, lec_sections, tut_sections, pra_sections);
+
+    auto search = offerings.find(class_offering);
+    if (search == offerings.end()) {
+        // course wasn't found, no need to remove it
+        // could be an issue with course ids (H1 at the end)
+        cout << "Is " << course_id << " the course id of the course you want to delete?" << endl;
+    } else {
+        // it was found in the unordered set
+        offerings.erase(class_offering);
+    }
+
+}
+
 int main(int argc, char *argv[])
 {
     //--- Data Procesing ---- 
@@ -739,7 +762,7 @@ int main(int argc, char *argv[])
     CourseOfferings class_one("Digital Systems", "ECE241", course_one_lecture_sections, course_one_tutorial_sections, course_one_practical_sections);
     CourseOfferings class_two("Programming Fundamentals", "ECE244", course_two_lecture_sections, course_two_tutorial_sections, course_two_practical_sections);
     CourseOfferings class_three("Seminar Course", "ECE201", course_three_lecture_sections, course_three_tutorial_sections, course_three_practical_sections);
-    CourseOfferings class_four("Circuit Analysis", "ECE212", course_four_lecture_sections, course_four_tutorial_sections, course_four_practical_sections);
+    CourseOfferings class_four("Circuit Analysis", "ECE212H1", course_four_lecture_sections, course_four_tutorial_sections, course_four_practical_sections);
     CourseOfferings class_five("Advanced Engineering Mathematics", "MAT290", course_five_lecture_sections, course_five_tutorial_sections, course_five_practical_sections);
     CourseOfferings class_six("Calculus III", "MAT291", course_six_lecture_sections, course_six_tutorial_sections, course_six_practical_sections);
 
@@ -750,6 +773,9 @@ int main(int argc, char *argv[])
     offerings.insert(class_four);
     offerings.insert(class_five);
     offerings.insert(class_six);
+
+    //to remove a class it should already be in offerings
+    remove_course(offerings, "ECE212H1");
 
     Scheduler scheduler;
     scheduler.schedule_classes(offerings);
