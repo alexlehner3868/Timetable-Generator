@@ -17,8 +17,7 @@
 using namespace std; 
 
 /**
- * TODO: add support for tutorials and practicals (verify it works)
- * TODO: add/remove classes 
+ * TODO: remove classes 
  * TODO: add constraints 
  * TODO: add support for async classes 
  * TODO: add option to allow conflicts? -> uoft allows you to enroll even when you have 3 conflicts at once
@@ -48,11 +47,13 @@ void Scheduler::add_time_constraint(std::unordered_map<Date, SelectedCourseSecti
   Date period = make_pair(day_of_week_, time_);
 
   // now we make up a SelectedCourseSection object for our blocked off time
-  // each blocked off section should have 
+  // each blocked off section should have some extra info
+  // because the user won't be adding the reason for blocking off time
+  // we don't need extra info here since these are just for our terminal output
   SelectedCourseSection class_chosen{
   .course_code = "Blocked Off Time",
   .type = CONSTRAINT, // Blocked Off Sectionxx
-  .section = 888,
+  .section = 887,
   .semester = semester_ // Each section should only be in either F or W (need support for full year courses)
   // semester can be a char instead of a vector
   // F - FALL W - WINTER B - BOTH

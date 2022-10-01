@@ -7,6 +7,19 @@
 
 using namespace std;
 
+/**
+ * @brief 
+ * Constraints List:
+ * ☑ Block off Time
+ * ☐ No large chunks of class w/ no break
+ * ☐ early constraint
+ * ☐ late constraint (same as above)
+ * ☐ condense schedule
+ * ☐ 
+ * 
+ */
+
+
 
 /**
  * A time where courses cannot be with varying priorities
