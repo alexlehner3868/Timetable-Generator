@@ -23,10 +23,7 @@ using namespace std;
  * TODO: add option to allow conflicts? -> uoft allows you to enroll even when you have 3 conflicts at once
  * TODO: Add in constraints that force course to be in a certain semester. 
  * TODO: If a course has a prereq also being schedule, make sure the pre req is first 
- * TODO: Add better time table printing for courses longer than one hour  
- * TODO: Do we need to add parallelism to speed it up?? 
  * TODO: set max courses per semester to 6
- * TODO: currently only prints timetable if all classes are inserted. add a config to output half complete ones too
  */
 
 /** 
