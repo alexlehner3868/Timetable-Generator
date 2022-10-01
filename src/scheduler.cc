@@ -39,49 +39,33 @@ void Scheduler::add_time_constraint(std::unordered_map<Date, SelectedCourseSecti
   // since data is coming from our front-end, it shouldn't need to be parsed for correctness 
   // (click on schedule to place block off time)
 
-  // each Date pair is: (day of week, time of day)
-  // then we insert pair: (Date, class)
-  Date period = make_pair(day_of_week_, time_);
-
   // now we make up a SelectedCourseSection object for our blocked off time
   // each blocked off section should have some extra info
   // because the user won't be adding the reason for blocking off time
   // we don't need extra info here since these are just for our terminal output
   SelectedCourseSection class_chosen{
   .course_code = "Blocked Off Time",
-  .type = CONSTRAINT, // Blocked Off Sectionxx
+  .type = CONSTRAINT, // Blocked Off Section
   .section = 887,
-  .semester = semester_ // Each section should only be in either F or W (need support for full year courses)
-  // semester can be a char instead of a vector
-  // F - FALL W - WINTER B - BOTH
-};
+  .semester = semester_ 
+  };
 
-  auto it = timetable.insert(std::make_pair(period, class_chosen));
-  bool successfully_inserted = it.second;
+  for (int i = 0; i < duration_; i++) {
 
-  // Check if the class was sucessfully inserted 
-  if (!successfully_inserted) {
-    // something went wrong - timetable should be empty
-    cout << "Error in adding constraint." << endl;
+  
+    // each Date pair is: (day of week, time of day)
+    // then we insert pair: (Date, class)
+    Date period = make_pair(day_of_week_, time_ + i);
+
+    auto it = timetable.insert(std::make_pair(period, class_chosen));
+    bool successfully_inserted = it.second;
+
+    // Check if the class was sucessfully inserted 
+    if (!successfully_inserted) {
+      // something went wrong - timetable should be empty
+      cout << "Error in adding constraint." << endl;
+    }
   }
-  /*
-  period = make_pair(section.day_.at(class_in_section) + semester_offset, section.start_time_.at(class_in_section) + i);
-              //cout << "Inserting class " << class_chosen.course_code << endl;
-              //cout << "Inserting section " << class_in_section << endl;
-              // Insert into the timetable  
-              auto it = timetable.insert(std::make_pair(period, class_chosen));
-              successfully_inserted = it.second;
-
-              // Check if the class was sucessfully inserted 
-              if (!successfully_inserted) {
-                  break;
-                  //Combination is invalid
-                  //Time occupied by another course offering
-              }
-              
-
-          }
-  */
 }
 
 void Scheduler::schedule_classes(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& courses ){
@@ -89,7 +73,7 @@ void Scheduler::schedule_classes(unordered_set<CourseOfferings, CourseOfferings:
   std::unordered_map<Date, SelectedCourseSection, Date_Hash> timetable;
   // populate timetable with constraints
   // this adds a one hour constraint at 12pm on Monday for 1 hour in the fall semester
-  add_time_constraint(timetable, 1, 12, 1, 'F', 0);
+  add_time_constraint(timetable, 1, 12, 8, 'F', 0);
   // run scheduling algorithm
   schedule_classes_helper(courses, timetable, true);
 }
