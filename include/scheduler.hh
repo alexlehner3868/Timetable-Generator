@@ -25,7 +25,8 @@ struct SelectedCourseSection{
 enum class_type {
   LEC = 1,
   TUT = 2,
-  PRA = 3
+  PRA = 3,
+  CONSTRAINT = 4
 };
 
 class Scheduler {
@@ -40,7 +41,7 @@ class Scheduler {
        
     public:
         Scheduler();
-        void add_time_constraint(std::unordered_map<Date, SelectedCourseSection, Date_Hash>& timetable);
+        void add_time_constraint(std::unordered_map<Date, SelectedCourseSection, Date_Hash>& timetable, int day_of_week_, int time_, int duration_, char semester_);
         void schedule_classes(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& courses);
         void schedule_classes_helper(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& courses, std::unordered_map<Date, SelectedCourseSection, Date_Hash>& timetable, bool first_itartion = false);
         void print_timetable(std::unordered_map<Date, SelectedCourseSection, Date_Hash>& timetable);

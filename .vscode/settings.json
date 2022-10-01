@@ -76,5 +76,12 @@
         "stack": "cpp",
         "random": "cpp"
     },
-    "C_Cpp.default.configurationProvider": "ms-vscode.makefile-tools"
+    "C_Cpp.default.configurationProvider": "ms-vscode.makefile-tools",
+    "makefile.launchConfigurations": [
+        {
+            "cwd": "/nfs/ug/homes-2/c/chelmec4/SchedulerAssistant/build/bin",
+            "binaryPath": "/nfs/ug/homes-2/c/chelmec4/SchedulerAssistant/build/bin/main",
+            "binaryArgs": []
+        }
+    ]
 }
