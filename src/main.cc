@@ -740,8 +740,8 @@ int main(int argc, char *argv[])
     CourseOfferings class_two("Programming Fundamentals", "ECE244", course_two_lecture_sections, course_two_tutorial_sections, course_two_practical_sections);
     CourseOfferings class_three("Seminar Course", "ECE201", course_three_lecture_sections, course_three_tutorial_sections, course_three_practical_sections);
     CourseOfferings class_four("Circuit Analysis", "ECE212", course_four_lecture_sections, course_four_tutorial_sections, course_four_practical_sections);
-    CourseOfferings class_five("Advanced Engineering Mathematics", "ECE290", course_five_lecture_sections, course_five_tutorial_sections, course_five_practical_sections);
-    CourseOfferings class_six("Calculus III", "ECE291", course_six_lecture_sections, course_six_tutorial_sections, course_six_practical_sections);
+    CourseOfferings class_five("Advanced Engineering Mathematics", "MAT290", course_five_lecture_sections, course_five_tutorial_sections, course_five_practical_sections);
+    CourseOfferings class_six("Calculus III", "MAT291", course_six_lecture_sections, course_six_tutorial_sections, course_six_practical_sections);
 
     unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> offerings;
     offerings.insert(class_one);

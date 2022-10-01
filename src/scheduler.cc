@@ -164,7 +164,7 @@ void Scheduler::attempt_to_add_section(std::unordered_map<Date, SelectedCourseSe
               if (!successfully_inserted) {
                   break;
                   //Combination is invalid
-                  //Time occupied by another course offering
+                  //Time occupied by another course offering or constraint
               }
               
 
@@ -173,13 +173,37 @@ void Scheduler::attempt_to_add_section(std::unordered_map<Date, SelectedCourseSe
           // There is a conflict with the class section that was just inputted so remove it 
           // Don't remove the class that it conflicted with - simply remove the others
           if (!successfully_inserted) {
+            // loop through each class in the section
               for (int remove_class = 0; remove_class <= class_in_section; remove_class++) {
+                // loop through each hour of the class (ex. if one is a two hour class this will run twice)
                 for (int i = 0; i < section.duration_.at(remove_class); i++) {
                       Date remove_period = make_pair(section.day_.at(remove_class), section.start_time_.at(remove_class) + i);
                       //if you want to see conflicts uncomment this
                       //cout << "Conflict detected, not able to add class " << course.course_id_ << " to schedule." << endl;
-                      if (remove_period != period) {
-                        timetable.erase(remove_period);
+                      /*for(std::pair<Date, SelectedCourseSection> element : timetable){
+                        if (element.first.first == 1 && element.first.second == 14) {
+                          cout << "The class conflicted with a conflict on " << element.first.first << " and at time " << element.first.second  << endl;
+                        }
+                      }*/
+                     
+                      // make sure we don't remove the class that was there originally
+                      //cout << (timetable.find(remove_period) == timetable.end()) << endl;
+                      if (remove_period != period /*&& timetable.find().first.course_code != "Blocked Off Time"*/) {
+                        if (timetable.find(remove_period) == timetable.end()) {
+                          // doesn't exist in the timetable
+                            timetable.erase(remove_period);
+                        } else {
+                          // it exists in the timetable
+                          auto matched_section = timetable.find(remove_period);
+                          //check if the type of the offering in the timetable is a conflict
+                          // if its a conflict, DO NOT remove it
+                          if ((*matched_section).second.type == 4) {
+                              //don't remove it, pass
+                          } else {
+                              timetable.erase(remove_period);
+                          }
+                        }
+                        //timetable.erase(remove_period);
                       }
                   }
               }
