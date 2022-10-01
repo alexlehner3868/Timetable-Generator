@@ -180,11 +180,7 @@ void Scheduler::attempt_to_add_section(std::unordered_map<Date, SelectedCourseSe
                       Date remove_period = make_pair(section.day_.at(remove_class), section.start_time_.at(remove_class) + i);
                       //if you want to see conflicts uncomment this
                       //cout << "Conflict detected, not able to add class " << course.course_id_ << " to schedule." << endl;
-                      /*for(std::pair<Date, SelectedCourseSection> element : timetable){
-                        if (element.first.first == 1 && element.first.second == 14) {
-                          cout << "The class conflicted with a conflict on " << element.first.first << " and at time " << element.first.second  << endl;
-                        }
-                      }*/
+                      
                      
                       // make sure we don't remove the class that was there originally
                       //cout << (timetable.find(remove_period) == timetable.end()) << endl;
