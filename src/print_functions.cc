@@ -7,26 +7,34 @@
 using namespace std; 
 
 string toClassType(int type){
-    if(type == 1){
+    if (type == 1) {
         return "lecture";
-    }else if(type == 2){
+    } else if (type == 2) {
         return "tutorial";
-    }else{
+    } else if (type == 3) {
         return "practical";
+    } else if (type == 4) {
+        return "Constraint";
+    } else {
+        //do something if this is an error
+        return "Error";
     }
 }
 
 string toDay(int day){
-    if(day == 1){
+    if (day == 1) {
         return "Monday";
-    }else if (day == 2){
+    } else if (day == 2) {
         return "Tuesday";
-    }else if (day == 3){
+    } else if (day == 3) {
         return "Wednesday";
-    }else if (day ==4){
+    } else if (day == 4) {
         return "Thursday";
-    }else{
+    } else if (day == 5) {
         return "Friday";
+    } else {
+        //do something if this is an error
+        return "Error";
     }
 }
 
@@ -35,7 +43,9 @@ string toTime(int militaryTime){
         return to_string(militaryTime) + "AM";
     } else if (militaryTime == 12) {
         return "12PM";
-    } else {
+    } else if (militaryTime > 12 && militaryTime <25) {
         return to_string(militaryTime - 12) + "PM";
+    } else {
+        return "Error Time";
     }
 }

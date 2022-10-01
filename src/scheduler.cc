@@ -37,10 +37,9 @@ using namespace std;
  * 
  * 
 */
-void Scheduler::add_time_constraint(std::unordered_map<Date, SelectedCourseSection, Date_Hash>& timetable, int day_of_week_, int time_, int duration_, char semester_) {
+void Scheduler::add_time_constraint(std::unordered_map<Date, SelectedCourseSection, Date_Hash>& timetable, int day_of_week_, int time_, int duration_, char semester_, int constraint_type_) {
   // we have the timetable (empty) and now we fill it with the time block
   
-
   // since data is coming from our front-end, it shouldn't need to be parsed for correctness 
   // (click on schedule to place block off time)
 
@@ -51,9 +50,9 @@ void Scheduler::add_time_constraint(std::unordered_map<Date, SelectedCourseSecti
   // now we make up a SelectedCourseSection object for our blocked off time
   // each blocked off section should have 
   SelectedCourseSection class_chosen{
-  .course_code = "CONSTRAINT",
+  .course_code = "Blocked Off Time",
   .type = CONSTRAINT, // Blocked Off Sectionxx
-  .section = 99,
+  .section = 888,
   .semester = semester_ // Each section should only be in either F or W (need support for full year courses)
   // semester can be a char instead of a vector
   // F - FALL W - WINTER B - BOTH
@@ -65,7 +64,7 @@ void Scheduler::add_time_constraint(std::unordered_map<Date, SelectedCourseSecti
   // Check if the class was sucessfully inserted 
   if (!successfully_inserted) {
     // something went wrong - timetable should be empty
-    cout << "Error in adding constraint" << endl;
+    cout << "Error in adding constraint." << endl;
   }
   /*
   period = make_pair(section.day_.at(class_in_section) + semester_offset, section.start_time_.at(class_in_section) + i);
@@ -92,7 +91,7 @@ void Scheduler::schedule_classes(unordered_set<CourseOfferings, CourseOfferings:
   std::unordered_map<Date, SelectedCourseSection, Date_Hash> timetable;
   // populate timetable with constraints
   // this adds a one hour constraint at 12pm on Monday for 1 hour in the fall semester
-  add_time_constraint(timetable, 1, 12, 1, 'F');
+  add_time_constraint(timetable, 1, 12, 1, 'F', 0);
   // run scheduling algorithm
   schedule_classes_helper(courses, timetable, true);
 }
