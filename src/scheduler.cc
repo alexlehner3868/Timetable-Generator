@@ -30,9 +30,44 @@ using namespace std;
  * TODO: currently only prints timetable if all classes are inserted. add a config to output half complete ones too
  */
 
+/** 
+ * Function to add a time constraint into the timetable 
+ * similar to adding a class
+ * just add a block of time where a class would be
+ * 
+ * 
+*/
+void Scheduler::add_time_constraint(std::unordered_map<Date, SelectedCourseSection, Date_Hash>& timetable) {
+  //we have the timetable (empty) and now we fill it with the time block
+  
+  //each Date object is ()
+  //Date period = make_pair()
+  /*
+  period = make_pair(section.day_.at(class_in_section) + semester_offset, section.start_time_.at(class_in_section) + i);
+              //cout << "Inserting class " << class_chosen.course_code << endl;
+              //cout << "Inserting section " << class_in_section << endl;
+              // Insert into the timetable  
+              auto it = timetable.insert(std::make_pair(period, class_chosen));
+              successfully_inserted = it.second;
+
+              // Check if the class was sucessfully inserted 
+              if (!successfully_inserted) {
+                  break;
+                  //Combination is invalid
+                  //Time occupied by another course offering
+              }
+              
+
+          }
+  */
+}
 
 void Scheduler::schedule_classes(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& courses ){
+  //create timetable
   std::unordered_map<Date, SelectedCourseSection, Date_Hash> timetable;
+  //populate timetable with constraints
+  add_time_constraint(timetable);
+  //run scheduling algorithm
   schedule_classes_helper(courses, timetable, true);
 }
 
@@ -41,7 +76,7 @@ void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings, CourseOff
   // When all classes have been added to the timetable, save this valid timetable (base case)
   if(courses.size() == 0){
     //cout << "no more courses left" << endl;
-    if (timetables_.size() < max_number_of_timetables && unique_check(timetable)) {
+    if ((int) timetables_.size() < max_number_of_timetables && unique_check(timetable)) {
       //cout << "Appending unique timetable" << endl;
       timetables_.push_back(timetable);
       // Print out valid timetable (used for debugging)
@@ -49,7 +84,7 @@ void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings, CourseOff
     }
   }
 
-  if(timetables_.size() >= max_number_of_timetables){
+  if((int) timetables_.size() >= max_number_of_timetables){
     return;
   }
 
@@ -230,7 +265,7 @@ void Scheduler::print_timetables(){
   for(int i = 0; i < max_number_of_timetables; i++){
     int index = i *offset;
   // TODO: if a full timetable exists print it here
-    if(index < timetables_.size()){
+    if(index < (int) timetables_.size()){
       print_timetable(timetables_[index]);
     }
     
