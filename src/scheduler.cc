@@ -73,7 +73,9 @@ void Scheduler::schedule_classes(unordered_set<CourseOfferings, CourseOfferings:
   std::unordered_map<Date, SelectedCourseSection, Date_Hash> timetable;
   // populate timetable with constraints
   // this adds a one hour constraint at 12pm on Monday for 1 hour in the fall semester
-  add_time_constraint(timetable, 1, 12, 8, 'F', 0);
+  // hopefully we can implement this as a click and drag situation on the GUI and each release will 
+  // call this fcn, but for now include it here for testing purposes
+  add_time_constraint(timetable, 1, 12, 2, 'F', 0);
   // run scheduling algorithm
   schedule_classes_helper(courses, timetable, true);
 }
