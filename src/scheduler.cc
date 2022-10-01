@@ -24,6 +24,7 @@ using namespace std;
  * TODO: Add in constraints that force course to be in a certain semester. 
  * TODO: If a course has a prereq also being schedule, make sure the pre req is first 
  * TODO: set max courses per semester to 6
+ * TODO: remove all hard stop block times from the class offerings before we insert
  */
 
 /** 
