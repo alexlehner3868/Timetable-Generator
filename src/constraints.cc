@@ -7,58 +7,74 @@
 using namespace std;
 
 
-/** 
- * Function to add a time constraint into the timetable 
- * similar to adding a class
- * just add a block of time where a class would be
- * 
- * 
-*/
-void ConstraintGeneral::add_time_constraint(std::unordered_map<Date, SelectedCourseSection, Date_Hash>& timetable, int day_of_week_, int time_, int duration_, char semester_, int constraint_type_) {
-  // we have the timetable (empty) and now we fill it with the time block
-  
-  // since data is coming from our front-end, it shouldn't need to be parsed for correctness 
-  // (click on schedule to place block off time)
-
-  // now we make up a SelectedCourseSection object for our blocked off time
-  // each blocked off section should have some extra info
-  // because the user won't be adding the reason for blocking off time
-  // we don't need extra info here since these are just for our terminal output
-  SelectedCourseSection class_chosen{
-  .course_code = "Blocked Off Time",
-  .type = CONSTRAINT, // Blocked Off Section
-  .section = 887,
-  .semester = semester_ 
-  };
-
-  for (int i = 0; i < duration_; i++) {
-
-  
-    // each Date pair is: (day of week, time of day)
-    // then we insert pair: (Date, class)
-    Date period = make_pair(day_of_week_, time_ + i);
-
-    auto it = timetable.insert(std::make_pair(period, class_chosen));
-    bool successfully_inserted = it.second;
-
-    // Check if the class was sucessfully inserted 
-    if (!successfully_inserted) {
-      // something went wrong - timetable should be empty
-      cout << "Error in adding constraint." << endl;
-    }
+void ConstraintHandler::add_time_constraint(int start_time, int duration, int day, char semester,  int priority){
+  for(int i = 0; i < duration; i++){
+    time_constraints_.push_back(TimeConstraint(start_time + i, day, priority, semester));
   }
 }
 
-void ConstraintGeneral::remove_conflicts(std::unordered_map<Date, SelectedCourseSection, Date_Hash> timetable, unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& courses) {
-    // in this function we want to delete the courses from course offerings that overlap with the constraint
-    // no point in trying to schedule something at the same time
-
-    
-
-
+void ConstraintHandler::set_back_to_back_constraint(int max_back_to_back, int priority){
+  back_to_back_constraint_ = make_pair(max_back_to_back, priority);
 }
 
+void ConstraintHandler::set_no_classes_after_X_constraint(int X, int prioirty){
+  no_classes_after_X_ = make_pair(X, priority);
+}
 
-ConstraintGeneral::ConstraintGeneral() {
+void ConstraintHandler::set_no_classes_before_X_constraint(int X, int prioirty){
+  no_classes_before_X_ = make_pair(X, priority);
+}
 
+void ConstraintHandler::set_free_days_constraint(int priority){
+  free_days_ = priority;
+}
+
+void ConstraintHandler::set_minimize_days_at_school_constraint(int priority){
+  minimize_days_at_school_ = priority; 
+}
+
+void ConstraintHandler::set_prefer_morning_classes_constraint(int priority){
+  prefer_morning_classes_ = priority;
+}
+
+void ConstraintHandler::set_prefer_evening_classes_constraint(int priority){
+  prefer_evening_classes_ = priority;
+}
+
+void ConstraintHandler::reorder_time_constraints_based_on_priority(){
+  sort(time_constraints_.begin(), time_constraints_.end(), [](TimeConstraint lhs, TimeConstraint rhs){
+      return lhs.priority() < rhs.priority();
+  });
+}
+
+bool ConstraintHandler::remove_classes_conflicting_with_high_priority_time_constraints(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& original_offerings){
+  // Create unordered_set of <date, sem, time> of high prioirty time constraints to check against
+  
+  
+  for(auto offering: original_offerings){
+    for(auto lect_section : offering.lecture_sections_){
+      for(int i = 0; i < lect_section.num_classes_in_section(); i++){
+        for(int j = 0; j < lect_section.duration_[i]; j++){
+          // check if this lect at this day and time (start_time+j) at semester is in set of high prioritie
+          // if any ONE class intersects with a high priority, remove ALL classes in that section
+        }
+      }
+    }
+    for(auto tut_section : offering.tutorial_sections_){
+      // add loops like above here 
+    }
+    for(auto pra_section : offering.pra_sections_){
+      // same 
+    }
+
+    //CHCEK IF ANY OF THE LEC, PRA or TUT vectors in offering are of size 0, return false 
+  }
+  return true;
+}
+
+ConstraintHandler::ConstraintHandler() {
+  time_constraints_.clear();
+  back_to_back_constraint_ = make_pair(24, NO_PRIORITY); 
+  no_classes_after_X_ = make_pair(24, NO_PRIORITY);
+  no_classes_before_X_ = make_pair(0, NO_PRIORITY);
 }

@@ -31,6 +31,10 @@ class Section {
 		vector<char> semester_; //'F' or 'W'
 		vector<bool> async_; 
 
+		int num_classes_in_section(){
+			return duration_.size();
+		}
+
 };
 
 #endif

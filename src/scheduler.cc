@@ -24,7 +24,6 @@ using namespace std;
  * TODO: Add in constraints that force course to be in a certain semester. 
  * TODO: If a course has a prereq also being schedule, make sure the pre req is first 
  * TODO: set max courses per semester to 6
- * TODO: remove all hard stop block times from the class offerings before we insert
  */
 
 
@@ -37,14 +36,14 @@ void Scheduler::schedule_classes(unordered_set<CourseOfferings, CourseOfferings:
   // call this fcn, but for now include it here for testing purposes
 
   //constraint will hold all of our constraints - atm this is in the wrong place but dw we'll move it eventually
-  ConstraintGeneral constraint;
-  constraint.add_time_constraint(timetable, 1, 12, 2, 'F', 0);
+  //ConstraintGeneral constraint;
+ // constraint.add_time_constraint(timetable, 1, 12, 2, 'F', 0);
 
   // look through time constraints and classes that don't work - remove these from 
   // course_offerings and run the algorithm
   // if there are no valid timetables then try algorithm with the conflict - this will give most possible complete timetable
 
-  constraint.remove_conflicts(timetable, courses);
+  //constraint.remove_conflicts(timetable, courses);
 
   // run scheduling algorithm
   schedule_classes_helper(courses, timetable, true);
