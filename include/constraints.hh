@@ -29,11 +29,11 @@ using namespace std;
 
 class ConstraintGeneral {
   private:
-    int day_of_week_;
-    int time_;
-    int duration_;
-    char semester_;
-    int constraint_type_;
+    std::vector<int> day_of_week_;
+    std::vector<int> time_;
+    std::vector<int> duration_;
+    std::vector<char> semester_;
+    std::vector<int> constraint_type_;
   public:
     ConstraintGeneral();
     /*ConstraintGeneral(int day_of_week, int time, int duration, char semester, int constraint_type) {

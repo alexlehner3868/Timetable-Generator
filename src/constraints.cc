@@ -50,7 +50,10 @@ void ConstraintGeneral::add_time_constraint(std::unordered_map<Date, SelectedCou
 }
 
 void ConstraintGeneral::remove_conflicts(std::unordered_map<Date, SelectedCourseSection, Date_Hash> timetable, unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& courses) {
+    // in this function we want to delete the courses from course offerings that overlap with the constraint
+    // no point in trying to schedule something at the same time
 
+    
 
 
 }
