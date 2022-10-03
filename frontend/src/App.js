@@ -3,7 +3,6 @@ import './App.css';
 import './index.css'
 import calculatorAPI from './calculatorAPI';
 import Calculator from './Calculator';
-import ScheduleButton from './ScheduleButton';
 import Timetable from './Timetable';
 import Sidebar from './Sidebar';
 import MainWindow from './MainWindow';
