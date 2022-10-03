@@ -47,8 +47,9 @@ void ConstraintHandler::reorder_time_constraints_based_on_priority(){
   });
 }
 
-bool ConstraintHandler::remove_classes_conflicting_with_high_priority_time_constraints(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& original_offerings){
+bool ConstraintHandler::preprocess_high_priority_classes_out(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& original_offerings){
   // Create unordered_set of <date, sem, time> of high prioirty time constraints to check against
+  // Add before_X and after_X times if it is a high priority (ie add all times above X for all days )
   
   
   for(auto offering: original_offerings){

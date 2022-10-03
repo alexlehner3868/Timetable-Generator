@@ -93,7 +93,7 @@ class ConstraintHandler {
     void set_prefer_evening_classes_constraint(int priority);
     void reorder_time_constraints_based_on_priority();
 
-    bool remove_classes_conflicting_with_high_priority_time_constraints(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& original_offerings);
+    bool preprocess_high_priority_classes_out(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& original_offerings);
 };
 
 #endif
