@@ -4,6 +4,10 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include <unordered_map>
+#include "course_offering.hh"
+#include "course_data.hh"
+#include "date.hh"
 
 using namespace std;
 
@@ -18,6 +22,31 @@ using namespace std;
  * ☐ 
  * 
  */
+
+
+
+
+
+class ConstraintGeneral {
+  private:
+    int day_of_week_;
+    int time_;
+    int duration_;
+    char semester_;
+    int constraint_type_;
+  public:
+    ConstraintGeneral();
+    /*ConstraintGeneral(int day_of_week, int time, int duration, char semester, int constraint_type) {
+      day_of_week_ = day_of_week;
+      time_ = time;
+      duration_ = duration;
+      semester_ = semester;
+      constraint_type_ = constraint_type;
+    }*/
+    void add_time_constraint(std::unordered_map<Date, SelectedCourseSection, Date_Hash>& timetable, int day_of_week, int time, int duration, char semester, int constraint_type);
+    void remove_conflicts(std::unordered_map<Date, SelectedCourseSection, Date_Hash> timetable, unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& courses);
+
+};
 
 
 

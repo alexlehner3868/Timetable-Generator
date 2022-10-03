@@ -11,7 +11,7 @@
 
 #include "period.hh"
 #include "print_functions.hh"
-
+#include "constraints.hh"
 #include "scheduler.hh"
 
 using namespace std; 
@@ -27,56 +27,25 @@ using namespace std;
  * TODO: remove all hard stop block times from the class offerings before we insert
  */
 
-/** 
- * Function to add a time constraint into the timetable 
- * similar to adding a class
- * just add a block of time where a class would be
- * 
- * 
-*/
-void Scheduler::add_time_constraint(std::unordered_map<Date, SelectedCourseSection, Date_Hash>& timetable, int day_of_week_, int time_, int duration_, char semester_, int constraint_type_) {
-  // we have the timetable (empty) and now we fill it with the time block
-  
-  // since data is coming from our front-end, it shouldn't need to be parsed for correctness 
-  // (click on schedule to place block off time)
-
-  // now we make up a SelectedCourseSection object for our blocked off time
-  // each blocked off section should have some extra info
-  // because the user won't be adding the reason for blocking off time
-  // we don't need extra info here since these are just for our terminal output
-  SelectedCourseSection class_chosen{
-  .course_code = "Blocked Off Time",
-  .type = CONSTRAINT, // Blocked Off Section
-  .section = 887,
-  .semester = semester_ 
-  };
-
-  for (int i = 0; i < duration_; i++) {
-
-  
-    // each Date pair is: (day of week, time of day)
-    // then we insert pair: (Date, class)
-    Date period = make_pair(day_of_week_, time_ + i);
-
-    auto it = timetable.insert(std::make_pair(period, class_chosen));
-    bool successfully_inserted = it.second;
-
-    // Check if the class was sucessfully inserted 
-    if (!successfully_inserted) {
-      // something went wrong - timetable should be empty
-      cout << "Error in adding constraint." << endl;
-    }
-  }
-}
 
 void Scheduler::schedule_classes(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& courses ){
   // create timetable
   std::unordered_map<Date, SelectedCourseSection, Date_Hash> timetable;
   // populate timetable with constraints
-  // this adds a one hour constraint at 12pm on Monday for 1 hour in the fall semester
+  // this adds a one hour constraint at 12pm on Monday for 2 hours in the fall semester
   // hopefully we can implement this as a click and drag situation on the GUI and each release will 
   // call this fcn, but for now include it here for testing purposes
-  add_time_constraint(timetable, 1, 12, 2, 'F', 0);
+
+  //constraint will hold all of our constraints - atm this is in the wrong place but dw we'll move it eventually
+  ConstraintGeneral constraint;
+  constraint.add_time_constraint(timetable, 1, 12, 2, 'F', 0);
+
+  // look through time constraints and classes that don't work - remove these from 
+  // course_offerings and run the algorithm
+  // if there are no valid timetables then try algorithm with the conflict - this will give most possible complete timetable
+
+  constraint.remove_conflicts(timetable, courses);
+
   // run scheduling algorithm
   schedule_classes_helper(courses, timetable, true);
 }

@@ -13,6 +13,7 @@ using namespace std;
 
 #define SECTION_OFFSET 100
 
+
 CourseData::CourseData(){
     
     int action_succes = 0;

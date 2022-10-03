@@ -14,6 +14,20 @@
 using namespace std; 
 
 
+struct SelectedCourseSection{
+  string course_code; 
+  int type; // 1 = lec, 2 = tut, 3 = pra 
+  int section;
+  char semester;
+};
+
+enum class_type {
+  LEC = 1,
+  TUT = 2,
+  PRA = 3,
+  CONSTRAINT = 4
+};
+
 class CourseData {
 
     private:
