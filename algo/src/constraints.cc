@@ -17,11 +17,11 @@ void ConstraintHandler::set_back_to_back_constraint(int max_back_to_back, int pr
   back_to_back_constraint_ = make_pair(max_back_to_back, priority);
 }
 
-void ConstraintHandler::set_no_classes_after_X_constraint(int X, int prioirty){
+void ConstraintHandler::set_no_classes_after_X_constraint(int X, int priority){
   no_classes_after_X_ = make_pair(X, priority);
 }
 
-void ConstraintHandler::set_no_classes_before_X_constraint(int X, int prioirty){
+void ConstraintHandler::set_no_classes_before_X_constraint(int X, int priority){
   no_classes_before_X_ = make_pair(X, priority);
 }
 
@@ -35,7 +35,7 @@ void ConstraintHandler::set_prefer_morning_classes_constraint(bool ans){
 }
 
 void ConstraintHandler::set_prefer_evening_classes_constraint(bool ans){
-  prefer_evening_classes_ = priority;
+  prefer_evening_classes_ = ans;
 }
 
 void ConstraintHandler::reorder_time_constraints_based_on_priority(){
@@ -61,7 +61,7 @@ bool ConstraintHandler::preprocess_high_priority_classes_out(unordered_set<Cours
     for(auto tut_section : offering.tutorial_sections_){
       // add loops like above here 
     }
-    for(auto pra_section : offering.pra_sections_){
+    for(auto pra_section : offering.practical_sections_){
       // same 
     }
 

@@ -85,8 +85,8 @@ class ConstraintHandler {
     ConstraintHandler();
     void add_time_constraint(int start_time, int duration, int day, char semester, int priority);
     void set_back_to_back_constraint(int max_back_to_back, int priority);
-    void set_no_classes_after_X_constraint(int X, int prioirty);
-    void set_no_classes_before_X_constraint(int X, int prioirty);
+    void set_no_classes_after_X_constraint(int X, int priority);
+    void set_no_classes_before_X_constraint(int X, int priority);
     void set_minimize_days_at_school_constraint(bool ans);
     void set_prefer_morning_classes_constraint(bool ans);
     void set_prefer_evening_classes_constraint(bool ans);
