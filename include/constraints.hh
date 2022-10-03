@@ -72,11 +72,11 @@ class ConstraintHandler {
     */
 
   vector<TimeConstraint> time_constraints_;
-  int minimize_days_at_school_ = NO_PRIORITY;
-  int breaks_between_classes_ = NO_PRIORITY;
-  int free_days_ = NO_PRIORITY;
-  int prefer_morning_classes_ = NO_PRIORITY;
-  int prefer_evening_classes_ = NO_PRIORITY;
+
+  int breaks_between_classes_ = NO_PRIORITY; //do we need? 
+  bool prefer_morning_classes_ = false;
+  bool prefer_evening_classes_ = false; 
+   bool minimize_days_at_school_ = false;
   pair<int, int> back_to_back_constraint_; // <max hours back to back, priority>
   pair<int, int> no_classes_after_X_; // <X, priority> 
   pair<int, int> no_classes_before_X_; // <X, prioity>
@@ -87,10 +87,9 @@ class ConstraintHandler {
     void set_back_to_back_constraint(int max_back_to_back, int priority);
     void set_no_classes_after_X_constraint(int X, int prioirty);
     void set_no_classes_before_X_constraint(int X, int prioirty);
-    void set_free_days_constraint(int priority);
-    void set_minimize_days_at_school_constraint(int priority);
-    void set_prefer_morning_classes_constraint(int priority);
-    void set_prefer_evening_classes_constraint(int priority);
+    void set_minimize_days_at_school_constraint(bool ans);
+    void set_prefer_morning_classes_constraint(bool ans);
+    void set_prefer_evening_classes_constraint(bool ans);
     void reorder_time_constraints_based_on_priority();
 
     bool preprocess_high_priority_classes_out(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& original_offerings);

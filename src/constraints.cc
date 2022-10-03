@@ -25,19 +25,16 @@ void ConstraintHandler::set_no_classes_before_X_constraint(int X, int prioirty){
   no_classes_before_X_ = make_pair(X, priority);
 }
 
-void ConstraintHandler::set_free_days_constraint(int priority){
-  free_days_ = priority;
+
+void ConstraintHandler::set_minimize_days_at_school_constraint(bool ans){
+  minimize_days_at_school_ = ans; 
 }
 
-void ConstraintHandler::set_minimize_days_at_school_constraint(int priority){
-  minimize_days_at_school_ = priority; 
+void ConstraintHandler::set_prefer_morning_classes_constraint(bool ans){
+  prefer_morning_classes_ = ans;
 }
 
-void ConstraintHandler::set_prefer_morning_classes_constraint(int priority){
-  prefer_morning_classes_ = priority;
-}
-
-void ConstraintHandler::set_prefer_evening_classes_constraint(int priority){
+void ConstraintHandler::set_prefer_evening_classes_constraint(bool ans){
   prefer_evening_classes_ = priority;
 }
 
