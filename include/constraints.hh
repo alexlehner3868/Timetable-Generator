@@ -45,7 +45,7 @@ class ConstraintGeneral {
     }*/
     void add_time_constraint(std::unordered_map<Date, SelectedCourseSection, Date_Hash>& timetable, int day_of_week, int time, int duration, char semester, int constraint_type);
     void remove_conflicts(std::unordered_map<Date, SelectedCourseSection, Date_Hash> timetable, unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& courses);
-
+    
 };
 
 
