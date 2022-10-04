@@ -32,15 +32,6 @@ using namespace std;
 
 class ConstraintHandler {
   private:
-  /*
-    std::vector<int> day_of_week_;
-    std::vector<int> time_;
-    std::vector<int> duration_;
-    std::vector<char> semester_;
-    std::vector<int> constraint_type_;
-    */
-
-;
   unordered_map<Date, int, Date_Hash> time_constraints_; // key: (day, time), value: priority
   int breaks_between_classes_ = NO_PRIORITY; //do we need? 
   bool prefer_morning_classes_ = false;
