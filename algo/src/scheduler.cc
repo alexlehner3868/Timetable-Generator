@@ -29,7 +29,7 @@ using namespace std;
 
 void Scheduler::schedule_classes(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& courses ){
   // create timetable
-  std::unordered_map<Date, SelectedCourseSection, Date_Hash> timetable;
+  TimeTable timetable;
   // populate timetable with constraints
   // this adds a one hour constraint at 12pm on Monday for 2 hours in the fall semester
   // hopefully we can implement this as a click and drag situation on the GUI and each release will 
@@ -46,10 +46,10 @@ void Scheduler::schedule_classes(unordered_set<CourseOfferings, CourseOfferings:
   //constraint.remove_conflicts(timetable, courses);
 
   // run scheduling algorithm
-  schedule_classes_helper(courses, timetable, true);
+  schedule_classes_helper(courses, timetable);
 }
 
-void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& courses, std::unordered_map<Date, SelectedCourseSection, Date_Hash>& timetable, bool first_iteration){
+void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& courses, TimeTable& timetable){
 
   // When all classes have been added to the timetable, save this valid timetable (base case)
   if(courses.size() == 0){
@@ -75,7 +75,7 @@ void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings, CourseOff
 }
 
 
-void Scheduler::attempt_to_add_section(std::unordered_map<Date, SelectedCourseSection, Date_Hash>& timetable, int class_type, CourseOfferings course, unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& courses){
+void Scheduler::attempt_to_add_section(TimeTable& timetable, int class_type, CourseOfferings course, unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& courses){
 
   
   int num_sections = 0;
@@ -128,8 +128,8 @@ void Scheduler::attempt_to_add_section(std::unordered_map<Date, SelectedCourseSe
               //cout << "Inserting class " << class_chosen.course_code << endl;
               //cout << "Inserting section " << class_in_section << endl;
               // Insert into the timetable  
-              auto it = timetable.insert(std::make_pair(period, class_chosen));
-              successfully_inserted = it.second;
+              
+              successfully_inserted = timetable.insert(std::make_pair(period, class_chosen));
 
               // Check if the class was sucessfully inserted 
               if (!successfully_inserted) {
@@ -149,28 +149,9 @@ void Scheduler::attempt_to_add_section(std::unordered_map<Date, SelectedCourseSe
                 // loop through each hour of the class (ex. if one is a two hour class this will run twice)
                 for (int i = 0; i < section.duration_.at(remove_class); i++) {
                       Date remove_period = make_pair(section.day_.at(remove_class), section.start_time_.at(remove_class) + i);
-                      //if you want to see conflicts uncomment this
-                      //cout << "Conflict detected, not able to add class " << course.course_id_ << " to schedule." << endl;
-                      
-                     
-                      // make sure we don't remove the class that was there originally
-                      //cout << (timetable.find(remove_period) == timetable.end()) << endl;
-                      if (remove_period != period /*&& timetable.find().first.course_code != "Blocked Off Time"*/) {
-                        if (timetable.find(remove_period) == timetable.end()) {
-                          // doesn't exist in the timetable
-                            timetable.erase(remove_period);
-                        } else {
-                          // it exists in the timetable
-                          auto matched_section = timetable.find(remove_period);
-                          //check if the type of the offering in the timetable is a conflict
-                          // if its a conflict, DO NOT remove it
-                          if ((*matched_section).second.type == 4) {
-                              //don't remove it, pass
-                          } else {
-                              timetable.erase(remove_period);
-                          }
-                        }
-                        //timetable.erase(remove_period);
+
+                      if (remove_period != period) {
+                        timetable.erase(remove_period);
                       }
                   }
               }
@@ -246,13 +227,6 @@ void Scheduler::attempt_to_add_section(std::unordered_map<Date, SelectedCourseSe
   }
 }
 
-int Scheduler::max_sections_scheduled(){
-  int max_placed = 0;
-    for(auto timetable : timetables_){
-      max_placed = max((int)timetable.size(), max_placed);
-    }
-    return max_placed;
-}
 
 void Scheduler::print_timetables(){
   // TODO: can probably get this as a constant and then add a check here if no full timetable is created
@@ -270,10 +244,10 @@ void Scheduler::print_timetables(){
   }
 }
 
-void Scheduler::print_timetable(std::unordered_map<Date, SelectedCourseSection, Date_Hash>& timetable){
+void Scheduler::print_timetable(TimeTable& timetable){
   std::cout<<"Timetable option: "<<std::endl;
   
-  for(std::pair<Date, SelectedCourseSection> element : timetable){
+  for(std::pair<Date, SelectedCourseSection> element : timetable.classes()){
     auto day = element.first.first;
     auto time = element.first.second;
     auto course = element.second.course_code;
@@ -286,12 +260,12 @@ void Scheduler::print_timetable(std::unordered_map<Date, SelectedCourseSection, 
   }
 }
 
-std::vector<std::string> Scheduler::make_timetable_str(std::unordered_map<Date, SelectedCourseSection, Date_Hash>& timetable) {
+std::vector<std::string> Scheduler::make_timetable_str(TimeTable& timetable) {
   std::string class_str;
   
   //timetable_str is the vector of strings containing one whole timetable option
   std::vector<std::string> timetable_str;
-  for(std::pair<Date, SelectedCourseSection> element : timetable){
+  for(std::pair<Date, SelectedCourseSection> element : timetable.classes()){
     auto course = element.second.course_code;
     auto section_chosen = element.second.section;
     auto type = element.second.type;
@@ -314,7 +288,7 @@ std::vector<std::string> Scheduler::make_timetable_str(std::unordered_map<Date, 
 * Function to check if a timetable already exists before adding it to
 * timetables_
 */
-bool Scheduler::unique_check(std::unordered_map<Date, SelectedCourseSection, Date_Hash>& timetable) {
+bool Scheduler::unique_check(TimeTable& timetable) {
   
   //first get the timetable that was just generated
   std::vector<std::string> new_timetable_str = make_timetable_str(timetable);
