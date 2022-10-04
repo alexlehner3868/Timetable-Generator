@@ -9,7 +9,7 @@ using namespace std;
 
 void ConstraintHandler::add_time_constraint(int start_time, int duration, int day, char semester,  int priority){
   for(int i = 0; i < duration; i++){
-    time_constraints_.push_back(TimeConstraint(start_time + i, day, priority, semester));
+    time_constraints_.insert(TimeConstraint(start_time + i, day, priority, semester));
   }
 }
 
@@ -45,18 +45,22 @@ void ConstraintHandler::reorder_time_constraints_based_on_priority(){
 }
 
 bool ConstraintHandler::preprocess_high_priority_classes_out(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& original_offerings){
-  // Create unordered_set of <date, sem, time> of high prioirty time constraints to check against
   // Maybe? Add before_X and after_X times if it is a high priority (ie add all times above X for all days )
-  
-  
-  for(auto offering: original_offerings){
-    for(auto lect_section : offering.lecture_sections_){
+  // TimeConstraint(int start, int day, int priority, char semester)
+  unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> processed_offerings; 
+
+  for(CourseOfferings offering: original_offerings){
+    for(Section lect_section : offering.lecture_sections_){
+      bool remove_section = false;
       for(int i = 0; i < lect_section.num_classes_in_section(); i++){
         for(int j = 0; j < lect_section.duration_[i]; j++){
-          // check if this lect at this day and time (start_time+j) at semester is in set of high prioritie
-          // if any ONE class intersects with a high priority, remove ALL classes in that section
+          auto it = time_constraints_.find(TimeConstraint(lect_section.start_time_[i]+j, lect_section.day_[i], MUST_HAVE, lect_section.semester_[i]));
+          if(it != time_constraints_.end()){
+            //NEED TO EITHER WORK OUT HERE HOW TO REMOVE THE SECTION WE ARE LOOKING AT OR INSTEAD ONLY INSERT GOOD SECTIONS INTO NEW VECTOR (i like this better)
+          }
         }
       }
+
     }
     for(auto tut_section : offering.tutorial_sections_){
       // add loops like above here 

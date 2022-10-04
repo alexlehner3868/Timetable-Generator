@@ -61,6 +61,13 @@ class TimeConstraint {
     }
 };
 
+   struct TimeConstraintHandler{
+      size_t operator()(TimeConstraint& c) const
+      {
+        return hash<string>()(to_string(c.start()) + " " + to_string(c.day()) + " " + c.semester() + to_string(c.priority));
+      }
+    };
+
 class ConstraintHandler {
   private:
   /*
@@ -71,7 +78,7 @@ class ConstraintHandler {
     std::vector<int> constraint_type_;
     */
 
-  vector<TimeConstraint> time_constraints_;
+  unordered_set<TimeConstraint, TimeConstraintHandler> time_constraints_;
 
   int breaks_between_classes_ = NO_PRIORITY; //do we need? 
   bool prefer_morning_classes_ = false;
