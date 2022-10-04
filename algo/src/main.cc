@@ -799,7 +799,6 @@ int main(int argc, char *argv[])
 
     ConstraintHandler constraint_handler;
     constraint_handler.add_time_constraint(10, 12, 2, 'F', MUST_HAVE); // tuesday at 10 am for 2 hours in the fall with 
-    constraint_handler.reorder_time_constraints_based_on_priority();
     
     Scheduler scheduler_handler;
     scheduler_handler.schedule_classes(offerings);

@@ -30,44 +30,6 @@ using namespace std;
     MUST_HAVE = 3,
   };
 
-/**
- * A time where courses cannot be with varying priorities
-*/
-class TimeConstraint {
-  private:
-    int start_time_;
-    int day_;
-    int priority_;
-    char semester_;
-  public:
-  TimeConstraint();
-    TimeConstraint(int start, int day, int priority, char semester){
-      start_time_ = start;
-      priority_ = priority;
-      day_ = day;
-      semester_ = semester;
-    };
-    int priority(){
-      return priority_;
-    }
-    int start(){
-      return start_time_;
-    }
-    int day(){
-      return day_;
-    }
-    char semester(){
-      return semester_;
-    }
-};
-
-   struct TimeConstraintHandler{
-      size_t operator()(TimeConstraint& c) const
-      {
-        return hash<string>()(to_string(c.start()) + " " + to_string(c.day()) + " " + c.semester() + to_string(c.priority));
-      }
-    };
-
 class ConstraintHandler {
   private:
   /*
@@ -78,8 +40,8 @@ class ConstraintHandler {
     std::vector<int> constraint_type_;
     */
 
-  unordered_set<TimeConstraint, TimeConstraintHandler> time_constraints_;
-
+;
+  unordered_map<Date, int, Date_Hash> time_constraints_; // key: (day, time), value: priority
   int breaks_between_classes_ = NO_PRIORITY; //do we need? 
   bool prefer_morning_classes_ = false;
   bool prefer_evening_classes_ = false; 

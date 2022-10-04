@@ -9,7 +9,10 @@ using namespace std;
 
 void ConstraintHandler::add_time_constraint(int start_time, int duration, int day, char semester,  int priority){
   for(int i = 0; i < duration; i++){
-    time_constraints_.insert(TimeConstraint(start_time + i, day, priority, semester));
+    if(semester == 'W'){
+      day +=5;
+    }
+    time_constraints_.insert({make_pair(day, start_time + i), priority});
   }
 }
 
@@ -38,24 +41,18 @@ void ConstraintHandler::set_prefer_evening_classes_constraint(bool ans){
   prefer_evening_classes_ = ans;
 }
 
-void ConstraintHandler::reorder_time_constraints_based_on_priority(){
-  sort(time_constraints_.begin(), time_constraints_.end(), [](TimeConstraint lhs, TimeConstraint rhs){
-      return lhs.priority() < rhs.priority();
-  });
-}
 
 bool ConstraintHandler::preprocess_high_priority_classes_out(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& original_offerings){
   // Maybe? Add before_X and after_X times if it is a high priority (ie add all times above X for all days )
   // TimeConstraint(int start, int day, int priority, char semester)
-  unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> processed_offerings; 
 
   for(CourseOfferings offering: original_offerings){
     for(Section lect_section : offering.lecture_sections_){
       bool remove_section = false;
       for(int i = 0; i < lect_section.num_classes_in_section(); i++){
         for(int j = 0; j < lect_section.duration_[i]; j++){
-          auto it = time_constraints_.find(TimeConstraint(lect_section.start_time_[i]+j, lect_section.day_[i], MUST_HAVE, lect_section.semester_[i]));
-          if(it != time_constraints_.end()){
+          auto it = time_constraints_.find({lect_section.day_[i], lect_section.start_time_[i]+j});
+          if(it != time_constraints_.end() && it->second == MUST_HAVE){
             //NEED TO EITHER WORK OUT HERE HOW TO REMOVE THE SECTION WE ARE LOOKING AT OR INSTEAD ONLY INSERT GOOD SECTIONS INTO NEW VECTOR (i like this better)
           }
         }
