@@ -234,13 +234,12 @@ void Scheduler::print_timetables(){
   int offset = max_number_of_timetables / number_of_timetables;
   // TODO: add error checking here becuase we could run into an issue where we arent finding full timetables 
   // ie here are sizes [10, 10, 10, 2, 2] where the only full timetbales are the first options but we skip them
-  for(int i = 0; i < max_number_of_timetables; i++){
+  for(int i = 0; i < number_of_timetables; i++){
     int index = i *offset;
   // TODO: if a full timetable exists print it here
     if(index < (int) timetables_.size()){
       print_timetable(timetables_[index]);
     }
-    
   }
 }
 
