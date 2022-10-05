@@ -36,7 +36,7 @@ class ConstraintHandler {
   int breaks_between_classes_ = NO_PRIORITY; //do we need? 
   bool prefer_morning_classes_ = false;
   bool prefer_evening_classes_ = false; 
-   bool minimize_days_at_school_ = false;
+  bool minimize_days_at_school_ = false;
   pair<int, int> back_to_back_constraint_; // <max hours back to back, priority>
   pair<int, int> no_classes_after_X_; // <X, priority> 
   pair<int, int> no_classes_before_X_; // <X, prioity>

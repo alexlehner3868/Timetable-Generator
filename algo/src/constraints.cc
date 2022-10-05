@@ -45,8 +45,10 @@ void ConstraintHandler::set_prefer_evening_classes_constraint(bool ans){
 bool ConstraintHandler::preprocess_high_priority_classes_out(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& original_offerings){
   // Maybe? Add before_X and after_X times if it is a high priority (ie add all times above X for all days )
   // TimeConstraint(int start, int day, int priority, char semester)
-
+  unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> updated_offerings; 
+  int section_num;
   for(CourseOfferings offering: original_offerings){
+    section_num = 0;
     for(Section lect_section : offering.lecture_sections_){
       bool remove_section = false;
       for(int i = 0; i < lect_section.num_classes_in_section(); i++){
@@ -54,10 +56,18 @@ bool ConstraintHandler::preprocess_high_priority_classes_out(unordered_set<Cours
           auto it = time_constraints_.find({lect_section.day_[i], lect_section.start_time_[i]+j});
           if(it != time_constraints_.end() && it->second == MUST_HAVE){
             //NEED TO EITHER WORK OUT HERE HOW TO REMOVE THE SECTION WE ARE LOOKING AT OR INSTEAD ONLY INSERT GOOD SECTIONS INTO NEW VECTOR (i like this better)
+            // found a class that occurs at the same time as a constraint that is priority 4, MUST_HAVE
+            // take it out of original_offerings
+
+            //offering.lecture_sections_.erase({lect_section.day_[i], lect_section.start_time_[i]+j});
+            offering.lecture_sections_.erase(offering.lecture_sections_.begin()+section_num);
+            cout << "Erased course " << offering.course_id_ << " in section " << section_num << endl;
+          } else {
+              //updated_offerings.insert()
           }
         }
       }
-
+      section_num++;
     }
     for(auto tut_section : offering.tutorial_sections_){
       // add loops like above here 
