@@ -52,6 +52,8 @@ bool ConstraintHandler::preprocess_high_priority_classes_out(unordered_set<Cours
   for(CourseOfferings offering: original_offerings){
     section_num = 0;
     for(Section lect_section : offering.lecture_sections_){
+      cout << lect_section.section_id_ << " and course id is " << offering.course_id_ << endl;
+      cout << lect_section.day_[0] << " and time " << lect_section.start_time_[0] << endl;
       for(int i = 0; i < lect_section.num_classes_in_section(); i++){
         for(int j = 0; j < lect_section.duration_[i]; j++){
           auto it = time_constraints_.find({lect_section.day_[i], lect_section.start_time_[i]+j});
@@ -63,7 +65,7 @@ bool ConstraintHandler::preprocess_high_priority_classes_out(unordered_set<Cours
             offering.lecture_sections_.erase(offering.lecture_sections_.begin()+section_num);
             section_removed = true;
             remove_section = true;
-            cout << "Erased lecture  " << offering.course_id_ << " in section " << section_num << endl;
+            cout << "Erased lecture " << offering.course_id_ << " in section " << section_num+101 << endl;
             section_num--;
             break;
           }
@@ -88,7 +90,7 @@ bool ConstraintHandler::preprocess_high_priority_classes_out(unordered_set<Cours
             offering.tutorial_sections_.erase(offering.tutorial_sections_.begin()+section_num);
             section_removed = true;
             remove_section = true;
-            cout << "Erased tutorial " << offering.course_id_ << " in section " << section_num << endl;
+            cout << "Erased tutorial " << offering.course_id_ << " in section " << section_num+101 << endl;
             section_num--;
             break;
           }
@@ -99,16 +101,17 @@ bool ConstraintHandler::preprocess_high_priority_classes_out(unordered_set<Cours
     }
     section_num = 0;
     for(auto pra_section : offering.practical_sections_){
+      cout << pra_section.section_id_ << endl;
       for(int i = 0; i < pra_section.num_classes_in_section(); i++){
         for(int j = 0; j < pra_section.duration_[i]; j++){
           auto it = time_constraints_.find({pra_section.day_[i], pra_section.start_time_[i]+j});
-          if(it != time_constraints_.end() && it->second == MUST_HAVE && !section_removed){
+          if(it != time_constraints_.end() && it->second == MUST_HAVE /*&& !section_removed*/){
             //NEED TO EITHER WORK OUT HERE HOW TO REMOVE THE SECTION WE ARE LOOKING AT OR INSTEAD ONLY INSERT GOOD SECTIONS INTO NEW VECTOR (i like this better)
-
+            
             offering.practical_sections_.erase(offering.practical_sections_.begin()+section_num);
             section_removed = true;
             remove_section = true;
-            cout << "Erased practical " << offering.course_id_ << " in section " << section_num << endl;
+            cout << "Erased practical " << offering.course_id_ << " in section " << section_num+101 << endl;
             section_num--;
             break;
           }
