@@ -67,7 +67,6 @@ bool ConstraintHandler::preprocess_high_priority_classes_out(unordered_set<Cours
             remove_section = true;
             cout << "Erased lecture " << offering.course_id_ << " in section " << section_num+101 << endl;
             section_num--;
-            break;
           }
         }
       }
@@ -92,7 +91,6 @@ bool ConstraintHandler::preprocess_high_priority_classes_out(unordered_set<Cours
             remove_section = true;
             cout << "Erased tutorial " << offering.course_id_ << " in section " << section_num+101 << endl;
             section_num--;
-            break;
           }
         }
       }
@@ -100,8 +98,10 @@ bool ConstraintHandler::preprocess_high_priority_classes_out(unordered_set<Cours
       section_num++; 
     }
     section_num = 0;
+    cout << "boop" << endl;
     for(auto pra_section : offering.practical_sections_){
       //cout << pra_section.section_id_ << endl;
+      cout << "new section" << endl;
       for(int i = 0; i < pra_section.num_classes_in_section(); i++){
         for(int j = 0; j < pra_section.duration_[i]; j++){
           auto it = time_constraints_.find({pra_section.day_[i], pra_section.start_time_[i]+j});
@@ -113,7 +113,6 @@ bool ConstraintHandler::preprocess_high_priority_classes_out(unordered_set<Cours
             remove_section = true;
             cout << "Erased practical " << offering.course_id_ << " in section " << section_num+101 << endl;
             section_num--;
-            break;
           }
         }
       }
