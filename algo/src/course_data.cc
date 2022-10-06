@@ -209,10 +209,12 @@ std::vector<Section> CourseData::add_course(string course_id, int section_type) 
         
         // error checking on this - make sure it is valid
         current_section_num = stoi(section[2]) - SECTION_OFFSET;
+        //cout << current_section_num << endl;
         //if no more sections need to be added to the vectors
         if (old_section_num != current_section_num) {
             old_section_num = current_section_num;
             //create a section containing all the information we just queried from SQL DB
+            //cout << "adding a class with the section number " << old_section_num << " and course id " << course_id << endl;
             Section add_section(old_section_num, class_durations, class_start_time, class_semester, class_day, class_async);  
             //cout << "pushing back" << endl;
             available_sections.push_back(add_section);
