@@ -33,7 +33,7 @@ vector<TimeTable> Scheduler::schedule_classes(unordered_set<CourseOfferings, Cou
   // run scheduling algorithm
   schedule_classes_helper(courses, timetable);
   vector<TimeTable> best_time_tables;
-  for(int i = 0; i < number_of_timetables; i++){
+  for(int i = 0; i < timetables_.size(); i++){
     TimeTable t = timetables_.top();
     best_time_tables.push_back(t);
     timetables_.pop();
@@ -42,12 +42,16 @@ vector<TimeTable> Scheduler::schedule_classes(unordered_set<CourseOfferings, Cou
 }
 
 void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& courses, TimeTable& timetable){
-
+  
+  if(number_of_explored_timetables > max_number_of_timetables_to_explore){
+    return;
+  }
   // All sections have been added 
   if(courses.size() == 0){
+    number_of_explored_timetables++;
     if(unique_check(timetable)){
       // Priority queue has less than the max num of timetables 
-      if(timetables_.size() < number_of_timetables){
+      if(timetables_.size() < max_num_of_timetables_to_show){
          timetables_.push(timetable);
       }else{
           TimeTable t = timetables_.top();
@@ -61,10 +65,12 @@ void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings, CourseOff
   }
 
   // the current timetable is worse than the worst best cost. stop exploring it 
-  TimeTable t = timetables_.top();
-  int cost = t.cost();
-  if(timetable.cost() > cost){
-    return;
+  if(timetables_.size()> 0){
+    TimeTable t = timetables_.top();
+    int cost = t.cost();
+    if(timetable.cost() > cost){
+      return;
+    }
   }
 
 

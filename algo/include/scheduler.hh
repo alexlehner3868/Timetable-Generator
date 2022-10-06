@@ -25,8 +25,9 @@ class Scheduler {
         priority_queue<TimeTable, vector<TimeTable>, CompareTimeTable> timetables_;
         std::vector<std::vector<std::string>> timetables_str;
         int max_sections_scheduled();
-        int number_of_timetables = 5;
-        int max_number_of_timetables = 400;
+        int max_num_of_timetables_to_show = 5;
+        int number_of_explored_timetables = 0;
+        int max_number_of_timetables_to_explore = 400;
        
     public:
         Scheduler();
