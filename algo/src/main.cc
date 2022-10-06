@@ -801,7 +801,7 @@ int main(int argc, char *argv[])
 
     ConstraintHandler constraint_handler;
     constraint_handler.add_time_constraint(10, 12, 2, 'F', MUST_HAVE); // tuesday at 10 am for 2 hours in the fall with 
-    
+    constraint_handler.set_no_classes_before_X_constraint(13, GOOD_TO_HAVE);
     Scheduler scheduler_handler;
     vector<TimeTable> best_timetables = scheduler_handler.schedule_classes(offerings, constraint_handler);
     scheduler_handler.print_timetables(best_timetables);

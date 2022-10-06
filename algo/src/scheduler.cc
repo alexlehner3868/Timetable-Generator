@@ -38,12 +38,14 @@ vector<TimeTable> Scheduler::schedule_classes(unordered_set<CourseOfferings, Cou
 
   // Convert pq to vector and return 
   vector<TimeTable> best_time_tables;
-  for(int i = 0; i < timetables_.size(); i++){
+  cout<<"time table size"<<timetables_.size()<<endl;
+  int num_tables = timetables_.size();
+  for(int i = 0; i < num_tables; i++){
     TimeTable t = timetables_.top();
     best_time_tables.push_back(t);
     timetables_.pop();
   }
-
+cout<<best_time_tables.size()<<endl;
   return best_time_tables;
 }
 
@@ -57,7 +59,7 @@ void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings, CourseOff
     number_of_explored_timetables++;
     if(unique_check(timetable)){
       // Priority queue has less than the max num of timetables 
-      if(timetables_.size() < max_num_of_timetables_to_show){
+      if(timetables_.size() < max_num_of_timetables_to_show){ 
          timetables_.push(timetable);
       }else{
           TimeTable t = timetables_.top();
@@ -68,6 +70,7 @@ void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings, CourseOff
           }
       }
     }
+
   }
 
   // the current timetable is worse than the worst best cost. stop exploring it 
