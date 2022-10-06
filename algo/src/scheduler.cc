@@ -43,22 +43,30 @@ vector<TimeTable> Scheduler::schedule_classes(unordered_set<CourseOfferings, Cou
 
 void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& courses, TimeTable& timetable){
 
-  // When all classes have been added to the timetable, save this valid timetable (base case)
+  // All sections have been added 
   if(courses.size() == 0){
-    //cout << "no more courses left" << endl;
-    if ((int) timetables_.size() < max_number_of_timetables && unique_check(timetable)) {
-      //cout << "Appending unique timetable" << endl;
-      timetables_.push(timetable);
-      // Print out valid timetable (used for debugging)
-      //print_timetable(timetable);
+    if(unique_check(timetable)){
+      // Priority queue has less than the max num of timetables 
+      if(timetables_.size() < number_of_timetables){
+         timetables_.push(timetable);
+      }else{
+          TimeTable t = timetables_.top();
+          int cost = t.cost();
+          if(timetable.cost() < cost){
+            timetables_.pop();
+            timetables_.push(timetable);
+          }
+      }
     }
   }
 
-  if((int) timetables_.size() >= max_number_of_timetables){
+  // the current timetable is worse than the worst best cost. stop exploring it 
+  TimeTable t = timetables_.top();
+  int cost = t.cost();
+  if(timetable.cost() > cost){
     return;
   }
 
-  
 
   // Loop through all of the Course Offerings (ie the course and all its sections)
   for(auto course : courses){
