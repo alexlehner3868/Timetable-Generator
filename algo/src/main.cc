@@ -9,6 +9,7 @@
 #include "section.hh"
 #include "course_data.hh"
 #include "constraints.hh"
+#include "timetable.hh"
 
 using namespace std;
 
@@ -801,8 +802,8 @@ int main(int argc, char *argv[])
     constraint_handler.add_time_constraint(10, 12, 2, 'F', MUST_HAVE); // tuesday at 10 am for 2 hours in the fall with 
     
     Scheduler scheduler_handler;
-    scheduler_handler.schedule_classes(offerings);
-    scheduler_handler.print_timetables();
+    vector<TimeTable> best_timetables = scheduler_handler.schedule_classes(offerings);
+    scheduler_handler.print_timetables(best_timetables);
 
     // -- User input (later) 
     // 1. Search and add classes to timetable 

@@ -27,26 +27,18 @@ using namespace std;
  */
 
 
-void Scheduler::schedule_classes(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& courses ){
+vector<TimeTable> Scheduler::schedule_classes(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& courses ){
   // create timetable
   TimeTable timetable;
-  // populate timetable with constraints
-  // this adds a one hour constraint at 12pm on Monday for 2 hours in the fall semester
-  // hopefully we can implement this as a click and drag situation on the GUI and each release will 
-  // call this fcn, but for now include it here for testing purposes
-
-  //constraint will hold all of our constraints - atm this is in the wrong place but dw we'll move it eventually
-  //ConstraintGeneral constraint;
- // constraint.add_time_constraint(timetable, 1, 12, 2, 'F', 0);
-
-  // look through time constraints and classes that don't work - remove these from 
-  // course_offerings and run the algorithm
-  // if there are no valid timetables then try algorithm with the conflict - this will give most possible complete timetable
-
-  //constraint.remove_conflicts(timetable, courses);
-
   // run scheduling algorithm
   schedule_classes_helper(courses, timetable);
+  vector<TimeTable> best_time_tables;
+  for(int i = 0; i < number_of_timetables; i++){
+    TimeTable t = timetables_.top();
+    best_time_tables.push_back(t);
+    timetables_.pop();
+  }
+  return best_time_tables;
 }
 
 void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& courses, TimeTable& timetable){
@@ -56,7 +48,7 @@ void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings, CourseOff
     //cout << "no more courses left" << endl;
     if ((int) timetables_.size() < max_number_of_timetables && unique_check(timetable)) {
       //cout << "Appending unique timetable" << endl;
-      timetables_.push_back(timetable);
+      timetables_.push(timetable);
       // Print out valid timetable (used for debugging)
       //print_timetable(timetable);
     }
@@ -77,7 +69,6 @@ void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings, CourseOff
 
 void Scheduler::attempt_to_add_section(TimeTable& timetable, int class_type, CourseOfferings course, unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& courses){
 
-  
   int num_sections = 0;
   if(class_type == LEC){
         num_sections = (int) course.numLecSections();
@@ -228,18 +219,9 @@ void Scheduler::attempt_to_add_section(TimeTable& timetable, int class_type, Cou
 }
 
 
-void Scheduler::print_timetables(){
-  // TODO: can probably get this as a constant and then add a check here if no full timetable is created
-  //int max_scheduled = max_sections_scheduled(); //too slow
-  int offset = max_number_of_timetables / number_of_timetables;
-  // TODO: add error checking here becuase we could run into an issue where we arent finding full timetables 
-  // ie here are sizes [10, 10, 10, 2, 2] where the only full timetbales are the first options but we skip them
-  for(int i = 0; i < number_of_timetables; i++){
-    int index = i *offset;
-  // TODO: if a full timetable exists print it here
-    if(index < (int) timetables_.size()){
-      print_timetable(timetables_[index]);
-    }
+void Scheduler::print_timetables(vector<TimeTable> timetables){
+  for(auto t : timetables){
+    print_timetable(t);
   }
 }
 
