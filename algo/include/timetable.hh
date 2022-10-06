@@ -55,6 +55,10 @@ class TimeTable {
     int cost(){
         return current_time_table_cost;
     }
+
+    void add_cost(int c){
+        current_time_table_cost += c;
+    }
 };
 
 struct CompareTimeTable {

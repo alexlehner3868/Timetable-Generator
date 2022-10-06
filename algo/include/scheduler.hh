@@ -28,10 +28,10 @@ class Scheduler {
         int max_num_of_timetables_to_show = 5;
         int number_of_explored_timetables = 0;
         int max_number_of_timetables_to_explore = 400;
-       
+       ConstraintHandler constraint_handler_;
     public:
         Scheduler();
-        vector<TimeTable> schedule_classes(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& courses);
+        vector<TimeTable> schedule_classes(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& courses, ConstraintHandler& constraint_handler);
         void schedule_classes_helper(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& courses, TimeTable& timetable);
         void print_timetable(TimeTable& timetable);
         void attempt_to_add_section(TimeTable& timetable, int class_type, CourseOfferings course, unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& courses);

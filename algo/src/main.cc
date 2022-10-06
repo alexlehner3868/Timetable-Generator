@@ -13,6 +13,7 @@
 
 using namespace std;
 
+/*
 void test_one_class_one_section(){
     vector<Section> calc_lecture_sections; 
     vector<Section> empty_vec;
@@ -729,7 +730,7 @@ void remove_course(unordered_set<CourseOfferings, CourseOfferings::CourseOfferin
     }
 
 }
-
+*/
 int main(int argc, char *argv[])
 {
     //--- Data Procesing ---- 
@@ -802,7 +803,7 @@ int main(int argc, char *argv[])
     constraint_handler.add_time_constraint(10, 12, 2, 'F', MUST_HAVE); // tuesday at 10 am for 2 hours in the fall with 
     
     Scheduler scheduler_handler;
-    vector<TimeTable> best_timetables = scheduler_handler.schedule_classes(offerings);
+    vector<TimeTable> best_timetables = scheduler_handler.schedule_classes(offerings, constraint_handler);
     scheduler_handler.print_timetables(best_timetables);
 
     // -- User input (later) 

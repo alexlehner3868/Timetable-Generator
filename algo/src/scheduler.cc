@@ -27,17 +27,23 @@ using namespace std;
  */
 
 
-vector<TimeTable> Scheduler::schedule_classes(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& courses ){
+vector<TimeTable> Scheduler::schedule_classes(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& courses, ConstraintHandler& constraint_handler ){
+  constraint_handler_ = constraint_handler;
+
   // create timetable
   TimeTable timetable;
+
   // run scheduling algorithm
   schedule_classes_helper(courses, timetable);
+
+  // Convert pq to vector and return 
   vector<TimeTable> best_time_tables;
   for(int i = 0; i < timetables_.size(); i++){
     TimeTable t = timetables_.top();
     best_time_tables.push_back(t);
     timetables_.pop();
   }
+
   return best_time_tables;
 }
 
@@ -124,16 +130,14 @@ void Scheduler::attempt_to_add_section(TimeTable& timetable, int class_type, Cou
     Date period;
       // Try adding all of the lecture sections for that section and class to the timetable 
       for (class_in_section = 0; class_in_section < (int)section.duration_.size(); class_in_section++) {
+          int section_cost = 0;
           // Add a entry for every hour that the lecure has
-          //cout << "On section " << class_in_section << " of class" << endl; 
           for (int i = 0; i < section.duration_.at(class_in_section); i++) {
               // If the class is in the winter offset the day by 5 ([1,5] = fall, [6,10] = winter)
               int semester_offset = (class_chosen.semester == 'F') ? 0 : 5;
               period = make_pair(section.day_.at(class_in_section) + semester_offset, section.start_time_.at(class_in_section) + i);
-              //cout << "Inserting class " << class_chosen.course_code << endl;
-              //cout << "Inserting section " << class_in_section << endl;
+
               // Insert into the timetable  
-              
               successfully_inserted = timetable.insert(std::make_pair(period, class_chosen));
 
               // Check if the class was sucessfully inserted 
@@ -141,6 +145,8 @@ void Scheduler::attempt_to_add_section(TimeTable& timetable, int class_type, Cou
                   break;
                   //Combination is invalid
                   //Time occupied by another course offering or constraint
+              }else{
+                section_cost += constraint_handler_.cost_of_class(period);
               }
               
 
@@ -162,8 +168,9 @@ void Scheduler::attempt_to_add_section(TimeTable& timetable, int class_type, Cou
               }
 
               break;
+          }else{
+            timetable.add_cost(section_cost);
           }
-
 
     }
 
