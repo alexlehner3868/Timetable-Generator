@@ -1,6 +1,5 @@
 #include <string>
 #include <iostream>
-#include <stdlib.h>
 #include <unordered_set>
 #include <unordered_map> 
 #include <thread>
@@ -30,21 +29,6 @@ using namespace std;
 void Scheduler::schedule_classes(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& courses ){
   // create timetable
   TimeTable timetable;
-  // populate timetable with constraints
-  // this adds a one hour constraint at 12pm on Monday for 2 hours in the fall semester
-  // hopefully we can implement this as a click and drag situation on the GUI and each release will 
-  // call this fcn, but for now include it here for testing purposes
-
-  //constraint will hold all of our constraints - atm this is in the wrong place but dw we'll move it eventually
-  //ConstraintGeneral constraint;
- // constraint.add_time_constraint(timetable, 1, 12, 2, 'F', 0);
-
-  // look through time constraints and classes that don't work - remove these from 
-  // course_offerings and run the algorithm
-  // if there are no valid timetables then try algorithm with the conflict - this will give most possible complete timetable
-
-  //constraint.remove_conflicts(timetable, courses);
-
   // run scheduling algorithm
   schedule_classes_helper(courses, timetable);
 }
@@ -53,9 +37,7 @@ void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings, CourseOff
 
   // When all classes have been added to the timetable, save this valid timetable (base case)
   if(courses.size() == 0){
-    //cout << "no more courses left" << endl;
     if ((int) timetables_.size() < max_number_of_timetables && unique_check(timetable)) {
-      //cout << "Appending unique timetable" << endl;
       timetables_.push_back(timetable);
       // Print out valid timetable (used for debugging)
       //print_timetable(timetable);
@@ -65,9 +47,7 @@ void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings, CourseOff
   if((int) timetables_.size() >= max_number_of_timetables){
     return;
   }
-
   
-
   // Loop through all of the Course Offerings (ie the course and all its sections)
   for(auto course : courses){
     attempt_to_add_section(timetable, LEC, course, courses);
@@ -161,21 +141,25 @@ void Scheduler::attempt_to_add_section(TimeTable& timetable, int class_type, Cou
 
 
     }
-
+    
+      //cout << "start" << endl;
     /** 
      * Call this function recursively to place the remaining classes 
      * Remove the current class from the courses list and then recall this function to place the rest of the classes
      */
     if (class_type == LEC) {
+      cout << "begin" << endl;
       //add TUT now
       attempt_to_add_section(timetable, TUT, course, courses);
       //remove class from timetable
+      cout << "ebnd" << endl;
       for (int remove_class = 0; remove_class < class_in_section; remove_class++) { //should this be < or <= (<= seg faults)
             for (int i = 0; i < section.duration_.at(remove_class); i++) {
               Date period = make_pair(section.day_.at(remove_class), section.start_time_.at(remove_class) + i);
               timetable.erase(period);
             }
       } 
+      cout << "end" << endl;
     } else if (class_type == TUT) {
       //cout << "type tut and about to call PRA" << endl;
       attempt_to_add_section(timetable, PRA, course, courses);
@@ -203,9 +187,11 @@ void Scheduler::attempt_to_add_section(TimeTable& timetable, int class_type, Cou
     }
 
     
+      
     
     
   }
+  
   if (num_sections < 1) {
     //if section is empty DO SOMETHING
     //cout << "there are no sections for class "<< course.course_id_ << " and of type " << class_type << endl;
@@ -220,11 +206,13 @@ void Scheduler::attempt_to_add_section(TimeTable& timetable, int class_type, Cou
         //print_timetable(timetable);
         unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> remaining_classes = courses;
         remaining_classes.erase(course);
+        
         //cout << "(section doesn't exist) is courses empty?: " << remaining_classes.empty() << endl;
         //cout << "erasing course: " << course.course_id_ << endl;
         schedule_classes_helper(remaining_classes, timetable);
     }
   }
+  
 }
 
 

@@ -98,6 +98,7 @@ bool ConstraintHandler::preprocess_high_priority_classes_out(unordered_set<Cours
       section_num++; 
     }
     section_num = 0;
+    section_removed = false;
     //cout << "boop" << endl;
     for(auto pra_section : offering.practical_sections_){
       //cout << pra_section.section_id_ << endl;
