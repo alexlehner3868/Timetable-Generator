@@ -157,21 +157,21 @@ std::vector<Section> CourseData::add_course(string course_id, int section_type) 
 
     if (section_type == LEC) {
         // we want to add lectures 
-        std::string sql = "SELECT * FROM Courses WHERE ACAD_ACT_CD = " + quotesql(course_id) + " AND TEACH_METHOD = 'LEC' AND SECTION_CD != 'S' ;";
+        std::string sql = "SELECT * FROM Courses WHERE ACAD_ACT_CD = " + quotesql(course_id) + " AND TEACH_METHOD = 'LEC' AND SECTION_CD != 'S';";
         int action_success = sqlite3_exec(DB_, sql.c_str(), get_sql_data, &course_data, NULL);
         if (action_success != SQLITE_OK) {
             cout << "No lectures in class" << std::endl;
         }
     } else if (section_type == TUT) {
         // we want to add tutorials 
-        std::string sql = "SELECT * FROM Courses WHERE ACAD_ACT_CD = " + quotesql(course_id) + " AND TEACH_METHOD = 'TUT' AND SECTION_CD != 'S' ;";
+        std::string sql = "SELECT * FROM Courses WHERE ACAD_ACT_CD = " + quotesql(course_id) + " AND TEACH_METHOD = 'TUT' AND SECTION_CD != 'S';";
         int action_success = sqlite3_exec(DB_, sql.c_str(), get_sql_data, &course_data, NULL);
         if (action_success != SQLITE_OK) {
             cout << "No tutorials in class" << std::endl;
         }
     } else if (section_type == PRA) {
         // we want to add practicals
-        std::string sql = "SELECT * FROM Courses WHERE ACAD_ACT_CD = " + quotesql(course_id) + " AND TEACH_METHOD = 'PRA' AND SECTION_CD != 'S' ;";
+        std::string sql = "SELECT * FROM Courses WHERE ACAD_ACT_CD = " + quotesql(course_id) + " AND TEACH_METHOD = 'PRA' AND SECTION_CD != 'S';";
         int action_success = sqlite3_exec(DB_, sql.c_str(), get_sql_data, &course_data, NULL);
         if (action_success != SQLITE_OK) {
             cout << "No practicals in class" << std::endl;
@@ -192,11 +192,14 @@ std::vector<Section> CourseData::add_course(string course_id, int section_type) 
         //there is no course_data so skip setting the old_section_num
         old_section_num = 1;
     }*/
+
+
     old_section_num = 1;
     for (std::vector<std::string> section : course_data) {
         
-        
-
+        // error checking on this - make sure it is valid
+        current_section_num = stoi(section[2]) - SECTION_OFFSET;
+        //cout << "pushing back section " << current_section_num << " and course id " << course_id << endl;
         // each vector contains all the info for one section of a lecture
 
         // 0 - section F/W
@@ -207,17 +210,15 @@ std::vector<Section> CourseData::add_course(string course_id, int section_type) 
         // 5 - class end time
         
         
-        // error checking on this - make sure it is valid
-        current_section_num = stoi(section[2]) - SECTION_OFFSET;
         //if no more sections need to be added to the vectors
         if (old_section_num != current_section_num) {
-            old_section_num = current_section_num;
             //create a section containing all the information we just queried from SQL DB
             //cout << "adding a class with the section number " << old_section_num << " and course id " << course_id << endl;
 
             //the way the loop is set up, we are 
-            Section add_section(current_section_num, class_durations, class_start_time, class_semester, class_day, class_async);  
-            cout << "pushing back section " << current_section_num << " and course id " << course_id << endl;
+            Section add_section(old_section_num, class_durations, class_start_time, class_semester, class_day, class_async);  
+            old_section_num = current_section_num;
+            cout << "pushing back section " << current_section_num - 1 << " and course id " << course_id << endl;
             available_sections.push_back(add_section);
             class_durations.clear();
             class_start_time.clear();
@@ -249,6 +250,18 @@ std::vector<Section> CourseData::add_course(string course_id, int section_type) 
         }
         
     }
+    //add the last section once no more sections exist
+    if (current_section_num != 0) {
+        Section add_section(old_section_num, class_durations, class_start_time, class_semester, class_day, class_async);
+        cout << "pushing back last section " << old_section_num << " and course id " << course_id << endl;
+        available_sections.push_back(add_section);
+        class_durations.clear();
+        class_start_time.clear();
+        class_day.clear();
+        class_semester.clear();
+        class_async.clear();
+    }
+    
 
     //make sure this is error free
     //cout << "about to return" << endl;
