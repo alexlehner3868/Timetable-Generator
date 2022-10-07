@@ -56,30 +56,33 @@ bool ConstraintHandler::preprocess_high_priority_classes_out(unordered_set<Cours
   bool remove_section = false;
   // copy original_offerings so we can loop through it and delete at the same time
   unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> updated_offerings = original_offerings;
-  unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>::iterator u_offering = updated_offerings.begin();
+  //unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>::iterator offerings_iterator = original_offerings.begin();
   for(auto offering: updated_offerings){
     section_num = 0;
-    for(Section lect_section : offering.lecture_sections_){
+    vector<Section>::iterator lect_section = offering.lecture_sections_.begin();
+    while(lect_section != offering.lecture_sections_.end()){
       //cout << lect_section.section_id_ << " and course id is " << offering.course_id_ << endl;
       //cout << lect_section.day_[0] << " and time " << lect_section.start_time_[0] << endl;
-      for(int i = 0; i < lect_section.num_classes_in_section(); i++){
-        for(int j = 0; j < lect_section.duration_[i]; j++){
-          auto it = time_constraints_.find({lect_section.day_[i], lect_section.start_time_[i]+j});
+      for(int i = 0; i < (*lect_section).num_classes_in_section(); i++){
+        for(int j = 0; j < (*lect_section).duration_[i]; j++){
+          auto it = time_constraints_.find({(*lect_section).day_[i], (*lect_section).start_time_[i]+j});
           if(it != time_constraints_.end() && it->second == MUST_HAVE && !section_removed){
             // found a class that occurs at the same time as a constraint that is priority 4, MUST_HAVE
             // take it out of original_offerings
-            offering.lecture_sections_.erase(offering.lecture_sections_.begin()+section_num);
+            //                                                        offering.lecture_sections_.begin() +section_num
+            lect_section = offering.lecture_sections_.erase(offering.lecture_sections_.begin()+(*lect_section).section_id_);
             section_removed = true;
-            remove_section = true;
             cout << "Erased lecture " << offering.course_id_ << " in section " << section_num+101 << endl;
-            //decrement counter because we reduced the size of sections vector by one
-            section_num--;
           }
+            
+          
         }
       }
+      if (!section_removed) {
+        ++lect_section;
+      }
+      section_removed = false;
     }
-    section_removed = false;
-    section_num++;
     /*}
     section_num = 0;
     for(auto tut_section : offering.tutorial_sections_){
