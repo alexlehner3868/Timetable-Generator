@@ -19,7 +19,7 @@ CourseData::CourseData() {
     int action_succes = 0;
     // char* messaggeError;
 
-    string db_name = "CourseData.db";
+    string db_name = "data/courses.db";
     // The .db file is initiazed so we shouldnt need to run this code again
     /* action_succes = sqlite3_open(db_name.c_str(), &DB_);
     if (action_succes != SQLITE_OK) {

@@ -5,15 +5,12 @@
 
 import argparse
 import logging
+import subprocess
 
-from flask import Flask
-from flask_restful import Resource, Api
+from flask import Flask, Response, jsonify
 
 import ttb
 
-
-# Initialize application
-app = Flask(__name__)
 
 def main():
     # Initialize logging
@@ -24,18 +21,22 @@ def main():
     # Initialize parser
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "-b",
-        "--backend",
-        default="../build/bin/main",
+        "--algo",
+        default="./bin/algo",
         type=str,
         help="Path to the compiled scheduler binary",
     )
     parser.add_argument(
-        "-d",
+        "-db",
+        "--database",
+        default="./data/courses.csv",
+        type=str,
+        help="Path to the course database file",
+    )
+    parser.add_argument(
         "--debug",
         action="store_true",
-        type=bool,
-        help="Run in debug mode.",
+        help="Run in debug mode",
     )
     parser.add_argument(
         "-p",
@@ -47,16 +48,25 @@ def main():
     # Parse args
     args = parser.parse_args()
 
-    # Initialize API
-    api = Api(app)
-    api.add_resource(ttb.Courses, "/courses")
+    # Read the course database
+    db = ttb.Courses(args.database)
+
+    # Initialize application
+    app = Flask(__name__)
+    # Define endpoints
+    @app.get("/all")
+    def all() -> Response:
+        return jsonify(db.all)
+    @app.get("/gen")
+    def gen() -> Response:
+        out = subprocess.run([args.algo, "query"], capture_output=True)
+        return out.stdout
 
     # Run app
     app.run(
         debug=args.debug,
         port=args.port
     )
-
 
 if __name__ == "__main__":
     main()

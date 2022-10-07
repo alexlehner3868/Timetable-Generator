@@ -2,12 +2,19 @@
 # Created:     02 Oct 2022
 # SPDX-License-Identifier: NONE
 
+from os import PathLike
+import csv
+
+
 class Courses:
     """All known courses in the database."""
 
-    ret = []
+    def __init__(self, path: PathLike):
+        with open(path) as data:
+            reader = csv.reader(data)
+            self.data = list(reader)
 
-    def __init__(self):
-        self.status = "active"
-
-
+    @property
+    def all(self) -> list[str]:
+        """Return all the course data"""
+        return self.data
