@@ -1,19 +1,18 @@
 #ifndef DATE_H
 #define DATE_H
 
-#include <string>
 #include <iostream>
-#include <unordered_set>
+#include <string>
 #include <unordered_map>
+#include <unordered_set>
 
 using namespace std;
 
 typedef std::pair<int, int> Date;
 
-struct Date_Hash
-{
+struct Date_Hash {
     template <class T1, class T2>
-    std::size_t operator() (const std::pair<T1, T2> &pair) const {
+    std::size_t operator()(const std::pair<T1, T2> &pair) const {
         return std::hash<T1>()(pair.first) ^ std::hash<T2>()(pair.second);
     }
 };

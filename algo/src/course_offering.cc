@@ -1,8 +1,6 @@
 #include "course_offering.hh"
 
-#include <string>
 #include <iostream>
+#include <string>
 
 using namespace std;
-
-

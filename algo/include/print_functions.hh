@@ -1,11 +1,12 @@
 #ifndef PRINT_H
 #define PRINT_H
 
-#include <string>
-#include <iostream>
 #include <stdlib.h>
 
-using namespace std; 
+#include <iostream>
+#include <string>
+
+using namespace std;
 
 string toClassType(int type);
 string toDay(int day);
