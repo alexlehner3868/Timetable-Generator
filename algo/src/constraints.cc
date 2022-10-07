@@ -53,6 +53,12 @@ bool ConstraintHandler::preprocess_high_priority_classes_out(unordered_set<Cours
   // TimeConstraint(int start, int day, int priority, char semester)
   bool section_removed = false;
   bool remove_section = false;
+  
+  vector<Section> new_lec_sections;
+  vector<Section> new_tut_sections;
+  vector<Section> new_pra_sections;
+  
+  unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> new_offerings;
   // copy original_offerings so we can loop through it and delete at the same time
   //unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>::iterator offerings_iterator = original_offerings.begin();
   for(auto offering: original_offerings){
@@ -70,7 +76,10 @@ bool ConstraintHandler::preprocess_high_priority_classes_out(unordered_set<Cours
             // take it out of original_offerings
             //                                                        offering.lecture_sections_.begin() +section_num
             cout << "Erased lecture " << offering.course_id_ << " in section " << (*lect_section).section_id_ << endl;
+            //cout << offering.lecture_sections_[offering.lecture_sections_.begin()+section_num].section_id_ << endl;
+            
             lect_section = offering.lecture_sections_.erase(lect_section);
+            //lect_section = offering.lecture_sections_.erase(offering.lecture_sections_.begin()+(*lect_section).section_id_-1);
             section_removed = true;
           }
             
@@ -127,7 +136,19 @@ bool ConstraintHandler::preprocess_high_priority_classes_out(unordered_set<Cours
       }
       section_removed = false;
     }
+
+  //copy offering to a new variable so we don't lose the deleted items
+  new_lec_sections = offering.lecture_sections_;
+  new_tut_sections = offering.tutorial_sections_;
+  new_pra_sections = offering.practical_sections_;
+  std::string new_course_name = offering.name_;
+  std::string new_course_id = offering.course_id_;
+  CourseOfferings preprocessed_class(new_course_name,new_course_id,new_lec_sections, new_tut_sections, new_pra_sections);
+  new_offerings.insert(preprocessed_class);
   }
+
+  //copy new offerings over
+  original_offerings = new_offerings;
   return remove_section;
 }
 
