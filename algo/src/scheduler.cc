@@ -31,10 +31,6 @@ vector<TimeTable> Scheduler::schedule_classes(unordered_set<CourseOfferings, Cou
 
   // create timetable
   TimeTable timetable;
-<<<<<<< HEAD
-=======
-
->>>>>>> c5c9b1cd6837322b0ebd6506565895e306a68ffe
   // run scheduling algorithm
   schedule_classes_helper(courses, timetable);
 
