@@ -769,16 +769,6 @@ int main(int argc, char *argv[])
 
     unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> offerings;
     offerings.insert(class_one);
-    for(CourseOfferings offering: offerings){
-        cout << "new class" << endl;
-        for(auto pra_section : offering.practical_sections_){
-        //cout << pra_section.section_id_ << endl;
-        //cout << "new section with id " << pra_section.section_id_ << endl;
-        cout << "class day " << pra_section.day_[0] << " and time " << pra_section.start_time_[0] << endl;
-        cout << "section id is " << pra_section.section_id_ << endl;
-        }
-    }
-    //return 0;
     offerings.insert(class_two);
     offerings.insert(class_three);
     offerings.insert(class_four);

@@ -192,7 +192,7 @@ std::vector<Section> CourseData::add_course(string course_id, int section_type) 
         //there is no course_data so skip setting the old_section_num
         old_section_num = 1;
     }*/
-    old_section_num = 1;
+    old_section_num = 0;
     for (std::vector<std::string> section : course_data) {
         
         
@@ -216,7 +216,7 @@ std::vector<Section> CourseData::add_course(string course_id, int section_type) 
             //cout << "adding a class with the section number " << old_section_num << " and course id " << course_id << endl;
 
             //the way the loop is set up, we are 
-            Section add_section(current_section_num-1, class_durations, class_start_time, class_semester, class_day, class_async);  
+            Section add_section(current_section_num, class_durations, class_start_time, class_semester, class_day, class_async);  
             //cout << "pushing back section " << current_section_num << endl;
             available_sections.push_back(add_section);
             class_durations.clear();
