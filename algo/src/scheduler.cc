@@ -108,28 +108,28 @@ void Scheduler::attempt_to_add_section(
     }
     auto rng = std::default_random_engine{};
     shuffle(begin(shuffled_sections), end(shuffled_sections), rng);
-    for (int section_id : shuffled_sections) {
-        // cout<<"Looking at section id "<<section_id<<endl;
+    for (int section_indx : shuffled_sections) {
+        // cout<<"Looking at section id "<<section_indx<<endl;
         Section section;
         if (class_type == LEC) {
-            section = course.lecture_sections_.at(section_id);
+            section = course.lecture_sections_.at(section_indx);
         } else if (class_type == TUT) {
-            section = course.tutorial_sections_.at(section_id);
+            section = course.tutorial_sections_.at(section_indx);
         } else {
-            section = course.practical_sections_.at(section_id);
+            section = course.practical_sections_.at(section_indx);
         }
         int class_in_section;
         // Create an object to represent the section that was chosen
         SelectedCourseSection class_chosen{
             .course_code = course.course_id_,
             .type = class_type, // Lecture
-            .section = section_id,
+            .section = course.practical_sections_.at(section_indx).section_id_,
             .semester = section.semester_.at(0) // Each section should only be in either F or W
                                                 // (need support for full year courses)
                                                 // semester can be a char instead of a vector
                                                 // F - FALL W - WINTER B - BOTH
         };
-        // cout << class_type << " is class type and " << section_id << " is the section id" <<
+        // cout << class_type << " is class type and " << section_indx << " is the section id" <<
         // endl;
         bool successfully_inserted;
         Date period;
