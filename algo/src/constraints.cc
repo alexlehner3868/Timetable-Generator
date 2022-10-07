@@ -69,7 +69,7 @@ bool ConstraintHandler::preprocess_high_priority_classes_out(unordered_set<Cours
             offering.lecture_sections_.erase(offering.lecture_sections_.begin()+section_num);
             section_removed = true;
             remove_section = true;
-            cout << "Erased lecture " << offering.course_id_ << " in section " << section_num+101 << endl;
+            cout << "Erased lecture " << offering.course_id_ << " in section " << section_num+100 << endl;
             section_num--;
           }
         }
@@ -93,7 +93,7 @@ bool ConstraintHandler::preprocess_high_priority_classes_out(unordered_set<Cours
             offering.tutorial_sections_.erase(offering.tutorial_sections_.begin()+section_num);
             section_removed = true;
             remove_section = true;
-            cout << "Erased tutorial " << offering.course_id_ << " in section " << section_num+101 << endl;
+            cout << "Erased tutorial " << offering.course_id_ << " in section " << section_num+100 << endl;
             section_num--;
           }
         }

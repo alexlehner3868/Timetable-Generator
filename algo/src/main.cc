@@ -770,11 +770,11 @@ int main(int argc, char *argv[])
     CourseOfferings class_six("Calculus III", "MAT291", course_six_lecture_sections, course_six_tutorial_sections, course_six_practical_sections);
 
     unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> offerings;
-    //offerings.insert(class_one);
-    //offerings.insert(class_two);
-    //offerings.insert(class_three);
-    //offerings.insert(class_four);
-    //offerings.insert(class_five);
+    offerings.insert(class_one);
+    offerings.insert(class_two);
+    offerings.insert(class_three);
+    offerings.insert(class_four);
+    offerings.insert(class_five);
     offerings.insert(class_six);
 
     //to remove a class it should already be in offerings
@@ -797,11 +797,13 @@ int main(int argc, char *argv[])
         // Schedule classes and evaluate timetables 
         //TODO: add evaluator and cost tracking 
     // Stage 5: parse timetables to give to front end
-        // TODO: function (best timetablkes) -> url 
+        // TODO: function (best timetables) -> url 
 
     ConstraintHandler constraint_handler;
     constraint_handler.add_time_constraint(10, 12, 2, 'F', MUST_HAVE); // tuesday at 10 am for 2 hours in the fall with 
-    constraint_handler.set_no_classes_before_X_constraint(13, GOOD_TO_HAVE);
+    //constraint_handler.set_no_classes_before_X_constraint(13, GOOD_TO_HAVE);
+    constraint_handler.preprocess_high_priority_classes_out(offerings);
+
     Scheduler scheduler_handler;
     vector<TimeTable> best_timetables = scheduler_handler.schedule_classes(offerings, constraint_handler);
     scheduler_handler.print_timetables(best_timetables);

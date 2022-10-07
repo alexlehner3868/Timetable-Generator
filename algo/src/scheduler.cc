@@ -181,18 +181,15 @@ void Scheduler::attempt_to_add_section(TimeTable& timetable, int class_type, Cou
      * Remove the current class from the courses list and then recall this function to place the rest of the classes
      */
     if (class_type == LEC) {
-      cout << "begin" << endl;
       //add TUT now
       attempt_to_add_section(timetable, TUT, course, courses);
       //remove class from timetable
-      cout << "ebnd" << endl;
       for (int remove_class = 0; remove_class < class_in_section; remove_class++) { //should this be < or <= (<= seg faults)
             for (int i = 0; i < section.duration_.at(remove_class); i++) {
               Date period = make_pair(section.day_.at(remove_class), section.start_time_.at(remove_class) + i);
               timetable.erase(period);
             }
       } 
-      cout << "end" << endl;
     } else if (class_type == TUT) {
       //cout << "type tut and about to call PRA" << endl;
       attempt_to_add_section(timetable, PRA, course, courses);
