@@ -36,6 +36,7 @@ public:
         unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> &courses,
         TimeTable &timetable);
     void print_timetable(TimeTable &timetable);
+    string jsonify(TimeTable &timetable);
     void attempt_to_add_section(
         TimeTable &timetable,
         int class_type,

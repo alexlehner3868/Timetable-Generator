@@ -1,6 +1,7 @@
 #include <algorithm>
 #include <iostream>
 #include <random>
+#include <sstream>
 #include <string>
 #include <thread>
 #include <unordered_map>
@@ -38,14 +39,12 @@ vector<TimeTable> Scheduler::schedule_classes(
 
     // Convert pq to vector and return
     vector<TimeTable> best_time_tables;
-    cout << "time table size" << timetables_.size() << endl;
     int num_tables = timetables_.size();
     for (int i = 0; i < num_tables; i++) {
         TimeTable t = timetables_.top();
         best_time_tables.push_back(t);
         timetables_.pop();
     }
-    cout << best_time_tables.size() << endl;
     return best_time_tables;
 }
 
@@ -276,6 +275,49 @@ void Scheduler::print_timetable(TimeTable &timetable) {
                   << (section_chosen + 1) << " on " << toDay(day) << " at " << toTime(time)
                   << std::endl;
     }
+}
+
+string Scheduler::jsonify(TimeTable &timetable) {
+    stringstream json;
+    json << "[";
+    bool first = true;
+    for (std::pair<Date, SelectedCourseSection> element : timetable.classes()) {
+        if (!first)
+            json << ",";
+        else
+            first = false;
+        json << "{";
+        auto semester = element.second.semester;
+        json << "\"semester\":\"" << semester << "\",";
+        auto course = element.second.course_code;
+        json << "\"course\":\"" << course << "\",";
+        string type;
+        switch(element.second.type) {
+            case 1:
+                type = "LEC";
+                break;
+            case 2:
+                type = "LEC";
+                break;
+            case 3:
+                type = "LEC";
+                break;
+            default:
+                type = "UNK";
+                break;
+        }
+        json << "\"type\":\"" << type << "\",";
+        auto section = element.second.section;
+        json << "\"section\":" << section + 1 << ",";
+        auto day = element.first.first;
+        json << "\"day\":" << day << ",";
+        auto time = element.first.second;
+        json << "\"time\":" << time << "";
+        json << "}";
+    }
+    json << "]";
+
+    return json.str();
 }
 
 std::vector<std::string> Scheduler::make_timetable_str(TimeTable &timetable) {
