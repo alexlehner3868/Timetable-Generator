@@ -101,7 +101,7 @@ bool ConstraintHandler::preprocess_high_priority_classes_out(unordered_set<Cours
     cout << "boop" << endl;
     for(auto pra_section : offering.practical_sections_){
       //cout << pra_section.section_id_ << endl;
-      cout << "new section" << endl;
+      cout << "new section with id " << pra_section.section_id_ << endl;
       for(int i = 0; i < pra_section.num_classes_in_section(); i++){
         for(int j = 0; j < pra_section.duration_[i]; j++){
           auto it = time_constraints_.find({pra_section.day_[i], pra_section.start_time_[i]+j});

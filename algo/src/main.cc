@@ -769,6 +769,16 @@ int main(int argc, char *argv[])
 
     unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> offerings;
     offerings.insert(class_one);
+    for(CourseOfferings offering: offerings){
+        cout << "new class" << endl;
+        for(auto pra_section : offering.practical_sections_){
+        //cout << pra_section.section_id_ << endl;
+        //cout << "new section with id " << pra_section.section_id_ << endl;
+        cout << "class day " << pra_section.day_[0] << " and time " << pra_section.start_time_[0] << endl;
+        cout << "section id is " << pra_section.section_id_ << endl;
+        }
+    }
+    //return 0;
     offerings.insert(class_two);
     offerings.insert(class_three);
     offerings.insert(class_four);
@@ -799,7 +809,15 @@ int main(int argc, char *argv[])
 
     ConstraintHandler constraint_handler;
     constraint_handler.add_time_constraint(10, 2, 2, 'F', MUST_HAVE); // tuesday at 10 am for 2 hours in the fall with priority MUST_HAVE
-    
+    /*for(CourseOfferings offering: offerings){
+        cout << "new class" << endl;
+        for(auto pra_section : offering.practical_sections_){
+        //cout << pra_section.section_id_ << endl;
+        //cout << "new section with id " << pra_section.section_id_ << endl;
+        cout << "class day " << pra_section.day_[0] << " and time " << pra_section.start_time_[0] << endl;
+        cout << "section id is " << pra_section.section_id_ << endl;
+        }
+    } */
     constraint_handler.preprocess_high_priority_classes_out(offerings);
     Scheduler scheduler_handler;
     scheduler_handler.schedule_classes(offerings);
