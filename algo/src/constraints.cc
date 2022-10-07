@@ -56,8 +56,9 @@ bool ConstraintHandler::preprocess_high_priority_classes_out(unordered_set<Cours
   bool section_removed = false;
   bool remove_section = false;
   unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> updated_offerings = original_offerings;
-  for(CourseOfferings offering: original_offerings){
-    section_num = 0;
+  unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>::iterator u_offering = updated_offerings.begin();
+  for(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>::iterator offering = original_offerings.begin(); offering != original_offerings.end(); ++offering, ++u_offering){
+    section_num = 0;/*
     for(Section lect_section : offering.lecture_sections_){
       //cout << lect_section.section_id_ << " and course id is " << offering.course_id_ << endl;
       //cout << lect_section.day_[0] << " and time " << lect_section.start_time_[0] << endl;
@@ -72,16 +73,15 @@ bool ConstraintHandler::preprocess_high_priority_classes_out(unordered_set<Cours
             section_removed = true;
             remove_section = true;
             cout << "Erased lecture " << offering.course_id_ << " in section " << section_num+101 << endl;
-            cout << "Day is " << lect_section.day_[i] << " and time is " << lect_section.start_time_[i]+j << endl;
             //decrement counter because we reduced the size of sections vector by one
             section_num--;
           }
         }
-      }
+      }*/
       section_removed = false;
       section_num++;
-    }
-    section_num = 0;/*
+    }/*
+    section_num = 0;
     for(auto tut_section : offering.tutorial_sections_){
       for(int i = 0; i < tut_section.num_classes_in_section(); i++){
         for(int j = 0; j < tut_section.duration_[i]; j++){
@@ -117,16 +117,17 @@ int ConstraintHandler::cost_of_class(Date d) {
       }
       section_removed = false;
       section_num++; 
-    } */
+    } 
     section_num = 0;
     section_removed = false;
     //cout << "boop" << endl;
-    /*
+    
     for(auto pra_section : offering.practical_sections_){
       //cout << pra_section.section_id_ << endl;
-      //cout << "new section with id " << pra_section.section_id_ << endl;
+      cout << "new section with id " << pra_section.section_id_ << endl;
       for(int i = 0; i < pra_section.num_classes_in_section(); i++){
         for(int j = 0; j < pra_section.duration_[i]; j++){
+          cout << "looking for matching time" << endl;
           auto it = time_constraints_.find({pra_section.day_[i], pra_section.start_time_[i]+j});
           if(it != time_constraints_.end() && it->second == MUST_HAVE && !section_removed){
             //NEED TO EITHER WORK OUT HERE HOW TO REMOVE THE SECTION WE ARE LOOKING AT OR INSTEAD ONLY INSERT GOOD SECTIONS INTO NEW VECTOR (i like this better)
@@ -141,11 +142,12 @@ int ConstraintHandler::cost_of_class(Date d) {
       }
       section_removed = false;
       section_num++; 
-    } */
+    } 
 
-    if (no_classes_after_X_.second > NO_PRIORITY && d.second >= no_classes_after_X_.first) {
-        cost += (no_classes_after_X_.second * cost_multiplier);
-    }
+    //CHECK IF ANY OF THE LEC, PRA or TUT vectors in offering are of size 0, return false 
+  }*/
+  return remove_section;
+}
 
     if (no_classes_before_X_.second > NO_PRIORITY && d.second < no_classes_before_X_.first) {
         cost += (no_classes_before_X_.second * cost_multiplier);
