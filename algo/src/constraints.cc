@@ -55,10 +55,11 @@ bool ConstraintHandler::preprocess_high_priority_classes_out(unordered_set<Cours
   int section_num;
   bool section_removed = false;
   bool remove_section = false;
+  // copy original_offerings so we can loop through it and delete at the same time
   unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> updated_offerings = original_offerings;
   unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>::iterator u_offering = updated_offerings.begin();
-  for(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>::iterator offering = original_offerings.begin(); offering != original_offerings.end(); ++offering, ++u_offering){
-    section_num = 0;/*
+  for(auto offering: updated_offerings){
+    section_num = 0;
     for(Section lect_section : offering.lecture_sections_){
       //cout << lect_section.section_id_ << " and course id is " << offering.course_id_ << endl;
       //cout << lect_section.day_[0] << " and time " << lect_section.start_time_[0] << endl;
@@ -77,11 +78,11 @@ bool ConstraintHandler::preprocess_high_priority_classes_out(unordered_set<Cours
             section_num--;
           }
         }
-      }*/
+      }
       section_removed = false;
       section_num++;
-    }/*
-    section_num = 0;
+    }
+    section_num = 0;/*
     for(auto tut_section : offering.tutorial_sections_){
       for(int i = 0; i < tut_section.num_classes_in_section(); i++){
         for(int j = 0; j < tut_section.duration_[i]; j++){
@@ -142,10 +143,10 @@ int ConstraintHandler::cost_of_class(Date d) {
       }
       section_removed = false;
       section_num++; 
-    } 
+    } */
 
     //CHECK IF ANY OF THE LEC, PRA or TUT vectors in offering are of size 0, return false 
-  }*/
+  }
   return remove_section;
 }
 
