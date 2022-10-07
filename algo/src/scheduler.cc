@@ -64,7 +64,7 @@ void Scheduler::schedule_classes_helper(
             } else {
                 TimeTable t = timetables_.top();
                 int cost = t.cost();
-                if (timetable.cost() < cost) {
+                if (timetable.cost() <= cost) {
                     timetables_.pop();
                     timetables_.push(timetable);
                 }
