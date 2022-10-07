@@ -834,19 +834,13 @@ int test() {
     // TODO: function (best timetables) -> url
 
     ConstraintHandler constraint_handler;
-    constraint_handler.add_time_constraint(
-        10,
-        12,
-        2,
-        'F',
-        MUST_HAVE); // tuesday at 10 am for 2 hours in the fall with
-    // constraint_handler.set_no_classes_before_X_constraint(13, GOOD_TO_HAVE);
+    constraint_handler.add_time_constraint(10, 2, 2, 'F', MUST_HAVE); // tuesday at 10 am for 2 hours in the fall with 
+    //constraint_handler.set_no_classes_before_X_constraint(13, GOOD_TO_HAVE);
     constraint_handler.preprocess_high_priority_classes_out(offerings);
 
     Scheduler scheduler_handler;
-    vector<TimeTable> best_timetables = scheduler_handler.schedule_classes(offerings,
-                                                                           constraint_handler);
-    scheduler_handler.print_timetables(best_timetables);
+    //vector<TimeTable> best_timetables = scheduler_handler.schedule_classes(offerings, constraint_handler);
+    //scheduler_handler.print_timetables(best_timetables);
 
     // -- User input (later)
     // 1. Search and add classes to timetable
