@@ -37,6 +37,10 @@ void ConstraintHandler::set_prefer_morning_classes_constraint(bool ans){
   prefer_morning_classes_ = ans;
 }
 
+void ConstraintHandler::set_prefer_afternoon_classes_constraint(bool ans){
+  prefer_morning_classes_ = ans;
+}
+
 void ConstraintHandler::set_prefer_evening_classes_constraint(bool ans){
   prefer_evening_classes_ = ans;
 }
@@ -124,6 +128,35 @@ bool ConstraintHandler::preprocess_high_priority_classes_out(unordered_set<Cours
     //CHECK IF ANY OF THE LEC, PRA or TUT vectors in offering are of size 0, return false 
   }
   return remove_section;
+}
+
+int ConstraintHandler::cost_of_class(Date d){
+  int cost = 0;
+  // If it is a time blocked cosntraint 
+  if(time_constraints_.find(d) != time_constraints_.end()){
+    cost += (time_constraints_[d]*cost_multiplier);
+  }
+
+  if(prefer_morning_classes_ && d.second < 11 ){
+    cost += meet_preference;
+  }
+
+  if(prefer_evening_classes_ && d.second > 4){
+    cost+= meet_preference;
+  }
+
+  if(prefer_afternoon_classes_ && d.second > 12 && d.second < 4){
+    cost+=meet_preference;
+  }
+
+  if(no_classes_after_X_.second > NO_PRIORITY && d.second >= no_classes_after_X_.first){
+    cost += (no_classes_after_X_.second * cost_multiplier);
+  }
+
+  if(no_classes_before_X_.second > NO_PRIORITY && d.second < no_classes_before_X_.first){
+    cost += (no_classes_before_X_.second * cost_multiplier);
+  }
+  return cost;
 }
 
 ConstraintHandler::ConstraintHandler() {

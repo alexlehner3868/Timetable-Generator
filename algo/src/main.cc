@@ -9,9 +9,11 @@
 #include "section.hh"
 #include "course_data.hh"
 #include "constraints.hh"
+#include "timetable.hh"
 
 using namespace std;
 
+/*
 void test_one_class_one_section(){
     vector<Section> calc_lecture_sections; 
     vector<Section> empty_vec;
@@ -728,7 +730,7 @@ void remove_course(unordered_set<CourseOfferings, CourseOfferings::CourseOfferin
     }
 
 }
-
+*/
 int main(int argc, char *argv[])
 {
     //--- Data Procesing ---- 
@@ -798,20 +800,11 @@ int main(int argc, char *argv[])
         // TODO: function (best timetablkes) -> url 
 
     ConstraintHandler constraint_handler;
-    //constraint_handler.add_time_constraint(10, 2, 2, 'F', MUST_HAVE); // tuesday at 10 am for 2 hours in the fall with priority MUST_HAVE
-    /*for(CourseOfferings offering: offerings){
-        cout << "new class" << endl;
-        for(auto pra_section : offering.practical_sections_){
-        //cout << pra_section.section_id_ << endl;
-        //cout << "new section with id " << pra_section.section_id_ << endl;
-        cout << "class day " << pra_section.day_[0] << " and time " << pra_section.start_time_[0] << endl;
-        cout << "section id is " << pra_section.section_id_ << endl;
-        }
-    } */
-    constraint_handler.preprocess_high_priority_classes_out(offerings);
+    constraint_handler.add_time_constraint(10, 12, 2, 'F', MUST_HAVE); // tuesday at 10 am for 2 hours in the fall with 
+    constraint_handler.set_no_classes_before_X_constraint(13, GOOD_TO_HAVE);
     Scheduler scheduler_handler;
-    scheduler_handler.schedule_classes(offerings);
-    scheduler_handler.print_timetables();
+    vector<TimeTable> best_timetables = scheduler_handler.schedule_classes(offerings, constraint_handler);
+    scheduler_handler.print_timetables(best_timetables);
 
     // -- User input (later) 
     // 1. Search and add classes to timetable 

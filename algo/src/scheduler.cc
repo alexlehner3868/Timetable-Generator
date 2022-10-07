@@ -26,28 +26,65 @@ using namespace std;
  */
 
 
-void Scheduler::schedule_classes(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& courses ){
+vector<TimeTable> Scheduler::schedule_classes(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& courses, ConstraintHandler& constraint_handler ){
+  constraint_handler_ = constraint_handler;
+
   // create timetable
   TimeTable timetable;
+<<<<<<< HEAD
+=======
+
+>>>>>>> c5c9b1cd6837322b0ebd6506565895e306a68ffe
   // run scheduling algorithm
   schedule_classes_helper(courses, timetable);
+
+  // Convert pq to vector and return 
+  vector<TimeTable> best_time_tables;
+  cout<<"time table size"<<timetables_.size()<<endl;
+  int num_tables = timetables_.size();
+  for(int i = 0; i < num_tables; i++){
+    TimeTable t = timetables_.top();
+    best_time_tables.push_back(t);
+    timetables_.pop();
+  }
+cout<<best_time_tables.size()<<endl;
+  return best_time_tables;
 }
 
 void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& courses, TimeTable& timetable){
-
-  // When all classes have been added to the timetable, save this valid timetable (base case)
+  
+  if(number_of_explored_timetables > max_number_of_timetables_to_explore){
+    return;
+  }
+  // All sections have been added 
   if(courses.size() == 0){
-    if ((int) timetables_.size() < max_number_of_timetables && unique_check(timetable)) {
-      timetables_.push_back(timetable);
-      // Print out valid timetable (used for debugging)
-      //print_timetable(timetable);
+    number_of_explored_timetables++;
+    if(unique_check(timetable)){
+      // Priority queue has less than the max num of timetables 
+      if(timetables_.size() < max_num_of_timetables_to_show){ 
+         timetables_.push(timetable);
+      }else{
+          TimeTable t = timetables_.top();
+          int cost = t.cost();
+          if(timetable.cost() < cost){
+            timetables_.pop();
+            timetables_.push(timetable);
+          }
+      }
+    }
+
+  }
+
+  // the current timetable is worse than the worst best cost. stop exploring it 
+  if(timetables_.size()> 0){
+    TimeTable t = timetables_.top();
+    int cost = t.cost();
+    if(timetable.cost() > cost){
+      return;
     }
   }
 
-  if((int) timetables_.size() >= max_number_of_timetables){
-    return;
-  }
-  
+
   // Loop through all of the Course Offerings (ie the course and all its sections)
   for(auto course : courses){
     attempt_to_add_section(timetable, LEC, course, courses);
@@ -57,7 +94,6 @@ void Scheduler::schedule_classes_helper(unordered_set<CourseOfferings, CourseOff
 
 void Scheduler::attempt_to_add_section(TimeTable& timetable, int class_type, CourseOfferings course, unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& courses){
 
-  
   int num_sections = 0;
   if(class_type == LEC){
         num_sections = (int) course.numLecSections();
@@ -99,16 +135,14 @@ void Scheduler::attempt_to_add_section(TimeTable& timetable, int class_type, Cou
     Date period;
       // Try adding all of the lecture sections for that section and class to the timetable 
       for (class_in_section = 0; class_in_section < (int)section.duration_.size(); class_in_section++) {
+          int section_cost = 0;
           // Add a entry for every hour that the lecure has
-          //cout << "On section " << class_in_section << " of class" << endl; 
           for (int i = 0; i < section.duration_.at(class_in_section); i++) {
               // If the class is in the winter offset the day by 5 ([1,5] = fall, [6,10] = winter)
               int semester_offset = (class_chosen.semester == 'F') ? 0 : 5;
               period = make_pair(section.day_.at(class_in_section) + semester_offset, section.start_time_.at(class_in_section) + i);
-              //cout << "Inserting class " << class_chosen.course_code << endl;
-              //cout << "Inserting section " << class_in_section << endl;
+
               // Insert into the timetable  
-              
               successfully_inserted = timetable.insert(std::make_pair(period, class_chosen));
 
               // Check if the class was sucessfully inserted 
@@ -116,6 +150,8 @@ void Scheduler::attempt_to_add_section(TimeTable& timetable, int class_type, Cou
                   break;
                   //Combination is invalid
                   //Time occupied by another course offering or constraint
+              }else{
+                section_cost += constraint_handler_.cost_of_class(period);
               }
               
 
@@ -137,8 +173,9 @@ void Scheduler::attempt_to_add_section(TimeTable& timetable, int class_type, Cou
               }
 
               break;
+          }else{
+            timetable.add_cost(section_cost);
           }
-
 
     }
     
@@ -216,18 +253,9 @@ void Scheduler::attempt_to_add_section(TimeTable& timetable, int class_type, Cou
 }
 
 
-void Scheduler::print_timetables(){
-  // TODO: can probably get this as a constant and then add a check here if no full timetable is created
-  //int max_scheduled = max_sections_scheduled(); //too slow
-  int offset = max_number_of_timetables / number_of_timetables;
-  // TODO: add error checking here becuase we could run into an issue where we arent finding full timetables 
-  // ie here are sizes [10, 10, 10, 2, 2] where the only full timetbales are the first options but we skip them
-  for(int i = 0; i < number_of_timetables; i++){
-    int index = i *offset;
-  // TODO: if a full timetable exists print it here
-    if(index < (int) timetables_.size()){
-      print_timetable(timetables_[index]);
-    }
+void Scheduler::print_timetables(vector<TimeTable> timetables){
+  for(auto t : timetables){
+    print_timetable(t);
   }
 }
 

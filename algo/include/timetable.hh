@@ -51,7 +51,21 @@ class TimeTable {
     std::unordered_map<Date, SelectedCourseSection, Date_Hash> classes(){
         return scheduled_classes;
     }
+
+    int cost(){
+        return current_time_table_cost;
+    }
+
+    void add_cost(int c){
+        current_time_table_cost += c;
+    }
 };
 
+struct CompareTimeTable {
+    bool operator()(TimeTable const& t1, TimeTable const& t2)
+    {
+        return t1.current_time_table_cost < t2.current_time_table_cost;
+    }
+};
 
 #endif
