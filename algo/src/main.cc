@@ -837,10 +837,9 @@ int test() {
     constraint_handler.add_time_constraint(10, 2, 2, 'F', MUST_HAVE); // tuesday at 10 am for 2 hours in the fall with 
     //constraint_handler.set_no_classes_before_X_constraint(13, GOOD_TO_HAVE);
     constraint_handler.preprocess_high_priority_classes_out(offerings);
-
     Scheduler scheduler_handler;
-    //vector<TimeTable> best_timetables = scheduler_handler.schedule_classes(offerings, constraint_handler);
-    //scheduler_handler.print_timetables(best_timetables);
+    vector<TimeTable> best_timetables = scheduler_handler.schedule_classes(offerings, constraint_handler);
+    scheduler_handler.print_timetables(best_timetables);
 
     // -- User input (later)
     // 1. Search and add classes to timetable
@@ -993,6 +992,8 @@ int query(int argc, char *argv[]) {
 
 int main(int argc, char *argv[]) {
     // Parse args
+    test();
+    /*
     switch (argc) {
         case 1:
             return test();
@@ -1005,4 +1006,5 @@ int main(int argc, char *argv[]) {
         default:
             printf("Usage: %s [query|test]\n", argv[0]);
     }
+    */
 }
