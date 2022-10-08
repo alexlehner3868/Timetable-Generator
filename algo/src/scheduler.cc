@@ -123,7 +123,7 @@ void Scheduler::attempt_to_add_section(
         SelectedCourseSection class_chosen{
             .course_code = course.course_id_,
             .type = class_type, // Lecture
-            .section = course.practical_sections_.at(section_indx).section_id_,
+            .section = section.section_id_,
             .semester = section.semester_.at(0) // Each section should only be in either F or W
                                                 // (need support for full year courses)
                                                 // semester can be a char instead of a vector
