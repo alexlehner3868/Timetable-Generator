@@ -59,7 +59,7 @@ void Scheduler::schedule_classes_helper(
         number_of_explored_timetables++;
         if (unique_check(timetable)) {
             // Priority queue has less than the max num of timetables
-            if (timetables_.size() < max_num_of_timetables_to_show) {
+            if ((int)timetables_.size() < (int)max_num_of_timetables_to_show) {
                 timetables_.push(timetable);
             } else {
                 TimeTable t = timetables_.top();

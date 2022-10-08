@@ -1,5 +1,6 @@
 bin/main
-.vscode/tasks.json
+/data/
+/.vscode/
 build/bin/main
 build/dep/constraints.d
 build/dep/course_data.d
