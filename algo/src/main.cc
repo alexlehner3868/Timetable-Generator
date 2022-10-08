@@ -831,7 +831,7 @@ int test() {
     std::vector<Section> course_eleven_practical_sections = course_data.add_course("ECE297H1", 3);
 
     CourseOfferings class_seven("Signals and Systems",
-                              "ECE16H1",
+                              "ECE216H1",
                               course_seven_lecture_sections,
                               course_seven_tutorial_sections,
                               course_seven_practical_sections);

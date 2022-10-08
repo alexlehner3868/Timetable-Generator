@@ -23,15 +23,15 @@ string toClassType(int type) {
 }
 
 string toDay(int day) {
-    if (day == 1) {
+    if (day == 1 || day == 6) {
         return "Monday";
-    } else if (day == 2) {
+    } else if (day == 2 || day == 7) {
         return "Tuesday";
-    } else if (day == 3) {
+    } else if (day == 3 || day == 8) {
         return "Wednesday";
-    } else if (day == 4) {
+    } else if (day == 4 || day == 9) {
         return "Thursday";
-    } else if (day == 5) {
+    } else if (day == 5 || day == 10) {
         return "Friday";
     } else {
         // do something if this is an error
