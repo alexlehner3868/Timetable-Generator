@@ -810,6 +810,58 @@ int test() {
     offerings.insert(class_five);
     offerings.insert(class_six);
 
+    
+    std::vector<Section> course_seven_lecture_sections = course_data.add_course("ECE216H1", 1);
+    std::vector<Section> course_eight_lecture_sections = course_data.add_course("ECE221H1", 1);
+    std::vector<Section> course_nine_lecture_sections = course_data.add_course("ECE231H1", 1);
+    std::vector<Section> course_ten_lecture_sections = course_data.add_course("ECE243H1", 1);
+    std::vector<Section> course_eleven_lecture_sections = course_data.add_course("ECE297H1", 1);
+
+    // add tutorials
+    std::vector<Section> course_seven_tutorial_sections = course_data.add_course("ECE216H1", 2);
+    std::vector<Section> course_eight_tutorial_sections = course_data.add_course("ECE221H1", 2);
+    std::vector<Section> course_nine_tutorial_sections = course_data.add_course("ECE231H1", 2);
+    std::vector<Section> course_ten_tutorial_sections = course_data.add_course("ECE243H1", 2);
+    std::vector<Section> course_eleven_tutorial_sections = course_data.add_course("ECE297H1", 2);
+    // add practicals
+    std::vector<Section> course_seven_practical_sections = course_data.add_course("ECE216H1", 3);
+    std::vector<Section> course_eight_practical_sections = course_data.add_course("ECE221H1", 3);
+    std::vector<Section> course_nine_practical_sections = course_data.add_course("ECE231H1", 3);
+    std::vector<Section> course_ten_practical_sections = course_data.add_course("ECE243H1", 3);
+    std::vector<Section> course_eleven_practical_sections = course_data.add_course("ECE297H1", 3);
+
+    CourseOfferings class_seven("Signals and Systems",
+                              "ECE16H1",
+                              course_seven_lecture_sections,
+                              course_seven_tutorial_sections,
+                              course_seven_practical_sections);
+    CourseOfferings class_eight("Electric and Magnetic Fields",
+                              "ECE221H1",
+                              course_eight_lecture_sections,
+                              course_eight_tutorial_sections,
+                              course_eight_practical_sections);
+    CourseOfferings class_nine("Introductory Electronics",
+                                "ECE231H1",
+                                course_nine_lecture_sections,
+                                course_nine_tutorial_sections,
+                                course_nine_practical_sections);
+    CourseOfferings class_ten("Computer Organization",
+                               "ECE243H1",
+                               course_ten_lecture_sections,
+                               course_ten_tutorial_sections,
+                               course_ten_practical_sections);
+    CourseOfferings class_eleven("Communication and Design",
+                               "ECE297H1",
+                               course_eleven_lecture_sections,
+                               course_eleven_tutorial_sections,
+                               course_eleven_practical_sections);
+
+
+    offerings.insert(class_seven);
+    offerings.insert(class_eight);
+    offerings.insert(class_nine);
+    offerings.insert(class_ten);
+    offerings.insert(class_eleven);
     // to remove a class it should already be in offerings
     // remove_course(offerings, "ECE212H1");
 
@@ -836,7 +888,7 @@ int test() {
     ConstraintHandler constraint_handler;
     constraint_handler.add_time_constraint(10, 2, 2, 'F', MUST_HAVE); // tuesday at 10 am for 2 hours in the fall with 
     //constraint_handler.set_no_classes_before_X_constraint(13, GOOD_TO_HAVE);
-    //constraint_handler.preprocess_high_priority_classes_out(offerings);
+    constraint_handler.preprocess_high_priority_classes_out(offerings);
     Scheduler scheduler_handler;
     vector<TimeTable> best_timetables = scheduler_handler.schedule_classes(offerings, constraint_handler);
     scheduler_handler.print_timetables(best_timetables);

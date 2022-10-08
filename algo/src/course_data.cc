@@ -155,7 +155,7 @@ std::vector<Section> CourseData::add_course(string course_id, int section_type) 
     if (section_type == LEC) {
         // we want to add lectures
         std::string sql = "SELECT * FROM Courses WHERE ACAD_ACT_CD = " + quotesql(course_id) +
-                          " AND TEACH_METHOD = 'LEC' AND SECTION_CD != 'S';";
+                          " AND TEACH_METHOD = 'LEC';";
         int action_success = sqlite3_exec(DB_, sql.c_str(), get_sql_data, &course_data, NULL);
         if (action_success != SQLITE_OK) {
             cout << "No lectures in class" << std::endl;
@@ -163,7 +163,7 @@ std::vector<Section> CourseData::add_course(string course_id, int section_type) 
     } else if (section_type == TUT) {
         // we want to add tutorials
         std::string sql = "SELECT * FROM Courses WHERE ACAD_ACT_CD = " + quotesql(course_id) +
-                          " AND TEACH_METHOD = 'TUT' AND SECTION_CD != 'S';";
+                          " AND TEACH_METHOD = 'TUT';";
         int action_success = sqlite3_exec(DB_, sql.c_str(), get_sql_data, &course_data, NULL);
         if (action_success != SQLITE_OK) {
             cout << "No tutorials in class" << std::endl;
@@ -171,7 +171,7 @@ std::vector<Section> CourseData::add_course(string course_id, int section_type) 
     } else if (section_type == PRA) {
         // we want to add practicals
         std::string sql = "SELECT * FROM Courses WHERE ACAD_ACT_CD = " + quotesql(course_id) +
-                          " AND TEACH_METHOD = 'PRA' AND SECTION_CD != 'S';";
+                          " AND TEACH_METHOD = 'PRA';";
         int action_success = sqlite3_exec(DB_, sql.c_str(), get_sql_data, &course_data, NULL);
         if (action_success != SQLITE_OK) {
             cout << "No practicals in class" << std::endl;
