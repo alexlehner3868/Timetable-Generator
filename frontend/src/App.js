@@ -6,6 +6,7 @@ import Calculator from './Calculator';
 import Timetable from './Timetable';
 import Sidebar from './Sidebar';
 import MainWindow from './MainWindow';
+import { useEffect } from 'react';
 
 /*
 function App() {
@@ -31,6 +32,12 @@ function App() {
 
 // TODO: Find fonts that aren't the ugliest fonts known to man
 function App() {
+  useEffect(()=>{
+    fetch('movies').then(response => response.json().then( data =>{
+      console.log("Alex is my here");
+  }));
+  }, [])
+
   return (
     <div className="App">
       <header className="App-header">
