@@ -2,6 +2,7 @@ Below is a list of coding tasks that still need to be completed
 
 1. General
     - What happens is no possible timetables are found 
+    - Should we force semester by semester scheduling or do full year scheduling 
     - Ask course data guy for data with course names 
     - Allow classes to be locked into a section
 
@@ -23,7 +24,6 @@ Below is a list of coding tasks that still need to be completed
     - Tune timetable cost function to create more variability in timetables 
     - Apply constraints to only one semester 
     
-
 4. Front End 
     - Add ways to input constraints (Add/Remove)
         - Blocked-off times [click on times on timetable + priorty]  -> change timetable to buttons to allow click? 
@@ -45,7 +45,6 @@ Below is a list of coding tasks that still need to be completed
     - Allow classes to be locked into a section
     - Make it look pretty and aestetic
     
-
 
 5. Back End 
     - Connect Flask to React to create API calls 
