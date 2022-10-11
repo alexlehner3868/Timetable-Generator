@@ -49,7 +49,7 @@ function App() {
       <div className='whole-webpage'>
         <MainWindow className="main-window"/>
         <Sidebar className="sidebar"/>
-        <p>{tdata}</p>
+        <button type="button" onclick="window.location.href='{{ url_for( 'move_forward') }}';">Forward</button>
       </div>
     </div>
   );

@@ -61,6 +61,7 @@ def main():
     @app.get("/gen")
     def gen() -> Response:
         out = subprocess.run([args.algo, "query"], capture_output=True)
+        print(out)
         return out.stdout
     @app.route('/data')
     def get_time():
@@ -71,6 +72,11 @@ def main():
             "Date":x, 
             "programming":"python"
             }
+    @app.route('/move_forward')
+    def move_forward():
+        # Returning an api for showing in  reactjs
+        out = "BUTTON PRESSED "
+        return out.stdout
     
     # Run app
     app.run(

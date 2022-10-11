@@ -157,29 +157,6 @@ int query(int argc, char *argv[]) {
     offerings.insert(class_five);
     offerings.insert(class_six);
 
-    // to remove a class it should already be in offerings
-    // remove_course(offerings, "ECE212H1");
-
-    // STAGES
-    // Stage 1: Get user input
-    // TODO: when user presses schedule button, get their input
-    // Stage 2: Parse input
-    // TODO: function (url of option) -> unordered_ offerings
-    // TODO: function (url of options) -> set of constraints
-    //(will need to ensure times are given to constraint in military times and that times are valid)
-    // eg: cannot have "constraint no_class after 1am"
-    // eg: cannot have "constraint max back to back classes: 0 hours"
-    // Stage 3: Preprocess courses
-    // function: sorts all constraints in order of priority
-    // Function (offerings, hard-stop time constraints) -> set of offerings not in forbidden times
-    // -> TODO: add some behaviour if all of one course's offerings are deleted. (maybe output
-    // something)
-    // Stage 4: create schedulers
-    // Schedule classes and evaluate timetables
-    // TODO: add evaluator and cost tracking
-    // Stage 5: parse timetables to give to front end
-    // TODO: function (best timetables) -> url
-
     ConstraintHandler constraint_handler;
     Scheduler scheduler_handler;
     vector<TimeTable> best_timetables = scheduler_handler.schedule_classes(offerings,
