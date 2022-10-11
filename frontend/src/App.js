@@ -1,42 +1,45 @@
-import logo from './logo.svg';
 import './App.css';
 import './index.css'
-import calculatorAPI from './calculatorAPI';
-import Calculator from './Calculator';
-import Timetable from './Timetable';
 import Sidebar from './Sidebar';
 import MainWindow from './MainWindow';
-import { useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
-/*
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-       <Calculator calculatorAPI={new calculatorAPI('http://localhost:3000')}/>
-      </header>
-    </div>
-  );
-}*/
+    const [data, setdata] = useState({
+      name: "",
+      age: 0,
+      date: "",
+      programming: "",
+  });
 
-// TODO: Get course data with class names
-// TODO: Properly space timetable and sidebar so they're on left and right side
-// TODO: When searching for a class, each result should be a button
-// TODO: Clicking on Class button shows LEC/TUT/PRA Info 
-// TODO: Clicking on Class button shows Add Course button
-// TODO: Section to display classes already added to the plan
-// TODO: Button to show only fall schedule
-// TODO: Button to show only winter schedule
-// TODO: Button to show both schedules
-// TODO: Button to cycle through time tables 
-
-// TODO: Find fonts that aren't the ugliest fonts known to man
-function App() {
-  useEffect(()=>{
-    fetch('movies').then(response => response.json().then( data =>{
-      console.log("Alex is my here");
-  }));
-  }, [])
+  // Using useEffect for single rendering
+  useEffect(() => {
+      // Using fetch to fetch the api from 
+      // flask server it will be redirected to proxy
+      fetch("/data").then((res) =>
+          res.json().then((data) => {
+              // Setting a data from api
+              setdata({
+                  name: data.Name,
+                  age: data.Age,
+                  date: data.Date,
+                  programming: data.programming,
+              });
+          })
+      );
+  }, []);
+  const tdata = ""
+  // Using useEffect for single rendering
+  useEffect(() => {
+    // Using fetch to fetch the api from 
+    // flask server it will be redirected to proxy
+    fetch("/gen").then((res) =>
+        res.json().then((data) => {
+            // Setting a data from api
+            tdata = data
+        })
+    );
+}, []);
 
   return (
     <div className="App">
@@ -46,7 +49,7 @@ function App() {
       <div className='whole-webpage'>
         <MainWindow className="main-window"/>
         <Sidebar className="sidebar"/>
-       
+        <p>{tdata}</p>
       </div>
     </div>
   );
