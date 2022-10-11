@@ -84,6 +84,7 @@ def main():
         # Returning an api for showing in  reactjs
         out = "BUTTON PRESSED "
     @app.route('/')
+    @app.route('/main')
     def main_page():
         return 'Want to see a schedule? <a href="/basic-schedule">Yes!</a>'
     @app.route('/basic-schedule')
