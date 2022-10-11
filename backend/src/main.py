@@ -8,9 +8,10 @@ import logging
 import subprocess
 
 from flask import Flask, Response, jsonify
-
+import datetime 
 import ttb
 
+x = datetime.datetime.now()
 
 def main():
     # Initialize logging
@@ -41,7 +42,7 @@ def main():
     parser.add_argument(
         "-p",
         "--port",
-        default="7979",
+        default="5000",
         type=int,
         help="Port number to listen on"
     )
@@ -61,7 +62,16 @@ def main():
     def gen() -> Response:
         out = subprocess.run([args.algo, "query"], capture_output=True)
         return out.stdout
-
+    @app.route('/data')
+    def get_time():
+        # Returning an api for showing in  reactjs
+        return {
+            'Name':"geek", 
+            "Age":"22",
+            "Date":x, 
+            "programming":"python"
+            }
+    
     # Run app
     app.run(
         debug=args.debug,
