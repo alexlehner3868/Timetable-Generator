@@ -10,7 +10,8 @@ function App() {
       age: 0,
       date: "",
       programming: "",
-  });
+    });
+
 
   // Using useEffect for single rendering
   useEffect(() => {
@@ -29,7 +30,7 @@ function App() {
       );
   }, []);
   const tdata = ""
-  // Using useEffect for single rendering
+  // second page
   useEffect(() => {
     // Using fetch to fetch the api from 
     // flask server it will be redirected to proxy
@@ -39,7 +40,27 @@ function App() {
             tdata = data
         })
     );
-}, []);
+  }, []);
+  
+  // create a timetable array
+  // 2d array: [course_id, course_name, course_type, section_id]
+  // array is size 11 hours*5 days*2 semesters = 110 elements
+  const [timetable, settimetable] = useState([[]]);
+  const entire_timetable = [];
+  // third page
+  useEffect(() => {
+    // Using fetch to fetch the api from 
+    // flask server it will be redirected to proxy
+    fetch("/").then((res) =>
+        res.json().then((timetable) => {
+            settimetable(
+              // code to accept each timetable grid item and set array properly
+              // row.map((col)=> <Period  ClassID={props.classID} classSection={props.classSection} classNum={props.classNum}/>)
+              entire_timetable = timetable
+            );
+        })
+    );
+  }, []);
 
   return (
     <div className="App">
