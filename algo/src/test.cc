@@ -136,6 +136,7 @@ unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> get_classes(
 
     return offerings;
 }
+
 /*
 void test_one_class_one_section(){
     vector<Section> calc_lecture_sections;
@@ -810,6 +811,7 @@ empty_vec);
     scheduler.schedule_classes(offerings);
 }
 */
+
 void test_sample_questions() {
     // One class, with one section
     cout<<"Test 1: One Class, One Section " << endl;
@@ -859,4 +861,8 @@ pra_sections);
         offerings.erase(class_offering);
     }
 
+}
+
+void get_schedule() {
+    cout << "aoooooo" << endl;
 }

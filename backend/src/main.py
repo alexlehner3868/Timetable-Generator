@@ -6,8 +6,9 @@
 import argparse
 import logging
 import subprocess
+import os
 
-from flask import Flask, Response, jsonify
+from flask import Flask, Response, jsonify, render_template
 import datetime 
 import ttb
 
@@ -46,6 +47,12 @@ def main():
         type=int,
         help="Port number to listen on"
     )
+    parser.add_argument(
+        "-n",
+        "--natalia",
+        action="store_true",
+        help="Use if running on ug machines"
+    )
     # Parse args
     args = parser.parse_args()
 
@@ -53,7 +60,7 @@ def main():
     db = ttb.Courses(args.database)
 
     # Initialize application
-    app = Flask(__name__)
+    app = Flask(__name__, template_folder='templates')
     # Define endpoints
     @app.get("/all")
     def all() -> Response:
@@ -76,13 +83,29 @@ def main():
     def move_forward():
         # Returning an api for showing in  reactjs
         out = "BUTTON PRESSED "
+    @app.route('/')
+    def main_page():
+        return 'Want to see a schedule? <a href="/basic-schedule">Yes!</a>'
+    @app.route('/basic-schedule')
+    def micah_schedule():
+        out = subprocess.run([args.algo, "get_schedule"], capture_output=True)
+        
+        #make a schedule
         return out.stdout
     
     # Run app
-    app.run(
-        debug=args.debug,
-        port=args.port
-    )
+    if (parser.parse_args(['-n'])):
+        app.run(
+            host="ug214",
+            debug=args.debug,
+            port=args.port
+        )
+    else:
+        app.run(
+            debug=args.debug,
+            port=args.port
+        )
+    
 
 if __name__ == "__main__":
     main()
