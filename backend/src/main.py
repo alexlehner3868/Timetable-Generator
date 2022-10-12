@@ -68,7 +68,6 @@ def main():
     @app.get("/gen")
     def gen() -> Response:
         out = subprocess.run([args.algo, "query"], capture_output=True)
-        print(out)
         return out.stdout
     @app.route('/data')
     def get_time():
@@ -79,20 +78,30 @@ def main():
             "Date":x, 
             "programming":"python"
             }
-    @app.route('/move_forward')
-    def move_forward():
+    #@app.route('/move_forward')
+    #def move_forward():
         # Returning an api for showing in  reactjs
-        out = "BUTTON PRESSED "
+        #out = "BUTTON PRESSED "
     @app.route('/')
     @app.route('/main')
     def main_page():
         return 'Want to see a schedule? <a href="/basic-schedule">Yes!</a>'
     @app.route('/basic-schedule')
     def micah_schedule():
-        out = subprocess.run([args.algo, "get_schedule"], capture_output=True)
+        #out = subprocess.run([args.algo, "get_schedule"], capture_output=True)
         
         #make a schedule
-        return out.stdout
+        #return out.stdout
+
+        
+        #2d array: [course_id, course_name, course_type, section_id]
+        return [
+            ["ece297", "101", "LEC"],
+            ["ECE231", "101", "TUT"],
+            ["ECE231", "102", "TUT"],
+            ["ECE231", "103", "TUT"],
+            ["ECE231", "101", "PRA"],
+        ]
     
     # Run app
     if (parser.parse_args(['-n'])):

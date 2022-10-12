@@ -46,18 +46,52 @@ function App() {
   // 2d array: [course_id, course_name, course_type, section_id]
   // array is size 11 hours*5 days*2 semesters = 110 elements
   const [timetable, settimetable] = useState([[]]);
-  const entire_timetable = [];
+  let entire_timetable = {
+
+  };
   // third page
   useEffect(() => {
     // Using fetch to fetch the api from 
     // flask server it will be redirected to proxy
-    fetch("/").then((res) =>
+    fetch("/basic-schedule").then((res) =>
         res.json().then((timetable) => {
-            settimetable(
-              // code to accept each timetable grid item and set array properly
-              // row.map((col)=> <Period  ClassID={props.classID} classSection={props.classSection} classNum={props.classNum}/>)
-              entire_timetable = timetable
-            );
+          /*
+          let new_timetable = new Array(timetable.length);
+          for (let i = 0; i<timetable.length; i++) {
+            new_timetable[i][0] = timetable[i][0];
+            new_timetable[i][1] = timetable[i][1];
+            new_timetable[i][2] = timetable[i][2];
+            classID: new_timetable[i][0],
+            classSection: new_timetable[i][1],
+            classNum: new_timetable[i][2]
+          }*/
+          const arr = ['classID', 'classSection', 'classNum'];
+          
+          let timetables = {}
+          console.log(timetable.length);
+          for (let i = 0; i < timetable.length; i++) {
+            let obj = {};
+            obj['classID'] = timetable[i][0];
+            obj['classSection'] = timetable[i][1];
+            obj['classNum'] = timetable[i][2];
+            //arr.forEach(child_element => {
+           //   obj[child_element] = timetable[element][child_element];
+            //  console.log(obj);
+            //});
+            timetables[i] = obj;
+            console.log(timetables);
+            console.log(obj);
+          }
+          // obj = {classID: '', classSection = '', classNum =''}
+          
+
+          settimetable(
+            // code to accept each timetable grid item and set array properly
+            // row.map((col)=> <Period  ClassID={props.classID} classSection={props.classSection} classNum={props.classNum}/>)
+            // entire_timetable = timetable
+            entire_timetable = timetables
+          );
+          console.log(entire_timetable);
         })
     );
   }, []);
@@ -68,7 +102,7 @@ function App() {
         <h1>Live Timetable Love</h1>
       </header>
       <div className='whole-webpage'>
-        <MainWindow className="main-window"/>
+        <MainWindow props={entire_timetable} className="main-window"/>
         <Sidebar className="sidebar"/>
         <button type="button" onclick="window.location.href='{{ url_for( 'move_forward') }}';">Forward</button>
       </div>

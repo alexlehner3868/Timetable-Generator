@@ -1,4 +1,4 @@
-import Semester from './data/Semester';
+import Semester from './Semester';
 import Timetable from './Timetable';
 
 
@@ -8,8 +8,8 @@ const MainWindow = (props) =>{
     
     return (
         <div className='main-window'>
-            <Semester semester="Fall"/>
-            <Semester semester="Winter"/>
+            <Semester props={props} semester="Fall"/>
+            <Semester props={props} semester="Winter"/>
         </div>
     
     
