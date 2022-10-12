@@ -8,8 +8,8 @@ const MainWindow = (props) =>{
     
     return (
         <div className='main-window'>
-            <Semester props={props} semester="Fall"/>
-            <Semester props={props} semester="Winter"/>
+            <Semester timetable={props} semester="Fall"/>
+            <Semester timetable={props} semester="Winter"/>
         </div>
     
     

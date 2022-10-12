@@ -95,15 +95,23 @@ def main():
 
         
         #2d array: [course_id, course_name, course_type, section_id]
+       
+        return {
+            ["classID" : "ECE297", "classSection": 1, "classNum": 1],
+            ["classID" : "ECE201", "classSection": 1, "classNum": 2],
+            ["classID" : "ECE224", "classSection": 1, "classNum": 3],
+            ["classID" : "ECE234", "classSection": 1, "classNum": 4],
+        }
+    
         return [
-            ["ece297", "101", "LEC"],
             ["ECE231", "101", "TUT"],
             ["ECE231", "102", "TUT"],
             ["ECE231", "103", "TUT"],
             ["ECE231", "101", "PRA"],
         ]
-    
+        """
     # Run app
+    """
     if (parser.parse_args(['-n'])):
         app.run(
             host="ug214",
@@ -115,7 +123,11 @@ def main():
             debug=args.debug,
             port=args.port
         )
-    
+    """
+    app.run(
+        debug=args.debug,
+        port=args.port
+    )
 
 if __name__ == "__main__":
     main()

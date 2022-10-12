@@ -45,10 +45,13 @@ function App() {
   // create a timetable array
   // 2d array: [course_id, course_name, course_type, section_id]
   // array is size 11 hours*5 days*2 semesters = 110 elements
-  const [timetable, settimetable] = useState([[]]);
-  let entire_timetable = {
+  const [timetable, settimetable] = useState({
 
-  };
+  }
+
+  );
+  let entire_timetable = {};
+  
   // third page
   useEffect(() => {
     // Using fetch to fetch the api from 
@@ -73,14 +76,14 @@ function App() {
             let obj = {};
             obj['classID'] = timetable[i][0];
             obj['classSection'] = timetable[i][1];
-            obj['classNum'] = timetable[i][2];
+            obj['classNum'] = i; // I fucked this up and forget type. classNum is for color
             //arr.forEach(child_element => {
            //   obj[child_element] = timetable[element][child_element];
             //  console.log(obj);
             //});
             timetables[i] = obj;
-            console.log(timetables);
-            console.log(obj);
+            console.log("T: "+ timetables);
+            console.log("O"+ obj);
           }
           // obj = {classID: '', classSection = '', classNum =''}
           
@@ -89,13 +92,17 @@ function App() {
             // code to accept each timetable grid item and set array properly
             // row.map((col)=> <Period  ClassID={props.classID} classSection={props.classSection} classNum={props.classNum}/>)
             // entire_timetable = timetable
-            entire_timetable = timetables
+           // entire_timetable = timetables
+           timetables
+
           );
+          console.log("Entire Timetale");
           console.log(entire_timetable);
         })
     );
   }, []);
-
+  console.log("ALEX")
+  console.log(timetable)
   return (
     <div className="App">
       <header className="App-header">
