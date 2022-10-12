@@ -109,7 +109,7 @@ function App() {
         <h1>Live Timetable Love</h1>
       </header>
       <div className='whole-webpage'>
-        <MainWindow props={entire_timetable} className="main-window"/>
+        <MainWindow timetableData={timetable} className="main-window"/>
         <Sidebar className="sidebar"/>
         <button type="button" onclick="window.location.href='{{ url_for( 'move_forward') }}';">Forward</button>
       </div>

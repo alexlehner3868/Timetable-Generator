@@ -17,7 +17,8 @@ const Timetable = (props) =>{
     for(let i = 0; i < timetable.length; i++){
         timetable[i] = new Array(2).fill(null); 
     }
-    console.log(props);
+    console.log("props in timetable")
+    console.log(props.courses);
     return (
         <div className="timetable"> 
         {timetable.map((row)=>{
