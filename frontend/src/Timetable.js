@@ -21,18 +21,31 @@ const Timetable = (props) =>{
         timetable[i] = new Array(num_days).fill(null); 
         
     }
-
-    for(let i = 0; i < num_hours; i++){
-        for(let j = 0; j < num_days; j++){
-            timetable[i][j] = (props.courses[count] !== undefined ? props.courses[count] : {
-                classID: "",
-                classSection: "",
-                classColorIdx: "",
-                classType: "",
-            });
-            console.log("tdata at" + count);
-            console.log(timetable[i][j]);
-            count++;
+    if(props.courses !== undefined){
+        for(let i = 0; i < num_hours; i++){
+            for(let j = 0; j < num_days; j++){
+                timetable[i][j] = (props.courses[count] !== undefined ? props.courses[count] : {
+                    classID: "",
+                    classSection: "",
+                    classColorIdx: "",
+                    classType: "",
+                });
+                console.log("tdata at" + count);
+                console.log(timetable[i][j]);
+                count++;
+            }
+        }
+    }else{
+        for(let i = 0; i < num_hours; i++){
+            for(let j = 0; j < num_days; j++){
+                timetable[i][j] = {
+                    classID: "",
+                    classSection: "",
+                    classColorIdx: "",
+                    classType: "",
+                };
+                count++;
+            }
         }
     }
     console.log("props in timetable")

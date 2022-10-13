@@ -37,7 +37,9 @@ Below is a list of coding tasks that still need to be completed
         - Minimize days at school [yes/no, priority]
         - No more than X hours back to back [X, priority]
         - No more than X hours per day [X, prioirty]
-    - Get timetable data to show up on timetables 
+    - [DONE] Get timetable data to show up on timetables 
+    - [DONE] Show different timetables for each semster 
+    - Add labels (ie days and time) to timestables 
     - Add classes 
     - Remove classes 
     - Create schedule button 
@@ -57,7 +59,7 @@ Below is a list of coding tasks that still need to be completed
    
 
    PRIORITY LIST:
-   1. Connect Flask to React to create API calls
+   1. [DONE] Connect Flask to React to create API calls
    2. Schedule Button -> press button and pre configured timetable appears on website
    3. Functionality for Front-End
         - add class button

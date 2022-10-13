@@ -71,20 +71,27 @@ function App() {
           }*/
           const arr = ['classID', 'classSection', 'classNum'];
           
-          let timetables = {}
+          let timetables = new Array(2);
+          for(let i = 0; i < 2; i++){
+            timetables[i] = new Array(66);
+          }
           console.log("HEEEEE")
           console.log(timetable.length);
           for (let i = 0; i < timetable.length; i++) {
+            console.log("length = "  + timetable.length + " i " + i);
             let obj = {};
             obj['classID'] = timetable[i][0];
             obj['classSection'] = timetable[i][1];
             obj['classType'] = timetable[i][2];
-            obj['classColorIdx'] = i; 
+            obj['classColorIdx'] = i+1; 
             //arr.forEach(child_element => {
            //   obj[child_element] = timetable[element][child_element];
             //  console.log(obj);
             //});
-            timetables[i] = obj;
+            let sem = (i >= timetable.length/2 ? 1 : 0);
+            let indx = (i < timetable.length/2 ? i : i - timetable.length/2);
+            console.log("Sem" + sem);
+            timetables[sem][indx] = obj;
             console.log("T: "+ timetables);
             console.log("O"+ obj);
           }
