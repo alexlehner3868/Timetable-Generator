@@ -13,8 +13,8 @@ const Period = (props) => {
         <div className="empty-period" style ={{
             backgroundColor: classData[2],
         }}>
-            <text className="class-name">{classData[0]}</text>
-            <text className="class-id"> {classData[1]}</text>
+            <p className="class-name">{classData[0]}</p>
+            <p className="class-id"> {classData[1]}</p>
 
         </div>
     )

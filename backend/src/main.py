@@ -69,7 +69,7 @@ def main():
     def gen() -> Response:
         out = subprocess.run([args.algo, "query"], capture_output=True)
         return out.stdout
-    @app.route('/data')
+    @app.route("/data")
     def get_time():
         # Returning an api for showing in  reactjs
         return {
@@ -92,7 +92,6 @@ def main():
         
         #make a schedule
         #return out.stdout
-
         
         #2d array: [course_id, course_name, course_type, section_id]
         return [

@@ -19,6 +19,7 @@ function App() {
       // flask server it will be redirected to proxy
       fetch("/data").then((res) =>
           res.json().then((data) => {
+              console.log("IN DATA")
               // Setting a data from api
               setdata({
                   name: data.Name,
@@ -38,6 +39,7 @@ function App() {
         res.json().then((data) => {
             // Setting a data from api
             tdata = data
+            console.log("IN DATA")
         })
     );
   }, []);
@@ -46,12 +48,11 @@ function App() {
   // 2d array: [course_id, course_name, course_type, section_id]
   // array is size 11 hours*5 days*2 semesters = 110 elements
   const [timetable, settimetable] = useState({
-
   }
 
   );
   let entire_timetable = {};
-  
+  console.log("here")
   // third page
   useEffect(() => {
     // Using fetch to fetch the api from 
@@ -71,6 +72,7 @@ function App() {
           const arr = ['classID', 'classSection', 'classNum'];
           
           let timetables = {}
+          console.log("HEEEEE")
           console.log(timetable.length);
           for (let i = 0; i < timetable.length; i++) {
             let obj = {};
@@ -97,7 +99,7 @@ function App() {
 
           );
           console.log("Entire Timetale");
-          console.log(entire_timetable);
+          console.log(timetables);
         })
     );
   }, []);
@@ -111,7 +113,6 @@ function App() {
       <div className='whole-webpage'>
         <MainWindow timetableData={timetable} className="main-window"/>
         <Sidebar className="sidebar"/>
-        <button type="button" onclick="window.location.href='{{ url_for( 'move_forward') }}';">Forward</button>
       </div>
     </div>
   );
