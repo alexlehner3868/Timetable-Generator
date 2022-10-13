@@ -8,8 +8,7 @@ const Period = (props) => {
     
     classData[0] = (props.ClassID === "" ? null : props.ClassID);
     classData[1] = (props.classSection === "" ? null : props.classSection);
-    classData[2] = props.classNum === "" ? colorArray[0] : colorArray[props.classNum];
-    console.log("In period: " + classData[0]+ " "+ props.classSection + " " + classData[2]);
+    classData[2] = props.classColorIdx === "" ? colorArray[0] : colorArray[props.classColorIdx];
     return (
         <div className="empty-period" style ={{
             backgroundColor: classData[2],

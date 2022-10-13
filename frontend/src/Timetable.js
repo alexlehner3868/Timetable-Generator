@@ -25,7 +25,7 @@ const Timetable = (props) =>{
             timetable[i][j] = (props.courses[count] !== undefined ? props.courses[count] : {
                 classID: "",
                 classSection: "",
-                classNum: ""
+                classColorIdx: ""
             });
             console.log("tdata at" + count);
             console.log(timetable[i][j]);
@@ -42,7 +42,7 @@ const Timetable = (props) =>{
             return (
                 <div>
                 {    
-                    row.map((col)=> <Period  ClassID={col.classID} classSection={col.classSection} classNum={col.classNum}/>)
+                    row.map((col)=> <Period  ClassID={col.classID} classSection={col.classSection} classColorIdx={col.classColorIdx}/>)
                 }
                 </div>
                 
