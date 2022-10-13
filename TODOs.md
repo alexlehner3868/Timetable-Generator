@@ -56,6 +56,7 @@ Below is a list of coding tasks that still need to be completed
         - Search bar
         - Timetable 
         - Constraint inputs 
+    - Reformat timetable output to be in the form the front end needs 
    
 
    PRIORITY LIST:
