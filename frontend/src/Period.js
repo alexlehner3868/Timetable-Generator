@@ -5,10 +5,11 @@ var colorArray = ['#e0e0e0', '#ffb0b0', '#b8ffc2', '#b8fdff', '#9eb5ff',
 
 const Period = (props) => {
     const classData = new Array(2);
-    classData[0] = (props.ClassID === "" ? null : props.ClassID);
-    classData[1] = (props.SecionID === "" ? null : props.SecionID);
-    classData[2] = props.SecionID === "" ? colorArray[0] : colorArray[props.classNum];
     
+    classData[0] = (props.ClassID === "" ? null : props.ClassID);
+    classData[1] = (props.classSection === "" ? null : props.classSection);
+    classData[2] = props.classNum === "" ? colorArray[0] : colorArray[props.classNum];
+    console.log("In period: " + classData[0]+ " "+ props.classSection + " " + classData[2]);
     return (
         <div className="empty-period" style ={{
             backgroundColor: classData[2],
