@@ -99,6 +99,7 @@ def main():
             ["ECE231", "102", "TUT"],
             ["ECE231", "103", "TUT"],
             ["ECE231", "101", "PRA"],
+            
         ]
        
     # Run app

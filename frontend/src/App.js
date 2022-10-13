@@ -78,6 +78,7 @@ function App() {
             let obj = {};
             obj['classID'] = timetable[i][0];
             obj['classSection'] = timetable[i][1];
+            obj['classType'] = timetable[i][2];
             obj['classColorIdx'] = i; 
             //arr.forEach(child_element => {
            //   obj[child_element] = timetable[element][child_element];

@@ -13,19 +13,22 @@ const Timetable = (props) =>{
     }
 */
 //Testing timetable
-    const timetable = new Array(2); 
+    const num_days  = 6;
+    const num_hours = 11;
+    const timetable = new Array(num_hours); 
     let count = 0;
     for(let i = 0; i < timetable.length; i++){
-        timetable[i] = new Array(2).fill(null); 
+        timetable[i] = new Array(num_days).fill(null); 
         
     }
 
-    for(let i = 0; i < 2; i++){
-        for(let j = 0; j < 2; j++){
+    for(let i = 0; i < num_hours; i++){
+        for(let j = 0; j < num_days; j++){
             timetable[i][j] = (props.courses[count] !== undefined ? props.courses[count] : {
                 classID: "",
                 classSection: "",
-                classColorIdx: ""
+                classColorIdx: "",
+                classType: "",
             });
             console.log("tdata at" + count);
             console.log(timetable[i][j]);
@@ -42,7 +45,7 @@ const Timetable = (props) =>{
             return (
                 <div>
                 {    
-                    row.map((col)=> <Period  ClassID={col.classID} classSection={col.classSection} classColorIdx={col.classColorIdx}/>)
+                    row.map((col)=> <Period  ClassID={col.classID} classSection={col.classSection} classColorIdx={col.classColorIdx} classType={col.classType}/>)
                 }
                 </div>
                 
