@@ -2,6 +2,7 @@ import './App.css';
 import './index.css'
 import Sidebar from './Sidebar';
 import MainWindow from './MainWindow';
+import Form from './Components/Form';
 import React, { useState, useEffect } from "react";
 
 function App() {
@@ -111,6 +112,12 @@ function App() {
         })
     );
   }, []);
+  
+  const insertedArticle = (article) =>{
+    const new_articles = [...articles,article]
+    setArticles(new_articles)
+  }
+  
   console.log("ALEX")
   console.log(timetable)
   return (
@@ -118,6 +125,7 @@ function App() {
       <header className="App-header">
         <h1>Live Timetable Love</h1>
       </header>
+      <Form insertedArticle={insertedArticle} />
       <div className='whole-webpage'>
         <MainWindow timetableData={timetable} className="main-window"/>
         <Sidebar className="sidebar"/>
