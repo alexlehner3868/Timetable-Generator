@@ -4,7 +4,7 @@ export default class APIService{
         return fetch(`http://localhost:5000/send-request`,{
             'method':'POST',
              headers : {
-            'Content-Type':'application/json'
+            'Content-Type':'text/plain'
       },
       body:JSON.stringify(body)
     })

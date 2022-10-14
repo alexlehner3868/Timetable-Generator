@@ -8,7 +8,7 @@ import logging
 import subprocess
 import os
 
-from flask import Flask, Response, jsonify, render_template
+from flask import Flask, Response, jsonify, render_template, request
 import datetime 
 import ttb
 
@@ -104,15 +104,17 @@ def main():
             ["ECE231", "101", "PRA"],
             
         ]
-    @app.route("/send-request", methods=["POST"])
+    @app.route("/send-request", methods=["POST", "GET"])
     def add_articles():
-        print("hi")
+        if request.method == 'GET':
+            #LOAD THE PAGE HERE IF VISITED
+            return "Hello"
+        
         #body = request.json['body']
-        #body = jsonify(body)
-        body = "this is the body"
-        print("body is being requested")
-        body.headers.add('Access-Control-Allow-Origin', '*')
-        return body
+        request.headers.add('Access-Control-Allow-Origin', '*')
+        #body = JSON.stringify(body)
+        
+        return request
     # Run app
     """
     if (parser.parse_args(['-n'])):

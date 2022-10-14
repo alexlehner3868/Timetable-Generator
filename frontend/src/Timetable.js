@@ -30,8 +30,8 @@ const Timetable = (props) =>{
                     classColorIdx: "",
                     classType: "",
                 });
-                console.log("tdata at" + count);
-                console.log(timetable[i][j]);
+                //console.log("tdata at" + count);
+                //console.log(timetable[i][j]);
                 count++;
             }
         }

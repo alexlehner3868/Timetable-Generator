@@ -49,7 +49,7 @@ function App() {
     fetch("/send-request",{
       'methods':'GET',
       headers : {
-        'Content-Type':'application/json'
+        'Content-Type':'text/plain'
       }
     })
     .then(response => response.json())
