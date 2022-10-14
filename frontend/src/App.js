@@ -13,7 +13,7 @@ function App() {
       programming: "",
     });
 
-
+    const [articles, setArticles] = useState([]);
   // Using useEffect for single rendering
   useEffect(() => {
       // Using fetch to fetch the api from 

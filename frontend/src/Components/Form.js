@@ -20,15 +20,7 @@ const Form = (props) => {
        <div>
            <form onSubmit = {handleSubmit} >
 
-              <label htmlFor="title" className="form-label">Title</label>
-              <input 
-              type="text"
-              className="form-control" 
-              placeholder ="Enter title"
-              value={title}
-              onChange={(e)=>setTitle(e.target.value)}
-              required
-              />
+              
 
               <label htmlFor="body" className="form-label">Body</label>
               <textarea 
