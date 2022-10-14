@@ -1,6 +1,7 @@
 bin/main
 /data/
 /.vscode/
+/frontend/package.json
 build/bin/main
 build/dep/constraints.d
 build/dep/course_data.d

@@ -2,6 +2,7 @@ import './App.css';
 import './index.css'
 import Sidebar from './Sidebar';
 import MainWindow from './MainWindow';
+import Form from './Components/Form';
 import React, { useState, useEffect } from "react";
 
 function App() {
@@ -12,7 +13,7 @@ function App() {
       programming: "",
     });
 
-
+    const [articles, setArticles] = useState([]);
   // Using useEffect for single rendering
   useEffect(() => {
       // Using fetch to fetch the api from 
@@ -44,6 +45,20 @@ function App() {
     );
   }, []);
   
+  useEffect(()=>{
+    fetch("/send-request",{
+      'methods':'GET',
+      headers : {
+        'Content-Type':'application/json'
+      }
+    })
+    .then(response => response.json())
+    .then(response => setArticles(response))
+    .catch(error => console.log(error))
+
+
+  },[])
+
   // create a timetable array
   // 2d array: [course_id, course_name, course_type, section_id]
   // array is size 11 hours*5 days*2 semesters = 110 elements
@@ -111,6 +126,12 @@ function App() {
         })
     );
   }, []);
+  
+  const insertedArticle = (article) =>{
+    const new_articles = [...articles,article]
+    setArticles(new_articles)
+  }
+  
   console.log("ALEX")
   console.log(timetable)
   return (
@@ -118,6 +139,7 @@ function App() {
       <header className="App-header">
         <h1>Live Timetable Love</h1>
       </header>
+      <Form action="{{ url_for('template') }}" method="post" insertedArticle={insertedArticle} />
       <div className='whole-webpage'>
         <MainWindow timetableData={timetable} className="main-window"/>
         <Sidebar className="sidebar"/>

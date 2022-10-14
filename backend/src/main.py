@@ -14,6 +14,9 @@ import ttb
 
 x = datetime.datetime.now()
 
+def __repr__(self):
+    return "<Articles %r>" % self.title
+            
 def main():
     # Initialize logging
     logging.basicConfig(
@@ -58,7 +61,7 @@ def main():
 
     # Read the course database
     db = ttb.Courses(args.database)
-
+    
     # Initialize application
     app = Flask(__name__, template_folder='templates')
     # Define endpoints
@@ -101,7 +104,15 @@ def main():
             ["ECE231", "101", "PRA"],
             
         ]
-       
+    @app.route("/send-request", methods=["POST"])
+    def add_articles():
+        print("hi")
+        #body = request.json['body']
+        #body = jsonify(body)
+        body = "this is the body"
+        print("body is being requested")
+        body.headers.add('Access-Control-Allow-Origin', '*')
+        return body
     # Run app
     """
     if (parser.parse_args(['-n'])):
