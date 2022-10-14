@@ -139,7 +139,7 @@ function App() {
       <header className="App-header">
         <h1>Live Timetable Love</h1>
       </header>
-      <Form action="{{ url_for('template') }}" method="post" insertedArticle={insertedArticle} />
+      <Form action="{{ url_for('send-request') }}" method="post" insertedArticle={insertedArticle} />
       <div className='whole-webpage'>
         <MainWindow timetableData={timetable} className="main-window"/>
         <Sidebar className="sidebar"/>
