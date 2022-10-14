@@ -104,13 +104,15 @@ def main():
             ["ECE231", "101", "PRA"],
             
         ]
-    @app.route("/send-request", methods=["POST"], strict_slashes=False)
+    @app.route("/send-request", methods=["POST"])
     def add_articles():
-    
-        body = "here is a ddescription hehe haha"
-        
-        
-        return jsonify(body)
+        print("hi")
+        #body = request.json['body']
+        #body = jsonify(body)
+        body = "this is the body"
+        print("body is being requested")
+        body.headers.add('Access-Control-Allow-Origin', '*')
+        return body
     # Run app
     """
     if (parser.parse_args(['-n'])):
