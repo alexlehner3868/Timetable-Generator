@@ -5,7 +5,7 @@ Below is a list of coding tasks that still need to be completed
         - 1: hard time conflict and class overlaps -> report class x at time constraint y
         - 2: no timetables with that set of courses can be generated
     - Should we force semester by semester scheduling or do full year scheduling [SEMESTER BY SEMESTER]
-    - Ask course data guy for data with course names [NATALIA WILL DO 10/10/22]
+    - [DONE] Ask course data guy for data with course names [NATALIA WILL DO 10/10/22]
     - Allow classes to be locked into a section
 
 2. Scheduler 
@@ -61,16 +61,16 @@ Below is a list of coding tasks that still need to be completed
 
    PRIORITY LIST:
    1. [DONE] Connect Flask to React to create API calls
-   2. Schedule Button -> press button and pre configured timetable appears on website
-   3. Functionality for Front-End
+   2. Schedule Button -> press button and pre configured timetable appears on website (Natalia) Oct 31
+   3. Functionality for Front-End (Natalia) OCt 31
         - add class button
         - remove class button
         - generate timetable button
         - constraint generation
-    4. Adding more constraints & tune constraint cost
-    5. Make scheduling semester to semester
-    6. No timetable possible
+    4. Adding more constraints & tune constraint cost (Alex) 
+    5. Make scheduling semester to semester (Zak) Oct 31
+    6. No timetable possible (Zak) oct 31
     7. Add suppport for async classes
-    8. Restrict number of classes per semester to 6
+    8. Restrict number of classes per semester to 6 (Zak) Oct 31
     9. Apply constraints to just one semester
 
