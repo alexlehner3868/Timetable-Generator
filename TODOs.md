@@ -67,7 +67,7 @@ Below is a list of coding tasks that still need to be completed
         - remove class button
         - generate timetable button
         - constraint generation
-    4. Adding more constraints & tune constraint cost (Alex) 
+    4. Adding more constraints & tune constraint cost (Alex) Oct 31
     5. Make scheduling semester to semester (Zak) Oct 31
     6. No timetable possible (Zak) oct 31
     7. Add suppport for async classes
