@@ -37,16 +37,16 @@ const int meet_preference = -15;
 class ConstraintHandler {
 private:
     // Constraints handled per section
-    bool prefer_morning_classes_ = false;
-    bool prefer_evening_classes_ = false;
-    bool prefer_afternoon_classes_ = false;
+    pair<bool, int> prefer_morning_classes_;
+    pair<bool, int> prefer_evening_classes_;
+    pair<bool, int> prefer_afternoon_classes_;
     pair<int, int> no_classes_after_X_;                    // <X, priority>
     pair<int, int> no_classes_before_X_;                   // <X, prioity>
     unordered_map<Date, int, Date_Hash> time_constraints_; // key: (day, time), value: priority
 
     // Constraints handled per timetable
     int breaks_between_classes_ = NO_PRIORITY; // do we need?
-    bool minimize_days_at_school_ = false;
+    pair<bool, int> minimize_days_at_school_; 
     pair<int, int> back_to_back_constraint_; // <max hours back to back, priority>
 
 public:
@@ -55,10 +55,10 @@ public:
     void set_back_to_back_constraint(int max_back_to_back, int priority);
     void set_no_classes_after_X_constraint(int X, int priority);
     void set_no_classes_before_X_constraint(int X, int priority);
-    void set_minimize_days_at_school_constraint(bool ans);
-    void set_prefer_morning_classes_constraint(bool ans);
-    void set_prefer_afternoon_classes_constraint(bool ans);
-    void set_prefer_evening_classes_constraint(bool ans);
+    void set_minimize_days_at_school_constraint(bool ans, int priority);
+    void set_prefer_morning_classes_constraint(bool ans, int priority);
+    void set_prefer_afternoon_classes_constraint(bool ans, int priority);
+    void set_prefer_evening_classes_constraint(bool ans, int priority);
     void reorder_time_constraints_based_on_priority();
 
     bool preprocess_high_priority_classes_out(
