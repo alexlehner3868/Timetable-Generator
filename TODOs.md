@@ -19,7 +19,8 @@ Below is a list of coding tasks that still need to be completed
     - Add constraint support for 
         - Communiting (ie no super late classes, no giant large breaks between classes) [yes/no, priority]
         - Prefering morning/afternoon/evening classes -> [Morning, Afternoon, Evening] + priority [DONE]
-        - Prefer no classes during meal times [yes/no, priority]
+        - Prefer no classes during lunch times [yes/no, priority]
+        - Prefer no classes during dinner times [yes/no, priority]
         - Minimize days at school [yes/no, priority]
         - No more than X hours back to back [X, priority]
         - No more than X hours per day [X, prioirty]
@@ -48,6 +49,7 @@ Below is a list of coding tasks that still need to be completed
     - Add a way to save timetable [Timetable + its courses, times and sections]
     - Allow classes to be locked into a section
     - Make it look pretty and aestetic
+    - Add a help pop up and constraint explainer 
     
 
 5. Back End 

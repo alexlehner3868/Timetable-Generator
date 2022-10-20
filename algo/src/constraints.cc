@@ -158,7 +158,6 @@ int ConstraintHandler::cost_of_class(Date d) {
     if (time_constraints_.find(d) != time_constraints_.end()) {
         cost += (time_constraints_[d]);
     }
-
     // Reward clas for being in a prefered time (decrease cost)
     if (prefer_morning_classes_.first && d.second < 11) {
         cost -= prefer_morning_classes_.second;
