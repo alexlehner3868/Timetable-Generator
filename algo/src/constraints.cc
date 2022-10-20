@@ -154,29 +154,30 @@ bool ConstraintHandler::preprocess_high_priority_classes_out(unordered_set<Cours
 
 int ConstraintHandler::cost_of_class(Date d) {
     int cost = 0;
-    // If it is a time blocked cosntraint
+    // Penalize class for being in a blocked off region (increase cost)
     if (time_constraints_.find(d) != time_constraints_.end()) {
-        cost += (time_constraints_[d] * cost_multiplier);
+        cost += (time_constraints_[d]);
     }
 
+    // Reward clas for being in a prefered time (decrease cost)
     if (prefer_morning_classes_.first && d.second < 11) {
-        cost += prefer_morning_classes_.second;
+        cost -= prefer_morning_classes_.second;
     }
-
+    // Reward clas for being in a prefered time (decrease cost)
     if (prefer_evening_classes_.first && d.second > 4) {
-        cost += prefer_evening_classes_.second;
+        cost -= prefer_evening_classes_.second;
     }
-
+    // Reward clas for being in a prefered time (decrease cost)
     if (prefer_afternoon_classes_.first && d.second > 12 && d.second < 4) {
-        cost += prefer_afternoon_classes_.second;
+        cost -= prefer_afternoon_classes_.second;
     }
-
+    // Penalize class for being after time (increase cost)
     if (no_classes_after_X_.second > NO_PRIORITY && d.second >= no_classes_after_X_.first) {
-        cost += (no_classes_after_X_.second * cost_multiplier);
+        cost += (no_classes_after_X_.second );
     }
-
+    // Penalize class for being before time (increase cost)
     if (no_classes_before_X_.second > NO_PRIORITY && d.second < no_classes_before_X_.first) {
-        cost += (no_classes_before_X_.second * cost_multiplier);
+        cost += (no_classes_before_X_.second);
     }
     return cost;
 }

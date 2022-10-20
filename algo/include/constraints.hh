@@ -26,13 +26,10 @@ using namespace std;
 
 enum constraint_priority {
     NO_PRIORITY = 0,
-    NICE_TO_HAVE = 1,
-    GOOD_TO_HAVE = 2,
-    MUST_HAVE = 3,
+    NICE_TO_HAVE = 3,
+    GOOD_TO_HAVE = 6,
+    MUST_HAVE = 10,
 };
-
-const int cost_multiplier = 10;
-const int meet_preference = -15;
 
 class ConstraintHandler {
 private:

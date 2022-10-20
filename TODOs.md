@@ -18,12 +18,12 @@ Below is a list of coding tasks that still need to be completed
 3. Constraints 
     - Add constraint support for 
         - Communiting (ie no super late classes, no giant large breaks between classes) [yes/no, priority]
-        - Prefering morning/afternoon/evening classes -> drop down menu [Morning, Afternoon, Evening] + priority
+        - Prefering morning/afternoon/evening classes -> [Morning, Afternoon, Evening] + priority [DONE]
         - Prefer no classes during meal times [yes/no, priority]
         - Minimize days at school [yes/no, priority]
         - No more than X hours back to back [X, priority]
         - No more than X hours per day [X, prioirty]
-    - Tune timetable cost function to create more variability in timetables 
+    - Tune timetable cost function to create more variability in timetables (ie numbers in constraint factor)
     - Apply constraints to only one semester 
     
 4. Front End 
