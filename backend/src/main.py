@@ -91,19 +91,50 @@ def main():
         return 'Want to see a schedule? <a href="/basic-schedule">Yes!</a>'
     @app.route('/basic-schedule')
     def micah_schedule():
-        #out = subprocess.run([args.algo, "get_schedule"], capture_output=True)
+        out = subprocess.run([args.algo, "get_schedule"], capture_output=True)
         
         #make a schedule
-        #return out.stdout
-        
-        #2d array: [course_id, course_name, course_type, section_id]
-        return [
-            ["ECE231", "101", "TUT"],
-            ["ECE231", "102", "TUT"],
-            ["ECE231", "103", "TUT"],
-            ["ECE231", "101", "PRA"],
+        num_lines = ((out.stdout).decode("utf-8")).count("\n")
+        timetable_str = ((out.stdout).decode("utf-8"))
+        #print(timetable_str)
+        # loop through items in timetable
+        formatted_timetable = []
+        #first day monday is 1
+        day = 1
+        #first hour is 9am
+        time = 9
+        lines = timetable_str.splitlines()
+        idx = 0
+        for i in range(0, 50):
+            item = lines[idx].split("_")
+            time = int(i/5) + 9
+            day = int(i%5) + 1
+
+            #if element exists add to return array
+            if int(item[2]) == day and int(item[1]) == time:
+                #the class and time match, yay
+                formatted_timetable.append([item[3], str(int(item[5])+100), str(item[4]), 3])
+                #move to check next class
+                idx += 1
+            elif int(item[2]) == day and int(item[1]) != time:
+                #correct day but wrong time
+                pass
+            elif int(item[2]) != day and int(item[1]) == time:
+                #correct day but wrong time
+                pass
+            else:
+                #element doesn't exist in timetable, fill with empty array
+                formatted_timetable.append(["", "", "", 0])
+
+        #2d array: [course_id, course_type, section_id]
+        return formatted_timetable
+        """[
+            ["ECE231", "101", "TUT", 1], [],
+            ["ECE231", "102", "TUT", 1],
+            ["ECE231", "103", "TUT", 1],
+            ["ECE231", "101", "PRA", 1],
             
-        ]
+        ]"""
     @app.route("/send-request", methods=["POST", "GET"])
     def add_articles():
         if request.method == 'GET':

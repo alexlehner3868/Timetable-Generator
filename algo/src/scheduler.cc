@@ -255,9 +255,15 @@ void Scheduler::attempt_to_add_section(
 }
 
 void Scheduler::print_timetables(vector<TimeTable> timetables) {
+    
     for (auto t : timetables) {
         print_timetable(t, 1);
+        // ONLY FOR WEBSITE PRINTING ONE TIMETABKE
+        break;
     }
+    
+
+
 }
 
 void Scheduler::print_timetable(TimeTable &timetable, int preset) {
@@ -287,7 +293,7 @@ void Scheduler::print_timetable(TimeTable &timetable, int preset) {
         // format is course code, section number, type of offering
 
         std::string class_str;
-
+        //int num_lines = 0;
         // timetable_str is the vector of strings containing one whole timetable option
         std::vector<std::string> timetable_str;
         for (std::pair<Date, SelectedCourseSection> element : timetable.classes()) {
@@ -295,24 +301,36 @@ void Scheduler::print_timetable(TimeTable &timetable, int preset) {
             auto section_chosen = element.second.section;
             auto type = element.second.type;
             auto semester = element.second.semester;
+            auto day = element.first.first;
+            auto time = element.first.second;
 
             class_str.push_back(semester);
             class_str.append("_");
+            if (time == 9) {
+                class_str.append("09");
+            } else {
+                class_str.append(std::to_string(time));
+            }
+            class_str.append("_");
+            class_str.append(std::to_string(day));
+            class_str.append("_");
             class_str.append(course);
             class_str.append("_");
-            class_str.append(std::to_string(section_chosen + 1));
-            class_str.append("_");
             class_str.append(std::to_string(type));
+            class_str.append("_");
+            class_str.append(std::to_string(section_chosen + 1));
             timetable_str.push_back(class_str);
             class_str = "";
+            //num_lines++;
         }
 
         // sort timetables_str
         std::sort(timetable_str.begin(), timetable_str.end());
-
+        //cout << "NEW TIMETABLE" << endl;
         for (auto line: timetable_str) {
             cout << line << endl;
         }
+        //cout << num_lines;
     }
 
 }

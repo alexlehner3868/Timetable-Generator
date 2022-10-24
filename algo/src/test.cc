@@ -43,17 +43,17 @@ unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> get_classes(
     std::vector<Section> course_six_practical_sections = course_data.add_course("MAT291H1", 3);
 
     CourseOfferings class_one("Digital Systems",
-                              "ECE241",
+                              "ECE241H1",
                               course_one_lecture_sections,
                               course_one_tutorial_sections,
                               course_one_practical_sections);
     CourseOfferings class_two("Programming Fundamentals",
-                              "ECE244",
+                              "ECE244H1",
                               course_two_lecture_sections,
                               course_two_tutorial_sections,
                               course_two_practical_sections);
     CourseOfferings class_three("Seminar Course",
-                                "ECE201",
+                                "ECE201H1",
                                 course_three_lecture_sections,
                                 course_three_tutorial_sections,
                                 course_three_practical_sections);
@@ -63,12 +63,12 @@ unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> get_classes(
                                course_four_tutorial_sections,
                                course_four_practical_sections);
     CourseOfferings class_five("Advanced Engineering Mathematics",
-                               "MAT290",
+                               "MAT290H1",
                                course_five_lecture_sections,
                                course_five_tutorial_sections,
                                course_five_practical_sections);
     CourseOfferings class_six("Calculus III",
-                              "MAT291",
+                              "MAT291H1",
                               course_six_lecture_sections,
                               course_six_tutorial_sections,
                               course_six_practical_sections);
