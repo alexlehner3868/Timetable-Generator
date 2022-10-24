@@ -312,11 +312,14 @@ void Scheduler::print_timetable(TimeTable &timetable, int preset) {
                 class_str.append(std::to_string(time));
             }
             class_str.append("_");
+            if (day > 5) {
+                day -= 5;
+            }
             class_str.append(std::to_string(day));
             class_str.append("_");
             class_str.append(course);
             class_str.append("_");
-            class_str.append(std::to_string(type));
+            class_str.append(toClassType(type));
             class_str.append("_");
             class_str.append(std::to_string(section_chosen + 1));
             timetable_str.push_back(class_str);

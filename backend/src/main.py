@@ -105,33 +105,71 @@ def main():
         #first hour is 9am
         time = 9
         lines = timetable_str.splitlines()
+        len_classes = len(lines)
         idx = 0
         course_codes = []
         for line in lines:
             course_codes.append((line.split("_"))[3])
-        num_courses = np.unique(course_codes)
-        print(num_courses)
-        for i in range(0, 110):
+            courses = []
+        [courses.append(x) for x in course_codes if x not in courses] 
+        for i in range(0, 55):
             item = lines[idx].split("_")
+            if (item[0] == 'S'):
+                break
             time = int(i/5) + 9
             day = int(i%5) + 1
             
+
             #if element exists add to return array
             if int(item[2]) == day and int(item[1]) == time:
                 #the class and time match, yay
-                formatted_timetable.append([item[3], str(int(item[5])+100), str(item[4]), course_codes.index(item[3])+1])
+                formatted_timetable.append([item[3], str(int(item[5])+100), (str(item[4]))[0:3], courses.index(item[3])+1])
                 #move to check next class
                 idx += 1
+                if idx >= len_classes:
+                    i = 55
             elif int(item[2]) == day and int(item[1]) != time:
                 #correct day but wrong time
-                pass
+                #element doesn't exist in timetable, fill with empty array
+                formatted_timetable.append(["", "", "", 0])
             elif int(item[2]) != day and int(item[1]) == time:
                 #correct day but wrong time
-                pass
+                #element doesn't exist in timetable, fill with empty array
+                formatted_timetable.append(["", "", "", 0])
             else:
                 #element doesn't exist in timetable, fill with empty array
                 formatted_timetable.append(["", "", "", 0])
+        if (len(formatted_timetable) != 55):
+            for i in range(0, 55-len(formatted_timetable)):
+                formatted_timetable.append(["", "", "", 0])
+        for i in range(0, 55):
+            item = lines[idx].split("_")
+            time = int(i/5) + 9
+            day = int(i%5) + 1
+            #if element exists add to return array
+            if int(item[2]) == day and int(item[1]) == time:
+                #the class and time match, yay
+                formatted_timetable.append([item[3], str(int(item[5])+100), (str(item[4]))[0:3], courses.index(item[3])+1])
 
+                #move to check next class
+                idx += 1
+                if idx >= len_classes:
+                    break
+            elif int(item[2]) == day and int(item[1]) != time:
+                #correct day but wrong time
+                #element doesn't exist in timetable, fill with empty array
+                formatted_timetable.append(["", "", "", 0])
+            elif int(item[2]) != day and int(item[1]) == time:
+                #correct day but wrong time
+                #element doesn't exist in timetable, fill with empty array
+                formatted_timetable.append(["", "", "", 0])
+            else:
+                #element doesn't exist in timetable, fill with empty array
+                formatted_timetable.append(["", "", "", 0])
+        
+        if (len(formatted_timetable) < 110):
+            for i in range(0, 110 - len(formatted_timetable)):
+                formatted_timetable.append(["", "", "", 0])
         #2d array: [course_id, course_type, section_id]
         return formatted_timetable
         """[
