@@ -75,7 +75,7 @@ bool ConstraintHandler::preprocess_high_priority_classes_out(unordered_set<Cours
             // found a class that occurs at the same time as a constraint that is priority 4, MUST_HAVE
             // take it out of original_offerings
             //                                                        offering.lecture_sections_.begin() +section_num
-            cout << "Erased lecture " << offering.course_id_ << " in section " << (*lect_section).section_id_ << endl;
+            //cout << "Erased lecture " << offering.course_id_ << " in section " << (*lect_section).section_id_ << endl;
             //cout << offering.lecture_sections_[offering.lecture_sections_.begin()+section_num].section_id_ << endl;
             
             lect_section = offering.lecture_sections_.erase(lect_section);
@@ -100,7 +100,7 @@ bool ConstraintHandler::preprocess_high_priority_classes_out(unordered_set<Cours
             // found a class that occurs at the same time as a constraint that is priority 4, MUST_HAVE
             // take it out of original_offerings
             //                                                        offering.lecture_sections_.begin() +section_num
-            cout << "Erased tutorial " << offering.course_id_ << " in section " << (*tut_section).section_id_ << endl;
+            //cout << "Erased tutorial " << offering.course_id_ << " in section " << (*tut_section).section_id_ << endl;
             tut_section = offering.tutorial_sections_.erase(tut_section);
             section_removed = true;
           }
@@ -123,7 +123,7 @@ bool ConstraintHandler::preprocess_high_priority_classes_out(unordered_set<Cours
             // found a class that occurs at the same time as a constraint that is priority 4, MUST_HAVE
             // take it out of original_offerings
             //                                                        offering.lecture_sections_.begin() +section_num
-            cout << "Erased practical " << offering.course_id_ << " in section " << (*pra_section).section_id_ << endl;
+            //cout << "Erased practical " << offering.course_id_ << " in section " << (*pra_section).section_id_ << endl;
             pra_section = offering.practical_sections_.erase(pra_section);
             section_removed = true;
           }

@@ -256,25 +256,65 @@ void Scheduler::attempt_to_add_section(
 
 void Scheduler::print_timetables(vector<TimeTable> timetables) {
     for (auto t : timetables) {
-        print_timetable(t);
+        print_timetable(t, 1);
     }
 }
 
-void Scheduler::print_timetable(TimeTable &timetable) {
-    std::cout << "Timetable option: " << std::endl;
+void Scheduler::print_timetable(TimeTable &timetable, int preset) {
+    //PRESET DETERMINES WHAT IS PRINTED:
+    // EITHER timetable is printed for frontend use OR timetable is printed for debugging use
+    // 0 = debug
+    // 1 = frontend use
+    if (preset == 0) {
+        
+        std::cout << "Timetable option: " << std::endl;
 
-    for (std::pair<Date, SelectedCourseSection> element : timetable.classes()) {
-        auto day = element.first.first;
-        auto time = element.first.second;
-        auto course = element.second.course_code;
-        auto section_chosen = element.second.section;
-        auto type = element.second.type;
-        auto semester = element.second.semester;
+        for (std::pair<Date, SelectedCourseSection> element : timetable.classes()) {
+            auto day = element.first.first;
+            auto time = element.first.second;
+            auto course = element.second.course_code;
+            auto section_chosen = element.second.section;
+            auto type = element.second.type;
+            auto semester = element.second.semester;
 
-        std::cout << "  " << semester << ": " << course << " " << toClassType(type) << " section "
-                  << (section_chosen + 1) << " on " << toDay(day) << " at " << toTime(time)
-                  << std::endl;
+            std::cout << "  " << semester << ": " << course << " " << toClassType(type) << " section "
+                    << (section_chosen + 1) << " on " << toDay(day) << " at " << toTime(time)
+                    << std::endl;
+        }
     }
+
+    else if (preset == 1) {
+        // format is course code, section number, type of offering
+
+        std::string class_str;
+
+        // timetable_str is the vector of strings containing one whole timetable option
+        std::vector<std::string> timetable_str;
+        for (std::pair<Date, SelectedCourseSection> element : timetable.classes()) {
+            auto course = element.second.course_code;
+            auto section_chosen = element.second.section;
+            auto type = element.second.type;
+            auto semester = element.second.semester;
+
+            class_str.push_back(semester);
+            class_str.append("_");
+            class_str.append(course);
+            class_str.append("_");
+            class_str.append(std::to_string(section_chosen + 1));
+            class_str.append("_");
+            class_str.append(toClassType(type));
+            timetable_str.push_back(class_str);
+            class_str = "";
+        }
+
+        // sort timetables_str
+        std::sort(timetable_str.begin(), timetable_str.end());
+
+        for (auto line: timetable_str) {
+            cout << line << endl;
+        }
+    }
+
 }
 
 string Scheduler::jsonify(TimeTable &timetable) {

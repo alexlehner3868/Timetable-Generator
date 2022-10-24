@@ -23,7 +23,7 @@ Below is a list of coding tasks that still need to be completed
         - Prefer no classes during dinner times [yes/no, priority]
         - Minimize days at school [yes/no, priority]
         - No more than X hours back to back [X, priority]
-        - No more than X hours per day [X, prioirty]
+        - No more than X hours per day [X, priority]
     - Tune timetable cost function to create more variability in timetables (ie numbers in constraint factor)
     - Apply constraints to only one semester 
     
