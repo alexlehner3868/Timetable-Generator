@@ -302,7 +302,7 @@ void Scheduler::print_timetable(TimeTable &timetable, int preset) {
             class_str.append("_");
             class_str.append(std::to_string(section_chosen + 1));
             class_str.append("_");
-            class_str.append(toClassType(type));
+            class_str.append(std::to_string(type));
             timetable_str.push_back(class_str);
             class_str = "";
         }
