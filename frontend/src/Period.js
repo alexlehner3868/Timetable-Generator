@@ -1,7 +1,7 @@
 import React from "react";
 
 var colorArray = ['#e0e0e0', '#ffb0b0', '#b8ffc2', '#b8fdff', '#9eb5ff', 
-		  '#d2b0ff', '#ffd17d', '#fffd9c'];
+		  '#d2b0ff', '#ffd17d', '#fffd9c', '#F4BFBF', '#FFD9C0', '#FAF0D7', '#8CC0DE', '#68A7AD', '#99C4C8', '#E5CB9F'];
 
 const Period = (props) => {
     const classData = new Array(3);

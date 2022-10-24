@@ -13,7 +13,7 @@ const Timetable = (props) =>{
     }
 */
 //Testing timetable
-    const num_days  = 6;
+    const num_days  = 5;
     const num_hours = 11;
     const timetable = new Array(num_hours); 
     let count = 0;

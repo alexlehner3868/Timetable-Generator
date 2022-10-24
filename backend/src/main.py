@@ -7,6 +7,7 @@ import argparse
 import logging
 import subprocess
 import os
+import numpy as np
 
 from flask import Flask, Response, jsonify, render_template, request
 import datetime 
@@ -105,15 +106,20 @@ def main():
         time = 9
         lines = timetable_str.splitlines()
         idx = 0
-        for i in range(0, 50):
+        course_codes = []
+        for line in lines:
+            course_codes.append((line.split("_"))[3])
+        num_courses = np.unique(course_codes)
+        print(num_courses)
+        for i in range(0, 110):
             item = lines[idx].split("_")
             time = int(i/5) + 9
             day = int(i%5) + 1
-
+            
             #if element exists add to return array
             if int(item[2]) == day and int(item[1]) == time:
                 #the class and time match, yay
-                formatted_timetable.append([item[3], str(int(item[5])+100), str(item[4]), 3])
+                formatted_timetable.append([item[3], str(int(item[5])+100), str(item[4]), course_codes.index(item[3])+1])
                 #move to check next class
                 idx += 1
             elif int(item[2]) == day and int(item[1]) != time:
