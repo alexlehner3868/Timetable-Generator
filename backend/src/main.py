@@ -65,6 +65,7 @@ def main():
     
     # Initialize application
     app = Flask(__name__, template_folder='templates')
+    print("Access-Control-Allow-Origin: *")
     # Define endpoints
     @app.get("/all")
     def all() -> Response:
@@ -184,12 +185,12 @@ def main():
         if request.method == 'GET':
             #LOAD THE PAGE HERE IF VISITED
             return "Hello"
-        
-        #body = request.json['body']
-        request.headers.add('Access-Control-Allow-Origin', '*')
+        print(request.want_form_data_parsed)
+        print(request.data)
+        #request.headers.add('Access-Control-Allow-Origin', '*')
         #body = JSON.stringify(body)
         
-        return request
+        return []
     # Run app
     """
     if (parser.parse_args(['-n'])):
