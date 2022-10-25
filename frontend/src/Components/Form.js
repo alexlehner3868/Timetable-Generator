@@ -10,10 +10,10 @@ const Form = (props) => {
     }
 
     const handleSubmit=(event)=>{ 
-      event.preventDefault()
-      insertClass()
       setClassName(props.course_code)
       console.log(props.course_code)
+      event.preventDefault()
+      insertClass()
     }
     
   return (

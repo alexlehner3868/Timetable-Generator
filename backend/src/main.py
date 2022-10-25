@@ -182,7 +182,7 @@ def main():
             
         ]"""
     @app.route("/send-request", methods=["POST", "GET"])
-    def add_articles():
+    def add_classes():
         if request.method == 'GET':
             #LOAD THE PAGE HERE IF VISITED
             return "Hello"
@@ -190,6 +190,8 @@ def main():
         print(request.want_form_data_parsed)
         #the data that was sent
         print(request.data)
+        #here we need to add the course to the plan
+        #out = subprocess.run([args.algo, "add_course"], capture_output=True, request.data)
         
         return []
     # Run app
