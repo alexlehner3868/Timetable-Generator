@@ -185,10 +185,10 @@ def main():
         if request.method == 'GET':
             #LOAD THE PAGE HERE IF VISITED
             return "Hello"
+        #prints true if request comes with data
         print(request.want_form_data_parsed)
+        #the data that was sent
         print(request.data)
-        #request.headers.add('Access-Control-Allow-Origin', '*')
-        #body = JSON.stringify(body)
         
         return []
     # Run app

@@ -58,6 +58,7 @@ const Sidebar = (props) =>{
                             
                             <span className="course-code"> {class_result.ACAD_ACT_CD} </span> <br></br>
                             <span className="course-name">  this is a course </span>
+                            <button>hi</button>
                             
                         </button>
                             

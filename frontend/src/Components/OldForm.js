@@ -13,18 +13,32 @@ const Form = (props) => {
     const handleSubmit=(event)=>{ 
       event.preventDefault()
       insertClass()
-      setClassName('your class')
+      setClassName('')
     }
-    
+
   return (
        <div>
-             <button 
+           <form onSubmit = {handleSubmit} >
+
               
-              onClick = {handleSubmit}
+
+              <label htmlFor="class_name" className="form-label">Class</label>
+              <textarea 
+              className="form-control" 
+              placeholder ="Enter class name" 
+              rows='6'
+              value={class_name}
+              onChange={(e)=>setClassName(e.target.value)}
+              required
+              >
+              </textarea>
+
+              <button 
               className="btn btn-primary mt-2"
               >
-              Publish Class </button>
+              Publish Class</button>
               
+            </form>
        </div>
   )}
 
