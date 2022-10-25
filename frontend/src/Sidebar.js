@@ -61,7 +61,7 @@ const Sidebar = (props) =>{
                         <div class="add-course-square" id="add-course-square" > 
                             <h1 class="course-code"> {class_result.ACAD_ACT_CD} </h1>
                             <Form action="{{ url_for('send-request') }}" method="post" insertedClass={insertedClass} 
-                            onClick={()=>props.course_code = class_result.ACAD_ACT_CD}/>
+                            onClick={()=>console.log(class_result.ACAD_ACT_CD)} course_code={class_result.ACAD_ACT_CD}/>
                         </div>
                             
                         
