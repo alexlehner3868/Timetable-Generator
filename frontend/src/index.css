@@ -142,7 +142,7 @@ code {
     border-radius: 5px;
     border-color: #125948;
 } 
-.add-course-button {/*
+.add-course-square {/*
   border-top-style: solid;
   border-top-width: 1px;
   border-bottom-width: 1px;
@@ -162,7 +162,7 @@ code {
   border-width: 3px; 
   
 }
-.add-course-button:hover{/*
+.add-course-square:hover{/*
   border-top-style: solid;
   border-top-width: 1px;
   border-bottom-width: 1px;
@@ -195,8 +195,6 @@ code {
   top: 30%;
 }
 .search-results {
-
-    display:block;
     margin: 3px;
     background-color: white;
     font-size: medium;

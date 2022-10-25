@@ -13,7 +13,7 @@ function App() {
       programming: "",
     });
 
-    const [articles, setArticles] = useState([]);
+    const [classes, setClasses] = useState([]);
   // Using useEffect for single rendering
   useEffect(() => {
       // Using fetch to fetch the api from 
@@ -53,7 +53,7 @@ function App() {
       }
     })
     .then(response => response.json())
-    .then(response => setArticles(response))
+    .then(response => setClasses(response))
     .catch(error => console.log(error))
 
 
@@ -127,22 +127,22 @@ function App() {
     );
   }, []);
   
-  const insertedArticle = (article) =>{
-    const new_articles = [...articles,article]
-    setArticles(new_articles)
+  const insertedClass = (class_) =>{
+    const new_classes = [...classes,class_]
+    setClasses(new_classes)
   }
   
   console.log("ALEX")
   console.log(timetable)
   return (
-    <div className="App">
-      <header className="App-header">
+    <div class="App">
+      <header class="App-header">
         <h1>Live Timetable Love</h1>
       </header>
-      <Form action="{{ url_for('send-request') }}" method="post" insertedArticle={insertedArticle} />
-      <div className='whole-webpage'>
-        <MainWindow timetableData={timetable} className="main-window"/>
-        <Sidebar className="sidebar"/>
+      <Form action="{{ url_for('send-request') }}" method="post" insertedClass={insertedClass} />
+      <div class='whole-webpage'>
+        <MainWindow timetableData={timetable} class="main-window"/>
+        <Sidebar class="sidebar"/>
       </div>
     </div>
   );

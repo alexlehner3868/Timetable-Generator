@@ -2,13 +2,20 @@ import React from "react";
 import SearchButton from "./SearchButton";
 import Data from "./data/courses.json";
 import {useState} from "react";
-
+import Form from './Components/Form';
+import App from './App.js';
 
 
 const Sidebar = (props) =>{
     // for search bar
     const [query, setQuery] = useState("")
-
+    
+    const [classes, setClasses] = useState([]);
+    const insertedClass = (class_) =>{
+        const new_classes = [...classes,class_]
+        setClasses(new_classes)
+    }
+  
     // make sidebar for seaching classes, adding and removing
     
     // two main sections of sidebar: 
@@ -29,15 +36,15 @@ const Sidebar = (props) =>{
     //sidebar[1] = new Array(1).fill(null);  
   // place sidebar and {class_button} in here below
   return (
-        <div className="sidebar">
-            <div className="search-bar">
+        <div class="sidebar">
+            <div class="search-bar">
                 
             
             <input type="text" placeholder="Search For Class" class="search-bar" onChange={event => setQuery(event.target.value)}/> 
             <i class="fa fa-magnifying-glass fa-lg"></i>
             </div>
             
-            <div className="search-results-box">
+            <div class="search-results-box">
             {
                 
             //{class_result.ACAD_ACT_CD}
@@ -50,17 +57,12 @@ const Sidebar = (props) =>{
                     return class_result;
                 } // TODO: add searching by class name here once we add class-Name to the database
             }).map((class_result, index) => (
-                    <div className="search-results" key={index}>
-                        
-                        <button type="button" className="add-course-button" id="add-course-button">
-                            
-
-                            
-                            <span className="course-code"> {class_result.ACAD_ACT_CD} </span> <br></br>
-                            <span className="course-name">  this is a course </span>
-                            <button>hi</button>
-                            
-                        </button>
+                    <div class="search-results" key={index}>
+                        <div class="add-course-square" id="add-course-square" > 
+                            <h1 class="course-code"> {class_result.ACAD_ACT_CD} </h1>
+                            <Form action="{{ url_for('send-request') }}" method="post" insertedClass={insertedClass} 
+                            onClick={()=>props.course_code = class_result.ACAD_ACT_CD}/>
+                        </div>
                             
                         
                     </div>

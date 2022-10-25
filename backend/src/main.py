@@ -69,7 +69,8 @@ def main():
     # Define endpoints
     @app.get("/all")
     def all() -> Response:
-        return jsonify(db.all)
+        #return jsonify(db.all)
+        print("all")
     @app.get("/gen")
     def gen() -> Response:
         out = subprocess.run([args.algo, "query"], capture_output=True)
