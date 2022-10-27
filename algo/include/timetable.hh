@@ -10,7 +10,7 @@
 #include "course_offering.hh"
 #include "date.hh"
 #include "scheduler.hh"
-
+#include "timetable.hh"
 using namespace std;
 
 class TimeTable {

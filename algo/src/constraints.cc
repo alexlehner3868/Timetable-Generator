@@ -54,11 +54,11 @@ bool ConstraintHandler::preprocess_high_priority_classes_out(unordered_set<Cours
   // TimeConstraint(int start, int day, int priority, char semester)
   bool section_removed = false;
   bool remove_section = false;
-  
+
   vector<Section> new_lec_sections;
   vector<Section> new_tut_sections;
   vector<Section> new_pra_sections;
-  
+
   unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> new_offerings;
   // copy original_offerings so we can loop through it and delete at the same time
   //unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>::iterator offerings_iterator = original_offerings.begin();
@@ -78,13 +78,13 @@ bool ConstraintHandler::preprocess_high_priority_classes_out(unordered_set<Cours
             //                                                        offering.lecture_sections_.begin() +section_num
             //cout << "Erased lecture " << offering.course_id_ << " in section " << (*lect_section).section_id_ << endl;
             //cout << offering.lecture_sections_[offering.lecture_sections_.begin()+section_num].section_id_ << endl;
-            
+
             lect_section = offering.lecture_sections_.erase(lect_section);
             //lect_section = offering.lecture_sections_.erase(offering.lecture_sections_.begin()+(*lect_section).section_id_-1);
             section_removed = true;
           }
-            
-          
+
+
         }
       }
       if (!section_removed) {
@@ -105,8 +105,8 @@ bool ConstraintHandler::preprocess_high_priority_classes_out(unordered_set<Cours
             tut_section = offering.tutorial_sections_.erase(tut_section);
             section_removed = true;
           }
-            
-          
+
+
         }
       }
       if (!section_removed) {
@@ -128,8 +128,8 @@ bool ConstraintHandler::preprocess_high_priority_classes_out(unordered_set<Cours
             pra_section = offering.practical_sections_.erase(pra_section);
             section_removed = true;
           }
-            
-          
+
+
         }
       }
       if (!section_removed) {
@@ -182,10 +182,11 @@ int ConstraintHandler::cost_of_class(Date d) {
     return cost;
 }
 
+/*
 void cost_of_timetable(TimeTable& t){
   int cost = 0;
-  // Store the days in which classes are scheduled 
-  unordered_set<int> days_at_school; 
+  // Store the days in which classes are scheduled
+  unordered_set<int> days_at_school;
 
   int back_to_back  = 0;
 
@@ -197,11 +198,11 @@ void cost_of_timetable(TimeTable& t){
 
   for(auto period : t.classes()){
     Date d = period.first;
-    schedule[d.first]
+    schedule[d.first][d.second] = true;
   }
   t.add_cost(cost);
 }
-
+*/
 ConstraintHandler::ConstraintHandler() {
     time_constraints_.clear();
     back_to_back_constraint_ = make_pair(24, NO_PRIORITY);
