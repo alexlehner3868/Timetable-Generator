@@ -1,4 +1,5 @@
 #include "constraints.hh"
+#include "timetable.hh"
 
 #include <iostream>
 #include <string>
@@ -179,6 +180,26 @@ int ConstraintHandler::cost_of_class(Date d) {
         cost += (no_classes_before_X_.second);
     }
     return cost;
+}
+
+void cost_of_timetable(TimeTable& t){
+  int cost = 0;
+  // Store the days in which classes are scheduled 
+  unordered_set<int> days_at_school; 
+
+  int back_to_back  = 0;
+
+  vector<vector<bool>> schedule;
+  // 5 days (assuming we are running for one semester at a time)
+  for(int i = 0; i < 5; i++){
+    schedule.push_back(vector<bool>(24));
+  }
+
+  for(auto period : t.classes()){
+    Date d = period.first;
+    schedule[d.first]
+  }
+  t.add_cost(cost);
 }
 
 ConstraintHandler::ConstraintHandler() {

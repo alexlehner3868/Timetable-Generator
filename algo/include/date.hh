@@ -7,7 +7,9 @@
 #include <unordered_set>
 
 using namespace std;
-
+// Date = (Day, Time)
+// Mon = 0, Tues = 1 .... 
+// Time in military time 
 typedef std::pair<int, int> Date;
 
 struct Date_Hash {

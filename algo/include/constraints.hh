@@ -42,10 +42,9 @@ private:
     unordered_map<Date, int, Date_Hash> time_constraints_; // key: (day, time), value: priority
 
     // Constraints handled per timetable
-    int breaks_between_classes_ = NO_PRIORITY; // do we need?
     pair<bool, int> minimize_days_at_school_; 
     pair<int, int> back_to_back_constraint_; // <max hours back to back, priority>
-
+    // todo no classes between classes 
 public:
     ConstraintHandler();
     void add_time_constraint(int start_time, int duration, int day, char semester, int priority);
@@ -62,6 +61,7 @@ public:
         unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> &original_offerings);
 
     int cost_of_class(Date d);
+    void cost_of_timetable(TimeTable& t);
 };
 
 #endif
