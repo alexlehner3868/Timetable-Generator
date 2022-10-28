@@ -4,7 +4,7 @@ import APIService from './AddCourseService'
 const Form = (props) => {
     const [class_name, setClassName] = useState('')
     const insertClass = () =>{
-      APIService.InsertClass({class_name})
+      APIService.InsertClass()
       .then((response) => props.insertedClass(response))
       .catch(error => console.log('error',error))
     }

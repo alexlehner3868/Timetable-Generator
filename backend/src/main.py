@@ -95,6 +95,8 @@ def main():
     @app.route('/basic-schedule', methods=["POST", "GET"])
     def micah_schedule():
         if request.method == 'POST':
+            
+            print(request.data)
             out = subprocess.run([args.algo, "get_schedule"], capture_output=True)
             
             #make a schedule
@@ -174,6 +176,7 @@ def main():
                 for i in range(0, 110 - len(formatted_timetable)):
                     formatted_timetable.append(["", "", "", 0])
             #2d array: [course_id, course_type, section_id]
+            print(formatted_timetable)
             return formatted_timetable
         else:
             return []
