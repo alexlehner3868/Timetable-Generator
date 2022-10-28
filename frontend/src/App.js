@@ -4,6 +4,7 @@ import Sidebar from './Sidebar';
 import MainWindow from './MainWindow';
 import Form from './Components/Form';
 import React, { useState, useEffect } from "react";
+import ShowScheduleButton from './Components/ShowScheduleButton';
 
 function App() {
     const [data, setdata] = useState({
@@ -139,7 +140,8 @@ function App() {
       <header class="App-header">
         <h1>Live Timetable Love</h1>
       </header>
-      <Form action="{{ url_for('send-request') }}" method="post" insertedClass={insertedClass} />
+      <Form action="{{ url_for('basic-schedule') }}" method="post" insertedClass={insertedClass} />
+      <ShowScheduleButton action="{{ url_for('send-request') }}" method="post"  />
       <div class='whole-webpage'>
         <MainWindow timetableData={timetable} class="main-window"/>
         <Sidebar class="sidebar"/>

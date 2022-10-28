@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import APIService from '../Components/APIService'
+import APIService from './AddCourseService'
 
 const Form = (props) => {
     const [class_name, setClassName] = useState('')

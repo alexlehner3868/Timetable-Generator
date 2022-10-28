@@ -76,4 +76,5 @@ Below is a list of coding tasks that still need to be completed
     8. Restrict number of classes per semester to 6 (Zak) Oct 31
     9. Apply constraints to just one semester
     10. Use new database (replace all previous)
+    11. Get templates working
 
