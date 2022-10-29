@@ -94,7 +94,7 @@ int query(int argc, char *argv[]) {
     // 2. Store csv in SQL database or something and related sql funcitons
     CourseData course_data;
 
-    std::vector<Section> empty_gec;
+    std::vector<Section> empty_vec;
     // add lectures
     std::vector<Section> course_one_lecture_sections = course_data.add_course("ECE241H1", 1);
     std::vector<Section> course_two_lecture_sections = course_data.add_course("ECE244H1", 1);
