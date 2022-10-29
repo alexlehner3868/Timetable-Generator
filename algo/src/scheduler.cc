@@ -57,6 +57,8 @@ void Scheduler::schedule_classes_helper(
     // All sections have been added
     if (courses.size() == 0) {
         number_of_explored_timetables++;
+        int timetable_additional_cost = constraint_handler_.cost_of_timetable(timetable.classes());
+       // timetable.add_cost(timetable_additional_cost);
         if (unique_check(timetable)) {
             // Priority queue has less than the max num of timetables
             if ((int)timetables_.size() < (int)max_num_of_timetables_to_show) {

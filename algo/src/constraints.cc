@@ -190,8 +190,7 @@ int ConstraintHandler::cost_of_timetable(std::unordered_map<Date, SelectedCourse
   vector<vector<bool>> schedule;
 
   // Set up vector to store timetable 
-  // 5 days (assuming we are running for one semester at a time)
-  for(int i = 0; i < 5; i++){
+  for(int i = 0; i < 10; i++){
     // Add 24 hours to each day  
     schedule.push_back(vector<bool>(24, false));
   }
@@ -199,15 +198,14 @@ int ConstraintHandler::cost_of_timetable(std::unordered_map<Date, SelectedCourse
   // Mark where each class occurs  
   for(auto period : timetable){
     Date d = period.first;
-    schedule[d.first][d.second] = true;
+    schedule[d.first-1][d.second] = true;
   }
 
   // A count for the number of days that have classes 
   int days_at_school = 0;
 
   // Loop through all days 
-  for(int day = 0; day < 5; day++){
-    
+  for(int day = 0; day < 10; day++){
     // Used to "back_to_back_constraint_" constraint
     int back_to_back = 0; 
     // Used for "minimize_days_at_school_" constraint 
