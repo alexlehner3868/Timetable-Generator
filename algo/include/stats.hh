@@ -9,6 +9,8 @@
 #include <fstream> 
 #include <chrono>
 #include <ctime>
+#include <string>
+#include <sstream>
 
 #include "constraints.hh"
 
