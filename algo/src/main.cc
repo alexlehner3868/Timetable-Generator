@@ -12,6 +12,8 @@
 #include "section.hh"
 #include "test.hh"
 #include "timetable.hh"
+#include "selections.hh"
+
 
 using namespace std;
 
@@ -85,7 +87,11 @@ int test() {
     // test_sample_questions();
     return 0;
 }
-
+int start_program() {
+    Selections official_selections;
+    cout << "Starting Program" << endl;
+    return 0;
+}
 int query(int argc, char *argv[]) {
     // NOTE: This is the query function used by the backend.
 
@@ -93,7 +99,6 @@ int query(int argc, char *argv[]) {
     // 1. Parses csv to get classes
     // 2. Store csv in SQL database or something and related sql funcitons
     CourseData course_data;
-
     std::vector<Section> empty_vec;
     // add lectures
     std::vector<Section> course_one_lecture_sections = course_data.add_course("ECE241H1", 1);
@@ -179,8 +184,8 @@ int query(int argc, char *argv[]) {
 
 int main(int argc, char *argv[]) {
     // Parse args
-    test();
-    /*
+    Selections official_selections;
+    
     switch (argc) {
         case 1:
             return test();
@@ -190,8 +195,11 @@ int main(int argc, char *argv[]) {
                 return test();
             else if (!std::string(argv[1]).compare("query"))
                 return query(argc - 2, argv + 2);
+            else if (!std::string(argv[1]).compare("start_program"))
+                return start_program();
+            
         default:
             printf("Usage: %s [query|test]\n", argv[0]);
     }
-    */
+    
 }

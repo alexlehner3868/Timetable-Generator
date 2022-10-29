@@ -51,12 +51,6 @@ def main():
         type=int,
         help="Port number to listen on"
     )
-    parser.add_argument(
-        "-n",
-        "--natalia",
-        action="store_true",
-        help="Use if running on ug machines"
-    )
     # Parse args
     args = parser.parse_args()
 
@@ -73,10 +67,12 @@ def main():
         print("all")
     @app.get("/gen")
     def gen() -> Response:
-        out = subprocess.run([args.algo, "query"], capture_output=True)
+        out = subprocess.run([args.algo, "start_program"], capture_output=True)
+        print(out.stdout)
         return out.stdout
     @app.route("/data")
     def get_time():
+        
         # Returning an api for showing in  reactjs
         return {
             'Name':"geek", 
@@ -196,11 +192,23 @@ def main():
         print(request.want_form_data_parsed)
         #the data that was sent
         print(request.data)
+        print(type(request.data.decode()))
+        outputted = request.data.decode()
+
+        print(outputted[15])
+        class_name = ""
+        for i in range(15, len(outputted)):
+            if (outputted[i]) == '"':
+                break
+            class_name = class_name + (outputted[i])
         #here we need to add the course to the plan
-        #out = subprocess.run([args.algo, "add_course"], capture_output=True, request.data)
+        print(class_name)
+        
+
         
         return []
     @app.route('/add-course', methods=["POST", "GET"])
+    def add_course():
         if request.method == 'POST':
             print("trying to add a course")
             print(request.data)
