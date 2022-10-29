@@ -46,6 +46,7 @@ vector<TimeTable> Scheduler::schedule_classes(
         best_time_tables.push_back(t);
         timetables_.pop();
     }
+    stats_collector_.set_scheduler_counts(partial_timetables_pruned_, full_timetable_pruned_, number_of_explored_timetables, max_number_of_timetables_to_explore, max_num_of_timetables_to_show);
     return best_time_tables;
 }
 
@@ -54,6 +55,7 @@ void Scheduler::schedule_classes_helper(
     TimeTable &timetable) {
        
     if (number_of_explored_timetables > max_number_of_timetables_to_explore) {
+        timetables_not_explored_++;
         return;
     }
     // All sections have been added

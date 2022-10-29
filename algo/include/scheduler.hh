@@ -14,6 +14,7 @@
 #include "date.hh"
 #include "period.hh"
 #include "timetable.hh"
+#include "stats.hh"
 
 using namespace std;
 
@@ -26,10 +27,12 @@ private:
     int number_of_explored_timetables = 0;
     int max_number_of_timetables_to_explore = 400;
     ConstraintHandler constraint_handler_;
+    StatCollector stats_collector_;
     
     // Stats 
     int partial_timetables_pruned_ = 0;
     int full_timetable_pruned_ = 0;
+    int timetables_not_explored_ = 0;
 public:
     Scheduler();
     vector<TimeTable> schedule_classes(
