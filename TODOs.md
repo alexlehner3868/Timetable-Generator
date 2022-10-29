@@ -64,11 +64,10 @@ Below is a list of coding tasks that still need to be completed
 
    PRIORITY LIST:
    1. [DONE] Connect Flask to React to create API calls
-   2. Schedule Button -> press button and pre configured timetable appears on website (Natalia) Oct 31
+   2. [] Schedule Button -> press button and pre configured timetable appears on website (Natalia) Oct 31
    3. Functionality for Front-End (Natalia) OCt 31
-        - add class button
+        - [DONE] add class button
         - remove class button
-        - generate timetable button
         - constraint generation
     4. Adding more constraints & tune constraint cost (Alex) Oct 31
     5. Make scheduling semester to semester (ie run scheduler twice) (Zak) Oct 31
@@ -78,4 +77,5 @@ Below is a list of coding tasks that still need to be completed
     8.5 Are the unique strings getting rid of unique timetables? (bug?) if you change the numb of time  tables to show from 5->bigger num, the number of timetables doesnt grow  
     9. Apply constraints to just one semester
     10. Use new database (replace all previous)
+    11. Get templates working
 

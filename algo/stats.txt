@@ -1,4 +1,8 @@
 --- Stats Collected --- 
+<<<<<<< HEAD
+=======
+Algorithm  Runtime: 0 sec
+>>>>>>> ff35af203ab711aba05fc341e21a83440f7aba8e
 __________________________
 Algorithm  Runtime: 239338 [µs]
 __________________________
