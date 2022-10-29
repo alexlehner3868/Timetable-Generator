@@ -1,3 +1,3 @@
 --- Stats Collected --- 
-Algorithm  Runtime: 0sec
+Algorithm  Runtime: 0 sec
 __________________________
