@@ -6,8 +6,8 @@
 #include <thread>
 #include <unordered_map>
 #include <unordered_set>
-//#include <tbb/parallel_for.h>
-//#include <tbb/atomic.h>
+#include <chrono>
+
 
 #include "constraints.hh"
 #include "period.hh"
@@ -35,8 +35,9 @@ vector<TimeTable> Scheduler::schedule_classes(
     // create timetable
     TimeTable timetable;
     // run scheduling algorithm
+    auto start = std::chrono::system_clock::now();
     schedule_classes_helper(courses, timetable);
-
+    auto end = std::chrono::system_clock::now();
     // Convert pq to vector and return
     vector<TimeTable> best_time_tables;
     int num_tables = timetables_.size();
@@ -47,7 +48,10 @@ vector<TimeTable> Scheduler::schedule_classes(
     }
 
     if(output_stats){
-        stats_collector_.set_scheduler_counts(partial_timetables_pruned_, full_timetable_pruned_, number_of_explored_timetables, max_number_of_timetables_to_explore, max_num_of_timetables_to_show);
+       std::chrono::duration<double> elapsed_seconds = end - start;
+       int duration = elapsed_seconds.count();
+        stats_collector_.set_scheduler_counts(partial_timetables_pruned_, full_timetable_pruned_, number_of_explored_timetables, max_number_of_timetables_to_explore, max_num_of_timetables_to_show, duration);
+        stats_collector_.print_stats();
     }
 
     return best_time_tables;
