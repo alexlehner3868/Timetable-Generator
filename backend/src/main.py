@@ -235,6 +235,39 @@ def main():
             out = subprocess.run([args.algo, "get_schedule"], capture_output=True)
         else:
             print("page GET request")
+    @app.route("/remove-class", methods=["POST", "GET"])
+    def remove_course():
+        if request.method == 'POST':
+            print("Trying to remove a course")
+            print(request.data)
+            
+            outputted = request.data.decode()
+            if len(outputted) > 14:
+                class_name = ""
+                for i in range(15, len(outputted)):
+                    if (outputted[i]) == '"':
+                        break
+                    class_name = class_name + (outputted[i])
+                #here we need to add the course to the plan
+                if class_name in fall_courses:
+                    print(class_name + " is being deleted from your fall schedule.")
+                    fall_courses.remove(class_name)
+                elif class_name in winter_courses:
+                    print(class_name + " is being deleted from your winter schedule.")
+                    winter_courses.remove(class_name)
+                elif class_name == '' or class_name == "":
+                    return []
+                else:
+                    print(class_name + " could not be removed from your schedule.")
+                    print(fall_courses)
+
+                    return []
+            else:
+                print("Please specify a valid course ID")
+                return []
+        else:
+            print("page GET request")
+        return []
     # Run app
     """
     if (parser.parse_args(['-n'])):

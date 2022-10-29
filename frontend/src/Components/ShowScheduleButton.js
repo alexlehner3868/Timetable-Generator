@@ -12,7 +12,7 @@ const ShowScheduleButton = (props) => {
       }
     })
         
-        return out;
+    return out;
     }
 
   return (

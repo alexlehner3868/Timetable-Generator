@@ -5,6 +5,7 @@ import MainWindow from './MainWindow';
 import Form from './Components/Form';
 import React, { useState, useEffect } from "react";
 import ShowScheduleButton from './Components/ShowScheduleButton';
+import RemoveCourseButton from './Components/RemoveCourseButton';
 
 function App() {
     const [data, setdata] = useState({
@@ -14,7 +15,7 @@ function App() {
       programming: "",
     });
 
-    const [classes, setClasses] = useState([]);
+  const [classes, setClasses] = useState([]);
   // Using useEffect for single rendering
   useEffect(() => {
       // Using fetch to fetch the api from 
@@ -58,15 +59,26 @@ function App() {
     .catch(error => console.log(error))
 
 
-  },[])
+  },[]);
+
+  useEffect(()=>{
+    fetch("/remove-class",{
+      'methods':'GET',
+      headers : {
+        'Content-Type':'text/plain'
+      }
+    })
+    .then(response => response.json())
+    .then(response => setClasses(response))
+    .catch(error => console.log(error))
+
+
+  },[]);
 
   // create a timetable array
   // 2d array: [course_id, course_name, course_type, section_id]
   // array is size 11 hours*5 days*2 semesters = 110 elements
-  const [timetable, settimetable] = useState({
-  }
-
-  );
+  const [timetable, settimetable] = useState({});
   let entire_timetable = {};
   // third page
   useEffect(() => {
@@ -131,6 +143,10 @@ function App() {
     const new_classes = [...classes,class_]
     setClasses(new_classes)
   }
+  const removedClass = (class_) =>{
+    setClasses(class_)
+  }
+
   
   console.log("ALEX")
   console.log(timetable)
@@ -140,6 +156,7 @@ function App() {
         <h1>Live Timetable Love</h1>
       </header>
       <Form action="{{ url_for('send-request') }}" method="post" insertedClass={insertedClass} />
+      <RemoveCourseButton action="{{ url_for('remove-class') }}" method="post" removedClass={removedClass} />
       <ShowScheduleButton action="{{ url_for('basic-schedule') }}" method="post"  />
       <div class='whole-webpage'>
         <MainWindow timetableData={timetable} class="main-window"/>

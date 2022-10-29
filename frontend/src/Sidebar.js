@@ -3,6 +3,7 @@ import SearchButton from "./SearchButton";
 import Data from "./data/courses.json";
 import {useState} from "react";
 import Form from './Components/Form';
+import RemoveCourseButton from './Components/RemoveCourseButton';
 import App from './App.js';
 
 
@@ -14,6 +15,10 @@ const Sidebar = (props) =>{
     const insertedClass = (class_) =>{
         const new_classes = [...classes,class_]
         setClasses(new_classes)
+    }
+    
+    const removedClass = (class_) =>{
+        setClasses(class_)
     }
   
     // make sidebar for seaching classes, adding and removing
@@ -60,8 +65,8 @@ const Sidebar = (props) =>{
                     <div class="search-results" key={index}>
                         <div class="add-course-square" id="add-course-square" > 
                             <h1 class="course-code"> {class_result.ACAD_ACT_CD} </h1>
-                            <Form course_code={class_result.ACAD_ACT_CD} action="{{ url_for('send-request') }}" method="post" insertedClass={insertedClass} 
-                            />
+                            <Form course_code={class_result.ACAD_ACT_CD} action="{{ url_for('send-request') }}" method="post" insertedClass={insertedClass}/>
+                            <RemoveCourseButton course_code={class_result.ACAD_ACT_CD} action="{{ url_for('remove-class') }}" method="post" removedClass={removedClass} />
                         </div>
                             
                         
