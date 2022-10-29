@@ -60,6 +60,20 @@ def main():
     # Initialize application
     app = Flask(__name__, template_folder='templates')
     print("Access-Control-Allow-Origin: *")
+    print("Setting up classes, constraints, schedule object")
+
+    #fall course ids
+    fall_classes = []
+    #winter course ids
+    winter_classes = []
+    #all constraints null by default
+    constraints = [0]*12
+    #one list for input
+    constraints_inputs = []
+
+
+
+
     # Define endpoints
     @app.get("/all")
     def all() -> Response:
@@ -67,8 +81,7 @@ def main():
         print("all")
     @app.get("/gen")
     def gen() -> Response:
-        out = subprocess.run([args.algo, "start_program"], capture_output=True)
-        print(out.stdout)
+        out = subprocess.run([args.algo, "query"], capture_output=True)
         return out.stdout
     @app.route("/data")
     def get_time():
@@ -192,27 +205,27 @@ def main():
         print(request.want_form_data_parsed)
         #the data that was sent
         print(request.data)
-        print(type(request.data.decode()))
+        
         outputted = request.data.decode()
 
-        print(outputted[15])
-        class_name = ""
-        for i in range(15, len(outputted)):
-            if (outputted[i]) == '"':
-                break
-            class_name = class_name + (outputted[i])
-        #here we need to add the course to the plan
-        print(class_name)
-        
-
-        
-        return []
+        if len(outputted) > 14:
+            print(outputted[15])
+            class_name = ""
+            for i in range(15, len(outputted)):
+                if (outputted[i]) == '"':
+                    break
+                class_name = class_name + (outputted[i])
+            #here we need to add the course to the plan
+            print(class_name)
+        else:
+            print("Please specify a valid course ID")
+            return []
     @app.route('/add-course', methods=["POST", "GET"])
     def add_course():
         if request.method == 'POST':
             print("trying to add a course")
             print(request.data)
-            out = subprocess.run([args.algo, "get_schedule"], capture_output=True)
+
         else:
             print("page GET request")
     # Run app
