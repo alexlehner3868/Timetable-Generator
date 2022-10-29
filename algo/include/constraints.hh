@@ -46,6 +46,9 @@ private:
     // Constraints handled per timetable
     int minimize_days_at_school_;                          // int = priority 
     pair<int, int> back_to_back_constraint_; // <max hours back to back, priority>
+
+    // For Stats
+    int number_of_classes_preprossed_out = 0;
     
 public:
     ConstraintHandler();
@@ -64,6 +67,9 @@ public:
 
     int cost_of_class(Date d);
     int cost_of_timetable(std::unordered_map<Date, SelectedCourseSection, Date_Hash> timetable);
+    
+    // For stats
+    stringstream output_constraints_stats();
 };
 
 #endif

@@ -48,7 +48,7 @@ int test() {
     //constraint_handler.set_no_classes_before_X_constraint(13, GOOD_TO_HAVE);
     constraint_handler.preprocess_high_priority_classes_out(offerings);
     Scheduler scheduler_handler;
-    vector<TimeTable> best_timetables = scheduler_handler.schedule_classes(offerings, constraint_handler);
+    vector<TimeTable> best_timetables = scheduler_handler.schedule_classes(offerings, &constraint_handler);
     //scheduler_handler.print_timetables(best_timetables);
 
     // -- User input (later)
@@ -160,7 +160,7 @@ int query(int argc, char *argv[]) {
     ConstraintHandler constraint_handler;
     Scheduler scheduler_handler;
     vector<TimeTable> best_timetables = scheduler_handler.schedule_classes(offerings,
-                                                                           constraint_handler);
+                                                                           &constraint_handler);
     stringstream json;
     bool first = true;
     json << "[";

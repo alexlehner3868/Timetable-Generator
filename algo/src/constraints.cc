@@ -1,8 +1,9 @@
 #include "constraints.hh"
-//#include "timetable.hh"
+#include "print_functions.hh"
 
 #include <iostream>
 #include <string>
+#include <sstream>
 
 #include "course_data.hh"
 
@@ -80,6 +81,7 @@ bool ConstraintHandler::preprocess_high_priority_classes_out(unordered_set<Cours
             //cout << offering.lecture_sections_[offering.lecture_sections_.begin()+section_num].section_id_ << endl;
 
             lect_section = offering.lecture_sections_.erase(lect_section);
+            number_of_classes_preprossed_out++;
             //lect_section = offering.lecture_sections_.erase(offering.lecture_sections_.begin()+(*lect_section).section_id_-1);
             section_removed = true;
           }
@@ -103,6 +105,7 @@ bool ConstraintHandler::preprocess_high_priority_classes_out(unordered_set<Cours
             //                                                        offering.lecture_sections_.begin() +section_num
             //cout << "Erased tutorial " << offering.course_id_ << " in section " << (*tut_section).section_id_ << endl;
             tut_section = offering.tutorial_sections_.erase(tut_section);
+            number_of_classes_preprossed_out++;
             section_removed = true;
           }
 
@@ -126,6 +129,7 @@ bool ConstraintHandler::preprocess_high_priority_classes_out(unordered_set<Cours
             //                                                        offering.lecture_sections_.begin() +section_num
             //cout << "Erased practical " << offering.course_id_ << " in section " << (*pra_section).section_id_ << endl;
             pra_section = offering.practical_sections_.erase(pra_section);
+            number_of_classes_preprossed_out++;
             section_removed = true;
           }
 
@@ -184,6 +188,7 @@ int ConstraintHandler::cost_of_class(Date d) {
 
 
 int ConstraintHandler::cost_of_timetable(std::unordered_map<Date, SelectedCourseSection, Date_Hash> timetable){
+  int multiplier = 10;
   // The cost associated with the timetable
   int cost = 0;
 
@@ -220,7 +225,7 @@ int ConstraintHandler::cost_of_timetable(std::unordered_map<Date, SelectedCourse
         }else{
           // If back_to_back is an active constraint, check if more than X hours are back to back 
           if(back_to_back_constraint_.second && back_to_back > back_to_back_constraint_.first){
-            cost+= (back_to_back_constraint_.second * (back_to_back - back_to_back_constraint_.first));
+            cost+= (back_to_back_constraint_.second * (back_to_back - back_to_back_constraint_.first)*multiplier/2);
           }
           // Reset back to back cost
           back_to_back = 0;
@@ -228,7 +233,7 @@ int ConstraintHandler::cost_of_timetable(std::unordered_map<Date, SelectedCourse
     }
     // If back_to_back is an active constraint, check if more than X hours are back to back (Need to check for last interval)
     if(back_to_back_constraint_.second && back_to_back > back_to_back_constraint_.first){
-      cost+= (back_to_back_constraint_.second * (back_to_back - back_to_back_constraint_.first));
+      cost+= (back_to_back_constraint_.second * (back_to_back - back_to_back_constraint_.first) * multiplier);
     }
     // If at least one class was on this day, increment the counter
     if(class_on_this_day){
@@ -238,7 +243,7 @@ int ConstraintHandler::cost_of_timetable(std::unordered_map<Date, SelectedCourse
   
   // Check for number of days at school 
   // If a days off preference is selected, the cost is increased perportional to priority and number of days at school
-  cost += (minimize_days_at_school_ !=NO_PRIORITY ? minimize_days_at_school_ *  days_at_school : 0);
+  cost += (minimize_days_at_school_ !=NO_PRIORITY ? minimize_days_at_school_ *  days_at_school * multiplier: 0);
 
 
 
@@ -250,10 +255,47 @@ ConstraintHandler::ConstraintHandler() {
 
     back_to_back_constraint_ = make_pair(24, NO_PRIORITY);
     no_classes_after_X_ = make_pair(24, NO_PRIORITY);
-    no_classes_before_X_ = make_pair(0, NO_PRIORITY);
+    no_classes_before_X_ = make_pair(0, NO_PRIORITY); // to rest
   
     minimize_days_at_school_ = NO_PRIORITY;
     prefer_morning_classes_ = NO_PRIORITY;
     prefer_afternoon_classes_ = NO_PRIORITY;
     prefer_evening_classes_ = NO_PRIORITY;
+}
+
+
+stringstream ConstraintHandler::output_constraints_stats(){
+  stringstream ss;
+  ss<<"List of Active Constraints: "<<endl;
+  if(time_constraints_.size() >0){
+    ss<<"   Blocked-Off Time Constraints: "<<endl;
+    for(auto timeC : time_constraints_){
+      ss<<"      "<<toDay(timeC.first.first) <<" " << toTime(timeC.first.second)<<": "<<toPriority(timeC.second)<<endl;
+    }
+  }
+  ss<<endl;
+  if(back_to_back_constraint_.second != NO_PRIORITY){
+    ss<<"   No More Than " << back_to_back_constraint_.first<< " Hours Back-To-Back: "<< toPriority(back_to_back_constraint_.second)<<endl;
+  }
+  if(no_classes_after_X_.second != NO_PRIORITY){
+    ss<<"   No Class After" << toTime(no_classes_after_X_.first)<< ": "<< toPriority(no_classes_after_X_.second)<<endl;
+  }
+  if(no_classes_before_X_.second != NO_PRIORITY){
+    ss<<"   No Class Before" << toTime(no_classes_before_X_.first)<< ": "<< toPriority(no_classes_before_X_.second)<<endl;
+  }
+  if(minimize_days_at_school_ != NO_PRIORITY){
+    ss<<"   Minimize Days At School: "<< toPriority(minimize_days_at_school_)<<endl;
+  }
+  if(prefer_morning_classes_ != NO_PRIORITY){
+    ss<<"   Prefer Morning Classes: "<< toPriority(prefer_morning_classes_)<<endl;
+  }
+  if(prefer_afternoon_classes_ != NO_PRIORITY){
+    ss<<"   Prefer Afternoon Classes: "<< toPriority(prefer_afternoon_classes_)<<endl;
+  }
+  if(prefer_evening_classes_ != NO_PRIORITY){
+    ss<<"   Prefer Evening Classes: "<< toPriority(prefer_evening_classes_)<<endl;
+  }
+
+  ss<<"Number of Sections Preprocessed Out: "<<number_of_classes_preprossed_out<<endl;
+  return ss;
 }

@@ -29,31 +29,33 @@ using namespace std;
 
 vector<TimeTable> Scheduler::schedule_classes(
     unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> &courses,
-    ConstraintHandler &constraint_handler) {
+    ConstraintHandler* constraint_handler) {
     constraint_handler_ = constraint_handler;
 
     // create timetable
     TimeTable timetable;
+
     // run scheduling algorithm
     auto start = std::chrono::system_clock::now();
     schedule_classes_helper(courses, timetable);
     auto end = std::chrono::system_clock::now();
+
     // Convert pq to vector and return
     vector<TimeTable> best_time_tables;
+    vector<int> timetable_costs;
     int num_tables = timetables_.size();
     for (int i = 0; i < num_tables; i++) {
         TimeTable t = timetables_.top();
+        timetable_costs.push_back(t.cost());
         best_time_tables.push_back(t);
         timetables_.pop();
     }
 
     if(output_stats){
-       std::chrono::duration<double> elapsed_seconds = end - start;
-       int duration = elapsed_seconds.count();
-        stats_collector_.set_scheduler_counts(partial_timetables_pruned_, full_timetable_pruned_, number_of_explored_timetables, max_number_of_timetables_to_explore, max_num_of_timetables_to_show, duration);
+        stats_collector_.set_scheduler_counts(partial_timetables_pruned_, full_timetable_pruned_, number_of_explored_timetables, max_number_of_timetables_to_explore, max_num_of_timetables_to_show, num_tables, unique_timetables_found_, std::chrono::duration_cast<std::chrono::microseconds>(end - start).count());
+        stats_collector_.track_constraints(constraint_handler, timetable_costs);
         stats_collector_.print_stats();
     }
-
     return best_time_tables;
 }
 
@@ -68,9 +70,10 @@ void Scheduler::schedule_classes_helper(
     // All sections have been added
     if (courses.size() == 0) {
         number_of_explored_timetables++;
-        int timetable_additional_cost = constraint_handler_.cost_of_timetable(timetable.classes());
+        int timetable_additional_cost = constraint_handler_->cost_of_timetable(timetable.classes());
         timetable.add_cost(timetable_additional_cost);
-        if (unique_check(timetable)) {
+        if (unique_check(timetable)) { // <---- This function is broken 
+            unique_timetables_found_++;
             // Priority queue has less than the max num of timetables            
             if ((int)timetables_.size() < (int)max_num_of_timetables_to_show) {
                 timetables_.push(timetable);
@@ -89,7 +92,7 @@ void Scheduler::schedule_classes_helper(
 
     // the current timetable is worse than the worst best cost. stop exploring it
     // TODO -> VERIFY that timetables_.top is showing the worst best cost
-    if (timetables_.size() > 0) {
+    if (timetables_.size() > 0 && timetables_.size() >=max_num_of_timetables_to_show) {
         TimeTable t = timetables_.top();
         int cost = t.cost();
         if (timetable.cost() > cost) {
@@ -170,13 +173,13 @@ void Scheduler::attempt_to_add_section(
                     // Combination is invalid
                     // Time occupied by another course offering or constraint
                 } else {
-                    section_cost += constraint_handler_.cost_of_class(period);
+                    section_cost += constraint_handler_->cost_of_class(period);
                 }
             }
 
             // There is a conflict with the class section that was just inputted so remove it
             // Don't remove the class that it conflicted with - simply remove the others
-            if (!successfully_inserted) {
+            if (!successfully_inserted ) {
                 // loop through each class in the section
                 for (int remove_class = 0; remove_class <= class_in_section; remove_class++) {
                     // loop through each hour of the class (ex. if one is a two hour class this will

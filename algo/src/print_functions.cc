@@ -1,5 +1,5 @@
 #include "print_functions.hh"
-
+#include "constraints.hh"
 #include <stdlib.h>
 
 #include <iostream>
@@ -49,4 +49,17 @@ string toTime(int militaryTime) {
     } else {
         return "Error Time";
     }
+}
+
+string toPriority(int priority){
+    if(priority == NO_PRIORITY){
+        return "NO PRIORITY";
+    }else if(priority == NICE_TO_HAVE){
+        return "NICE_TO_HAVE";
+    }else if(priority == GOOD_TO_HAVE){
+        return "GOOD_TO_HAVE";
+    }else if(priority == MUST_HAVE){
+        return "MUST_HAVE";
+    }
+    return "error in toPriority print function: " + to_string(priority);
 }

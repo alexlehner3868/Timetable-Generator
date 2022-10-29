@@ -11,4 +11,5 @@ using namespace std;
 string toClassType(int type);
 string toDay(int day);
 string toTime(int militaryTime);
+string toPriority(int priority);
 #endif

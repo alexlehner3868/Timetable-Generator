@@ -26,7 +26,7 @@ private:
     int max_num_of_timetables_to_show = 20; 
     int number_of_explored_timetables = 0;
     int max_number_of_timetables_to_explore = 400;
-    ConstraintHandler constraint_handler_;
+    ConstraintHandler* constraint_handler_;
     StatCollector stats_collector_;
     
     // Stats 
@@ -34,11 +34,12 @@ private:
     int full_timetable_pruned_ = 0;
     int timetables_not_explored_ = 0;
     bool output_stats = true;
+    int unique_timetables_found_ = 0;
 public:
     Scheduler();
     vector<TimeTable> schedule_classes(
         unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> &courses,
-        ConstraintHandler &constraint_handler);
+        ConstraintHandler *constraint_handler);
     void schedule_classes_helper(
         unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> &courses,
         TimeTable &timetable);
