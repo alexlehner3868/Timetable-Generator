@@ -195,20 +195,34 @@ def main():
             #LOAD THE PAGE HERE IF VISITED
             return "Hello"
         #prints true if request comes with data
-        print(request.want_form_data_parsed)
+        #print(request.want_form_data_parsed)
         #the data that was sent
-        print(request.data)
-        print(type(request.data.decode()))
+        #print(request.data)
+        #print(type(request.data.decode()))
         outputted = request.data.decode()
+        
         if len(outputted) > 14:
-            print(outputted[15])
             class_name = ""
             for i in range(15, len(outputted)):
                 if (outputted[i]) == '"':
                     break
                 class_name = class_name + (outputted[i])
             #here we need to add the course to the plan
-            print(class_name)
+            if class_name in fall_courses:
+                print("This course is already in your fall schedule.")
+            elif class_name in winter_courses:
+                print("This course is already in your winter schedule.")
+            elif len(fall_courses) > 5:
+                print("You are already taking 6 courses in the fall.")
+            elif len(winter_courses) > 5:
+                print("You are already taking 6 courses in the winter.")
+            elif class_name == '' or class_name == "":
+                pass
+            else:
+                print("Adding " + class_name + " to your schedule.")
+                fall_courses.append(class_name)
+                print(fall_courses)
+
             return []
         else:
             print("Please specify a valid course ID")
