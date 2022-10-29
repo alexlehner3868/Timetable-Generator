@@ -40,6 +40,7 @@ vector<TimeTable> Scheduler::schedule_classes(
     // Convert pq to vector and return
     vector<TimeTable> best_time_tables;
     int num_tables = timetables_.size();
+
     for (int i = 0; i < num_tables; i++) {
         TimeTable t = timetables_.top();
         best_time_tables.push_back(t);
@@ -51,6 +52,7 @@ vector<TimeTable> Scheduler::schedule_classes(
 void Scheduler::schedule_classes_helper(
     unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> &courses,
     TimeTable &timetable) {
+       
     if (number_of_explored_timetables > max_number_of_timetables_to_explore) {
         return;
     }
@@ -58,9 +60,9 @@ void Scheduler::schedule_classes_helper(
     if (courses.size() == 0) {
         number_of_explored_timetables++;
         int timetable_additional_cost = constraint_handler_.cost_of_timetable(timetable.classes());
-       // timetable.add_cost(timetable_additional_cost);
+        timetable.add_cost(timetable_additional_cost);
         if (unique_check(timetable)) {
-            // Priority queue has less than the max num of timetables
+            // Priority queue has less than the max num of timetables            
             if ((int)timetables_.size() < (int)max_num_of_timetables_to_show) {
                 timetables_.push(timetable);
             } else {
@@ -69,16 +71,20 @@ void Scheduler::schedule_classes_helper(
                 if (timetable.cost() <= cost) {
                     timetables_.pop();
                     timetables_.push(timetable);
+                }else{
+                    full_timetable_pruned_++;
                 }
             }
         }
     }
 
     // the current timetable is worse than the worst best cost. stop exploring it
+    // TODO -> VERIFY that timetables_.top is showing the worst best cost
     if (timetables_.size() > 0) {
         TimeTable t = timetables_.top();
         int cost = t.cost();
         if (timetable.cost() > cost) {
+            partial_timetables_pruned_++;
             return;
         }
     }
@@ -437,5 +443,6 @@ bool Scheduler::unique_check(TimeTable &timetable) {
     timetables_str.push_back(new_timetable_str);
     return true;
 }
+
 // Default constructor
 Scheduler::Scheduler() {}

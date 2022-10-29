@@ -49,7 +49,7 @@ int test() {
     constraint_handler.preprocess_high_priority_classes_out(offerings);
     Scheduler scheduler_handler;
     vector<TimeTable> best_timetables = scheduler_handler.schedule_classes(offerings, constraint_handler);
-    scheduler_handler.print_timetables(best_timetables);
+    //scheduler_handler.print_timetables(best_timetables);
 
     // -- User input (later)
     // 1. Search and add classes to timetable

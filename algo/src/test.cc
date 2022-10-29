@@ -588,6 +588,7 @@ empty_vec);
     Scheduler scheduler;
     scheduler.schedule_classes(offerings);
 }
+
 // Test 7
 void test_two_classes_conflict() {
     vector<Section> calc_lecture_sections;
@@ -681,8 +682,9 @@ empty_vec);
     Scheduler scheduler;
     scheduler.schedule_classes(offerings);
 }
+*/
 // Test 8
-void test_three_classes_conflict() {
+unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> test_three_classes_conflict() {
     vector<Section> calc_lecture_sections;
     vector<Section> linalg_lecture_sections;
     vector<Section> mech_lecture_sections;
@@ -807,10 +809,9 @@ empty_vec);
     offerings.insert(calculus);
     offerings.insert(linear_algebra);
     offerings.insert(mechanics);
-    Scheduler scheduler;
-    scheduler.schedule_classes(offerings);
+    return offerings;
 }
-*/
+
 
 void test_sample_questions() {
     // One class, with one section

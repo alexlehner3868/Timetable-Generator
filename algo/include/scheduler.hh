@@ -22,11 +22,14 @@ private:
     priority_queue<TimeTable, vector<TimeTable>, CompareTimeTable> timetables_;
     std::vector<std::vector<std::string>> timetables_str;
     int max_sections_scheduled();
-    int max_num_of_timetables_to_show = 5;
+    int max_num_of_timetables_to_show = 20; 
     int number_of_explored_timetables = 0;
     int max_number_of_timetables_to_explore = 400;
     ConstraintHandler constraint_handler_;
-
+    
+    // Stats 
+    int partial_timetables_pruned_ = 0;
+    int full_timetable_pruned_ = 0;
 public:
     Scheduler();
     vector<TimeTable> schedule_classes(
