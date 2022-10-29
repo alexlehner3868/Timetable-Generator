@@ -33,6 +33,7 @@ private:
     int partial_timetables_pruned_ = 0;
     int full_timetable_pruned_ = 0;
     int timetables_not_explored_ = 0;
+    bool output_stats = true;
 public:
     Scheduler();
     vector<TimeTable> schedule_classes(

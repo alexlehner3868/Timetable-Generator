@@ -40,13 +40,16 @@ vector<TimeTable> Scheduler::schedule_classes(
     // Convert pq to vector and return
     vector<TimeTable> best_time_tables;
     int num_tables = timetables_.size();
-
     for (int i = 0; i < num_tables; i++) {
         TimeTable t = timetables_.top();
         best_time_tables.push_back(t);
         timetables_.pop();
     }
-    stats_collector_.set_scheduler_counts(partial_timetables_pruned_, full_timetable_pruned_, number_of_explored_timetables, max_number_of_timetables_to_explore, max_num_of_timetables_to_show);
+
+    if(output_stats){
+        stats_collector_.set_scheduler_counts(partial_timetables_pruned_, full_timetable_pruned_, number_of_explored_timetables, max_number_of_timetables_to_explore, max_num_of_timetables_to_show);
+    }
+
     return best_time_tables;
 }
 
