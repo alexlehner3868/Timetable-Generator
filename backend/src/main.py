@@ -60,19 +60,11 @@ def main():
     # Initialize application
     app = Flask(__name__, template_folder='templates')
     print("Access-Control-Allow-Origin: *")
-    print("Setting up classes, constraints, schedule object")
 
-    #fall course ids
-    fall_classes = []
-    #winter course ids
-    winter_classes = []
-    #all constraints null by default
+    fall_courses = []
+    winter_courses = []
     constraints = [0]*12
-    #one list for input
-    constraints_inputs = []
-
-
-
+    constraints_input = []
 
     # Define endpoints
     @app.get("/all")
@@ -82,7 +74,8 @@ def main():
     @app.get("/gen")
     def gen() -> Response:
         out = subprocess.run([args.algo, "query"], capture_output=True)
-        return out.stdout
+        #print(out.stdout)
+        return ""
     @app.route("/data")
     def get_time():
         
@@ -205,9 +198,8 @@ def main():
         print(request.want_form_data_parsed)
         #the data that was sent
         print(request.data)
-        
+        print(type(request.data.decode()))
         outputted = request.data.decode()
-
         if len(outputted) > 14:
             print(outputted[15])
             class_name = ""
@@ -217,6 +209,7 @@ def main():
                 class_name = class_name + (outputted[i])
             #here we need to add the course to the plan
             print(class_name)
+            return []
         else:
             print("Please specify a valid course ID")
             return []
@@ -225,7 +218,7 @@ def main():
         if request.method == 'POST':
             print("trying to add a course")
             print(request.data)
-
+            out = subprocess.run([args.algo, "get_schedule"], capture_output=True)
         else:
             print("page GET request")
     # Run app
