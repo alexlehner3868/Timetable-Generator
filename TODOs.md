@@ -63,11 +63,10 @@ Below is a list of coding tasks that still need to be completed
 
    PRIORITY LIST:
    1. [DONE] Connect Flask to React to create API calls
-   2. Schedule Button -> press button and pre configured timetable appears on website (Natalia) Oct 31
+   2. [] Schedule Button -> press button and pre configured timetable appears on website (Natalia) Oct 31
    3. Functionality for Front-End (Natalia) OCt 31
-        - add class button
+        - [DONE] add class button
         - remove class button
-        - generate timetable button
         - constraint generation
     4. Adding more constraints & tune constraint cost (Alex) Oct 31
     5. Make scheduling semester to semester (ie run scheduler twice) (Zak) Oct 31

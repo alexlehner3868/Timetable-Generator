@@ -200,6 +200,13 @@ def main():
         #out = subprocess.run([args.algo, "add_course"], capture_output=True, request.data)
         
         return []
+    @app.route('/add-course', methods=["POST", "GET"])
+        if request.method == 'POST':
+            print("trying to add a course")
+            print(request.data)
+            out = subprocess.run([args.algo, "get_schedule"], capture_output=True)
+        else:
+            print("page GET request")
     # Run app
     """
     if (parser.parse_args(['-n'])):

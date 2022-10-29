@@ -53,6 +53,8 @@ function App() {
         'Content-Type':'text/plain'
       }
     })
+    .then(response => response.json())
+    .then(response => setClasses(response))
     .catch(error => console.log(error))
 
 
@@ -137,7 +139,7 @@ function App() {
       <header class="App-header">
         <h1>Live Timetable Love</h1>
       </header>
-      <Form action="{{ url_for('basic-schedule') }}" method="get" insertedClass={insertedClass} />
+      <Form action="{{ url_for('send-request') }}" method="post" insertedClass={insertedClass} />
       <ShowScheduleButton action="{{ url_for('basic-schedule') }}" method="post"  />
       <div class='whole-webpage'>
         <MainWindow timetableData={timetable} class="main-window"/>

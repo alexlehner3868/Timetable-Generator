@@ -195,5 +195,6 @@ void Selections::run_scheduler() {
 
     official_constraints.preprocess_high_priority_classes_out(offerings);
     vector<TimeTable> best_timetables = official_scheduler.schedule_classes(offerings, official_constraints);
+    scheduler_handler.print_timetables(best_timetables);
     return;
 }
