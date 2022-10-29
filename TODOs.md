@@ -14,6 +14,7 @@ Below is a list of coding tasks that still need to be completed
     - Force a class to be in a certain semester 
     - Restrict number of classes to a certain semester 6
     - Allow classes to be locked into a section 
+    - Are the unique strings getting rid of unique timetables?
 
 3. Constraints 
     - Add constraint support for 
@@ -74,6 +75,7 @@ Below is a list of coding tasks that still need to be completed
     6. No timetable possible (Zak) oct 31
     7. Add suppport for async classes
     8. Restrict number of classes per semester to 6 (Zak) Oct 31
+    8.5 Are the unique strings getting rid of unique timetables? (bug?) if you change the numb of time  tables to show from 5->bigger num, the number of timetables doesnt grow  
     9. Apply constraints to just one semester
     10. Use new database (replace all previous)
 
