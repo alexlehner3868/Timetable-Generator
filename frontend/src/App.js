@@ -53,8 +53,6 @@ function App() {
         'Content-Type':'text/plain'
       }
     })
-    .then(response => response.json())
-    .then(response => setClasses(response))
     .catch(error => console.log(error))
 
 
