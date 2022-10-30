@@ -51,7 +51,7 @@ int test() {
     constraint_handler.preprocess_high_priority_classes_out(offerings);
     Scheduler scheduler_handler;
     vector<TimeTable> best_timetables = scheduler_handler.schedule_classes(offerings, &constraint_handler);
-    //scheduler_handler.print_timetables(best_timetables);
+    scheduler_handler.print_timetables(best_timetables);
 
     // -- User input (later)
     // 1. Search and add classes to timetable
@@ -87,11 +87,7 @@ int test() {
     // test_sample_questions();
     return 0;
 }
-int start_program() {
-    Selections official_selections;
-    cout << "Starting Program" << endl;
-    return 0;
-}
+
 int query(int argc, char *argv[]) {
     // NOTE: This is the query function used by the backend.
 
@@ -185,7 +181,7 @@ int query(int argc, char *argv[]) {
 int main(int argc, char *argv[]) {
     // Parse args
     Selections official_selections;
-    
+    return test();
     switch (argc) {
         case 1:
             return test();
@@ -195,8 +191,6 @@ int main(int argc, char *argv[]) {
                 return test();
             else if (!std::string(argv[1]).compare("query"))
                 return query(argc - 2, argv + 2);
-            else if (!std::string(argv[1]).compare("start_program"))
-                return start_program();
             
         default:
             printf("Usage: %s [query|test]\n", argv[0]);

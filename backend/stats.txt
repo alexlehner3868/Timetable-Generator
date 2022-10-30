@@ -1,3 +1,26 @@
 --- Stats Collected --- 
-Algorithm  Runtime: 0 sec
 __________________________
+Algorithm  Runtime: 204348 [µs]
+__________________________
+--- Scheduler Stats ---
+Number of best timetables tracked: 5[out of a max of 20]
+Number of timetables explored: 401
+Number of unique timetables found: 5
+
+Number of partial timetables pruned: 0
+Number of complete timetables pruned: 0
+__________________________
+--- Constraint Stats ---
+List of Active Constraints: 
+   Blocked-Off Time Constraints: 
+      Tuesday 11AM: MUST_HAVE
+      Tuesday 10AM: MUST_HAVE
+
+Number of Sections Preprocessed Out: 15
+__________________________
+--- Best Timetables ---
+Timeable 1 with cost 0
+Timeable 2 with cost 0
+Timeable 3 with cost 0
+Timeable 4 with cost 0
+Timeable 5 with cost 0

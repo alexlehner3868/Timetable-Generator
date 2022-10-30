@@ -194,7 +194,7 @@ void Selections::run_scheduler() {
     offerings.insert(class_eleven);
 
     official_constraints.preprocess_high_priority_classes_out(offerings);
-    vector<TimeTable> best_timetables = official_scheduler.schedule_classes(offerings, official_constraints);
+    vector<TimeTable> best_timetables = official_scheduler.schedule_classes(offerings, &official_constraints);
     official_scheduler.print_timetables(best_timetables);
     return;
 }

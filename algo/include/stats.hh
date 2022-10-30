@@ -70,7 +70,7 @@ public:
         // List of active constraints and priorities 
         logfile<<"__________________________"<<endl;
         logfile<<"--- Best Timetables ---"<<endl;
-        for(int i = 0; i < best_timetable_costs.size(); i++){
+        for(int i = 0; i < (int)best_timetable_costs.size(); i++){
             logfile<<"Timeable "<<i+1<<" with cost "<< best_timetable_costs[i]<<endl;
         }
         logfile.close();

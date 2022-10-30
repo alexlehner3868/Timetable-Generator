@@ -92,7 +92,7 @@ void Scheduler::schedule_classes_helper(
 
     // the current timetable is worse than the worst best cost. stop exploring it
     // TODO -> VERIFY that timetables_.top is showing the worst best cost
-    if (timetables_.size() > 0 && timetables_.size() >=max_num_of_timetables_to_show) {
+    if ((int) timetables_.size() > 0 && (int) timetables_.size() >= (int) max_num_of_timetables_to_show) {
         TimeTable t = timetables_.top();
         int cost = t.cost();
         if (timetable.cost() > cost) {
