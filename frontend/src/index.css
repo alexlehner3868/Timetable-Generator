@@ -212,3 +212,8 @@ code {
   margin-top: 5px; 
   overflow: auto;
 }
+
+.fieldset-form {
+  border-width: 2px;
+  border-color: black;
+}
