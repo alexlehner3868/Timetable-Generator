@@ -9,8 +9,8 @@ const MainWindow = (props) =>{
     console.log(props.timetableData)
     return (
         <div className='main-window'>
-            <Semester timetable={props.timetableData[0]} semester="Fall"/>
-            <Semester timetable={props.timetableData[1]} semester="Winter"/>
+            <Semester timetable={props.timetableData} semester="Fall"/>
+            <Semester timetable={props.timetableData} semester="Winter"/>
         </div>
     
     

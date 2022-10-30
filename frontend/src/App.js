@@ -8,7 +8,10 @@ import ShowScheduleButton from './Components/ShowScheduleButton';
 import RemoveCourseButton from './Components/RemoveCourseButton';
 import AddConstraintButton from './Components/AddConstraintButton';
 
+let counter = 0;
+
 function App() {
+  counter++;
   const [data, setdata] = useState({
     name: "",
     age: 0,
@@ -116,50 +119,52 @@ function App() {
             classSection: new_timetable[i][1],
             classNum: new_timetable[i][2]
           }*/
-          const arr = ['classID', 'classSection', 'classNum'];
-          
-          let timetables = new Array(2);
-          for(let i = 0; i < 2; i++){
-            timetables[i] = new Array(66);
-          }
-          console.log("HEEEEE")
-          console.log(timetable.length);
-          for (let i = 0; i < timetable.length; i++) {
-            console.log("length = "  + timetable.length + " i " + i);
-            let obj = {};
-            obj['classID'] = timetable[i][0];
-            obj['classSection'] = timetable[i][1];
-            obj['classType'] = timetable[i][2];
-            obj['classColorIdx'] = timetable[i][3]; 
-            //arr.forEach(child_element => {
-          //   obj[child_element] = timetable[element][child_element];
-            //  console.log(obj);
-            //});
-            let sem = (i >= timetable.length/2 ? 1 : 0);
-            let indx = (i < timetable.length/2 ? i : i - timetable.length/2);
-            console.log("Sem" + sem);
-            timetables[sem][indx] = obj;
-            console.log("T: "+ timetables);
-            console.log("O"+ obj);
-          }
-          // obj = {classID: '', classSection = '', classNum =''}
-          
+          if (counter > 15) {
+            console.log(counter)
+            const arr = ['classID', 'classSection', 'classNum'];
+            
+            let timetables = new Array(2);
+            for(let i = 0; i < 2; i++){
+              timetables[i] = new Array(66);
+            }
+            console.log("HEEEEE")
+            console.log(timetable.length);
+            for (let i = 0; i < timetable.length; i++) {
+              //console.log("length = "  + timetable.length + " i " + i);
+              let obj = {};
+              obj['classID'] = timetable[i][0];
+              obj['classSection'] = timetable[i][1];
+              obj['classType'] = timetable[i][2];
+              obj['classColorIdx'] = timetable[i][3]; 
+              //arr.forEach(child_element => {
+            //   obj[child_element] = timetable[element][child_element];
+              //  console.log(obj);
+              //});
+              let sem = (i >= timetable.length/2 ? 1 : 0);
+              let indx = (i < timetable.length/2 ? i : i - timetable.length/2);
+              //console.log("Sem" + sem);
 
-          settimetable(
-            // code to accept each timetable grid item and set array properly
-            // row.map((col)=> <Period  ClassID={props.classID} classSection={props.classSection} classNum={props.classNum}/>)
-            // entire_timetable = timetable
-          // entire_timetable = timetables
-          timetables = timetable
+              timetables[sem][indx] = obj;
+              //console.log("T: "+ timetables);
+              //console.log("O"+ obj);
+            }
+            // obj = {classID: '', classSection = '', classNum =''}
+            
 
-          );
-          console.log("Entire Timetale");
-          console.log(timetables);
-          console.log("I've ran the function again");
-          
+            settimetable(
+              // code to accept each timetable grid item and set array properly
+              // row.map((col)=> <Period  ClassID={props.classID} classSection={props.classSection} classNum={props.classNum}/>)
+              // entire_timetable = timetable
+            // entire_timetable = timetables
+            timetables = timetable
+
+            );
+            console.log("Entire Timetale");
+            console.log(timetables);
+          }
         })
     );
-  }, [timetable]);
+  }, [classes]);
   
   
   const insertedClass = (class_) =>{

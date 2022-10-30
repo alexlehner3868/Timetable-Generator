@@ -48,8 +48,6 @@ const Timetable = (props) =>{
             }
         }
     }
-    console.log("props in timetable")
-    console.log(props.courses);
 
   
     return (
@@ -58,7 +56,7 @@ const Timetable = (props) =>{
             return (
                 <div>
                 {    
-                    row.map((col)=> <Period  ClassID={col.classID} classSection={col.classSection} classColorIdx={col.classColorIdx} classType={col.classType}/>)
+                    row.map((col)=> <Period  ClassID={col[0]} classSection={col[1]} classColorIdx={col[3]} classType={col[2]}/>)
                 }
                 </div>
                 
