@@ -64,7 +64,7 @@ Below is a list of coding tasks that still need to be completed
 
    PRIORITY LIST:
    1. [DONE] Connect Flask to React to create API calls
-   2. [] Schedule Button -> press button and pre configured timetable appears on website (Natalia) Oct 31
+   2. [DONE] Schedule Button -> press button and pre configured timetable appears on website (Natalia) Oct 31
    3. [DONE] Functionality for Front-End (Natalia) OCt 31
         - [DONE] add class button
         - [DONE] remove class button

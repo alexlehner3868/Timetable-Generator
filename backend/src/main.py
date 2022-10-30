@@ -184,7 +184,10 @@ def main():
             return []
         #else:
             #return []
-        """[
+        """
+        Return format:
+        
+        [
             ["ECE231", "101", "TUT", 1], [],
             ["ECE231", "102", "TUT", 1],
             ["ECE231", "103", "TUT", 1],
@@ -274,7 +277,7 @@ def main():
     def add_constraint():
         if request.method == 'POST':
             #add a constraint
-            print("Prioritizing Early Classes")
+            print("Added a Constraint")
             return []
         else:
             return []
