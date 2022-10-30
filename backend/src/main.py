@@ -266,8 +266,16 @@ def main():
                 print("Please specify a valid course ID")
                 return []
         else:
-            print("page GET request")
+            pass
         return []
+    @app.route("/add-constraint", methods=["POST", "GET"])
+    def add_constraint():
+        if request.method == 'POST':
+            #add a constraint
+            print("Prioritizing Early Classes")
+            return []
+        else:
+            return []
     # Run app
     """
     if (parser.parse_args(['-n'])):

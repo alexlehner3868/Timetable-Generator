@@ -6,14 +6,15 @@ import Form from './Components/Form';
 import React, { useState, useEffect } from "react";
 import ShowScheduleButton from './Components/ShowScheduleButton';
 import RemoveCourseButton from './Components/RemoveCourseButton';
+import AddConstraintButton from './Components/AddConstraintButton';
 
 function App() {
-    const [data, setdata] = useState({
-      name: "",
-      age: 0,
-      date: "",
-      programming: "",
-    });
+  const [data, setdata] = useState({
+    name: "",
+    age: 0,
+    date: "",
+    programming: "",
+  });
 
   const [classes, setClasses] = useState([]);
   // Using useEffect for single rendering
@@ -74,6 +75,25 @@ function App() {
 
 
   },[]);
+  
+  const [constraints, setConstraints] = useState([]);
+  useEffect(()=>{
+    fetch("/add-constraint",{
+      'methods':'GET',
+      headers : {
+        'Content-Type':'text/plain'
+      }
+    })
+    .then(response => response.json())
+    .then(response => setConstraints(response))
+    .catch(error => console.log(error))
+
+
+  },[]);
+
+  const insertedConstraint = (constraint) =>{
+    setConstraints(constraint)
+  }
 
   // create a timetable array
   // 2d array: [course_id, course_name, course_type, section_id]
@@ -146,6 +166,9 @@ function App() {
   const removedClass = (class_) =>{
     setClasses(class_)
   }
+  const addedConstraint = (constraint) =>{
+    setConstraints(constraint)
+  }
 
   
   console.log("ALEX")
@@ -157,6 +180,7 @@ function App() {
       </header>
       <Form action="{{ url_for('send-request') }}" method="post" insertedClass={insertedClass} />
       <RemoveCourseButton action="{{ url_for('remove-class') }}" method="post" removedClass={removedClass} />
+      <AddConstraintButton action="{{ url_for('add-constraint') }}" method="post" addedConstraint={addedConstraint} />
       <ShowScheduleButton action="{{ url_for('basic-schedule') }}" method="post"  />
       <div class='whole-webpage'>
         <MainWindow timetableData={timetable} class="main-window"/>
