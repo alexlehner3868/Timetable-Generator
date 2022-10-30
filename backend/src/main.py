@@ -96,90 +96,92 @@ def main():
         return 'Want to see a schedule? <a href="/basic-schedule">Yes!</a>'
     @app.route('/basic-schedule', methods=["POST", "GET"])
     def micah_schedule():
-        #if request.method == 'POST':
+        if request.method == 'POST' or request.method =='GET':
             
-        print(request.data)
-        out = subprocess.run([args.algo, "get_schedule"], capture_output=True)
-        print(out.stdout)
-        #make a schedule
-        num_lines = ((out.stdout).decode("utf-8")).count("\n")
-        timetable_str = ((out.stdout).decode("utf-8"))
-        #print(timetable_str)
-        # loop through items in timetable
-        formatted_timetable = []
-        #first day monday is 1
-        day = 1
-        #first hour is 9am
-        time = 9
-        lines = timetable_str.splitlines()
-        len_classes = len(lines)
-        idx = 0
-        course_codes = []
-        for line in lines:
-            course_codes.append((line.split("_"))[3])
-            courses = []
-        [courses.append(x) for x in course_codes if x not in courses] 
-        for i in range(0, 55):
-            item = lines[idx].split("_")
-            if (item[0] == 'S'):
-                break
-            time = int(i/5) + 9
-            day = int(i%5) + 1
-            
-
-            #if element exists add to return array
-            if int(item[2]) == day and int(item[1]) == time:
-                #the class and time match, yay
-                formatted_timetable.append([item[3], str(int(item[5])+100), (str(item[4]))[0:3], courses.index(item[3])+1])
-                #move to check next class
-                idx += 1
-                if idx >= len_classes:
-                    i = 55
-            elif int(item[2]) == day and int(item[1]) != time:
-                #correct day but wrong time
-                #element doesn't exist in timetable, fill with empty array
-                formatted_timetable.append(["", "", "", 0])
-            elif int(item[2]) != day and int(item[1]) == time:
-                #correct day but wrong time
-                #element doesn't exist in timetable, fill with empty array
-                formatted_timetable.append(["", "", "", 0])
-            else:
-                #element doesn't exist in timetable, fill with empty array
-                formatted_timetable.append(["", "", "", 0])
-        if (len(formatted_timetable) != 55):
-            for i in range(0, 55-len(formatted_timetable)):
-                formatted_timetable.append(["", "", "", 0])
-        for i in range(0, 55):
-            item = lines[idx].split("_")
-            time = int(i/5) + 9
-            day = int(i%5) + 1
-            #if element exists add to return array
-            if int(item[2]) == day and int(item[1]) == time:
-                #the class and time match, yay
-                formatted_timetable.append([item[3], str(int(item[5])+100), (str(item[4]))[0:3], courses.index(item[3])+1])
-
-                #move to check next class
-                idx += 1
-                if idx >= len_classes:
+            print(request.data)
+            out = subprocess.run([args.algo, "get_schedule"], capture_output=True)
+            #print(out.stdout)
+            #make a schedule
+            num_lines = ((out.stdout).decode("utf-8")).count("\n")
+            timetable_str = ((out.stdout).decode("utf-8"))
+            #print(timetable_str)
+            # loop through items in timetable
+            formatted_timetable = []
+            #first day monday is 1
+            day = 1
+            #first hour is 9am
+            time = 9
+            lines = timetable_str.splitlines()
+            len_classes = len(lines)
+            idx = 0
+            course_codes = []
+            for line in lines:
+                course_codes.append((line.split("_"))[3])
+                courses = []
+            [courses.append(x) for x in course_codes if x not in courses] 
+            for i in range(0, 55):
+                item = lines[idx].split("_")
+                if (item[0] == 'S'):
                     break
-            elif int(item[2]) == day and int(item[1]) != time:
-                #correct day but wrong time
-                #element doesn't exist in timetable, fill with empty array
-                formatted_timetable.append(["", "", "", 0])
-            elif int(item[2]) != day and int(item[1]) == time:
-                #correct day but wrong time
-                #element doesn't exist in timetable, fill with empty array
-                formatted_timetable.append(["", "", "", 0])
-            else:
-                #element doesn't exist in timetable, fill with empty array
-                formatted_timetable.append(["", "", "", 0])
-        
-        if (len(formatted_timetable) < 110):
-            for i in range(0, 110 - len(formatted_timetable)):
-                formatted_timetable.append(["", "", "", 0])
-        #2d array: [course_id, course_type, section_id]
-        print(formatted_timetable)
-        return formatted_timetable
+                time = int(i/5) + 9
+                day = int(i%5) + 1
+                
+
+                #if element exists add to return array
+                if int(item[2]) == day and int(item[1]) == time:
+                    #the class and time match, yay
+                    formatted_timetable.append([item[3], str(int(item[5])+100), (str(item[4]))[0:3], courses.index(item[3])+1])
+                    #move to check next class
+                    idx += 1
+                    if idx >= len_classes:
+                        i = 55
+                elif int(item[2]) == day and int(item[1]) != time:
+                    #correct day but wrong time
+                    #element doesn't exist in timetable, fill with empty array
+                    formatted_timetable.append(["", "", "", 0])
+                elif int(item[2]) != day and int(item[1]) == time:
+                    #correct day but wrong time
+                    #element doesn't exist in timetable, fill with empty array
+                    formatted_timetable.append(["", "", "", 0])
+                else:
+                    #element doesn't exist in timetable, fill with empty array
+                    formatted_timetable.append(["", "", "", 0])
+            if (len(formatted_timetable) != 55):
+                for i in range(0, 55-len(formatted_timetable)):
+                    formatted_timetable.append(["", "", "", 0])
+            for i in range(0, 55):
+                item = lines[idx].split("_")
+                time = int(i/5) + 9
+                day = int(i%5) + 1
+                #if element exists add to return array
+                if int(item[2]) == day and int(item[1]) == time:
+                    #the class and time match, yay
+                    formatted_timetable.append([item[3], str(int(item[5])+100), (str(item[4]))[0:3], courses.index(item[3])+1])
+
+                    #move to check next class
+                    idx += 1
+                    if idx >= len_classes:
+                        break
+                elif int(item[2]) == day and int(item[1]) != time:
+                    #correct day but wrong time
+                    #element doesn't exist in timetable, fill with empty array
+                    formatted_timetable.append(["", "", "", 0])
+                elif int(item[2]) != day and int(item[1]) == time:
+                    #correct day but wrong time
+                    #element doesn't exist in timetable, fill with empty array
+                    formatted_timetable.append(["", "", "", 0])
+                else:
+                    #element doesn't exist in timetable, fill with empty array
+                    formatted_timetable.append(["", "", "", 0])
+            
+            if (len(formatted_timetable) < 110):
+                for i in range(0, 110 - len(formatted_timetable)):
+                    formatted_timetable.append(["", "", "", 0])
+            #2d array: [course_id, course_type, section_id]
+            print(formatted_timetable)
+            return formatted_timetable
+        else:
+            return []
         #else:
             #return []
         """[

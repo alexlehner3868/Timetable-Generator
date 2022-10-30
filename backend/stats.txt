@@ -1,6 +1,6 @@
 --- Stats Collected --- 
 __________________________
-Algorithm  Runtime: 204348 [µs]
+Algorithm  Runtime: 203013 [µs]
 __________________________
 --- Scheduler Stats ---
 Number of best timetables tracked: 5[out of a max of 20]

@@ -132,7 +132,7 @@ function App() {
             obj['classType'] = timetable[i][2];
             obj['classColorIdx'] = timetable[i][3]; 
             //arr.forEach(child_element => {
-           //   obj[child_element] = timetable[element][child_element];
+          //   obj[child_element] = timetable[element][child_element];
             //  console.log(obj);
             //});
             let sem = (i >= timetable.length/2 ? 1 : 0);
@@ -149,15 +149,18 @@ function App() {
             // code to accept each timetable grid item and set array properly
             // row.map((col)=> <Period  ClassID={props.classID} classSection={props.classSection} classNum={props.classNum}/>)
             // entire_timetable = timetable
-           // entire_timetable = timetables
-           timetables
+          // entire_timetable = timetables
+          timetables = timetable
 
           );
           console.log("Entire Timetale");
           console.log(timetables);
+          console.log("I've ran the function again");
+          
         })
     );
-  }, []);
+  }, [timetable]);
+  
   
   const insertedClass = (class_) =>{
     const new_classes = [...classes,class_]
@@ -182,7 +185,7 @@ function App() {
       <RemoveCourseButton action="{{ url_for('remove-class') }}" method="post" removedClass={removedClass} />
       <AddConstraintButton action="{{ url_for('add-constraint') }}" method="post" addedConstraint={addedConstraint} />
       <ShowScheduleButton action="{{ url_for('basic-schedule') }}" method="post"  />
-      <div class='whole-webpage'>
+      <div className='whole-webpage'>
         <MainWindow timetableData={timetable} class="main-window"/>
         <Sidebar class="sidebar"/>
       </div>
