@@ -36,19 +36,23 @@ const AddConstraintButton = (props) => {
         console.log("Prioritizing Minimum Days on Campus")
     } function handleSubmitBackBefore (event) { 
         event.preventDefault()
-        setConstraintName("Prioritize Back to Back Classes")
+        setConstraintName("Prioritize Classes After X")
         addConstraint()
-        console.log("Prioritizing Back to Back Classes")
+        console.log("Prioritize Classes After X")
     } function handleSubmitBackAfter (event) { 
         event.preventDefault()
-        setConstraintName("Prioritize Back to Back Classes")
+        setConstraintName("Prioritize Classes Before X")
         addConstraint()
-        console.log("Prioritizing Back to Back Classes")
+        console.log("Prioritize Classes Before X")
+    } function handleSubmitBack (event) { 
+        event.preventDefault()
+        setConstraintName("Prioritize Max Back to Back Classes")
+        addConstraint()
+        console.log("Prioritizing Max Back to Back Classes")
     }
     
   return (
        <div>
-             <form>
                 <input type="checkbox" id="early" name="fav_language" value="early" onClick = {handleSubmitEarly}></input>
                 <label for="early">Prefer Morning Classes</label><br></br>
                 <input type="checkbox" id="afternoon" name="fav_language" value="afternoon" onClick = {handleSubmitAfternoon}></input>
@@ -61,8 +65,9 @@ const AddConstraintButton = (props) => {
                 <input type="number" min="10" max="20" onClick = {handleSubmitBackBefore} ></input><br></br> 
                 <label for="back2back">No Class After: </label>
                 <input type="number" min="9" max="19" onClick = {handleSubmitBackAfter} ></input><br></br> 
+                <label for="back2back">Max Hours of Class Back to Back: </label>
+                <input type="number" min="0" max="" onClick = {handleSubmitBackAfter} ></input><br></br> 
 
-            </form>
        </div>
   )}
 
