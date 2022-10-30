@@ -9,16 +9,24 @@ const AddConstraintButton = (props) => {
       .catch(error => console.log('error',error))
     }
 
-    const handleSubmit=(event)=>{ 
+    function handleSubmit (event) { 
       event.preventDefault()
       setConstraintName("Prioritize Early Classes")
+      document.getElementById("early").checked = true;
       addConstraint()
       console.log("Prioritizing Early Classes")
     }
     
   return (
        <div>
-             <button onClick = {handleSubmit} className="btn btn-primary mt-2" > Prioritize Early Classes </button>
+             <form>
+                <input type="checkbox" id="early" name="fav_language" value="early" onClick = {handleSubmit}></input>
+                <label for="early">Prefer Morning Classes</label>
+                <input type="checkbox" id="afternoon" name="fav_language" value="afternoon" onClick = {handleSubmit}></input>
+                <label for="afternoon">Prefer Afternoon Classes</label>
+                <input type="checkbox" id="evening" name="fav_language" value="evening" onClick = {handleSubmit}></input>
+                <label for="evening">Prefer Evening Classes</label>
+            </form>
        </div>
   )}
 
