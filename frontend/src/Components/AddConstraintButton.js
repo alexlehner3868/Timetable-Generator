@@ -34,6 +34,16 @@ const AddConstraintButton = (props) => {
         document.getElementById("min_day").checked = true;
         addConstraint()
         console.log("Prioritizing Minimum Days on Campus")
+    } function handleSubmitBackBefore (event) { 
+        event.preventDefault()
+        setConstraintName("Prioritize Back to Back Classes")
+        addConstraint()
+        console.log("Prioritizing Back to Back Classes")
+    } function handleSubmitBackAfter (event) { 
+        event.preventDefault()
+        setConstraintName("Prioritize Back to Back Classes")
+        addConstraint()
+        console.log("Prioritizing Back to Back Classes")
     }
     
   return (
@@ -47,7 +57,10 @@ const AddConstraintButton = (props) => {
                 <label for="evening">Prefer Evening Classes</label><br></br>
                 <input type="checkbox" id="min_day" name="fav_language" value="min_day" onClick = {handleSubmitMinDay}></input>
                 <label for="min_day">Prefer Minimum Days on Campus</label><br></br>
-                
+                <label for="back2back">No Class Before: </label>
+                <input type="number" min="10" max="20" onClick = {handleSubmitBackBefore} ></input><br></br> 
+                <label for="back2back">No Class After: </label>
+                <input type="number" min="9" max="19" onClick = {handleSubmitBackAfter} ></input><br></br> 
 
             </form>
        </div>
