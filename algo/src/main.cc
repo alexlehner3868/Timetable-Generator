@@ -21,7 +21,7 @@ int test() {
     //--- Data Procesing ----
     // 1. Parses csv to get classes
     // 2. Store csv in SQL database or something and related sql funcitons
-    
+
     // to remove a class it should already be in offerings
     // remove_course(offerings, "ECE212H1");
 
@@ -46,7 +46,7 @@ int test() {
     // TODO: function (best timetables) -> url
     unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> offerings = get_classes();
     ConstraintHandler constraint_handler;
-    constraint_handler.add_time_constraint(10, 2, 2, 'F', MUST_HAVE); // tuesday at 10 am for 2 hours in the fall with 
+    constraint_handler.add_time_constraint(10, 2, 2, 'F', MUST_HAVE); // tuesday at 10 am for 2 hours in the fall with
     //constraint_handler.set_no_classes_before_X_constraint(13, GOOD_TO_HAVE);
     constraint_handler.preprocess_high_priority_classes_out(offerings);
     Scheduler scheduler_handler;
@@ -191,9 +191,9 @@ int main(int argc, char *argv[]) {
                 return test();
             else if (!std::string(argv[1]).compare("query"))
                 return query(argc - 2, argv + 2);
-            
+
         default:
             printf("Usage: %s [query|test]\n", argv[0]);
     }
-    
+
 }

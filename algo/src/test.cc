@@ -47,31 +47,37 @@ unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> get_classes(
                               course_one_lecture_sections,
                               course_one_tutorial_sections,
                               course_one_practical_sections);
+    class_one.semester(Semester::Fall);
     CourseOfferings class_two("Programming Fundamentals",
                               "ECE244H1",
                               course_two_lecture_sections,
                               course_two_tutorial_sections,
                               course_two_practical_sections);
+    class_two.semester(Semester::Fall);
     CourseOfferings class_three("Seminar Course",
                                 "ECE201H1",
                                 course_three_lecture_sections,
                                 course_three_tutorial_sections,
                                 course_three_practical_sections);
+    class_three.semester(Semester::Fall);
     CourseOfferings class_four("Circuit Analysis",
                                "ECE212H1",
                                course_four_lecture_sections,
                                course_four_tutorial_sections,
                                course_four_practical_sections);
+    class_four.semester(Semester::Fall);
     CourseOfferings class_five("Advanced Engineering Mathematics",
                                "MAT290H1",
                                course_five_lecture_sections,
                                course_five_tutorial_sections,
                                course_five_practical_sections);
+    class_five.semester(Semester::Fall);
     CourseOfferings class_six("Calculus III",
                               "MAT291H1",
                               course_six_lecture_sections,
                               course_six_tutorial_sections,
                               course_six_practical_sections);
+    class_six.semester(Semester::Fall);
 
     unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> offerings;
     offerings.insert(class_one);
@@ -81,7 +87,7 @@ unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> get_classes(
     offerings.insert(class_five);
     offerings.insert(class_six);
 
-    
+
     std::vector<Section> course_seven_lecture_sections = course_data.add_course("ECE216H1", 1);
     std::vector<Section> course_eight_lecture_sections = course_data.add_course("ECE221H1", 1);
     std::vector<Section> course_nine_lecture_sections = course_data.add_course("ECE231H1", 1);
@@ -106,26 +112,31 @@ unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> get_classes(
                               course_seven_lecture_sections,
                               course_seven_tutorial_sections,
                               course_seven_practical_sections);
+    class_seven.semester(Semester::Winter);
     CourseOfferings class_eight("Electric and Magnetic Fields",
                               "ECE221H1",
                               course_eight_lecture_sections,
                               course_eight_tutorial_sections,
                               course_eight_practical_sections);
+    class_eight.semester(Semester::Winter);
     CourseOfferings class_nine("Introductory Electronics",
                                 "ECE231H1",
                                 course_nine_lecture_sections,
                                 course_nine_tutorial_sections,
                                 course_nine_practical_sections);
+    class_nine.semester(Semester::Winter);
     CourseOfferings class_ten("Computer Organization",
                                "ECE243H1",
                                course_ten_lecture_sections,
                                course_ten_tutorial_sections,
                                course_ten_practical_sections);
+    class_ten.semester(Semester::Winter);
     CourseOfferings class_eleven("Communication and Design",
                                "ECE297H1",
                                course_eleven_lecture_sections,
                                course_eleven_tutorial_sections,
                                course_eleven_practical_sections);
+    class_eleven.semester(Semester::Winter);
 
 
     offerings.insert(class_seven);

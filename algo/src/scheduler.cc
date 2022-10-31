@@ -62,7 +62,7 @@ vector<TimeTable> Scheduler::schedule_classes(
 void Scheduler::schedule_classes_helper(
     unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> &courses,
     TimeTable &timetable) {
-       
+
     if (number_of_explored_timetables > max_number_of_timetables_to_explore) {
         timetables_not_explored_++;
         return;
@@ -72,9 +72,9 @@ void Scheduler::schedule_classes_helper(
         number_of_explored_timetables++;
         int timetable_additional_cost = constraint_handler_->cost_of_timetable(timetable.classes());
         timetable.add_cost(timetable_additional_cost);
-        if (unique_check(timetable)) { // <---- This function is broken 
+        if (unique_check(timetable)) { // <---- This function is broken
             unique_timetables_found_++;
-            // Priority queue has less than the max num of timetables            
+            // Priority queue has less than the max num of timetables
             if ((int)timetables_.size() < (int)max_num_of_timetables_to_show) {
                 timetables_.push(timetable);
             } else {
@@ -113,6 +113,10 @@ void Scheduler::attempt_to_add_section(
     CourseOfferings course,
     unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> &courses) {
     int num_sections = 0;
+
+    // Ignore offerings that are in the wrong semester
+    course.prune_semester();
+
     if (class_type == LEC) {
         num_sections = (int)course.numLecSections();
     } else if (class_type == TUT) {
@@ -275,13 +279,13 @@ void Scheduler::attempt_to_add_section(
 }
 
 void Scheduler::print_timetables(vector<TimeTable> timetables) {
-    
+
     for (auto t : timetables) {
         print_timetable(t, 1);
         // ONLY FOR WEBSITE PRINTING ONE TIMETABKE
         break;
     }
-    
+
 
 
 }
@@ -292,7 +296,7 @@ void Scheduler::print_timetable(TimeTable &timetable, int preset) {
     // 0 = debug
     // 1 = frontend use
     if (preset == 0) {
-        
+
         std::cout << "Timetable option: " << std::endl;
 
         for (std::pair<Date, SelectedCourseSection> element : timetable.classes()) {

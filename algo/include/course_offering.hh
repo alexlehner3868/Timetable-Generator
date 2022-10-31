@@ -2,6 +2,7 @@
 #define OFFERING_H
 
 #include <iostream>
+#include <optional>
 #include <string>
 #include <unordered_map>
 #include <vector>
@@ -9,6 +10,23 @@
 #include "section.hh"
 
 using namespace std;
+
+enum class Semester {
+    Fall,
+    Winter,
+    Summer,
+};
+
+inline optional<Semester> char2sem(char c) {
+    switch (c) {
+        case 'F':
+            return make_optional(Semester::Fall);
+        case 'S':
+            return make_optional(Semester::Winter);
+        default:
+            return std::nullopt;
+    }
+}
 
 class CourseOfferings {
 private:
@@ -23,7 +41,14 @@ public:
         lecture_sections_ = lec;
         tutorial_sections_ = tut;
         practical_sections_ = pra;
+        semester_ = nullopt;
     }
+
+    void semester(Semester &&semester) {
+        this->semester_ = make_optional(semester);
+    }
+
+    void prune_semester();
 
     bool operator==(const CourseOfferings &otherCourse) const {
         return course_id_ == (otherCourse.course_id_);
@@ -56,6 +81,7 @@ public:
     vector<Section> lecture_sections_;
     vector<Section> tutorial_sections_;
     vector<Section> practical_sections_;
+    optional<Semester> semester_;
 };
 
 #endif

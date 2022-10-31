@@ -29,7 +29,7 @@ public:
     vector<int> duration_;   // length of class in hour integer segements
     vector<int> start_time_; // military time in hours
     vector<int> day_;        // Monday = 0 .... Fri = 5
-    vector<char> semester_;  //'F' or 'W'
+    vector<char> semester_;  //'F' or 'S'
     vector<bool> async_;
 
     int num_classes_in_section() {

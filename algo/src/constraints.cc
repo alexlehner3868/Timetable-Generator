@@ -149,6 +149,7 @@ bool ConstraintHandler::preprocess_high_priority_classes_out(unordered_set<Cours
   std::string new_course_name = offering.name_;
   std::string new_course_id = offering.course_id_;
   CourseOfferings preprocessed_class(new_course_name,new_course_id,new_lec_sections, new_tut_sections, new_pra_sections);
+  preprocessed_class.semester_ = offering.semester_;
   new_offerings.insert(preprocessed_class);
   }
 
@@ -194,36 +195,36 @@ int ConstraintHandler::cost_of_timetable(std::unordered_map<Date, SelectedCourse
 
   vector<vector<bool>> schedule;
 
-  // Set up vector to store timetable 
+  // Set up vector to store timetable
   for(int i = 0; i < 10; i++){
-    // Add 24 hours to each day  
+    // Add 24 hours to each day
     schedule.push_back(vector<bool>(24, false));
   }
 
-  // Mark where each class occurs  
+  // Mark where each class occurs
   for(auto period : timetable){
     Date d = period.first;
     schedule[d.first-1][d.second] = true;
   }
 
-  // A count for the number of days that have classes 
+  // A count for the number of days that have classes
   int days_at_school = 0;
 
-  // Loop through all days 
+  // Loop through all days
   for(int day = 0; day < 10; day++){
     // Used to "back_to_back_constraint_" constraint
-    int back_to_back = 0; 
-    // Used for "minimize_days_at_school_" constraint 
+    int back_to_back = 0;
+    // Used for "minimize_days_at_school_" constraint
     bool class_on_this_day = false;
 
-    // Loop through all hours per day 
+    // Loop through all hours per day
     for(int hour = 0; hour < 24; hour ++){
-        // Check if a class is at this time and update constraint trackers 
+        // Check if a class is at this time and update constraint trackers
         if(schedule[day][hour]){
           back_to_back++;
           class_on_this_day = true;
         }else{
-          // If back_to_back is an active constraint, check if more than X hours are back to back 
+          // If back_to_back is an active constraint, check if more than X hours are back to back
           if(back_to_back_constraint_.second && back_to_back > back_to_back_constraint_.first){
             cost+= (back_to_back_constraint_.second * (back_to_back - back_to_back_constraint_.first)*multiplier/2);
           }
@@ -240,8 +241,8 @@ int ConstraintHandler::cost_of_timetable(std::unordered_map<Date, SelectedCourse
       days_at_school++;
     }
   }
-  
-  // Check for number of days at school 
+
+  // Check for number of days at school
   // If a days off preference is selected, the cost is increased perportional to priority and number of days at school
   cost += (minimize_days_at_school_ !=NO_PRIORITY ? minimize_days_at_school_ *  days_at_school * multiplier: 0);
 
@@ -256,7 +257,7 @@ ConstraintHandler::ConstraintHandler() {
     back_to_back_constraint_ = make_pair(24, NO_PRIORITY);
     no_classes_after_X_ = make_pair(24, NO_PRIORITY);
     no_classes_before_X_ = make_pair(0, NO_PRIORITY); // to rest
-  
+
     minimize_days_at_school_ = NO_PRIORITY;
     prefer_morning_classes_ = NO_PRIORITY;
     prefer_afternoon_classes_ = NO_PRIORITY;
