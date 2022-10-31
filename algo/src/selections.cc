@@ -53,25 +53,10 @@ void Selections::remove_class(string course_id) {
     }
 }
 
-/** 
-*   1 - add_time_constraint(int start_time, int duration, int day, char semester, int priority);
-    2 - set_back_to_back_constraint(int max_back_to_back, int priority);
-    3 - set_no_classes_after_X_constraint(int X, int priority);
-    4 - set_no_classes_before_X_constraint(int X, int priority);
-    5 - set_minimize_days_at_school_constraint(int priority);
-    6 - set_prefer_morning_classes_constraint(int priority);
-    7 - set_prefer_afternoon_classes_constraint(int priority);
-    8 - set_prefer_evening_classes_constraint(int priority);
-    9 - reorder_time_constraints_based_on_priority();
-    
-* 
-*/
-void Selections::add_constraint(int constraint_num) {
-
-}
-// rewrite later to have course_x_y_sections saved
 void Selections::run_scheduler() {
-
+    for (int i = 0; i < fall_courses.size(); i++) {
+        //add_class();
+    }
     if (fall_courses.size() != 6 || winter_courses.size() != 5) {
         return;
     }
