@@ -69,7 +69,7 @@ Below is a list of coding tasks that still need to be completed
         - [DONE] add class button
         - [DONE] remove class button
         - [DONE] constraint generation
-    4. Adding more constraints & tune constraint cost (Alex) Oct 31
+    4. [DONE] Adding more constraints & tune constraint cost (Alex) Oct 31
     5. Make scheduling semester to semester (ie run scheduler twice) (Zak) Oct 31
     6. No timetable possible (Zak) oct 31
     7. Add suppport for async classes
@@ -78,4 +78,5 @@ Below is a list of coding tasks that still need to be completed
     9. Apply constraints to just one semester
     10. Use new database (replace all previous)
     11. Get templates working
+    12. [DONE] Stats output 
 
