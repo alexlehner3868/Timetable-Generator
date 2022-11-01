@@ -3,6 +3,7 @@
 
 #include <algorithm>
 #include <iostream>
+#include <optional>
 #include <queue>
 #include <random>
 #include <string>
@@ -23,19 +24,21 @@ private:
     priority_queue<TimeTable, vector<TimeTable>, CompareTimeTable> timetables_;
     std::vector<std::vector<std::string>> timetables_str;
     int max_sections_scheduled();
-    int max_num_of_timetables_to_show = 20; 
+    int max_num_of_timetables_to_show = 20;
     int number_of_explored_timetables = 0;
     int max_number_of_timetables_to_explore = 400;
     ConstraintHandler* constraint_handler_;
     StatCollector stats_collector_;
-    
-    // Stats 
+
+    // Stats
     int partial_timetables_pruned_ = 0;
     int full_timetable_pruned_ = 0;
     int timetables_not_explored_ = 0;
     bool output_stats = true;
     int unique_timetables_found_ = 0;
 public:
+    bool allow_incomplete = false;
+
     Scheduler();
     vector<TimeTable> schedule_classes(
         unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> &courses,
@@ -45,7 +48,7 @@ public:
         TimeTable &timetable);
     void print_timetable(TimeTable &timetable, int preset);
     string jsonify(TimeTable &timetable);
-    void attempt_to_add_section(
+    optional<Semester> attempt_to_add_section(
         TimeTable &timetable,
         int class_type,
         CourseOfferings course,

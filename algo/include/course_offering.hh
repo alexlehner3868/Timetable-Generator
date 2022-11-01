@@ -14,7 +14,6 @@ using namespace std;
 enum class Semester {
     Fall,
     Winter,
-    Summer,
 };
 
 inline optional<Semester> char2sem(char c) {
@@ -48,7 +47,7 @@ public:
         this->semester_ = make_optional(semester);
     }
 
-    void prune_semester();
+    bool prune_semester();
 
     bool operator==(const CourseOfferings &otherCourse) const {
         return course_id_ == (otherCourse.course_id_);

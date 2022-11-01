@@ -9,14 +9,15 @@
 #include "course_data.hh"
 #include "course_offering.hh"
 #include "date.hh"
-#include "scheduler.hh"
-#include "timetable.hh"
+
 using namespace std;
 
 class TimeTable {
 public:
     std::unordered_map<Date, SelectedCourseSection, Date_Hash> scheduled_classes;
     int current_time_table_cost = 0;
+    int chose_fall = 0;
+    int chose_winter = 0;
     TimeTable() {}
     TimeTable(std::unordered_map<Date, SelectedCourseSection, Date_Hash> &classes, int cost) {
         scheduled_classes = classes;
@@ -55,6 +56,10 @@ public:
 
     void add_cost(int c) {
         current_time_table_cost += c;
+    }
+
+    bool balanced() {
+      return std::abs(this->chose_fall - this->chose_winter) <= 3;
     }
 };
 

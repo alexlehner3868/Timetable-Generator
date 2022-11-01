@@ -1,5 +1,6 @@
 #include <algorithm>
 #include <iostream>
+#include <optional>
 #include <random>
 #include <sstream>
 #include <string>
@@ -10,6 +11,7 @@
 
 
 #include "constraints.hh"
+#include "course_offering.hh"
 #include "period.hh"
 #include "print_functions.hh"
 #include "scheduler.hh"
@@ -50,6 +52,9 @@ vector<TimeTable> Scheduler::schedule_classes(
         best_time_tables.push_back(t);
         timetables_.pop();
     }
+    if (num_tables == 0) {
+        cout << "Could not generate any possible timetables" << endl;
+    }
 
     if(output_stats){
         stats_collector_.set_scheduler_counts(partial_timetables_pruned_, full_timetable_pruned_, number_of_explored_timetables, max_number_of_timetables_to_explore, max_num_of_timetables_to_show, num_tables, unique_timetables_found_, std::chrono::duration_cast<std::chrono::microseconds>(end - start).count());
@@ -70,6 +75,10 @@ void Scheduler::schedule_classes_helper(
     // All sections have been added
     if (courses.size() == 0) {
         number_of_explored_timetables++;
+        // TODO: check for balance
+        if (!timetable.balanced()) {
+            // return; // FIXME: this doesn't work yet
+        }
         int timetable_additional_cost = constraint_handler_->cost_of_timetable(timetable.classes());
         timetable.add_cost(timetable_additional_cost);
         if (unique_check(timetable)) { // <---- This function is broken
@@ -103,19 +112,29 @@ void Scheduler::schedule_classes_helper(
 
     // Loop through all of the Course Offerings (ie the course and all its sections)
     for (auto course : courses) {
-        attempt_to_add_section(timetable, LEC, course, courses);
+        // Attempt to add a section
+        auto sem = attempt_to_add_section(timetable, LEC, course, courses);
+        // Track which semester we put it in
+        if (!course.semester_ && sem) {
+            switch (*sem) {
+                case Semester::Fall:
+                    timetable.chose_fall++;
+                    break;
+                case Semester::Winter:
+                    timetable.chose_winter++;
+                    break;
+            }
+        }
     }
 }
 
-void Scheduler::attempt_to_add_section(
+optional<Semester> Scheduler::attempt_to_add_section(
     TimeTable &timetable,
     int class_type,
     CourseOfferings course,
     unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> &courses) {
     int num_sections = 0;
-
-    // Ignore offerings that are in the wrong semester
-    course.prune_semester();
+    optional<Semester> semester = nullopt;
 
     if (class_type == LEC) {
         num_sections = (int)course.numLecSections();
@@ -177,6 +196,9 @@ void Scheduler::attempt_to_add_section(
                     // Combination is invalid
                     // Time occupied by another course offering or constraint
                 } else {
+                    // Keep track of which semester we chose
+                    semester = make_optional((class_chosen.semester == 'F') ? Semester::Fall : Semester::Winter);
+
                     section_cost += constraint_handler_->cost_of_class(period);
                 }
             }
@@ -276,6 +298,8 @@ void Scheduler::attempt_to_add_section(
             schedule_classes_helper(remaining_classes, timetable);
         }
     }
+
+    return semester;
 }
 
 void Scheduler::print_timetables(vector<TimeTable> timetables) {

@@ -2,8 +2,9 @@ Below is a list of coding tasks that still need to be completed
 
 1. General
     - What happens if no possible timetables are found [SAY NO TIMETABLE IS POSSIBLE WITH CURRENT SET OF CLASSES]
-        - 1: hard time conflict and class overlaps -> report class x at time constraint y
+        - 1: hard time conflict and class overlaps -> report class x at time constraint y (preprocess fn)
         - 2: no timetables with that set of courses can be generated
+        - 3: semester specified, but course not offered
     - Should we force semester by semester scheduling or do full year scheduling [SEMESTER BY SEMESTER]
     - [DONE] Ask course data guy for data with course names [NATALIA WILL DO 10/10/22]
     - Allow classes to be locked into a section
@@ -71,9 +72,9 @@ Below is a list of coding tasks that still need to be completed
         - [DONE] constraint generation
     4. [DONE] Adding more constraints & tune constraint cost (Alex) Oct 31
     5. [DONE] Make scheduling semester to semester (ie run scheduler twice) (Zak) Oct 31
-    6. No timetable possible (Zak) oct 31
+    6. [DONE] No timetable possible (Zak) oct 31
     7. Add suppport for async classes
-    8. Restrict number of classes per semester to 6 (Zak) Oct 31
+    8. [DONE] Restrict number of classes per semester to 6 (Zak) Oct 31 (this is a soft constraint)
     8.5 Are the unique strings getting rid of unique timetables? (bug?) if you change the numb of time  tables to show from 5->bigger num, the number of timetables doesnt grow
     9. Apply constraints to just one semester
     10. Use new database (replace all previous)

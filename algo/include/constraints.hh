@@ -35,21 +35,21 @@ enum constraint_priority {
 class ConstraintHandler {
 private:
     // Constraints handled per section
-    int prefer_morning_classes_;                           // int = priority 
-    int prefer_evening_classes_;                           // int = priority 
-    int prefer_afternoon_classes_;                         // int = priority 
+    int prefer_morning_classes_;                           // int = priority
+    int prefer_evening_classes_;                           // int = priority
+    int prefer_afternoon_classes_;                         // int = priority
     pair<int, int> no_classes_after_X_;                    // <X, priority>
     pair<int, int> no_classes_before_X_;                   // <X, prioity>
-    
+
     unordered_map<Date, int, Date_Hash> time_constraints_; // key: (day, time), value: priority
 
     // Constraints handled per timetable
-    int minimize_days_at_school_;                          // int = priority 
+    int minimize_days_at_school_;                          // int = priority
     pair<int, int> back_to_back_constraint_; // <max hours back to back, priority>
 
     // For Stats
     int number_of_classes_preprossed_out = 0;
-    
+
 public:
     ConstraintHandler();
     void add_time_constraint(int start_time, int duration, int day, char semester, int priority);
@@ -64,10 +64,12 @@ public:
 
     bool preprocess_high_priority_classes_out(
         unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> &original_offerings);
+    bool prune_semesters(
+        unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> &offerings);
 
     int cost_of_class(Date d);
     int cost_of_timetable(std::unordered_map<Date, SelectedCourseSection, Date_Hash> timetable);
-    
+
     // For stats
     stringstream output_constraints_stats();
 };

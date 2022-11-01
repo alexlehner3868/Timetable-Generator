@@ -54,7 +54,7 @@ bool ConstraintHandler::preprocess_high_priority_classes_out(unordered_set<Cours
   // Maybe? Add before_X and after_X times if it is a high priority (ie add all times above X for all days )
   // TimeConstraint(int start, int day, int priority, char semester)
   bool section_removed = false;
-  bool remove_section = false;
+  bool valid_sections_after_removal = true;
 
   vector<Section> new_lec_sections;
   vector<Section> new_tut_sections;
@@ -64,6 +64,9 @@ bool ConstraintHandler::preprocess_high_priority_classes_out(unordered_set<Cours
   // copy original_offerings so we can loop through it and delete at the same time
   //unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>::iterator offerings_iterator = original_offerings.begin();
   for(auto offering: original_offerings){
+    bool lec_exists = offering.lecture_sections_.size() > 0;
+    bool tut_exists = offering.tutorial_sections_.size() > 0;
+    bool pra_exists = offering.practical_sections_.size() > 0;
     vector<Section>::iterator lect_section = offering.lecture_sections_.begin();
     vector<Section>::iterator tut_section = offering.tutorial_sections_.begin();
     vector<Section>::iterator pra_section = offering.practical_sections_.begin();
@@ -142,20 +145,42 @@ bool ConstraintHandler::preprocess_high_priority_classes_out(unordered_set<Cours
       section_removed = false;
     }
 
-  //copy offering to a new variable so we don't lose the deleted items
-  new_lec_sections = offering.lecture_sections_;
-  new_tut_sections = offering.tutorial_sections_;
-  new_pra_sections = offering.practical_sections_;
-  std::string new_course_name = offering.name_;
-  std::string new_course_id = offering.course_id_;
-  CourseOfferings preprocessed_class(new_course_name,new_course_id,new_lec_sections, new_tut_sections, new_pra_sections);
-  preprocessed_class.semester_ = offering.semester_;
-  new_offerings.insert(preprocessed_class);
+    //copy offering to a new variable so we don't lose the deleted items
+    new_lec_sections = offering.lecture_sections_;
+    new_tut_sections = offering.tutorial_sections_;
+    new_pra_sections = offering.practical_sections_;
+    if (lec_exists && new_lec_sections.size() == 0) {
+      cout << offering.name_ << ": could not schedule; all lectures conflict with hard constraints" << endl;
+      valid_sections_after_removal = false;
+    }
+    if (tut_exists && new_tut_sections.size() == 0) {
+      cout << offering.name_ << ": could not schedule; all tutorials conflict with hard constraints" << endl;
+      valid_sections_after_removal = false;
+    }
+    if (pra_exists && new_pra_sections.size() == 0) {
+      cout << offering.name_ << ": could not schedule; all practicals conflict with hard constraints" << endl;
+      valid_sections_after_removal = false;
+    }
+    std::string new_course_name = offering.name_;
+    std::string new_course_id = offering.course_id_;
+    CourseOfferings preprocessed_class(new_course_name,new_course_id,new_lec_sections, new_tut_sections, new_pra_sections);
+    preprocessed_class.semester_ = offering.semester_;
+    new_offerings.insert(preprocessed_class);
   }
 
   //copy new offerings over
   original_offerings = new_offerings;
-  return remove_section;
+  return valid_sections_after_removal;
+}
+
+bool ConstraintHandler::prune_semesters(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> &offerings) {
+  bool succeeded = true;
+
+  // Ignore offerings that are in the wrong semester
+  for (auto offering : offerings)
+    succeeded &= offering.prune_semester();
+
+  return succeeded;
 }
 
 int ConstraintHandler::cost_of_class(Date d) {

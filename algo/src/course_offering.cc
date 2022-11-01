@@ -5,7 +5,9 @@
 
 using namespace std;
 
-void CourseOfferings::prune_semester() {
+bool CourseOfferings::prune_semester() {
+    bool had_lec = this->lecture_sections_.size() > 0;
+
     if (this->semester_) {
         for (auto it = this->lecture_sections_.begin();
                 it != this->lecture_sections_.end();) {
@@ -29,5 +31,6 @@ void CourseOfferings::prune_semester() {
                 it++;
         }
     }
-}
 
+    return had_lec && (this->lecture_sections_.size() > 0);
+}
