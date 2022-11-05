@@ -69,7 +69,7 @@ Below is a list of coding tasks that still need to be completed
    PRIORITY LIST: (due 20th)
    
     1. [DONE] Add suppport for async classes [ALEX] 
-    1.5 Add support for full year classes 
+    1.5 [DONE] Add support for full year classes (kinda done)
     2. Are the unique strings getting rid of unique timetables? (bug?) if you change the numb of time  tables to show from 5->bigger num, the number of timetables doesnt grow [NAT]
     3. Apply constraints to just one semester
     4. Use new database (replace all previous) [NAT]

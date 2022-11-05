@@ -133,7 +133,7 @@ int CourseData::get_sql_data(void *course_data, int argc, char **argv, char **az
     one_sections_data.push_back(argv[5]);
     one_sections_data.push_back(argv[6]);
     one_sections_data.push_back(argv[7]);
-
+    one_sections_data.push_back(argv[2]);
     std::vector<std::vector<std::string>>
         *pointer_to_course_data = (std::vector<std::vector<std::string>> *)course_data;
     (*pointer_to_course_data).push_back(one_sections_data);
@@ -206,6 +206,7 @@ std::vector<Section> CourseData::add_course(string course_id, int section_type) 
         // 3 - day
         // 4 - class start time
         // 5 - class end time
+        // 6 - session id
 
         // if no more sections need to be added to the vectors
         if (old_section_num != current_section_num) {
@@ -234,7 +235,17 @@ std::vector<Section> CourseData::add_course(string course_id, int section_type) 
         class_durations.insert(class_durations.end(), {(stoi(section[5]) - stoi(section[4]))});
         class_start_time.insert(class_start_time.end(), {stoi(section[4])});
         // take the first char of the string 'F' or 'W' or 'Y'
-        class_semester.insert(class_semester.end(), {section[0][0]});
+        char sem = section[0][0];
+        if(sem == 'Y'){
+            if(section[6].back() == '9'){
+                class_semester.insert(class_semester.end(), 'F');
+            }else{
+                 class_semester.insert(class_semester.end(), 'W'); 
+            }
+        }else{
+            class_semester.insert(class_semester.end(), {section[0][0]});
+        }
+       
 
         if (section[3] == "MO") {
             class_day.insert(class_day.end(), {1});
