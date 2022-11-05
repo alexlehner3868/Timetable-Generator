@@ -66,6 +66,7 @@ public:
     void set_prefer_evening_classes_constraint(int priority);
     void set_prefer_async_classes_cosntraint(int priority);
     void set_prefer_sync_classes_constraint(int priority);
+    void set_no_more_than_X_hours_per_day_cosntraint(int X, int priority);
 
     void reorder_time_constraints_based_on_priority();
 
