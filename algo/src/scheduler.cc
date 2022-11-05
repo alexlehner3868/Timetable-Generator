@@ -167,14 +167,15 @@ optional<Semester> Scheduler::attempt_to_add_section(
             .course_code = course.course_id_,
             .type = class_type, // Lecture
             .section = section.section_id_,
-            .semester = section.semester_.at(0) // Each section should only be in either F or W
+            .semester = section.semester_.at(0), // Each section should only be in either F or W
                                                 // (need support for full year courses)
                                                 // semester can be a char instead of a vector
                                                 // F - FALL W - WINTER B - BOTH
+            .async = section.async_.at(0)
+                
         };
-        // cout << class_type << " is class type and " << section_indx << " is the section id" <<
-        // endl;
         bool successfully_inserted;
+        // Is this class an async class 
         Date period;
         // Try adding all of the lecture sections for that section and class to the timetable
         for (class_in_section = 0; class_in_section < (int)section.duration_.size();
@@ -188,7 +189,14 @@ optional<Semester> Scheduler::attempt_to_add_section(
                                    section.start_time_.at(class_in_section) + i);
 
                 // Insert into the timetable
-                successfully_inserted = timetable.insert(std::make_pair(period, class_chosen));
+                if(class_chosen.async){
+                    // Insert an async class into timetable 
+                    successfully_inserted = timetable.insert_async(class_chosen);
+                }else{
+                    // Insert a non-async class into timetable
+                    successfully_inserted = timetable.insert(std::make_pair(period, class_chosen));
+                }
+                
 
                 // Check if the class was sucessfully inserted
                 if (!successfully_inserted) {
@@ -330,10 +338,16 @@ void Scheduler::print_timetable(TimeTable &timetable, int preset) {
             auto section_chosen = element.second.section;
             auto type = element.second.type;
             auto semester = element.second.semester;
+            auto async = element.second.async;
+            if(!async){
+                std::cout << "  " << semester << ": " << course << " " << toClassType(type) << " section "
+                        << (section_chosen + 1) << " on " << toDay(day) << " at " << toTime(time)
+                        << std::endl;
+            }else{
+                std::cout << "  " << semester << ": " << course << " " << toClassType(type) << " section "
+                        << (section_chosen + 1) << "test" << std::endl;
+            }
 
-            std::cout << "  " << semester << ": " << course << " " << toClassType(type) << " section "
-                    << (section_chosen + 1) << " on " << toDay(day) << " at " << toTime(time)
-                    << std::endl;
         }
     }
 
@@ -351,19 +365,24 @@ void Scheduler::print_timetable(TimeTable &timetable, int preset) {
             auto semester = element.second.semester;
             auto day = element.first.first;
             auto time = element.first.second;
+            auto async = element.second.async; //ALEX -> always saying async
 
             class_str.push_back(semester);
             class_str.append("_");
-            if (time == 9) {
-                class_str.append("09");
-            } else {
-                class_str.append(std::to_string(time));
+            if(!async){
+                if (time == 9) {
+                    class_str.append("09");
+                } else {
+                    class_str.append(std::to_string(time));
+                }
+                class_str.append("_");
+                if (day > 5) {
+                    day -= 5;
+                }  
+                class_str.append(std::to_string(day));
+            }else{
+                class_str.append("async");
             }
-            class_str.append("_");
-            if (day > 5) {
-                day -= 5;
-            }
-            class_str.append(std::to_string(day));
             class_str.append("_");
             class_str.append(course);
             class_str.append("_");
@@ -406,10 +425,10 @@ string Scheduler::jsonify(TimeTable &timetable) {
                 type = "LEC";
                 break;
             case 2:
-                type = "LEC";
+                type = "TUT";
                 break;
             case 3:
-                type = "LEC";
+                type = "PRA";
                 break;
             default:
                 type = "UNK";
@@ -418,10 +437,18 @@ string Scheduler::jsonify(TimeTable &timetable) {
         json << "\"type\":\"" << type << "\",";
         auto section = element.second.section;
         json << "\"section\":" << section + 1 << ",";
-        auto day = element.first.first;
-        json << "\"day\":" << day << ",";
-        auto time = element.first.second;
-        json << "\"time\":" << time << "";
+        if(element.second.async){
+            int day = -1;
+            json << "\"day\":" << day << ",";
+            int time = -1;
+            json << "\"time\":" << time << "";
+        }else{
+            auto day = element.first.first;
+            json << "\"day\":" << day << ",";
+            auto time = element.first.second;
+            json << "\"time\":" << time << "";
+        }
+      
         json << "}";
     }
     json << "]";

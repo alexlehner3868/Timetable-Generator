@@ -20,6 +20,7 @@ struct SelectedCourseSection {
     int type; // 1 = lec, 2 = tut, 3 = pra
     int section;
     char semester;
+    bool async;
 };
 
 enum class_type { LEC = 1, TUT = 2, PRA = 3, CONSTRAINT = 4 };

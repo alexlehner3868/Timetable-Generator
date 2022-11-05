@@ -39,6 +39,7 @@ Below is a list of coding tasks that still need to be completed
         - Prefer no classes during meal times [yes/no, priority]
         - Minimize days at school [yes/no, priority]
         - No more than X hours back to back [X, priority]
+        - Prefer async/non async classes
         - No more than X hours per day [X, prioirty]
     - [DONE] Get timetable data to show up on timetables
     - [DONE] Show different timetables for each semster
@@ -52,6 +53,7 @@ Below is a list of coding tasks that still need to be completed
     - Allow classes to be locked into a section
     - Make it look pretty and aestetic
     - Add a help pop up and constraint explainer
+    - Add async classes to front end
 
 
 5. Back End
@@ -66,6 +68,7 @@ Below is a list of coding tasks that still need to be completed
    PRIORITY LIST: (due 20th)
    
     1. Add suppport for async classes [ALEX]
+    1.5 Add support for full year classes [ALEX]
     2. Are the unique strings getting rid of unique timetables? (bug?) if you change the numb of time  tables to show from 5->bigger num, the number of timetables doesnt grow [NAT]
     3. Apply constraints to just one semester
     4. Use new database (replace all previous) [NAT]

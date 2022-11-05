@@ -15,6 +15,7 @@ using namespace std;
 class TimeTable {
 public:
     std::unordered_map<Date, SelectedCourseSection, Date_Hash> scheduled_classes;
+    int num_async_classes = 0;
     int current_time_table_cost = 0;
     int chose_fall = 0;
     int chose_winter = 0;
@@ -44,6 +45,13 @@ public:
 
     void erase(Date period) {
         scheduled_classes.erase(period);
+    }
+
+    bool insert_async(SelectedCourseSection possible_section){
+        int fake_date = 0 - (2*num_async_classes);
+        scheduled_classes.insert({{fake_date,fake_date}, possible_section});
+        num_async_classes++;
+        return true;
     }
 
     std::unordered_map<Date, SelectedCourseSection, Date_Hash> classes() {
