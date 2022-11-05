@@ -206,8 +206,11 @@ optional<Semester> Scheduler::attempt_to_add_section(
                 } else {
                     // Keep track of which semester we chose
                     semester = make_optional((class_chosen.semester == 'F') ? Semester::Fall : Semester::Winter);
-
-                    section_cost += constraint_handler_->cost_of_class(period);
+                    if(!class_chosen.async){
+                        section_cost += constraint_handler_->cost_of_class(period);
+                    }
+                    section_cost  += constraint_handler_ ->sync_vs_async_cost(class_chosen.async);
+                    
                 }
             }
 

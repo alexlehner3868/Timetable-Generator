@@ -49,6 +49,12 @@ void ConstraintHandler::set_prefer_afternoon_classes_constraint(int priority) {
 void ConstraintHandler::set_prefer_evening_classes_constraint(int priority) {
     prefer_evening_classes_ = priority;
 }
+void ConstraintHandler::set_prefer_async_classes_cosntraint(int priority){
+  prefer_async_classes_ = priority;
+}
+void ConstraintHandler::set_prefer_sync_classes_constraint(int priority){
+  prefer_sync_classes_ = priority;
+}
 
 bool ConstraintHandler::preprocess_high_priority_classes_out(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& original_offerings){
   // Maybe? Add before_X and after_X times if it is a high priority (ie add all times above X for all days )
@@ -212,6 +218,15 @@ int ConstraintHandler::cost_of_class(Date d) {
     return cost;
 }
 
+int ConstraintHandler::sync_vs_async_cost(bool is_class_sync){
+  int cost;
+  if(is_class_sync){
+    cost =  prefer_async_classes_ - prefer_sync_classes_;
+  }else{
+    cost =  prefer_sync_classes_ - prefer_async_classes_;
+  }
+  return cost;
+}
 
 int ConstraintHandler::cost_of_timetable(std::unordered_map<Date, SelectedCourseSection, Date_Hash> timetable){
   int multiplier = 10;

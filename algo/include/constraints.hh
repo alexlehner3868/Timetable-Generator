@@ -40,7 +40,8 @@ private:
     int prefer_afternoon_classes_;                         // int = priority
     pair<int, int> no_classes_after_X_;                    // <X, priority>
     pair<int, int> no_classes_before_X_;                   // <X, prioity>
-
+    int prefer_async_classes_;                             // int = priority 
+    int prefer_sync_classes_;                               // int = priority
     unordered_map<Date, int, Date_Hash> time_constraints_; // key: (day, time), value: priority
 
     // Constraints handled per timetable
@@ -52,6 +53,8 @@ private:
 
 public:
     ConstraintHandler();
+
+    // Add/configure constraints
     void add_time_constraint(int start_time, int duration, int day, char semester, int priority);
     void set_back_to_back_constraint(int max_back_to_back, int priority);
     void set_no_classes_after_X_constraint(int X, int priority);
@@ -60,16 +63,21 @@ public:
     void set_prefer_morning_classes_constraint(int priority);
     void set_prefer_afternoon_classes_constraint(int priority);
     void set_prefer_evening_classes_constraint(int priority);
+    void set_prefer_async_classes_cosntraint(int priority);
+    void set_prefer_sync_classes_constraint(int priority);
+
     void reorder_time_constraints_based_on_priority();
 
+    // Remove sections for initial pruning 
     bool preprocess_high_priority_classes_out(
         unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> &original_offerings);
     bool prune_semesters(
         unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> &offerings);
 
+    // Calculate costs for pruning/ranking 
     int cost_of_class(Date d);
     int cost_of_timetable(std::unordered_map<Date, SelectedCourseSection, Date_Hash> timetable);
-
+    int sync_vs_async_cost(bool is_class_sync);
     // For stats
     stringstream output_constraints_stats();
 };
