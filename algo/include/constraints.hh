@@ -44,6 +44,8 @@ private:
     pair<int, int> no_breaks_larger_than_X_;                // <X, prioirty>
     int prefer_async_classes_;                             // int = priority 
     int prefer_sync_classes_;                               // int = priority
+    int prefer_lunch_break_;                                   // int = priority
+    int prefer_dinner_break_;                                  //int = prioirty 
 
     unordered_map<Date, int, Date_Hash> time_constraints_; // key: (day, time), value: priority
 
@@ -70,6 +72,8 @@ public:
     void set_prefer_sync_classes_constraint(int priority);
     void set_no_more_than_X_hours_per_day_cosntraint(int X, int priority);
     void set_no_breaks_larger_than_X_constraint(int X, int priority);
+    void set_prefer_lunch_break_constraint(int priority);
+    void set_prefer_dinner_break_constraint(int priority);
 
     void reorder_time_constraints_based_on_priority();
 

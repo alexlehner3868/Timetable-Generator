@@ -19,13 +19,14 @@ Below is a list of coding tasks that still need to be completed
 
 3. Constraints
     - Add constraint support for
-        - Communiting (ie no super late classes, no giant large breaks between classes) [yes/no, priority]
+        - Communiting (no giant large breaks between classes) [yes/no, priority] [DONE] ->renamed to no_breaks_larger_than_X_
         - Prefering morning/afternoon/evening classes -> [Morning, Afternoon, Evening] + priority [DONE]
-        - Prefer no classes during lunch times [yes/no, priority] 
-        - Prefer no classes during dinner times [yes/no, priority]
+        - Prefer no classes during lunch times [yes/no, priority] [DONE]
+        - Prefer no classes during dinner times [yes/no, priority] [DONE]
         - Minimize days at school [yes/no, priority] [DONE]
         - No more than X hours back to back [X, priority] [DONE]
-        - No more than X hours per day [X, priority] 
+        - No more than X hours per day [X, priority] [DONE]
+        - Prefer async/non async classes [DONE]
     - Tune timetable cost function to create more variability in timetables (ie numbers in constraint factor) [DONE]
     - Apply constraints to only one semester
 
@@ -67,12 +68,12 @@ Below is a list of coding tasks that still need to be completed
 
    PRIORITY LIST: (due 20th)
    
-    1. Add suppport for async classes [ALEX]
-    1.5 Add support for full year classes [ALEX]
+    1. [DONE] Add suppport for async classes [ALEX] 
+    1.5 Add support for full year classes 
     2. Are the unique strings getting rid of unique timetables? (bug?) if you change the numb of time  tables to show from 5->bigger num, the number of timetables doesnt grow [NAT]
     3. Apply constraints to just one semester
     4. Use new database (replace all previous) [NAT]
-    5. Add extra non-essential contraints that we brainstromed [ALEX]
+    5. [DONE] Add extra non-essential contraints that we brainstromed [ALEX]
     6. A front end way to cycle through timetables [ZAK]
     7. Connect python to algo so buttons calls scheduler/constraint methods [ZAK] (main.cc switch case needs to call cosntraint methods, course methods and scheduler)
     8. Get things to save [ZAK]

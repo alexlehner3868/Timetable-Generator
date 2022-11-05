@@ -64,6 +64,13 @@ void ConstraintHandler::set_no_breaks_larger_than_X_constraint(int X, int priori
   no_breaks_larger_than_X_ = make_pair(X, priority);
 }
 
+void ConstraintHandler::set_prefer_lunch_break_constraint(int priority){
+  prefer_lunch_break_ = priority;
+}
+void ConstraintHandler::set_prefer_dinner_break_constraint(int priority){
+  prefer_dinner_break_ = priority;
+}
+
 bool ConstraintHandler::preprocess_high_priority_classes_out(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& original_offerings){
   // Maybe? Add before_X and after_X times if it is a high priority (ie add all times above X for all days )
   // TimeConstraint(int start, int day, int priority, char semester)
@@ -268,6 +275,10 @@ int ConstraintHandler::cost_of_timetable(std::unordered_map<Date, SelectedCourse
     int hours_per_day = 0;
     // Used for "no_breaks_larger_than_X_" constraint
     int prev_class_hour = 0;
+    // Used for prefer_lunch_break_
+    bool break_for_lunch = false;
+    // Used for prefer_dinner_break_
+    bool break_for_dinner = false;
     // Loop through all hours per day
     for(int hour = 0; hour < 24; hour ++){
         // Check if a class is at this time and update constraint trackers
@@ -291,6 +302,12 @@ int ConstraintHandler::cost_of_timetable(std::unordered_map<Date, SelectedCourse
           }
           // Reset back to back cost
           back_to_back = 0;
+
+          if(hour < 14 && hour >= 11){
+            break_for_lunch = true;
+          }else if(hour > 17 && hour < 20){
+            break_for_dinner = true;
+          }
         }
     }
     // If back_to_back is an active constraint, check if more than X hours are back to back (Need to check for last interval)
@@ -304,6 +321,14 @@ int ConstraintHandler::cost_of_timetable(std::unordered_map<Date, SelectedCourse
     // If no_more_than_X_hours_per_day_ is active and we have more than X hours that day 
     if(no_more_than_X_hours_per_day_.second && hours_per_day > no_more_than_X_hours_per_day_.first){
       cost += no_more_than_X_hours_per_day_.second * (hours_per_day - no_more_than_X_hours_per_day_.first);
+    }
+    // If prefer_lunch_break_ is active and no lunch break 
+    if(prefer_lunch_break_ && !break_for_lunch){
+      cost += prefer_lunch_break_;
+    }
+     // If prefer_dinner_break_ is active and no lunch break 
+    if(prefer_dinner_break_ && !break_for_dinner){
+      cost += prefer_dinner_break_;
     }
   }
 
@@ -321,12 +346,20 @@ ConstraintHandler::ConstraintHandler() {
 
     back_to_back_constraint_ = make_pair(24, NO_PRIORITY);
     no_classes_after_X_ = make_pair(24, NO_PRIORITY);
-    no_classes_before_X_ = make_pair(0, NO_PRIORITY); // to rest
+    no_classes_before_X_ = make_pair(0, NO_PRIORITY); 
+    no_breaks_larger_than_X_ = make_pair(24, NO_PRIORITY);
+    no_more_than_X_hours_per_day_ = make_pair(24, NO_PRIORITY);
 
     minimize_days_at_school_ = NO_PRIORITY;
     prefer_morning_classes_ = NO_PRIORITY;
     prefer_afternoon_classes_ = NO_PRIORITY;
     prefer_evening_classes_ = NO_PRIORITY;
+    prefer_async_classes_ = NO_PRIORITY;
+    prefer_sync_classes_ = NO_PRIORITY;
+
+    prefer_lunch_break_ = NO_PRIORITY;
+    prefer_dinner_break_ = NO_PRIORITY;
+
 }
 
 
@@ -361,7 +394,24 @@ stringstream ConstraintHandler::output_constraints_stats(){
   if(prefer_evening_classes_ != NO_PRIORITY){
     ss<<"   Prefer Evening Classes: "<< toPriority(prefer_evening_classes_)<<endl;
   }
-
+  if(prefer_async_classes_ != NO_PRIORITY){
+     ss<<"   Prefer Async Classes: "<< toPriority(prefer_async_classes_)<<endl;
+  }
+  if(prefer_sync_classes_ != NO_PRIORITY){
+     ss<<"   Prefer Sync Classes: "<< toPriority(prefer_sync_classes_)<<endl;
+  }
+  if(no_more_than_X_hours_per_day_.second != NO_PRIORITY){
+    ss<<"   No More Than" << no_more_than_X_hours_per_day_.first<< "Hours Per Day: "<< toPriority(no_more_than_X_hours_per_day_.second)<<endl;
+  }
+  if(no_breaks_larger_than_X_.second != NO_PRIORITY){
+    ss<<"   Breaks No Longer Than " << no_breaks_larger_than_X_.first<< " Hours: "<< toPriority(no_breaks_larger_than_X_.second)<<endl;
+  }
+  if(prefer_lunch_break_ != NO_PRIORITY){
+      ss<<"   Prefer Lunch Break: "<< toPriority(prefer_lunch_break_)<<endl;
+  }
+  if(prefer_dinner_break_ != NO_PRIORITY){
+      ss<<"   Prefer Dinner Break: "<< toPriority(prefer_dinner_break_)<<endl;
+  }
   ss<<"Number of Sections Preprocessed Out: "<<number_of_classes_preprossed_out<<endl;
   return ss;
 }
