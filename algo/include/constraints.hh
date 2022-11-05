@@ -39,7 +39,8 @@ private:
     int prefer_evening_classes_;                           // int = priority
     int prefer_afternoon_classes_;                         // int = priority
     pair<int, int> no_classes_after_X_;                    // <X, priority>
-    pair<int, int> no_classes_before_X_;                   // <X, prioity>
+    pair<int, int> no_classes_before_X_;                   // <X, priority>
+    pair<int, int> no_more_than_X_hours_per_day_;          // <X, priority>
     int prefer_async_classes_;                             // int = priority 
     int prefer_sync_classes_;                               // int = priority
     unordered_map<Date, int, Date_Hash> time_constraints_; // key: (day, time), value: priority

@@ -56,6 +56,10 @@ void ConstraintHandler::set_prefer_sync_classes_constraint(int priority){
   prefer_sync_classes_ = priority;
 }
 
+void ConstraintHandler::set_no_more_than_X_hours_per_day_cosntraint(int X, int priority){
+  no_more_than_X_hours_per_day_ = make_pair(X, priority);
+}
+
 bool ConstraintHandler::preprocess_high_priority_classes_out(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& original_offerings){
   // Maybe? Add before_X and after_X times if it is a high priority (ie add all times above X for all days )
   // TimeConstraint(int start, int day, int priority, char semester)
@@ -256,13 +260,14 @@ int ConstraintHandler::cost_of_timetable(std::unordered_map<Date, SelectedCourse
     int back_to_back = 0;
     // Used for "minimize_days_at_school_" constraint
     bool class_on_this_day = false;
-
+    int hours_per_day = 0;
     // Loop through all hours per day
     for(int hour = 0; hour < 24; hour ++){
         // Check if a class is at this time and update constraint trackers
         if(schedule[day][hour]){
           back_to_back++;
           class_on_this_day = true;
+          hours_per_day++;
         }else{
           // If back_to_back is an active constraint, check if more than X hours are back to back
           if(back_to_back_constraint_.second && back_to_back > back_to_back_constraint_.first){
@@ -279,6 +284,10 @@ int ConstraintHandler::cost_of_timetable(std::unordered_map<Date, SelectedCourse
     // If at least one class was on this day, increment the counter
     if(class_on_this_day){
       days_at_school++;
+    }
+    // If no_more_than_X_hours_per_day_ is active and we have more than X hours that day 
+    if(no_more_than_X_hours_per_day_.second && hours_per_day > no_more_than_X_hours_per_day_.first){
+      cost += no_more_than_X_hours_per_day_.second * (hours_per_day - no_more_than_X_hours_per_day_.first);
     }
   }
 
