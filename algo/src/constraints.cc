@@ -60,6 +60,10 @@ void ConstraintHandler::set_no_more_than_X_hours_per_day_cosntraint(int X, int p
   no_more_than_X_hours_per_day_ = make_pair(X, priority);
 }
 
+void ConstraintHandler::set_no_breaks_larger_than_X_constraint(int X, int priority){
+  no_breaks_larger_than_X_ = make_pair(X, priority);
+}
+
 bool ConstraintHandler::preprocess_high_priority_classes_out(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& original_offerings){
   // Maybe? Add before_X and after_X times if it is a high priority (ie add all times above X for all days )
   // TimeConstraint(int start, int day, int priority, char semester)
@@ -260,7 +264,10 @@ int ConstraintHandler::cost_of_timetable(std::unordered_map<Date, SelectedCourse
     int back_to_back = 0;
     // Used for "minimize_days_at_school_" constraint
     bool class_on_this_day = false;
+    // Used for "no_more_than_X_hours_per_day_" constraint
     int hours_per_day = 0;
+    // Used for "no_breaks_larger_than_X_" constraint
+    int prev_class_hour = 0;
     // Loop through all hours per day
     for(int hour = 0; hour < 24; hour ++){
         // Check if a class is at this time and update constraint trackers
@@ -268,6 +275,15 @@ int ConstraintHandler::cost_of_timetable(std::unordered_map<Date, SelectedCourse
           back_to_back++;
           class_on_this_day = true;
           hours_per_day++;
+          
+          // If no_breaks_larger_than_X_ is active, check gap between classes
+          if(prev_class_hour != 0){
+            int break_between_classes = hour - prev_class_hour;
+            if(no_breaks_larger_than_X_.second && break_between_classes > no_breaks_larger_than_X_.first){
+              cost += no_breaks_larger_than_X_.second * (break_between_classes - no_breaks_larger_than_X_.first);
+            } 
+          }
+          prev_class_hour = hour;
         }else{
           // If back_to_back is an active constraint, check if more than X hours are back to back
           if(back_to_back_constraint_.second && back_to_back > back_to_back_constraint_.first){
