@@ -54,7 +54,7 @@ void Selections::remove_class(string course_id) {
 }
 
 void Selections::run_scheduler() {
-    for (int i = 0; i < fall_courses.size(); i++) {
+    for (int i = 0; i < (int) fall_courses.size(); i++) {
         //add_class();
     }
     if (fall_courses.size() != 6 || winter_courses.size() != 5) {

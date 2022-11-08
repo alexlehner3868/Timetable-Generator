@@ -125,15 +125,17 @@ int CourseData::get_sql_data(void *course_data, int argc, char **argv, char **az
     //  need error checking here so that no errors results
     //  this can probably be broken :(
     // cout << "section" << endl;
-    one_sections_data.push_back(argv[1]);
+    one_sections_data.push_back(argv[2]);
     // cout << "type of class" << endl;
-    one_sections_data.push_back(argv[3]);
     one_sections_data.push_back(argv[4]);
-    // cout << argv[4] << endl;
     one_sections_data.push_back(argv[5]);
+    // cout << argv[4] << endl;
     one_sections_data.push_back(argv[6]);
     one_sections_data.push_back(argv[7]);
-    one_sections_data.push_back(argv[2]);
+    one_sections_data.push_back(argv[8]);
+    one_sections_data.push_back(argv[3]);
+    //name of the course
+    one_sections_data.push_back(argv[1]);
     std::vector<std::vector<std::string>>
         *pointer_to_course_data = (std::vector<std::vector<std::string>> *)course_data;
     (*pointer_to_course_data).push_back(one_sections_data);
@@ -199,7 +201,6 @@ std::vector<Section> CourseData::add_course(string course_id, int section_type) 
         // cout << "pushing back section " << current_section_num << " and course id " << course_id
         // << endl;
         //  each vector contains all the info for one section of a lecture
-
         // 0 - section F/W
         // 1 - lec/tut/pra
         // 2 - section #
@@ -210,10 +211,10 @@ std::vector<Section> CourseData::add_course(string course_id, int section_type) 
 
         // if no more sections need to be added to the vectors
         if (old_section_num != current_section_num) {
+
             // create a section containing all the information we just queried from SQL DB
             // cout << "adding a class with the section number " << old_section_num << " and course
             // id " << course_id << endl;
-
             // the way the loop is set up, we are
             Section add_section(old_section_num,
                                 class_durations,
