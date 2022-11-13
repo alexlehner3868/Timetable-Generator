@@ -125,17 +125,17 @@ int CourseData::get_sql_data(void *course_data, int argc, char **argv, char **az
     //  need error checking here so that no errors results
     //  this can probably be broken :(
     // cout << "section" << endl;
-    one_sections_data.push_back(argv[2]);
+    one_sections_data.push_back(argv[1]);
     // cout << "type of class" << endl;
+    one_sections_data.push_back(argv[3]);
     one_sections_data.push_back(argv[4]);
-    one_sections_data.push_back(argv[5]);
     // cout << argv[4] << endl;
+    one_sections_data.push_back(argv[5]);
     one_sections_data.push_back(argv[6]);
     one_sections_data.push_back(argv[7]);
-    one_sections_data.push_back(argv[8]);
-    one_sections_data.push_back(argv[3]);
+    one_sections_data.push_back(argv[2]);
     //name of the course
-    one_sections_data.push_back(argv[1]);
+    //one_sections_data.push_back(argv[0]);
     std::vector<std::vector<std::string>>
         *pointer_to_course_data = (std::vector<std::vector<std::string>> *)course_data;
     (*pointer_to_course_data).push_back(one_sections_data);
