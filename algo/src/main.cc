@@ -5,6 +5,8 @@
 #include <unordered_set>
 #include <vector>
 
+#include <clip/clip.h>
+
 #include "constraints.hh"
 #include "course_data.hh"
 #include "course_offering.hh"
@@ -17,7 +19,7 @@
 
 using namespace std;
 
-int test() {
+int exec(vector<string> courses) {
     //--- Data Procesing ----
     // 1. Parses csv to get classes
     // 2. Store csv in SQL database or something and related sql funcitons
@@ -44,7 +46,36 @@ int test() {
     // TODO: add evaluator and cost tracking
     // Stage 5: parse timetables to give to front end
     // TODO: function (best timetables) -> url
-    unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> offerings = get_classes();
+    unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> offerings;
+    if (courses.empty())
+        offerings = get_classes();
+    else {
+        CourseData data;
+        for (auto &&code : courses) {
+            optional<Semester> sem;
+            switch (code.size()) {
+                case 8: break;
+                case 9: {
+                    char c = *--code.end();
+                    code.pop_back();
+                    sem = char2sem(c);
+                    if (!sem)
+                        cout << "[warn]: ignoring semester: " << c << endl;
+                    break;
+                }
+                default:
+                    cout << "[error]: malformed course code: " << code << endl;
+                    std::exit(1);
+            }
+            vector<Section> lec = data.add_course(code, 1);
+            vector<Section> tut = data.add_course(code, 2);
+            vector<Section> pra = data.add_course(code, 3);
+            CourseOfferings course(code, code, lec, tut, pra);
+            if (sem)
+                course.semester(*std::move(sem));
+            offerings.insert(course);
+        }
+    }
     ConstraintHandler constraint_handler;
     constraint_handler.add_time_constraint(10, 2, 2, 'F', MUST_HAVE); // tuesday at 10 am for 2 hours in the fall with
     //constraint_handler.set_no_classes_before_X_constraint(13, GOOD_TO_HAVE);
@@ -94,112 +125,36 @@ int test() {
     return 0;
 }
 
-int query(int argc, char *argv[]) {
-    // NOTE: This is the query function used by the backend.
-
-    //--- Data Procesing ----
-    // 1. Parses csv to get classes
-    // 2. Store csv in SQL database or something and related sql funcitons
-    CourseData course_data;
-    std::vector<Section> empty_vec;
-    // add lectures
-    std::vector<Section> course_one_lecture_sections = course_data.add_course("ECE241H1", 1);
-    std::vector<Section> course_two_lecture_sections = course_data.add_course("ECE244H1", 1);
-    std::vector<Section> course_three_lecture_sections = course_data.add_course("ECE201H1", 1);
-    std::vector<Section> course_four_lecture_sections = course_data.add_course("ECE212H1", 1);
-    std::vector<Section> course_five_lecture_sections = course_data.add_course("MAT290H1", 1);
-    std::vector<Section> course_six_lecture_sections = course_data.add_course("MAT291H1", 1);
-
-    // add tutorials
-    std::vector<Section> course_one_tutorial_sections = course_data.add_course("ECE241H1", 2);
-    std::vector<Section> course_two_tutorial_sections = course_data.add_course("ECE244H1", 2);
-    std::vector<Section> course_three_tutorial_sections = course_data.add_course("ECE201H1", 2);
-    std::vector<Section> course_four_tutorial_sections = course_data.add_course("ECE212H1", 2);
-    std::vector<Section> course_five_tutorial_sections = course_data.add_course("MAT290H1", 2);
-    std::vector<Section> course_six_tutorial_sections = course_data.add_course("MAT291H1", 2);
-    // add practicals
-    std::vector<Section> course_one_practical_sections = course_data.add_course("ECE241H1", 3);
-    std::vector<Section> course_two_practical_sections = course_data.add_course("ECE244H1", 3);
-    std::vector<Section> course_three_practical_sections = course_data.add_course("ECE201H1", 3);
-    std::vector<Section> course_four_practical_sections = course_data.add_course("ECE212H1", 3);
-    std::vector<Section> course_five_practical_sections = course_data.add_course("MAT290H1", 3);
-    std::vector<Section> course_six_practical_sections = course_data.add_course("MAT291H1", 3);
-
-    CourseOfferings class_one("Digital Systems",
-                              "ECE241H1",
-                              course_one_lecture_sections,
-                              course_one_tutorial_sections,
-                              course_one_practical_sections);
-    CourseOfferings class_two("Programming Fundamentals",
-                              "ECE244H1",
-                              course_two_lecture_sections,
-                              course_two_tutorial_sections,
-                              course_two_practical_sections);
-    CourseOfferings class_three("Seminar Course",
-                                "ECE201H1",
-                                course_three_lecture_sections,
-                                course_three_tutorial_sections,
-                                course_three_practical_sections);
-    CourseOfferings class_four("Circuit Analysis",
-                               "ECE212H1",
-                               course_four_lecture_sections,
-                               course_four_tutorial_sections,
-                               course_four_practical_sections);
-    CourseOfferings class_five("Advanced Engineering Mathematics",
-                               "MAT290H1",
-                               course_five_lecture_sections,
-                               course_five_tutorial_sections,
-                               course_five_practical_sections);
-    CourseOfferings class_six("Calculus III",
-                              "MAT291H1",
-                              course_six_lecture_sections,
-                              course_six_tutorial_sections,
-                              course_six_practical_sections);
-
-    unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> offerings;
-    offerings.insert(class_one);
-    offerings.insert(class_two);
-    offerings.insert(class_three);
-    offerings.insert(class_four);
-    offerings.insert(class_five);
-    offerings.insert(class_six);
-
-    ConstraintHandler constraint_handler;
-    Scheduler scheduler_handler;
-    vector<TimeTable> best_timetables = scheduler_handler.schedule_classes(offerings,
-                                                                           &constraint_handler);
-    stringstream json;
-    bool first = true;
-    json << "[";
-    for (auto timetable : best_timetables) {
-        if (!first)
-            json << ",";
-        else
-            first = false;
-        json << scheduler_handler.jsonify(timetable);
-    }
-    json << "]";
-    std::cout << json.str() << std::endl;
-
-    return 0;
-}
-
 int main(int argc, char *argv[]) {
+    // Create parser
+    clip::Parser parser(
+        argc,
+        argv,
+        clip::App("algo")
+            .about("ECE496 scheduler algorithm.")
+            .version("0.1.0")
+    );
+    // Add parser options
+    parser.add(
+        clip::Opt<string>("courses")
+            .shortname('c')
+            .help("Comma separated list of courses.")
+        );
     // Parse args
-    Selections official_selections;
-    return test();
-    switch (argc) {
-        case 1:
-            return test();
-            break;
-        case 2:
-            if (!std::string(argv[1]).compare("test"))
-                return test();
-            else if (!std::string(argv[1]).compare("query"))
-                return query(argc - 2, argv + 2);
+    parser.parse();
 
-        default:
-            printf("Usage: %s [query|test]\n", argv[0]);
+    // Retrieve string of courses from input
+    const auto &str = parser.getOpt<string>("courses").value();
+    // Split courses into a vector
+    size_t start;
+    size_t end = 0;
+    const char delim = ',';
+    vector<string> courses;
+    while ((start = str.find_first_not_of(delim, end)) != std::string::npos) {
+        end = str.find(delim, start);
+        courses.push_back(str.substr(start, end - start));
     }
 
+    // Execute the algorithm
+    return exec(courses);
 }
