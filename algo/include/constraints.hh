@@ -40,18 +40,19 @@ private:
     int prefer_afternoon_classes_;                         // int = priority
     pair<int, int> no_classes_after_X_;                    // <X, priority>
     pair<int, int> no_classes_before_X_;                   // <X, priority>
-    pair<int, int> no_more_than_X_hours_per_day_;          // <X, priority>
-    pair<int, int> no_breaks_larger_than_X_;                // <X, prioirty>
     int prefer_async_classes_;                             // int = priority 
     int prefer_sync_classes_;                               // int = priority
-    int prefer_lunch_break_;                                   // int = priority
-    int prefer_dinner_break_;                                  //int = prioirty 
+
 
     unordered_map<Date, int, Date_Hash> time_constraints_; // key: (day, time), value: priority
 
     // Constraints handled per timetable
     int minimize_days_at_school_;                          // int = priority
     pair<int, int> back_to_back_constraint_; // <max hours back to back, priority>
+    pair<int, int> no_more_than_X_hours_per_day_;          // <X, priority>
+    pair<int, int> no_breaks_larger_than_X_;                // <X, prioirty>
+    int prefer_lunch_break_;                                   // int = priority
+    int prefer_dinner_break_;                                  //int = prioirty 
 
     // For Stats
     int number_of_classes_preprossed_out = 0;
