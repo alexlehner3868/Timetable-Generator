@@ -17,6 +17,6 @@ ifeq ($(shell uname),Linux)
 CPPFLAGS += -I./dep/include -I../dep/ug/fmt/include
 LDFLAGS  += -L./dep/lib     -L../dep/ug/fmt/lib
 else ifeq ($(shell uname),Darwin)
-CPPFLAGS += -I../dep/m1/fmt/include
-LDFLAGS  += -L../dep/m1/fmt/lib
+CPPFLAGS += -I$(shell brew --prefix fmt)/include
+LDFLAGS  += -L$(shell brew --prefix fmt)/lib
 endif
