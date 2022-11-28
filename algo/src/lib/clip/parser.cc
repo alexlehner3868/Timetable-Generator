@@ -5,7 +5,8 @@
 
 #include "clip/parser.h"
 
-#include <fmt/core.h>
+#define FMT_HEADER_ONLY
+#include <fmt/format.h>
 #include <unistd.h>
 
 #include <cstdio>
