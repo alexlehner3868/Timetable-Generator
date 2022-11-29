@@ -28,7 +28,7 @@ using namespace std;
  * TODO: If a course has a prereq also being schedule, make sure the pre req is first
  * TODO: set max courses per semester to 6
  */
-
+int non_test_count = 0;
 vector<TimeTable> Scheduler::schedule_classes(
     unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> &courses,
     ConstraintHandler* constraint_handler) {
@@ -61,6 +61,7 @@ vector<TimeTable> Scheduler::schedule_classes(
         stats_collector_.track_constraints(constraint_handler, timetable_costs);
         stats_collector_.print_stats();
     }
+    cout<<"Non unique "<<non_test_count<<endl;
     return best_time_tables;
 }
 
@@ -96,6 +97,8 @@ void Scheduler::schedule_classes_helper(
                     full_timetable_pruned_++;
                 }
             }
+        }else{
+            non_test_count++;
         }
     }
 
