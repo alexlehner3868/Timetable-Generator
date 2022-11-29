@@ -1,23 +1,8 @@
-bin/main
-stats.txt
-/data/
+# IDE
 /.vscode/
-/frontend/package.json
-build/bin/main
-build/dep/constraints.d
-build/dep/course_data.d
-build/dep/course_offering.d
-build/dep/main.d
-build/dep/print_functions.d
-build/dep/scheduler.d
-build/dep/section.d
-build/obj/constraints.o
-build/obj/course_data.o
-build/obj/course_offering.o
-build/obj/main.o
-build/obj/print_functions.o
-build/obj/scheduler.o
-build/obj/section.o
-/scheduler_front-end/
-Debug/src_course_data.cc.o.d
-scheduler_front-end/node_modules/
+
+# OS
+.DS_Store
+
+# Project
+stats.txt
