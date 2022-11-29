@@ -7,7 +7,7 @@ import React, { useState, useEffect } from "react";
 import ShowScheduleButton from './Components/ShowScheduleButton';
 import RemoveCourseButton from './Components/RemoveCourseButton';
 import AddConstraintButton from './Components/AddConstraintButton';
-import NoTimetablePopUp from './Components/NoTimetablePopUp';
+//import NoTimetablePopUp from './Components/NoTimetablePopUp';
 
 let counter = 0;
 
