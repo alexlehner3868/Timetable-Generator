@@ -110,13 +110,14 @@ function App() {
   // 2d array: [course_id, course_name, course_type, section_id]
   // array is size 11 hours*5 days*2 semesters = 110 elements
   const [timetable, settimetable] = useState({});
+  const [result_message, setResultMessage] = useState();
   let entire_timetable = {};
   // third page
   useEffect(() => {
     // Using fetch to fetch the api from 
     // flask server it will be redirected to proxy
     fetch("/basic-schedule").then((res) =>
-        res.json().then((timetable) => {
+        res.json().then(([message, timetable]) => {
           /*
           let new_timetable = new Array(timetable.length);
           for (let i = 0; i<timetable.length; i++) {
@@ -127,6 +128,10 @@ function App() {
             classSection: new_timetable[i][1],
             classNum: new_timetable[i][2]
           }*/
+
+          // Save the error message (if there is one)
+          setResultMessage(message)
+
           if (counter > 15) {
             console.log(counter)
             const arr = ['classID', 'classSection', 'classNum'];
@@ -199,7 +204,7 @@ function App() {
       <AddConstraintButton action="{{ url_for('add-constraint') }}" method="post" addedConstraint={addedConstraint} />
       <ShowScheduleButton action="{{ url_for('basic-schedule') }}" method="post"  />
       <div className='whole-webpage'>
-        <MainWindow timetableData={timetable} class="main-window"/>
+        <MainWindow timetableData={timetable} resultMessage ={result_message} class="main-window"/>
         <Sidebar class="sidebar"/>
       </div>
     </div>

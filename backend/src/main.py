@@ -115,6 +115,9 @@ def main():
             len_classes = len(lines)
             idx = 0
             course_codes = []
+            # first line in the lines is the success/error message 
+            result_message  = "Successfully found timetables" #  lines[0] TODO: uncomment when backend and algo are connected
+            #lines.pop(0) TODO: uncomment when backend and algo are connected 
             for line in lines:
                 course_codes.append((line.split("_"))[3])
                 courses = []
@@ -179,7 +182,7 @@ def main():
                     formatted_timetable.append(["", "", "", 0])
             #2d array: [course_id, course_type, section_id]
             print(formatted_timetable)
-            return formatted_timetable
+            return [result_message, formatted_timetable]
         else:
             return []
         #else:

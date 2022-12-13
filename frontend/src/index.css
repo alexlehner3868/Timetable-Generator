@@ -70,32 +70,25 @@ code {
 }
 
 .main-window {
-  display:flex;
-  flex-direction:row;
-  column-gap: 30px;
+  display:table;
   width: 80%;
-  margin: 1%;
-  padding-top: 3%;
-  padding-left: 1%;
-  padding-right: 1%;
-  padding-bottom: 5%;
-  border-style: solid;
-  border-color: #93b4f7;
-  border-width: 5px;
-  border-radius: 15px;
+  padding: 5px;
+  height: 0;
 }
+
+.tr{
+  display: table-row;
+  height: 0;
+}
+
+.td{
+  display: table-cell;
+  height:0;
+}
+
 .semester{
   margin: auto;
 }
-
-
-
-
-
-
-
-
-
 
 .sidebar {
   padding-top: 3%;
@@ -104,6 +97,11 @@ code {
   padding-bottom: 5%;
 }
 
+#resultMessage{
+  font-size: 20px;
+  text-align: left;
+  vertical-align: top;
+}
 
 /*way too much garbage*/
 
