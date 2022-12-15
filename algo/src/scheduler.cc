@@ -53,7 +53,7 @@ vector<TimeTable> Scheduler::schedule_classes(
         timetables_.pop();
     }
     if (num_tables == 0) {
-        cout << "Could not generate any possible timetables" << endl;
+       result_string += "Could not generate any possible timetables";
     }
 
     if(output_stats){
@@ -63,6 +63,10 @@ vector<TimeTable> Scheduler::schedule_classes(
     }
     cout<<"Non unique "<<non_test_count<<endl;
     return best_time_tables;
+}
+
+string Scheduler::get_result_string(){
+
 }
 
 void Scheduler::schedule_classes_helper(

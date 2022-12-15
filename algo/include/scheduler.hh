@@ -36,6 +36,10 @@ private:
     int timetables_not_explored_ = 0;
     bool output_stats = true;
     int unique_timetables_found_ = 0;
+
+    // For output
+    string result_string; 
+
 public:
     bool allow_incomplete = false;
 
@@ -56,6 +60,7 @@ public:
     bool unique_check(TimeTable &timetable);
     std::vector<std::string> make_timetable_str(TimeTable &timetable);
     void print_timetables(vector<TimeTable> timetables);
+    string get_result_string();
 };
 
 #endif

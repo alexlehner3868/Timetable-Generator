@@ -20,6 +20,7 @@
 using namespace std;
 
 int exec(vector<string> courses) {
+    string result_string = "";
     //--- Data Procesing ----
     // 1. Parses csv to get classes
     // 2. Store csv in SQL database or something and related sql funcitons
@@ -81,13 +82,15 @@ int exec(vector<string> courses) {
     //constraint_handler.set_no_classes_before_X_constraint(13, GOOD_TO_HAVE);
     Scheduler scheduler_handler;
     if (!constraint_handler.prune_semesters(offerings) /*&& !scheduler_handler.allow_incomplete*/) {
-        cout << "Timetable not created due to course specified in semester, but not offered" << endl;
-        return 1; // TODO: change me
+        result_string += "Timetable not created due to course specified in semester, but not offered. ";
+        //return 1; // TODO: change me
     }
-    if (!constraint_handler.preprocess_high_priority_classes_out(offerings) && !scheduler_handler.allow_incomplete) {
-        return 1; // TODO: change me
+    if (!constraint_handler.preprocess_high_priority_classes_out(offerings, result_string)) {
+        //return 1; // TODO: change me
     }
     vector<TimeTable> best_timetables = scheduler_handler.schedule_classes(offerings, &constraint_handler);
+    
+    result_string += scheduler_handler.get_result_string(); // need to return this to the front end too 
     scheduler_handler.print_timetables(best_timetables);
 
     // -- User input (later)

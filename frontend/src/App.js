@@ -7,44 +7,15 @@ import React, { useState, useEffect } from "react";
 import ShowScheduleButton from './Components/ShowScheduleButton';
 import RemoveCourseButton from './Components/RemoveCourseButton';
 import AddConstraintButton from './Components/AddConstraintButton';
-//import NoTimetablePopUp from './Components/NoTimetablePopUp';
 
 let counter = 0;
 
 function App() {
   
-  // No timetable popup window 
-  const [noTimetanlePopUpIsOpen, noTimetablePopUpSetIsOpen] = useState(false);
-  const toggleNoTimetablePopup = () => {
-    noTimetablePopUpSetIsOpen(!noTimetanlePopUpIsOpen);
-  }
-
   counter++;
-  const [data, setdata] = useState({
-    name: "",
-    age: 0,
-    date: "",
-    programming: "",
-  });
 
   const [classes, setClasses] = useState([]);
-  // Using useEffect for single rendering
-  useEffect(() => {
-      // Using fetch to fetch the api from 
-      // flask server it will be redirected to proxy
-      fetch("/data").then((res) =>
-          res.json().then((data) => {
-              console.log("IN DATA")
-              // Setting a data from api
-              setdata({
-                  name: data.Name,
-                  age: data.Age,
-                  date: data.Date,
-                  programming: data.programming,
-              });
-          })
-      );
-  }, []);
+
   const tdata = ""
   // second page
   useEffect(() => {
@@ -110,14 +81,14 @@ function App() {
   // 2d array: [course_id, course_name, course_type, section_id]
   // array is size 11 hours*5 days*2 semesters = 110 elements
   const [timetable, settimetable] = useState({});
-  const [result_message, setResultMessage] = useState();
+  const [result_message, setResultMessage] = useState("");
   let entire_timetable = {};
   // third page
   useEffect(() => {
     // Using fetch to fetch the api from 
     // flask server it will be redirected to proxy
     fetch("/basic-schedule").then((res) =>
-        res.json().then(([message, timetable]) => {
+        res.json().then((props) => {
           /*
           let new_timetable = new Array(timetable.length);
           for (let i = 0; i<timetable.length; i++) {
@@ -128,10 +99,11 @@ function App() {
             classSection: new_timetable[i][1],
             classNum: new_timetable[i][2]
           }*/
-
+          let timetable = props[1]
+          let message  = props[0]
           // Save the error message (if there is one)
           setResultMessage(message)
-
+          console.log("save emss", message)
           if (counter > 15) {
             console.log(counter)
             const arr = ['classID', 'classSection', 'classNum'];
@@ -192,8 +164,7 @@ function App() {
   }
 
   
-  console.log("ALEX")
-  console.log(timetable)
+
   return (
     <div class="App">
       <header class="App-header">

@@ -80,7 +80,7 @@ public:
 
     // Remove sections for initial pruning 
     bool preprocess_high_priority_classes_out(
-        unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> &original_offerings);
+        unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> &original_offerings, string& result);
     bool prune_semesters(
         unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> &offerings);
 

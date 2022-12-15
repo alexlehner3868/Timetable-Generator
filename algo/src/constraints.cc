@@ -71,7 +71,7 @@ void ConstraintHandler::set_prefer_dinner_break_constraint(int priority){
   prefer_dinner_break_ = priority;
 }
 
-bool ConstraintHandler::preprocess_high_priority_classes_out(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& original_offerings){
+bool ConstraintHandler::preprocess_high_priority_classes_out(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& original_offerings, string& result){
   // Maybe? Add before_X and after_X times if it is a high priority (ie add all times above X for all days )
   // TimeConstraint(int start, int day, int priority, char semester)
   bool section_removed = false;
@@ -171,15 +171,15 @@ bool ConstraintHandler::preprocess_high_priority_classes_out(unordered_set<Cours
     new_tut_sections = offering.tutorial_sections_;
     new_pra_sections = offering.practical_sections_;
     if (lec_exists && new_lec_sections.size() == 0) {
-      cout << offering.name_ << ": could not schedule; all lectures conflict with hard constraints" << endl;
+      result += offering.name_ + ": could not schedule; all lectures conflict with hard constraints. ";
       valid_sections_after_removal = false;
     }
     if (tut_exists && new_tut_sections.size() == 0) {
-      cout << offering.name_ << ": could not schedule; all tutorials conflict with hard constraints" << endl;
+      result += offering.name_ + ": could not schedule; all tutorials conflict with hard constraints ";
       valid_sections_after_removal = false;
     }
     if (pra_exists && new_pra_sections.size() == 0) {
-      cout << offering.name_ << ": could not schedule; all practicals conflict with hard constraints" << endl;
+      result +=offering.name_ + ": could not schedule; all practicals conflict with hard constraints ";
       valid_sections_after_removal = false;
     }
     std::string new_course_name = offering.name_;
