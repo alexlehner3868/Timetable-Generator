@@ -21,6 +21,7 @@ const Timetable = (props) =>{
         timetable[i] = new Array(num_days).fill(null); 
         
     }
+    
     if(props.courses !== undefined){
         for(let i = 0; i < num_hours; i++){
             for(let j = 0; j < num_days; j++){
@@ -29,9 +30,17 @@ const Timetable = (props) =>{
                     classSection: "",
                     classColorIdx: "",
                     classType: "",
+                    className: "",
                 });
-                //console.log("tdata at" + count);
-                //console.log(timetable[i][j]);
+                if(count %2 === 0){
+                    timetable[i][j] = {
+                        classID: "ALX3838",
+                        classSection: "03",
+                        classColorIdx: (i*j)%15,
+                        classType: "LEC", 
+                        className: "Intro to Alex-ology"
+                    }
+                }
                 count++;
             }
         }
@@ -43,30 +52,39 @@ const Timetable = (props) =>{
                     classSection: "",
                     classColorIdx: "",
                     classType: "",
+                    className: "",
                 };
                 count++;
             }
         }
     }
-
-  
+  /*
+    timetable.map((row)=>{
+        row.map((col)=>{
+            console.log(col)
+        })
+    });
+*/
     return (
         <div className="timetable"> 
         {timetable.map((row)=>{
             return (
-                <div>
+                <div className ='tr' id="table_day">
                 {    
-                    row.map((col)=> <Period  ClassID={col[0]} classSection={col[1]} classColorIdx={col[3]} classType={col[2]}/>)
+                    row.map((col)=> (
+                            <div className='td' id="table_hour">
+                            <Period ClassID={col.classID} classSection={col.classSection} classColorIdx={col.classColorIdx} classType={col.classType} className={col.className}/>
+                            </div>
+                    ))
+                  
                 }
-                </div>
-                
+             
+              </div> 
             )
-
-        })}
+        })} 
         </div>
-
     )
-    
+
 }
 
 export default Timetable;
