@@ -25,23 +25,24 @@ const Timetable = (props) =>{
     if(props.courses !== undefined){
         for(let i = 0; i < num_hours; i++){
             for(let j = 0; j < num_days; j++){
-                timetable[i][j] = (props.courses[count] !== undefined ? props.courses[count] : {
-                    classID: "",
-                    classSection: "",
-                    classColorIdx: "",
-                    classType: "",
-                    className: "",
-                });
-                if(count %2 === 0){
-                    timetable[i][j] = {
-                        classID: "ALX3838",
-                        classSection: "03",
-                        classColorIdx: (i*j)%15,
-                        classType: "LEC", 
-                        className: "Intro to Alex-ology"
+                    timetable[i][j] = (props.courses[count] !== undefined ? props.courses[count] : {
+                        classID: "",
+                        classSection: "",
+                        classColorIdx: "",
+                        classType: "",
+                        className: "",
+                    });
+                    if(count %2 === 0){
+                        timetable[i][j] = {
+                            classID: "ALX3838",
+                            classSection: "03",
+                            classColorIdx: (i*j)%15,
+                            classType: "LEC", 
+                            className: "Intro to Alex-ology"
+                        }
                     }
-                }
-                count++;
+                    count++;
+                
             }
         }
     }else{
@@ -65,12 +66,23 @@ const Timetable = (props) =>{
         })
     });
 */
+    let time = 9;
     return (
         <div className="timetable"> 
+        <div className="tr">
+            <div className="td" id='legend-times'> </div>
+            <div className="td">Monday</div>
+            <div className="td">Tuesday</div>
+            <div className="td">Wednesday</div>
+            <div className="td">Thursday</div>
+            <div className="td">Friday</div>
+        </div>
         {timetable.map((row)=>{
             return (
                 <div className ='tr' id="table_day">
+                    <div className="td" id="legend-times"> {time <= 12 ? time++ +'AM': time++-12 + 'PM'}</div>
                 {    
+                    
                     row.map((col)=> (
                             <div className='td' id="table_hour">
                             <Period ClassID={col.classID} classSection={col.classSection} classColorIdx={col.classColorIdx} classType={col.classType} className={col.className}/>
