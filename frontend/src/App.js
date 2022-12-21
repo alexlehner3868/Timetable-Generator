@@ -1,5 +1,5 @@
 import './index.css'
-import './fonts.css'
+
 import Sidebar from './Sidebar';
 import MainWindow from './MainWindow';
 import Form from './Components/Form';
@@ -169,9 +169,15 @@ function App() {
 
   return (
     <div class="App">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com"/> 
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/> 
+        <link href="https://fonts.googleapis.com/css2?family=Asap:wght@700&family=Montserrat:wght@600;700&family=Mukta&display=swap" rel="stylesheet"/>
+      </head>
       <header class="App-header">
         <h1>Live Timetable Love</h1>
       </header>
+      
       <Form action="{{ url_for('send-request') }}" method="post" insertedClass={insertedClass} />
       <RemoveCourseButton action="{{ url_for('remove-class') }}" method="post" removedClass={removedClass} />
       <AddConstraintButton action="{{ url_for('add-constraint') }}" method="post" addedConstraint={addedConstraint} />
