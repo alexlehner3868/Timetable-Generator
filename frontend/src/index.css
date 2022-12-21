@@ -1,26 +1,6 @@
-@font-face {
-  font-family: cera-black-regular;
-  src: url(./data/fonts/FONTSPRINGDEMO-CeraRoundProBlackRegular.woff);
-}
 
 
-@font-face {
-  font-family: cera-bold;
-  src: url(./data/fonts/FONTSPRINGDEMO-CeraRoundProBold.woff);
-}
-@font-face {
-  font-family: cera-light-regular;
-  src: url(./data/fonts/FONTSPRINGDEMO-CeraRoundProLightRegular.woff);
-}
-@font-face {
-  font-family: cera-regular;
-  src: url(./data/fonts/FONTSPRINGDEMO-CeraRoundProRegular.woff);
-}
-@font-face {
-  font-family: cera-thin-regular;
-  src: url(./data/fonts/FONTSPRINGDEMO-CeraRoundProThinRegular.woff);
-}
-
+/* Formatting Rules for Tags */ 
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -30,11 +10,39 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-
-
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+/* Classes */  
+.App {
+  text-align: center;
+  background-color: rgb(255, 255, 255);
+}
+
+
+/* TODO: OLD STUFFF To be updated*/ 
+.App-header {
+  background-color: #93b4f7;
+  height: 1%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(5px + 2vmin);
+  font-family: cera-light-regular;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  margin-left: 50px;
+  margin-right: 50px;
+  color: white;
+  border-radius: 30px;
+  
+}
+
+.App-link {
+  color: #61dafb;
 }
 
 

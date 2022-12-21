@@ -1,5 +1,5 @@
-import './App.css';
 import './index.css'
+import './fonts.css'
 import Sidebar from './Sidebar';
 import MainWindow from './MainWindow';
 import Form from './Components/Form';
