@@ -24,28 +24,56 @@ code {
 /* Classes */  
 .App {
   text-align: center;
-  background-color: rgb(255, 255, 255);
+  background-color: rgb(245, 239, 255);
 }
 
-
-/* TODO: OLD STUFFF To be updated*/ 
-.App-header {
-  background-color: #93b4f7;
-  height: 1%;
+.Website-Header {
+  background-color: rgb(176, 107, 237);
+  height: 5%;
+  padding-top: 0.5%;
+  padding-bottom: 0.5%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(5px + 2vmin);
   font-family: cera-light-regular;
-  margin-top: 25px;
-  margin-bottom: 25px;
-  margin-left: 50px;
-  margin-right: 50px;
-  color: white;
-  border-radius: 30px;
+  color: rgb(0, 0, 0); 
+  text-align: center;
+  font-weight: 700;
+}
+
+.whole-webpage {
+  display: inline-block;
+}
+
+.main-window {
+  width: 50%;
+}
+
+.main-window-table {
+  display:table;
+  width: 50%;
+  padding: 5px;
+  height: 0;
+}
+
+.sidebar {
+  width: 15%;
+}
+
+.control-bar {
+  width: 50%;
+  display: table;
+  border-style: dotted;
+  border-width: 4px;
+  padding: 3%;
+  background-color: bisque;
   
 }
+
+/* TODO: OLD STUFFF To be updated*/ 
+
 
 .App-link {
   color: #61dafb;
@@ -65,23 +93,12 @@ code {
   font-family: cera-regular;
 }
 
-.whole-webpage {
-    display:flex;
-    flex-direction:row;
-    /*column-gap: 100px;*/
-}
 
-.main-window {
-  display:table;
-  width: 80%;
-  padding: 5px;
-  height: 0;
-}
+
 
 .timetable {
   display: table;
   width: 100%;
-  padding: 5%;
 }
 
 #table_day {
@@ -117,12 +134,7 @@ code {
   margin: auto;
 }
 
-.sidebar {
-  padding-top: 3%;
-  padding-left: 1%;
-  padding-right: 1%;
-  padding-bottom: 5%;
-}
+
 
 #resultMessage{
   font-size: 20px;
