@@ -15,6 +15,7 @@ body {
 h1 {
   font-family: Asap;
 }
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
@@ -171,6 +172,7 @@ code {
     border-radius: 5px;
     border-color: #125948;
 } 
+
 .add-course-square {/*
   border-top-style: solid;
   border-top-width: 1px;

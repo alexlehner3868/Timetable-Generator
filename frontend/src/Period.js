@@ -1,14 +1,14 @@
 import React from "react";
 
-var colorArray = ['#0', '#ffb0b0', '#b8ffc2', '#b8fdff', '#9eb5ff', 
-		  '#d2b0ff', '#ffd17d', '#fffd9c', '#F4BFBF', '#FFD9C0', '#FAF0D7', '#8CC0DE', '#68A7AD', '#99C4C8', '#E5CB9F'];
+var colorArray = ['HoneyDew', 'Lavender', 'PaleTurquoise', 'PaleVioletRed', 'Pink', 
+		  'Pink', 'SlateBlue', 'LightGreen', 'Lavender', 'HotPink', 'LightBlue'];
 
 const Period = (props) => {
     const classData = new Array(4);
 
     classData[0] = (props.ClassID === "" ? null : props.ClassID);
     classData[1] = (props.classSection === "" ? null : props.classSection);
-    classData[2] = props.classColorIdx === "" ? colorArray[0] : colorArray[props.classColorIdx];
+    classData[2] = props.classColorIdx === ""  || props.classColorIdx === undefined ? colorArray[0] : colorArray[props.classColorIdx];
     classData[3] = (props.classType === "" ? null : props.classType);
     classData[4] = props.className === "" ? null : props.className;
     //console.log(classData[0]) 
