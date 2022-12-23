@@ -4,7 +4,6 @@ const Semester = (props) =>{
 
     return (
         <div className='semester'>
-            <label className='semester-label'>{props.semester}</label>
             <Timetable courses={props.timetable}/>
         </div>
     )

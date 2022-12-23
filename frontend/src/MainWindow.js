@@ -1,42 +1,29 @@
 import Semester from './Semester';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import { resetIdCounter } from 'react-tabs';
+import React from 'react';
 
-const MainWindow = (props) =>{
 
-    const both = new Array(2);
-    let message = (props.resultMessage === ""  ? "UofT's Best Timetable Creater Tool!" : props.resultMessage)
-
-    return (
-        <div className='main-window'>
-            <div className='tr'>
-                <div className='td' id='semester_block'><Semester timetable={props.timetableData} semester="Fall"/></div>
-            </div>
-            <div className='tr' >
-                <div className='td' id='resultMessage'>
-                    <span>{message}</span>
-                </div>
-            </div>
-           
-        </div>
+class MainWindow extends React.Component {
+    constructor() {
+        super();
+        this.state = { tabIndex: 0, message: ""};
+      }
     
-    )
-    /*
-    return (
-        <div className='main-window-table'>
-            <div className='tr'>
-                <div className='td' id='semester_block'><Semester timetable={props.timetableData} semester="Fall"/></div>
-                <div className='td' id='semester_block'><Semester timetable={props.timetableData} semester="Winter"/></div>
-            </div>
-            <div className='tr' >
-                <div className='td' id='resultMessage'>
-                    <span>{message}</span>
-                </div>
-            </div>
-           
-        </div>
-    
-    )
-*/
+      //message =  setState(message = (this.props.resultMessage === ""  ? "UofT's Best Timetable Creater Tool!" : this.props.resultMessage))
 
-}
+      render() {
+        return (
+          <Tabs selectedIndex={this.state.tabIndex} onSelect={tabIndex => this.setState({ tabIndex })}>
+            <TabList>
+              <Tab>Fall</Tab>
+              <Tab>Winter</Tab>
+            </TabList>
+            <TabPanel><Semester timetable={this.props.timetableData} /></TabPanel>
+            <TabPanel><Semester timetable={this.props.timetableData} /></TabPanel>
+          </Tabs>
+        );
+      }
+}   
 
 export default MainWindow

@@ -1,5 +1,5 @@
 import './index.css'
-
+import './tabs.css'
 import Sidebar from './Sidebar';
 import MainWindow from './MainWindow';
 import Form from './Components/Form';
@@ -101,7 +101,7 @@ function App() {
             classNum: new_timetable[i][2]
           }*/
           let timetable = props[1]
-          let message  = props[0]
+          let message  = (props[0] === ""  || props[0] === undefined ? "UofT's Best Timetable Creater Tool!" : props[0])
           // Save the error message (if there is one)
           setResultMessage(message)
           console.log("save emss", message)
@@ -166,7 +166,6 @@ function App() {
     setConstraints(constraint)
   }
 
-  
   return (
     <div class="App">
       <header class="Website-Header">
@@ -174,8 +173,9 @@ function App() {
       </header>
       <div className='whole-webpage'>
         <ControlBar/>
-        <MainWindow timetableData={timetable} resultMessage ={result_message}/>
+        <MainWindow timetableData={timetable}/>
         <Sidebar/>
+        <h1 class='message'>Result message will be here: {result_message}</h1>
       </div>
     </div>
   );

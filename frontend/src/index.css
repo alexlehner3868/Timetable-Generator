@@ -47,16 +47,32 @@ code {
   display: grid;
   padding-top: 1%;
   grid-template-columns: 10% 60% 30%;
+  grid-template-areas: 'control-bar main-window sidebar' '. message .';
 }
 
 .main-window {
-  display:table;
   padding-top: 5px;
+  grid-area: main-window;
 }
 
+.message {
+  grid-area: message;
+  font-size: 20px;
+  text-align: left;
+  vertical-align: top;
+  background-color: white;
+  border-radius: 10px;
+  align-items: center;
+  margin: auto;
+  width: 80%;
+  border-radius: 10px;
+  border: 3px rgb(0, 0, 0)  solid;
+  
+}
 .sidebar {
   border: 5px;
   border-style: double;
+  grid-area: sidebar;
 }
 
 .control-bar {
@@ -66,6 +82,7 @@ code {
   border: 3px rgb(0, 0, 0)  solid;
   width: 80%;
   margin: auto;
+  grid-area: control-bar;
 }
 
 /* TODO: OLD STUFFF To be updated*/ 
@@ -88,7 +105,6 @@ code {
   font-weight: bolder;
   font-family: cera-regular;
 }
-
 
 
 
@@ -130,13 +146,6 @@ code {
   margin: auto;
 }
 
-
-
-#resultMessage{
-  font-size: 20px;
-  text-align: left;
-  vertical-align: top;
-}
 
 /*way too much garbage*/
 
