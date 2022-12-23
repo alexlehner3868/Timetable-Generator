@@ -44,32 +44,28 @@ code {
 }
 
 .whole-webpage {
-  display: inline-block;
+  display: grid;
+  padding-top: 1%;
+  grid-template-columns: 10% 60% 30%;
 }
 
 .main-window {
-  width: 50%;
-}
-
-.main-window-table {
   display:table;
-  width: 50%;
-  padding: 5px;
-  height: 0;
+  padding-top: 5px;
 }
 
 .sidebar {
-  width: 15%;
+  border: 5px;
+  border-style: double;
 }
 
 .control-bar {
-  width: 50%;
-  display: table;
-  border-style: dotted;
-  border-width: 4px;
-  padding: 3%;
-  background-color: bisque;
-  
+  background-color: rgb(255, 255, 255);
+  height: 60%;
+  border-radius: 10px;
+  border: 3px rgb(0, 0, 0)  solid;
+  width: 80%;
+  margin: auto;
 }
 
 /* TODO: OLD STUFFF To be updated*/ 
@@ -166,7 +162,7 @@ code {
 
 
 .input-icons {
-  width: 250px;
+  width: 60%;
   height: 40px;
 }
 
@@ -177,8 +173,8 @@ code {
 
 .search-bar {
     position: relative;
-    width: 250px;
-    height: 40px;
+    width: 60%;
+    height: 20%;
     font-size: x-large;
     text-align: center;
     border-radius: 5px;
@@ -243,7 +239,7 @@ code {
     font-size: medium;
     color: black;
     height: 80px;
-    width: 200px;
+    width: 60%;
     
 }
 .search-results-box {

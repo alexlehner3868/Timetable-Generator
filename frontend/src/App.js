@@ -166,22 +166,23 @@ function App() {
     setConstraints(constraint)
   }
 
-  /*
+  
   return (
     <div class="App">
       <header class="Website-Header">
         <h1>Live Timetable Love</h1>
       </header>
-      
       <div className='whole-webpage'>
-        <ControlBar class="control-bar"/>
-        <MainWindow timetableData={timetable} resultMessage ={result_message} class="main-window"/>
+        <ControlBar/>
+        <MainWindow timetableData={timetable} resultMessage ={result_message}/>
+        <Sidebar/>
       </div>
     </div>
   );
 }
- */ 
+ 
 
+/*
   return (
     <div class="App">
       <header class="Website-Header">
@@ -193,11 +194,12 @@ function App() {
       <AddConstraintButton action="{{ url_for('add-constraint') }}" method="post" addedConstraint={addedConstraint} />
       <ShowScheduleButton action="{{ url_for('basic-schedule') }}" method="post"  />
       <div className='whole-webpage'>
+
         <MainWindow timetableData={timetable} resultMessage ={result_message} class="main-window"/>
         <Sidebar class="sidebar"/>
       </div>
     </div>
   );
 }
-
+*/
 export default App;
