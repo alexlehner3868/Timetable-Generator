@@ -32,7 +32,7 @@ void Selections::add_class(string course_id, int semester) {
         cout << "Invalid semester!" << endl;
         return;
     }
-    
+
 
 }
 void Selections::remove_class(string course_id) {
@@ -125,7 +125,7 @@ void Selections::run_scheduler() {
     offerings.insert(class_five);
     offerings.insert(class_six);
 
-    
+
     std::vector<Section> course_seven_lecture_sections = course_data.add_course(winter_courses[0], 1);
     std::vector<Section> course_eight_lecture_sections = course_data.add_course(winter_courses[1], 1);
     std::vector<Section> course_nine_lecture_sections = course_data.add_course(winter_courses[2], 1);
@@ -178,7 +178,7 @@ void Selections::run_scheduler() {
     offerings.insert(class_ten);
     offerings.insert(class_eleven);
 
-    official_constraints.preprocess_high_priority_classes_out(offerings);
+    // official_constraints.preprocess_high_priority_classes_out(offerings);
     vector<TimeTable> best_timetables = official_scheduler.schedule_classes(offerings, &official_constraints);
     official_scheduler.print_timetables(best_timetables);
     return;
