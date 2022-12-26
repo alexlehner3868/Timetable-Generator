@@ -89,8 +89,8 @@ int exec(vector<string> courses) {
         //return 1; // TODO: change me
     }
     vector<TimeTable> best_timetables = scheduler_handler.schedule_classes(offerings, &constraint_handler);
-    
-    result_string += scheduler_handler.get_result_string(); // need to return this to the front end too 
+
+    result_string += scheduler_handler.get_result_string(); // need to return this to the front end too
     scheduler_handler.print_timetables(best_timetables);
 
     // -- User input (later)

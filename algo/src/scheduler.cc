@@ -61,12 +61,12 @@ vector<TimeTable> Scheduler::schedule_classes(
         stats_collector_.track_constraints(constraint_handler, timetable_costs);
         stats_collector_.print_stats();
     }
-    cout<<"Non unique "<<non_test_count<<endl;
+    cerr<<"Non unique "<<non_test_count<<endl;
     return best_time_tables;
 }
 
-string Scheduler::get_result_string(){
-
+string Scheduler::get_result_string() {
+    return ""; // FIXME
 }
 
 void Scheduler::schedule_classes_helper(
@@ -178,10 +178,10 @@ optional<Semester> Scheduler::attempt_to_add_section(
                                                 // (need support for full year courses)
                                                 // semester can be a char instead of a vector
                                                 // F - FALL W - WINTER Y - BOTH [WONT SAY Y ANYM]
-       
+
         };
         bool successfully_inserted;
-        // Is this class an async class 
+        // Is this class an async class
         Date period;
         // Try adding all of the lecture sections for that section and class to the timetable
         for (class_in_section = 0; class_in_section < (int)section.duration_.size();
@@ -191,19 +191,19 @@ optional<Semester> Scheduler::attempt_to_add_section(
             // Add a entry for every hour that the lecure has
             for (int i = 0; i < section.duration_.at(class_in_section); i++) {
                 // If the class is in the winter offset the day by 5 ([1,5] = fall, [6,10] = winter)
-                int semester_offset = (class_chosen.semester == 'F') ? 0 : 5; 
+                int semester_offset = (class_chosen.semester == 'F') ? 0 : 5;
                 period = make_pair(section.day_.at(class_in_section) + semester_offset,
                                    section.start_time_.at(class_in_section) + i);
 
                 // Insert into the timetable
                 if(class_chosen.async){
-                    // Insert an async class into timetable 
+                    // Insert an async class into timetable
                     successfully_inserted = timetable.insert_async(class_chosen);
                 }else{
                     // Insert a non-async class into timetable
                     successfully_inserted = timetable.insert(std::make_pair(period, class_chosen));
                 }
-                
+
 
                 // Check if the class was sucessfully inserted
                 if (!successfully_inserted) {
@@ -217,7 +217,7 @@ optional<Semester> Scheduler::attempt_to_add_section(
                         section_cost += constraint_handler_->cost_of_class(period);
                     }
                     section_cost  += constraint_handler_ ->sync_vs_async_cost(class_chosen.async);
-                    
+
                 }
             }
 
@@ -322,8 +322,8 @@ optional<Semester> Scheduler::attempt_to_add_section(
 
 void Scheduler::print_timetables(vector<TimeTable> timetables) {
 
-    for (auto t : timetables) {
-        print_timetable(t, 1);
+    for (auto timetable : timetables) {
+        cout << jsonify(timetable);
         // ONLY FOR WEBSITE PRINTING ONE TIMETABKE
         break;
     }
@@ -375,7 +375,7 @@ void Scheduler::print_timetable(TimeTable &timetable, int preset) {
             auto semester = element.second.semester;
             auto day = element.first.first;
             auto time = element.first.second;
-            auto async = element.second.async; 
+            auto async = element.second.async;
 
             class_str.push_back(semester);
             class_str.append("_");
@@ -388,7 +388,7 @@ void Scheduler::print_timetable(TimeTable &timetable, int preset) {
                 class_str.append("_");
                 if (day > 5) {
                     day -= 5;
-                }  
+                }
                 class_str.append(std::to_string(day));
             }else{
                 class_str.append("no_associated_time");
@@ -458,7 +458,7 @@ string Scheduler::jsonify(TimeTable &timetable) {
             auto time = element.first.second;
             json << "\"time\":" << time << "";
         }
-      
+
         json << "}";
     }
     json << "]";

@@ -1,0 +1,74 @@
+// -- React --
+import React from "react";
+
+// -- Components --
+import Period from "./Period";
+
+// -- Module --
+const Timetable = ({timetable, when}) => {
+  // TODO:
+  // - Currently only printing for one semester. (Need to do both semesters.)
+  // - Decide how to view the 2 semesters
+
+  // Create an 2D grid of all possible time slots
+  const ndays = 10;
+  const nhours = 24;
+  const grid = [...Array(nhours)].map(_ => Array(ndays).fill({}));
+
+  // Determine timetable colours
+  let idx = 1;
+  let colors = {};
+  for (const meet of timetable)
+    if (colors[meet.course] === undefined)
+      colors[meet.course] = idx++;
+
+  // Process the timetable
+  if (timetable) {
+    for (const meet of timetable) {
+      grid[meet.time - 1][meet.day - 1] = meet;
+    }
+  }
+
+  // Compute x is in [begin, end)
+  const inRange = (x, begin, end) => {
+    return (begin <= x) && (x < end);
+  };
+
+  // Convert from time index to hour string
+  const int2hour = hour => {
+    return (hour <= 12) ? hour + "AM": (hour - 12) + "PM"
+  };
+
+  // Render the timetable
+  return (
+    <div className="timetable">
+      <div className="tr">
+        <div className="td" id='legend-times'> </div>
+        <div className="td">Monday</div>
+        <div className="td">Tuesday</div>
+        <div className="td">Wednesday</div>
+        <div className="td">Thursday</div>
+        <div className="td">Friday</div>
+      </div>
+      {grid.map((row, hour) => (
+        <div className="tr" id="table_day" key={hour}>
+          <div className="td" id="legend-times">{int2hour(hour)}</div>
+          {row.map((meet, day) => (
+            <div className='td' id="table_hour" key={day}>
+              <Period
+                code={meet.course}
+                color={colors[meet.course]}
+                name={meet.name}
+                section={meet.section}
+                type={meet.type}
+              />
+            </div>
+          )).filter((_, day) => inRange(day, when.day.begin, when.day.end))}
+        </div>
+      )).filter((_, hour) => inRange(hour, when.hour.begin, when.hour.end))}
+    </div>
+  )
+}
+
+// -- Exports --
+export default Timetable;
