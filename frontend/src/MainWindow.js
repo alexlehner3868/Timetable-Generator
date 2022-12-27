@@ -15,11 +15,11 @@ class MainWindow extends React.Component {
   render() {
     const fall = {
       day: { begin: 0, end: 5},
-      hour: { begin: 9, end: 18},
+      hour: { begin: 9, end: 21},
     };
     const winter = {
       day: { begin: 5, end: 10},
-      hour: { begin: 9, end: 18},
+      hour: { begin: 9, end: 21},
     };
 
     return (
