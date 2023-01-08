@@ -50,17 +50,24 @@ function App() {
 
   // Timetable(s) generated
   const [timetable, setTimetable] = useState([]);
+  const [timetables, setTimetables] = useState([]);
   useEffect(() => { // save when updated
-    if (timetable && timetable.length) {
-      localStorage.setItem("timetable", JSON.stringify(timetable));
-      console.log("saved timetable", JSON.parse(localStorage.getItem("timetable")));
+    if (timetables && timetables.length) {
+      console.log(timetables.length);
+      localStorage.setItem("timetables", JSON.stringify(timetables));
+      console.log("saved timetables", JSON.parse(localStorage.getItem("timetables")));
+      setTimetable(timetables[0]);
+    } else {
+      setTimetable([]);
     }
-  }, [timetable]);
+  }, [timetables]);
   useEffect(() => { // restore on first render
-    const timetable = JSON.parse(localStorage.getItem("timetable"));
-    if (timetable && timetable.length) {
-      setTimetable(timetable);
-      console.log("restored timetable", timetable);
+    const timetables = JSON.parse(localStorage.getItem("timetables"));
+    if (timetables && timetables.length) {
+      
+      console.log(timetables.length);
+      setTimetables(timetables);
+      console.log("restored timetable", timetables);
     }
   }, []);
 
@@ -73,7 +80,7 @@ function App() {
         <Options/>
         <MainWindow timetable={timetable}/>
         <Sidebar    courses={courses} setCourses={setCourses}/>
-        <Generate   courses={courses} setTimetable={setTimetable}/>
+        <Generate   courses={courses} setTimetables={setTimetables}/>
         <h1 className="message">
           <p>
             Courses: {[...courses].join(", ")}
