@@ -61,7 +61,7 @@ vector<TimeTable> Scheduler::schedule_classes(
         stats_collector_.track_constraints(constraint_handler, timetable_costs);
         stats_collector_.print_stats();
     }
-    cerr<<"Non unique "<<non_test_count<<endl;
+    //cerr<<"Non unique "<<non_test_count<<endl;
     return best_time_tables;
 }
 
@@ -321,13 +321,21 @@ optional<Semester> Scheduler::attempt_to_add_section(
 }
 
 void Scheduler::print_timetables(vector<TimeTable> timetables) {
-
+    int num_timetables = timetables.size();
+    int counter = 0;
+    if (num_timetables > 1) {
+        cout << "[";
+    }
     for (auto timetable : timetables) {
         cout << jsonify(timetable);
-        // ONLY FOR WEBSITE PRINTING ONE TIMETABKE
-        break;
+        counter++;
+        if (counter < num_timetables) {
+          cout << ",";
+        }
     }
-
+    if (num_timetables > 1) {
+        cout << "]";
+    }
 
 
 }
@@ -465,6 +473,7 @@ string Scheduler::jsonify(TimeTable &timetable) {
 
     return json.str();
 }
+
 
 std::vector<std::string> Scheduler::make_timetable_str(TimeTable &timetable) {
     std::string class_str;
