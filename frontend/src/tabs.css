@@ -50,6 +50,10 @@
   .react-tabs__tab-panel {
     display: none;
     background-color: white;
+    border-radius: 10px;
+    border: 3px rgb(0, 0, 0)  solid;
+    height: 80%;
+    width: 90%;
   }
   
   .react-tabs__tab-panel--selected {
