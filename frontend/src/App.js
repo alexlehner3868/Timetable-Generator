@@ -56,6 +56,7 @@ function App() {
       console.log(timetables.length);
       localStorage.setItem("timetables", JSON.stringify(timetables));
       console.log("saved timetables", JSON.parse(localStorage.getItem("timetables")));
+      console.log("timetables were changed");
       setTimetable(timetables[0]);
     } else {
       setTimetable([]);

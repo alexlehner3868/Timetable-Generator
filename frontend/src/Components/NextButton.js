@@ -6,7 +6,8 @@ const NextButton = ({timetables, setTimetables}) => {
         console.log(timetables);
         console.log("Attempting to get next timetable.");
         const timetable_left = timetables.shift();
-        timetables = [...timetables, timetable_left]
+        setTimetables([]);
+        setTimetables([...timetables, timetable_left]);
         console.log(timetables);
       }
     };
