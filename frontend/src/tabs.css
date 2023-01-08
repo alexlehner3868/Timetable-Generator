@@ -1,5 +1,12 @@
 .react-tabs {
     -webkit-tap-highlight-color: transparent;
+    color: black;
+    border-radius: 5px 5px 0 0;
+    border: 3px rgb(0, 0, 0)  solid;
+    height: 80%;
+    border-radius: 10px;
+    width: 90%;
+    background-color: white;
   }
   
   .react-tabs__tab-list {
@@ -22,8 +29,6 @@
   .react-tabs__tab--selected {
     background: #fff;
     border-color: #aaa;
-    color: black;
-    border-radius: 5px 5px 0 0;
   }
   
   .react-tabs__tab--disabled {
@@ -35,6 +40,7 @@
     box-shadow: 0 0 5px hsl(208, 99%, 50%);
     border-color: hsl(208, 99%, 50%);
     outline: none;
+    
   }
   
   .react-tabs__tab:focus:after {
@@ -51,9 +57,9 @@
     display: none;
     background-color: white;
     border-radius: 10px;
-    border: 3px rgb(0, 0, 0)  solid;
-    height: 80%;
-    width: 90%;
+    height: 90%;
+    width: 95%;
+    margin: auto;
   }
   
   .react-tabs__tab-panel--selected {
