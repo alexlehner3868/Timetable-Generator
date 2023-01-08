@@ -19,14 +19,14 @@ function App() {
   // Set of courses to consider
   const [courses,   setCourses]   = useState(new Set());
   useEffect(() => { // save when updated
-    if (courses.size) {
+    if (courses && courses.size) {
       localStorage.setItem("courses", JSON.stringify(Array.from(courses)));
       console.log("saved courses", JSON.parse(localStorage.getItem("courses")));
     }
   }, [courses]);
   useEffect(() => { // restore on first render
     const courses = new Set(JSON.parse(localStorage.getItem("courses")));
-    if (courses.size) {
+    if (courses && courses.size) {
       setCourses(courses);
       console.log("restored courses", courses);
     }
@@ -35,14 +35,14 @@ function App() {
   // Message to the user
   const [message,   setMessage]   = useState("");
   useEffect(() => { // save when updated
-    if (message.length) {
+    if (message && message.length) {
       localStorage.setItem("message", JSON.stringify(message));
       console.log("saved message", JSON.parse(localStorage.getItem("message")));
     }
   }, [message]);
   useEffect(() => { // restore on first render
     const message = JSON.parse(localStorage.getItem("message"));
-    if (message.length) {
+    if (message && message.length) {
       setMessage(message);
       console.log("restored message", message);
     }
@@ -51,14 +51,14 @@ function App() {
   // Timetable(s) generated
   const [timetable, setTimetable] = useState([]);
   useEffect(() => { // save when updated
-    if (timetable.length) {
+    if (timetable && timetable.length) {
       localStorage.setItem("timetable", JSON.stringify(timetable));
       console.log("saved timetable", JSON.parse(localStorage.getItem("timetable")));
     }
   }, [timetable]);
   useEffect(() => { // restore on first render
     const timetable = JSON.parse(localStorage.getItem("timetable"));
-    if (timetable.length) {
+    if (timetable && timetable.length) {
       setTimetable(timetable);
       console.log("restored timetable", timetable);
     }

@@ -26,14 +26,15 @@ const Sidebar = ({courses, setCourses}) => {
 
       <div className="search-results-box">
         {
-          Data.filter( class_result => {
+          Data.filter(class_result => {
             if (query === "") {
               //nothing in the search bar, don't show anything
-              //return class_result;
+              return class_result;
             } else if (class_result.ACAD_ACT_CD.toLowerCase().includes(query.toLowerCase())) {
               //returns array with all matches
               return class_result;
             } // TODO: add searching by class name here once we add class-Name to the database
+            return false;
           }).map((class_result, index) => (
             <div className="search-results" key={index}>
               <div className="add-course-square" id="add-course-square" >
