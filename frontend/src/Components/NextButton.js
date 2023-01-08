@@ -2,13 +2,10 @@
 const NextButton = ({timetables, setTimetables}) => {
     const Request = async () => {
       // Update the global state
-      if (timetables.length != 0) {
-        console.log(timetables);
+      if (timetables.length > 1) {
         console.log("Attempting to get next timetable.");
         const timetable_left = timetables.shift();
-        setTimetables([]);
         setTimetables([...timetables, timetable_left]);
-        console.log(timetables);
       }
     };
   
