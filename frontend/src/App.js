@@ -77,7 +77,7 @@ function App() {
         <h1>Live Timetable Love</h1>
       </header>
       <div className="whole-webpage">
-        <Options/>
+        <Options timetables={timetables} setTimetables={setTimetables}/>
         <MainWindow timetable={timetable}/>
         <Sidebar    courses={courses} setCourses={setCourses}/>
         <Generate   courses={courses} setTimetables={setTimetables}/>
