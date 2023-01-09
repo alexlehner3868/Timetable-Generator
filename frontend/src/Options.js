@@ -1,7 +1,7 @@
 // -- React --
 import React from "react";
-import NextButton from "./Components/NextButton";
-import BackButton from "./Components/BackButton";
+import NextButton from "./Components/NonEssentialComponents/NextButton";
+import BackButton from "./Components/NonEssentialComponents/BackButton";
 
 // -- Module --
 const Options = ({timetables, setTimetables}) => {

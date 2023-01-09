@@ -4,6 +4,8 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
 // -- Components --
 import SearchBar from './Components/SearchBar';
+import AddConstraintButton from './Components/NonEssentialComponents/AddConstraintButton.js';
+import AddConstraintServiceAPI from './Components/NonEssentialServices/AddConstraintService.js';
 
 // -- Module --
 class Sidebar extends React.Component {
@@ -14,7 +16,11 @@ class Sidebar extends React.Component {
 
   render() {
     ;
-
+    
+    
+  
+ //likely temporary while we introduce constraints connections
+  
     return (
       <Tabs selectedIndex={this.state.tabIndex} onSelect={tabIndex => this.setState({ tabIndex })}>
         <TabList>
@@ -26,7 +32,7 @@ class Sidebar extends React.Component {
           <SearchBar courses={this.props.courses} setCourses={this.props.setCourses}/>
         </TabPanel>
         <TabPanel>
-          
+          <AddConstraintButton action="{{ url_for('add-constraint') }}" method="post" addedConstraint={this.props.addedConstraint} />
         </TabPanel>
         <TabPanel>
           

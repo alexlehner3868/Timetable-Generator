@@ -8,6 +8,7 @@ import Options from './Options';
 
 // -- Components --
 import Generate from './Components/Generate';
+import AddConstraintButton from './Components/NonEssentialComponents/AddConstraintButton';
 
 // -- Styles --
 import './index.css'
@@ -71,6 +72,26 @@ function App() {
       console.log("restored timetable", timetables);
     }
   }, []);
+  
+  const [constraints, setConstraints] = useState([]);
+  useEffect(()=>{
+    fetch("/add-constraint",{
+      'methods':'GET',
+      headers : {
+        'Content-Type':'text/plain'
+      }
+    })
+    .then(response => response.json())
+    .then(response => setConstraints(response))
+    .catch(error => console.log(error))
+
+
+  },[]);
+
+ //likely temporary while we introduce constraints connections
+ const addedConstraint = (constraint) =>{
+  setConstraints(constraint)
+}
 
   return (
     <div className="App">
@@ -80,7 +101,7 @@ function App() {
       <div className="whole-webpage">
         <Options timetables={timetables} setTimetables={setTimetables}/>
         <MainWindow timetable={timetable}/>
-        <Sidebar    courses={courses} setCourses={setCourses}/>
+        <Sidebar    courses={courses} setCourses={setCourses} addedConstraint={addedConstraint}/>
         <Generate   courses={courses} setTimetables={setTimetables}/>
         <h1 className="message">
           <p>
