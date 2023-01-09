@@ -15,12 +15,19 @@ const Timetable = ({timetable, when}) => {
   const nhours = 24;
   const grid = [...Array(nhours)].map(_ => Array(ndays).fill({}));
 
+  // Extract sorted list of courses (for colouring)
+  let courses = [];
+  for (const meet of timetable)
+    if (!courses.includes(meet.course))
+      courses.push(meet.course)
+  courses.sort()
+
   // Determine timetable colours
   let idx = 1;
   let colors = {};
-  for (const meet of timetable)
-    if (colors[meet.course] === undefined)
-      colors[meet.course] = idx++;
+  for (const course of courses)
+    if (colors[course] === undefined)
+      colors[course] = idx++;
 
   // Process the timetable
   if (timetable) {
