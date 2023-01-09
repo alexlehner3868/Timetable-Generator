@@ -13,14 +13,7 @@ class Sidebar extends React.Component {
   }
 
   render() {
-    const fall = {
-      day: { begin: 0, end: 5},
-      hour: { begin: 9, end: 21},
-    };
-    const winter = {
-      day: { begin: 5, end: 10},
-      hour: { begin: 9, end: 21},
-    };
+    ;
 
     return (
       <Tabs selectedIndex={this.state.tabIndex} onSelect={tabIndex => this.setState({ tabIndex })}>
