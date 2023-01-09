@@ -15,12 +15,8 @@ class Sidebar extends React.Component {
   }
 
   render() {
-    ;
-    
-    
-  
- //likely temporary while we introduce constraints connections
-  
+    // NOTE: likely temporary while we introduce constraints connections
+
     return (
       <Tabs selectedIndex={this.state.tabIndex} onSelect={tabIndex => this.setState({ tabIndex })}>
         <TabList>
@@ -35,7 +31,7 @@ class Sidebar extends React.Component {
           <AddConstraintButton action="{{ url_for('add-constraint') }}" method="post" addedConstraint={this.props.addedConstraint} />
         </TabPanel>
         <TabPanel>
-          
+
         </TabPanel>
       </Tabs>
     );

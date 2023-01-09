@@ -50,29 +50,26 @@ function App() {
   }, []);
 
   // Timetable(s) generated
-  const [timetable, setTimetable] = useState([]);
+  const [ttbIndex,   setTtbIndex]   = useState(0);
   const [timetables, setTimetables] = useState([]);
   useEffect(() => { // save when updated
     if (timetables && timetables.length) {
-      console.log(timetables.length);
       localStorage.setItem("timetables", JSON.stringify(timetables));
+      localStorage.setItem("ttbIndex", JSON.stringify(ttbIndex));
       console.log("saved timetables", JSON.parse(localStorage.getItem("timetables")));
-      console.log("timetables were changed");
-      setTimetable(timetables[1]);
-    } else {
-      setTimetable([]);
     }
-  }, [timetables]);
+  }, [timetables, ttbIndex]);
   useEffect(() => { // restore on first render
     const timetables = JSON.parse(localStorage.getItem("timetables"));
+    const ttbIndex   = JSON.parse(localStorage.getItem("ttbIndex"));
     if (timetables && timetables.length) {
-      
-      console.log(timetables.length);
       setTimetables(timetables);
+      setTtbIndex(ttbIndex);
       console.log("restored timetable", timetables);
     }
   }, []);
-  
+
+  // Constraints supplied by the user
   const [constraints, setConstraints] = useState([]);
   useEffect(()=>{
     fetch("/add-constraint",{
@@ -84,14 +81,12 @@ function App() {
     .then(response => response.json())
     .then(response => setConstraints(response))
     .catch(error => console.log(error))
-
-
   },[]);
 
- //likely temporary while we introduce constraints connections
- const addedConstraint = (constraint) =>{
-  setConstraints(constraint)
-}
+  // NOTE: likely temporary while we introduce constraints connections
+  const addedConstraint = (constraint) =>{
+    setConstraints(constraint)
+  }
 
   return (
     <div className="App">
@@ -99,8 +94,8 @@ function App() {
         <h1>Live Timetable Love</h1>
       </header>
       <div className="whole-webpage">
-        <Options timetables={timetables} setTimetables={setTimetables}/>
-        <MainWindow timetable={timetable}/>
+        <Options    timetables={timetables} ttbIndex={ttbIndex} setTtbIndex={setTtbIndex}/>
+        <MainWindow timetables={timetables} ttbIndex={ttbIndex} setTtbIndex={setTtbIndex}/>
         <Sidebar    courses={courses} setCourses={setCourses} addedConstraint={addedConstraint}/>
         <Generate   courses={courses} setTimetables={setTimetables}/>
         <h1 className="message">

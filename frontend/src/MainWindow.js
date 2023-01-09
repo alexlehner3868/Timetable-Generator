@@ -22,6 +22,9 @@ class MainWindow extends React.Component {
       hour: { begin: 9, end: 21},
     };
 
+    // Extract the timetable to show
+    const timetable = (this.props.timetables.length) ? this.props.timetables[this.props.ttbIndex] : [];
+
     return (
       <Tabs selectedIndex={this.state.tabIndex} onSelect={tabIndex => this.setState({ tabIndex })}>
         <TabList>
@@ -29,10 +32,10 @@ class MainWindow extends React.Component {
           <Tab>Winter</Tab>
         </TabList>
         <TabPanel>
-          <Semester timetable={this.props.timetable} when={fall}/>
+          <Semester timetable={timetable} when={fall}/>
         </TabPanel>
         <TabPanel>
-          <Semester timetable={this.props.timetable} when={winter}/>
+          <Semester timetable={timetable} when={winter}/>
         </TabPanel>
       </Tabs>
     );

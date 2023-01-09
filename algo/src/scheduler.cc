@@ -321,23 +321,18 @@ optional<Semester> Scheduler::attempt_to_add_section(
 }
 
 void Scheduler::print_timetables(vector<TimeTable> timetables) {
-    int num_timetables = timetables.size();
-    int counter = 0;
-    if (num_timetables > 1) {
-        cout << "[";
-    }
+    int counter = timetables.size();
+    cout << "[";
     for (auto timetable : timetables) {
+        // Output the current timetable
         cout << jsonify(timetable);
-        counter++;
-        if (counter < num_timetables) {
+        // Reduce how many more we must output
+        counter--;
+        // If there are more remaining, separate by a comma
+        if (counter)
           cout << ",";
-        }
     }
-    if (num_timetables > 1) {
-        cout << "]";
-    }
-
-
+    cout << "]";
 }
 
 void Scheduler::print_timetable(TimeTable &timetable, int preset) {
