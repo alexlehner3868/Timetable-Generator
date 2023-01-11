@@ -6,18 +6,18 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import SearchBar from './Components/SearchBar';
 import AddConstraintButton from './Components/NonEssentialComponents/AddConstraintButton.js';
 import AddConstraintServiceAPI from './Components/NonEssentialServices/AddConstraintService.js';
-
+import ActiveCourseList from './Components/ActiveCourseList';
 // -- Module --
 class Sidebar extends React.Component {
   constructor() {
     super();
-    this.state = { tabIndex: 0, message: ""};
+    this.state = { tabIndex: 0, message: "", t: 0};
   }
-
   render() {
     // NOTE: likely temporary while we introduce constraints connections
 
     return (
+      <div className='sidebar'>
       <Tabs selectedIndex={this.state.tabIndex} onSelect={tabIndex => this.setState({ tabIndex })}>
         <TabList>
           <Tab>Search</Tab>
@@ -31,12 +31,21 @@ class Sidebar extends React.Component {
           <AddConstraintButton action="{{ url_for('add-constraint') }}" method="post" addedConstraint={this.props.addedConstraint} />
         </TabPanel>
         <TabPanel>
-
+          <h4 id='course-list-header'>Desired Classes:</h4>
+          <ActiveCourseList courses={this.props.courses} setCourses={this.props.setCourses}/>
         </TabPanel>
       </Tabs>
+      </div>
     );
   }
 }
 
 // -- Exports --
 export default Sidebar;
+/*
+   <div>
+          {[...this.props.courses].map((course)=>(
+            <p id='active-course-list'>{course}</p>
+          ))}
+         </div>
+         */

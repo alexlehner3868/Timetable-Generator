@@ -100,9 +100,6 @@ function App() {
         <Generate   courses={courses} setTimetables={setTimetables}/>
         <h1 className="message">
           <p>
-            Courses: {[...courses].join(", ")}
-          </p>
-          <p>
             Message: {message}
           </p>
         </h1>

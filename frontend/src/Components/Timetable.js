@@ -9,6 +9,7 @@ const Timetable = ({timetable, when}) => {
   // TODO:
   // - Currently only printing for one semester. (Need to do both semesters.)
   // - Decide how to view the 2 semesters
+  // - Need to add padding underneath the timetable 
 
   // Create an 2D grid of all possible time slots
   const ndays = 10;

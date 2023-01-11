@@ -47,12 +47,15 @@ code {
   display: grid;
   padding-top: 1%;
   grid-template-columns: 10% 60% 30%;
-  grid-template-areas: 'control-bar main-window sidebar' '. message .';
+  grid-template-rows: 1fr max-content 1fr;
+  grid-template-areas: 'control-bar main-window sidebar' '. message generate-button';
 }
 
 .main-window {
   padding-top: 5px;
   grid-area: main-window;
+  margin: 30px;
+  height: max-content;
 }
 
 .message {
@@ -67,12 +70,17 @@ code {
   width: 80%;
   border-radius: 10px;
   border: 3px rgb(0, 0, 0)  solid;
-  
 }
+
+.generate-button{
+  grid-area: generate-button
+}
+
 .sidebar {
   border: 5px;
   border-style: double;
   grid-area: sidebar;
+  height: 100%;
 }
 
 .control-bar {
@@ -84,9 +92,36 @@ code {
   margin: auto;
   grid-area: control-bar;
 }
+#course-list-header{
+  text-align: left;
+}
 
-/* TODO: OLD STUFFF To be updated*/ 
+#active-course-list-text{
+  text-align: left;
+  margin-left: 5%;
+  grid-area: active-course-name;
+}
 
+.active-course-list{
+  display: grid;
+  grid-template-areas: 'active-course-name active-course-remove';
+  grid-template-columns: 80% 20%;
+
+}
+
+.border-section {
+  border: 2px rgb(107, 107, 107)  solid;
+}
+
+#active-course-remove{
+  grid-area: active-course-remove;
+  height:80%;
+  width: 80%;
+  font-size: small;
+  align-content: center;
+  border: none;
+  background: none;
+}
 
 .App-link {
   color: #61dafb;

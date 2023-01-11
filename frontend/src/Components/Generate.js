@@ -20,7 +20,7 @@ const Generate = ({courses, setTimetables}) => {
   };
 
   return (
-    <div>
+    <div className="generate-button">
       <button
         onClick={event => Request()}
         className="btn btn-primary mt-2"

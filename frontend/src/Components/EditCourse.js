@@ -16,10 +16,6 @@ const EditCourse = ({course, setCourses}) => {
         onClick={event => addCourse(course)}
         className="btn btn-primary mt-2"
       >Add</button>
-      <button
-        onClick={event => removeCourse(course)}
-        className="btn btn-primary mt-2"
-      >Remove</button>
     </div>
   )
 }
