@@ -9,28 +9,26 @@ const AddConstraintButton = (props) => {
        
     const removeConstraint = (constraint) => {
       console.log(`removing constraint: ${constraint}`)
-      props.setConstraints(prev => new Set([...prev].filter(x => (x !== (constraint + "0")
-                                                                && x!== (constraint + "1") 
-                                                                && x!== (constraint + "2")
-                                                                && x!== (constraint + "3")
+      props.setConstraints(prev => new Set([...prev].filter(x => (x.slice(0,3) !== (constraint + "0")
+                                                                && x.slice(0,3)!== (constraint + "1") 
+                                                                && x.slice(0,3)!== (constraint + "2")
+                                                                && x.slice(0,3)!== (constraint + "3")
                                                                 ))))
     };
     
-    const priority = 0;
-    /*
+    /* First two digits indicate constraint type, third indicates priority, fourth and fifth digit include time info (for constraints 7-11):
         00 - prefer early classes
         01 - prefer afternoon classes
         02 - prefer evening classes
         03 - prefer minimum days on campus 
         04 - prefer async classes 
-        05 - prefer syunc classes
+        05 - prefer sync classes
         06 - prefer break at lunch
         07 - prefer break at dinner
         08 - no class before a certain time
         09 - no class after a certain time
         10 - max hours of class back to back
         11 - no breaks longer than a certain time
-
     */
 
     function handleSubmitEarly (event) {
@@ -39,56 +37,134 @@ const AddConstraintButton = (props) => {
       removeConstraint("00");
       const priority = document.getElementById("morning_priorities").value
       
-      if (priority != "0") {
+      if (priority !== "0") {
         console.log(priority);
         console.log("Prioritizing Early Classes");
-        console.log("00" + priority);
-        addConstraint("00" + priority);
+        console.log("00" + priority + "00");
+        addConstraint("00" + priority + "00");
       }
     } function handleSubmitAfternoon (event) {
         event.preventDefault()
-        console.log(document.getElementById("afternoon_priorities").value);
-        console.log("Prioritizing Afternoon Classes")
+        removeConstraint("01");
+        const priority = document.getElementById("afternoon_priorities").value
+      
+        if (priority !== "0") {
+        console.log(priority);
+        console.log("Prioritizing Afternoon Classes");
+        console.log("01" + priority + "00");
+        addConstraint("01" + priority + "00");
+        }
     } function handleSubmitEvening (event) {
         event.preventDefault()
-        //addConstraint()
-        console.log("Prioritizing Evening Classes")
+        removeConstraint("02");
+        const priority = document.getElementById("evening_priorities").value
+      
+        if (priority !== "0") {
+            console.log(priority);
+            console.log("Prioritizing Evening Classes");
+            console.log("02" + priority + "00");
+            addConstraint("02" + priority + "00");
+        }
     } function handleSubmitMinDay (event) {
         event.preventDefault()
-        //addConstraint()
-        console.log("Prioritizing Minimum Days on Campus")
+        removeConstraint("03");
+        const priority = document.getElementById("minimize_priorities").value
+      
+        if (priority !== "0") {
+            console.log(priority);
+            console.log("Prioritizing Minimum Days on Campus")
+            console.log("03" + priority + "00");
+            addConstraint("03" + priority + "00");
+        }
     } function handleSubmitAsync (event) {
         event.preventDefault()
-        //addConstraint()
-        console.log("Prioritizing Asynchronous Courses")
+        removeConstraint("04");
+        const priority = document.getElementById("async_priorities").value
+      
+        if (priority !== "0") {
+            console.log(priority);
+            console.log("Prioritizing Asynchronous Courses")
+            console.log("04" + priority + "00");
+            addConstraint("04" + priority + "00");
+        }
     } function handleSubmitSync (event) {
         event.preventDefault()
-        //addConstraint()
-        console.log("Prioritizing Synchronous Courses")
+        removeConstraint("05");
+        const priority = document.getElementById("sync_priorities").value
+      
+        if (priority !== "0") {
+            console.log(priority);
+            console.log("Prioritizing Synchronous Courses")
+            console.log("05" + priority + "00");
+            addConstraint("05" + priority + "00");
+        }
     } function handleSubmitLunch (event) {
         event.preventDefault()
-        //addConstraint()
-        console.log("Prioritize Making Lunch Break")
+        removeConstraint("06");
+        const priority = document.getElementById("lunch_priorities").value
+      
+        if (priority !== "0") {
+            console.log(priority);
+            console.log("Prioritizing Making Lunch Break")
+            console.log("06" + priority + "00");
+            addConstraint("06" + priority + "00");
+        }
     } function handleSubmitDinner (event) {
         event.preventDefault()
-        //addConstraint()
-        console.log("Prioritiing Making Dinner Break")
+        removeConstraint("07");
+        const priority = document.getElementById("dinner_priorities").value
+      
+        if (priority !== "0") {
+            console.log(priority);
+            console.log("Prioritizing Making Dinner Break")
+            console.log("07" + priority + "00");
+            addConstraint("07" + priority + "00");
+        }
     } function handleSubmitNoClassBefore (event) {
         event.preventDefault()
-        //addConstraint()
-        console.log("Prioritize Classes After X")
+        removeConstraint("08");
+        const priority = document.getElementById("before_priorities").value
+      
+        if (priority !== "0") {
+            console.log(priority);
+            console.log("Prioritizing Courses Before X")
+            console.log("08" + priority + "00");
+            addConstraint("08" + priority + "00");
+        }
+        console.log("Prioritizing Classes After X")
     } function handleSubmitNoClassAfter (event) {
         event.preventDefault()
-        //addConstraint()
-        console.log("Prioritize Classes After Y")
+        removeConstraint("09");
+        const priority = document.getElementById("after_priorities").value
+      
+        if (priority !== "0") {
+            console.log(priority);
+            console.log("Prioritizing Classes Before Y")
+            console.log("09" + priority + "00");
+            addConstraint("09" + priority + "00");
+        }
     } function handleSubmitMaxBack (event) {
         event.preventDefault()
-        //addConstraint()
-        console.log("Setting longest possible break")
+        removeConstraint("10");
+        const priority = document.getElementById("max_class_priorities").value
+      
+        if (priority !== "0") {
+            console.log(priority);
+            console.log("Prioritizing Shortest Possible B2B Hours of Class")
+            console.log("10" + priority + "00");
+            addConstraint("10" + priority + "00");
+        }
     } function handleSubmitMaxBreak (event) {
         event.preventDefault()
-        //addConstraint()
-        console.log("Setting longest possible break")
+        removeConstraint("11");
+        const priority = document.getElementById("max_break_priorities").value
+      
+        if (priority !== "0") {
+            console.log(priority);
+            console.log("Prioritizing Shortest Break")
+            console.log("11" + priority + "00");
+            addConstraint("11" + priority + "00");
+        }
     } 
     
     
@@ -156,13 +232,37 @@ const AddConstraintButton = (props) => {
             </select> <br></br>
                 
             <label id="before">No Class Before: </label>
-            <input type="number" id="before" min="10" max="20" onClick = {handleSubmitNoClassBefore} ></input><br></br>
+            <input type="number" id="before_value" min="10" max="20" onClick = {handleSubmitNoClassBefore} ></input> 
+            <select list="Priority" id="before_priorities" onClick = {handleSubmitNoClassBefore}>
+                <option value="0"></option>
+                <option value="1">Good To Have</option>
+                <option value="2">Great To Have</option>
+                <option value="3">Must Have</option>
+            </select> <br></br>
             <label id="after">No Class After: </label>
-            <input type="number" id="after" min="9" max="19" onClick = {handleSubmitNoClassAfter} ></input><br></br>
+            <input type="number" id="after_value" min="9" max="19" onClick = {handleSubmitNoClassAfter} ></input>
+            <select list="Priority" id="after_priorities" onClick = {handleSubmitNoClassAfter}>
+                <option value="0"></option>
+                <option value="1">Good To Have</option>
+                <option value="2">Great To Have</option>
+                <option value="3">Must Have</option>
+            </select> <br></br>
             <label id="max">Max Hours of Class Back to Back</label>
-            <input type="number" id="max_class" min="0" max="12" onClick = {handleSubmitMaxBack} ></input><br></br>
+            <input type="number" id="max_class_value" min="0" max="12" onClick = {handleSubmitMaxBack} ></input>
+            <select list="Priority" id="max_class_priorities" onClick = {handleSubmitMaxBack}>
+                <option value="0"></option>
+                <option value="1">Good To Have</option>
+                <option value="2">Great To Have</option>
+                <option value="3">Must Have</option>
+            </select> <br></br>
             <label id="max">Max Hours of Break</label>
-            <input type="number" id="max_break" min="0" max="12" onClick = {handleSubmitMaxBreak} ></input><br></br>
+            <input type="number" id="max_break_value" min="0" max="12" onClick = {handleSubmitMaxBreak} ></input>
+            <select list="Priority" id="max_break_priorities" onClick = {handleSubmitMaxBreak}>
+                <option value="0"></option>
+                <option value="1">Good To Have</option>
+                <option value="2">Great To Have</option>
+                <option value="3">Must Have</option>
+            </select> <br></br>
 
        </div>
   )}
