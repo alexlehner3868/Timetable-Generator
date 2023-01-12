@@ -70,23 +70,20 @@ function App() {
   }, []);
 
   // Constraints supplied by the user
-  const [constraints, setConstraints] = useState([]);
-  useEffect(()=>{
-    fetch("/add-constraint",{
-      'methods':'GET',
-      headers : {
-        'Content-Type':'text/plain'
-      }
-    })
-    .then(response => response.json())
-    .then(response => setConstraints(response))
-    .catch(error => console.log(error))
-  },[]);
-
-  // NOTE: likely temporary while we introduce constraints connections
-  const addedConstraint = (constraint) =>{
-    setConstraints(constraint)
-  }
+  const [constraints, setConstraints] = useState(new Set());
+  useEffect(() => { // save when updated
+    if (constraints && constraints.size) {
+      localStorage.setItem("constraints", JSON.stringify(Array.from(constraints)));
+      console.log("saved constraints", JSON.parse(localStorage.getItem("constraints")));
+    }
+  }, [constraints]);
+  useEffect(() => { // restore on first render
+    const constraints = new Set(JSON.parse(localStorage.getItem("constraints")));
+    if (constraints && constraints.size) {
+      setConstraints(constraints);
+      console.log("restored constraints", constraints);
+    }
+  }, []);
 
   return (
     <div className="App">
@@ -96,8 +93,8 @@ function App() {
       <div className="whole-webpage">
         <Options    timetables={timetables} ttbIndex={ttbIndex} setTtbIndex={setTtbIndex}/>
         <MainWindow timetables={timetables} ttbIndex={ttbIndex} setTtbIndex={setTtbIndex}/>
-        <Sidebar    courses={courses} setCourses={setCourses} addedConstraint={addedConstraint}/>
-        <Generate   courses={courses} setTimetables={setTimetables}/>
+        <Sidebar    courses={courses} setCourses={setCourses} constraints={constraints} setConstraints={setConstraints}/>
+        <Generate   courses={courses} constraints={constraints} setTimetables={setTimetables}/>
         <h1 className="message">
           <p>
             Message: {message}

@@ -28,7 +28,7 @@ class Sidebar extends React.Component {
           <SearchBar courses={this.props.courses} setCourses={this.props.setCourses}/>
         </TabPanel>
         <TabPanel>
-          <AddConstraintButton action="{{ url_for('add-constraint') }}" method="post" addedConstraint={this.props.addedConstraint} />
+          <AddConstraintButton constraints={this.props.constraints} setConstraints={this.props.setConstraints}/>
         </TabPanel>
         <TabPanel>
           <h4 id='course-list-header'>Desired Classes:</h4>

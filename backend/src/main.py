@@ -64,14 +64,16 @@ def main():
     # /gen
     @app.get("/gen")
     def gen() -> Response:
+        all_args = [args.algo]
         # Extract courses
         courses = request.args["courses"]
-        courses = f"-c{courses}"
+        all_args.append(f"-c{courses}")
         # Extract constraints
         constraints = request.args.get("constraints")
-        constraints = f"-x{constraints}" if constraints else ""
+        if constraints:
+            all_args.append(f"-x{constraints}")
         # Run subprocess
-        out = subprocess.run([args.algo, f"{courses}"], capture_output=True)
+        out = subprocess.run(all_args, capture_output=True)
         # Return output
         return out.stdout
 

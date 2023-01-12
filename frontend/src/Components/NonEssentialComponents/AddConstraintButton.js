@@ -3,47 +3,52 @@ import { useState } from 'react';
 import AddConstraintServiceAPI from '../NonEssentialServices/AddConstraintService.js';
 
 const AddConstraintButton = (props) => {
-    const [constraint, setConstraintName] = useState('')
-    const addConstraint = () =>{
-      AddConstraintServiceAPI.AddConstraint({constraint})
-      .then((response) => props.addedConstraint(response))
-      .catch(error => console.log('error',error))
+    const addConstraint = (constraint) => {
+        console.log(`adding constraint: ${constraint}`)
+        props.setConstraints(prev => new Set(prev.add(constraint)))
     }
 
-    function handleSubmitEarly (event) { 
+    const removeConstraint = (constraint) => {
+      console.log(`removing constraint: ${constraint}`)
+      props.setConstraints(prev => new Set([...prev].filter(x => x !== constraint)))
+    };
+
+    const setConstraintName = () => {};
+
+    function handleSubmitEarly (event) {
       event.preventDefault()
       setConstraintName("Prioritize Early Classes")
       //these only work if they're all the same
       document.getElementById("early").checked = true;
       addConstraint()
       console.log("Prioritizing Early Classes")
-    } function handleSubmitAfternoon (event) { 
+    } function handleSubmitAfternoon (event) {
         event.preventDefault()
         setConstraintName("Prioritize Afternoon Classes")
         document.getElementById("afternoon").checked = true;
         addConstraint()
         console.log("Prioritizing Afternoon Classes")
-    } function handleSubmitEvening (event) { 
+    } function handleSubmitEvening (event) {
         event.preventDefault()
         setConstraintName("Prioritize Evening Classes")
         document.getElementById("evening").checked = true;
         addConstraint()
         console.log("Prioritizing Evening Classes")
-    } function handleSubmitMinDay (event) { 
+    } function handleSubmitMinDay (event) {
         event.preventDefault()
         setConstraintName("Prioritize Minimum Days")
         document.getElementById("min_day").checked = true;
         addConstraint()
         console.log("Prioritizing Minimum Days on Campus")
-    } function handleSubmitBackBefore (event) { 
+    } function handleSubmitBackBefore (event) {
         event.preventDefault()
         setConstraintName("Prioritize Classes After X")
         addConstraint()
         console.log("Prioritize Classes After X")
-    } function handleSubmitBackAfter (event) { 
-        
-    } function handleSubmitBack (event) { 
-    } function handleSubmitBlock (event) { 
+    } function handleSubmitBackAfter (event) {
+
+    } function handleSubmitBack (event) {
+    } function handleSubmitBlock (event) {
         event.preventDefault()
         setConstraintName("Block off Time")
         addConstraint()
@@ -61,9 +66,9 @@ const AddConstraintButton = (props) => {
                 <input type="checkbox" id="min_day" name="fav_language" value="min_day" onClick = {handleSubmitMinDay}></input>
                 <label for="min_day">Prefer Minimum Days on Campus</label><br></br>
                 <label for="before">No Class Before: </label>
-                <input type="number" id="before" min="10" max="20" onClick = {handleSubmitBackBefore} ></input><br></br> 
+                <input type="number" id="before" min="10" max="20" onClick = {handleSubmitBackBefore} ></input><br></br>
                 <label for="after">No Class After: </label>
-                <input type="number" id="after" min="9" max="19" onClick = {handleSubmitBackAfter} ></input><br></br> 
+                <input type="number" id="after" min="9" max="19" onClick = {handleSubmitBackAfter} ></input><br></br>
                 <label for="max">Max Hours of Class Back to Back: </label>
                 <input type="number" id="max" min="0" max="12" onClick = {handleSubmitBack} ></input><br></br>
 
@@ -113,7 +118,7 @@ const AddConstraintButton = (props) => {
                             </select>
                             <input type="submit" onClick = {handleSubmitBlock} ></input>
                         </form>
-                </fieldset> 
+                </fieldset>
 
        </div>
   )}

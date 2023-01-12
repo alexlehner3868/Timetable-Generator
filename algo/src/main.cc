@@ -19,7 +19,7 @@
 
 using namespace std;
 
-int exec(vector<string> courses) {
+int exec(vector<string> courses, vector<string> constraints) {
     string result_string = "";
     //--- Data Procesing ----
     // 1. Parses csv to get classes
@@ -143,21 +143,32 @@ int main(int argc, char *argv[]) {
             .shortname('c')
             .help("Comma separated list of courses.")
         );
+    parser.add(
+        clip::Opt<string>("constraints")
+            .shortname('x')
+            .help("Comma separated list of constraints.")
+        );
     // Parse args
     parser.parse();
 
     // Retrieve string of courses from input
-    const auto &str = parser.getOpt<string>("courses").value();
+    const auto &course_str = parser.getOpt<string>("courses").value();
+    const auto &constraint_str = parser.getOpt<string>("constraints").value();
     // Split courses into a vector
     size_t start;
-    size_t end = 0;
     const char delim = ',';
-    vector<string> courses;
-    while ((start = str.find_first_not_of(delim, end)) != std::string::npos) {
-        end = str.find(delim, start);
-        courses.push_back(str.substr(start, end - start));
+    vector<string> courses, constraints;
+    size_t end = 0;
+    while ((start = course_str.find_first_not_of(delim, end)) != std::string::npos) {
+        end = course_str.find(delim, start);
+        courses.push_back(course_str.substr(start, end - start));
+    }
+    end = 0;
+    while ((start = constraint_str.find_first_not_of(delim, end)) != std::string::npos) {
+        end = constraint_str.find(delim, start);
+        constraints.push_back(constraint_str.substr(start, end - start));
     }
 
     // Execute the algorithm
-    return exec(courses);
+    return exec(courses, constraints);
 }
