@@ -21,8 +21,8 @@ const DownloadButton = (props) => {
             let text = [];
 
             text.push("Timetable Option " + props.ttbIndex +":\n")
-            text.push("_________________________________________")
-            text.push("Here are the sections to enroll in:")
+            text.push("_________________________________________\n")
+            text.push("Here are the sections to enroll in:\n")
             for( const course  of courses){
                 text.push("     " + course.code + " " + course.type + " section: " + course.section + '\n');
             }
