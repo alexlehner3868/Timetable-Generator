@@ -259,7 +259,7 @@ const AddConstraintButton = (props) => {
                 <option value="3">Must Have</option>
             </select> <br></br>
             <label id="max">Max Hours of Class Back to Back</label>
-            <input type="number" id="max_class_value" min="0" max="12" onClick = {handleSubmitMaxBack} ></input>
+            <input type="number" id="max_class_value" min="1" max="12" onClick = {handleSubmitMaxBack} ></input>
             <select list="Priority" id="max_class_priorities" onClick = {handleSubmitMaxBack}>
                 <option value="0"></option>
                 <option value="1">Good To Have</option>
@@ -267,7 +267,7 @@ const AddConstraintButton = (props) => {
                 <option value="3">Must Have</option>
             </select> <br></br>
             <label id="max">Max Hours of Break</label>
-            <input type="number" id="max_break_value" min="0" max="12" onClick = {handleSubmitMaxBreak} ></input>
+            <input type="number" id="max_break_value" min="1" max="12" onClick = {handleSubmitMaxBreak} ></input>
             <select list="Priority" id="max_break_priorities" onClick = {handleSubmitMaxBreak}>
                 <option value="0"></option>
                 <option value="1">Good To Have</option>

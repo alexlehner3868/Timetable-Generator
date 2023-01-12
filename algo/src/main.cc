@@ -78,7 +78,48 @@ int exec(vector<string> courses, vector<string> constraints) {
         }
     }
     ConstraintHandler constraint_handler;
-    constraint_handler.add_time_constraint(10, 2, 2, 'F', MUST_HAVE); // tuesday at 10 am for 2 hours in the fall with
+    
+    int constraint_type;
+    int priority;
+    int hours;
+    while (constraints.size() > 0) {
+        constraint_type = constraints[0][0:1];
+        priority = contraints[0][2]
+        hours = constraints[0][3:4]
+        
+        if (constraint_type == 0 && priority > 0 && hours > 0) {
+            //all info passed is valid
+            constraint_handler.set_prefer_morning_classes(priority);
+        } else if (constraint_type == 1 && priority > 0 && hours > 0) {
+            constraint_handler.set_prefer_afternoon_classes(priority);
+        } else if (constraint_type == 2 && priority > 0 && hours > 0) {
+            constraint_handler.set_prefer_evening_classes(priority);
+        } else if (constraint_type == 3 && priority > 0 && hours > 0) {
+            constraint_handler.set_minimize_days_at_school_constraint(priority);
+        } else if (constraint_type == 4 && priority > 0 && hours > 0) {
+            constraint_handler.set_prefer_async_classes_constraint(priority);
+        } else if (constraint_type == 5 && priority > 0 && hours > 0) {
+            constraint_handler.set_prefer_sync_classes_constraint(priority);
+        } else if (constraint_type == 6 && priority > 0 && hours > 0) {
+            constraint_handler.set_prefer_async_classes_constraint(priority);
+        } else if (constraint_type == 7 && priority > 0 && hours > 0) {
+            constraint_handler.set_prefer_async_classes_constraint(priority);
+        } else if (constraint_type == 8 && priority > 0 && hours > 0) {
+            constraint_handler.set_no_classes_before_X_constraint(hours, priority);
+        } else if (constraint_type == 9 && priority > 0 && hours > 0) {
+            constraint_handler.set_no_classes_after_X_constraint(hours, priority);
+        } else if (constraint_type == 10 && priority > 0 && hours > 0) {
+            constraint_handler.set_back_to_back_constraint(hours, priority);
+        } else if (constraint_type == 11 && priority > 0 && hours > 0) {
+            constraint_handler.set_no_breaks_larger_than_X_constraint(hours, priority);
+        } /*THIS IS FOR EVENTUAL TIME BLOCKelse if (constraint_type == 12 && priority > 0 && hours > 0) {
+            constraint_handler.prefer_async_classes_constraint(priority);
+        } */else {
+            //pass, bad
+        }
+        constraints.erase(constraints.begin());
+    }
+    //constraint_handler.add_time_constraint(10, 2, 2, 'F', MUST_HAVE); // tuesday at 10 am for 2 hours in the fall with
     //constraint_handler.set_no_classes_before_X_constraint(13, GOOD_TO_HAVE);
     Scheduler scheduler_handler;
     if (!constraint_handler.prune_semesters(offerings) /*&& !scheduler_handler.allow_incomplete*/) {

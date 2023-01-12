@@ -69,9 +69,9 @@ public:
     void set_prefer_morning_classes_constraint(int priority);
     void set_prefer_afternoon_classes_constraint(int priority);
     void set_prefer_evening_classes_constraint(int priority);
-    void set_prefer_async_classes_cosntraint(int priority);
+    void set_prefer_async_classes_constraint(int priority);
     void set_prefer_sync_classes_constraint(int priority);
-    void set_no_more_than_X_hours_per_day_cosntraint(int X, int priority);
+    void set_no_more_than_X_hours_per_day_constraint(int X, int priority);
     void set_no_breaks_larger_than_X_constraint(int X, int priority);
     void set_prefer_lunch_break_constraint(int priority);
     void set_prefer_dinner_break_constraint(int priority);
