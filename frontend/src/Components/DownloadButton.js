@@ -19,13 +19,17 @@ const DownloadButton = (props) => {
                 }
             }
             let text = [];
-            console.log(courses)
+
             text.push("Timetable Option " + props.ttbIndex +":\n")
+            text.push("_________________________________________")
+            text.push("Here are the sections to enroll in:")
             for( const course  of courses){
-                text.push(course.code + " " + course.type + " section: " + course.section + '\n');
+                text.push("     " + course.code + " " + course.type + " section: " + course.section + '\n');
             }
+            let unique_courses = [...new Set(text)]
+            console.log(unique_courses)
             // file object
-            const file = new Blob(text, {type: 'text/plain'});
+            const file = new Blob(unique_courses, {type: 'text/plain'});
             // anchor link
             const element = document.createElement("a");
             element.href = URL.createObjectURL(file);
