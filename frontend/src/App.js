@@ -8,7 +8,6 @@ import Options from './Options';
 
 // -- Components --
 import Generate from './Components/Generate';
-import AddConstraintButton from './Components/NonEssentialComponents/AddConstraintButton';
 
 // -- Styles --
 import './index.css'

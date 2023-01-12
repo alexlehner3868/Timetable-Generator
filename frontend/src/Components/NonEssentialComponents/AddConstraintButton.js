@@ -1,4 +1,4 @@
-import { useState } from 'react';
+
 
 const AddConstraintButton = (props) => {
     const addConstraint = (constraint) => {
@@ -6,12 +6,11 @@ const AddConstraintButton = (props) => {
         props.setConstraints(prev => new Set(prev.add(constraint)))
     }
 
+       
     const removeConstraint = (constraint) => {
       console.log(`removing constraint: ${constraint}`)
       props.setConstraints(prev => new Set([...prev].filter(x => x !== constraint)))
     };
-
-    const setConstraintName = () => {};
 
     function handleSubmitEarly (event) {
       event.preventDefault()
