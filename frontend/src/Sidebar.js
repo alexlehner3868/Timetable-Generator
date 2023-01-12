@@ -5,7 +5,6 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 // -- Components --
 import SearchBar from './Components/SearchBar';
 import AddConstraintButton from './Components/NonEssentialComponents/AddConstraintButton.js';
-import AddConstraintServiceAPI from './Components/NonEssentialServices/AddConstraintService.js';
 import ActiveCourseList from './Components/ActiveCourseList';
 // -- Module --
 class Sidebar extends React.Component {

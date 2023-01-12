@@ -1,7 +1,5 @@
 import { useState } from 'react';
 
-import AddConstraintServiceAPI from '../NonEssentialServices/AddConstraintService.js';
-
 const AddConstraintButton = (props) => {
     const addConstraint = (constraint) => {
         console.log(`adding constraint: ${constraint}`)
@@ -17,32 +15,23 @@ const AddConstraintButton = (props) => {
 
     function handleSubmitEarly (event) {
       event.preventDefault()
-      setConstraintName("Prioritize Early Classes")
       //these only work if they're all the same
-      document.getElementById("early").checked = true;
       addConstraint()
       console.log("Prioritizing Early Classes")
     } function handleSubmitAfternoon (event) {
         event.preventDefault()
-        setConstraintName("Prioritize Afternoon Classes")
-        document.getElementById("afternoon").checked = true;
         addConstraint()
         console.log("Prioritizing Afternoon Classes")
     } function handleSubmitEvening (event) {
         event.preventDefault()
-        setConstraintName("Prioritize Evening Classes")
-        document.getElementById("evening").checked = true;
         addConstraint()
         console.log("Prioritizing Evening Classes")
     } function handleSubmitMinDay (event) {
         event.preventDefault()
-        setConstraintName("Prioritize Minimum Days")
-        document.getElementById("min_day").checked = true;
         addConstraint()
         console.log("Prioritizing Minimum Days on Campus")
     } function handleSubmitBackBefore (event) {
         event.preventDefault()
-        setConstraintName("Prioritize Classes After X")
         addConstraint()
         console.log("Prioritize Classes After X")
     } function handleSubmitBackAfter (event) {
@@ -50,7 +39,6 @@ const AddConstraintButton = (props) => {
     } function handleSubmitBack (event) {
     } function handleSubmitBlock (event) {
         event.preventDefault()
-        setConstraintName("Block off Time")
         addConstraint()
         console.log("Blocking Off Time")
     }
