@@ -15,7 +15,6 @@ const AddConstraintButton = (props) => {
                                                                 && x.slice(0,3)!== (constraint + "3")
                                                                 ))))
     };
-    
     /* First two digits indicate constraint type, third indicates priority, fourth and fifth digit include time info (for constraints 7-11):
         00 - prefer early classes
         01 - prefer afternoon classes
@@ -139,7 +138,7 @@ const AddConstraintButton = (props) => {
       
         if (priority !== "0") {
             console.log(priority);
-            console.log("Prioritizing Classes Before Y")
+            console.log("Prioritizing Classes Before Y");
             console.log("09" + priority + "00");
             addConstraint("09" + priority + "00");
         }
@@ -147,23 +146,38 @@ const AddConstraintButton = (props) => {
         event.preventDefault()
         removeConstraint("10");
         const priority = document.getElementById("max_class_priorities").value
-      
+        const hours = document.getElementById("max_class_value").value
+        console.log(hours);
         if (priority !== "0") {
             console.log(priority);
-            console.log("Prioritizing Shortest Possible B2B Hours of Class")
-            console.log("10" + priority + "00");
-            addConstraint("10" + priority + "00");
+            console.log("Prioritizing Shortest Possible B2B Hours of Class");
+            const int_hours = parseInt(hours);
+            if (int_hours < 10 && int_hours > 0) { //single digit hour value
+                addConstraint("10" + priority + "0" + hours);
+            } else if (int_hours > 9 && int_hours < 13 ) {
+                addConstraint("10" + priority + hours);
+            } else {
+                // error so don't do anything
+            }
         }
     } function handleSubmitMaxBreak (event) {
         event.preventDefault()
         removeConstraint("11");
         const priority = document.getElementById("max_break_priorities").value
+        const hours = document.getElementById("max_break_value").value
       
         if (priority !== "0") {
             console.log(priority);
             console.log("Prioritizing Shortest Break")
-            console.log("11" + priority + "00");
-            addConstraint("11" + priority + "00");
+            console.log("11" + priority + hours);
+            const int_hours = parseInt(hours);
+            if (int_hours < 10 && int_hours > 0) { //single digit hour value
+                addConstraint("11" + priority + "0" + hours);
+            } else if (int_hours > 9 && int_hours < 13 ) {
+                addConstraint("11" + priority + hours);
+            } else {
+                // error so don't do anything
+            }
         }
     } 
     
@@ -178,9 +192,6 @@ const AddConstraintButton = (props) => {
                 <option value="2" >Great To Have</option>
                 <option value="3" >Must Have</option>
             </select> <br></br>
-
-
-
             <label>Prefer Afternoon Classes</label>
             <select list="Priority" id="afternoon_priorities" onClick = {handleSubmitAfternoon}>
                 <option value="0"></option>
