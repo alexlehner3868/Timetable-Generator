@@ -1,5 +1,7 @@
+
 // -- Module --
 const DownloadButton = (props) => {
+    
     const downloadTxtFile = () => {
            // text content
             const timetable = (props.timetables.length) ? props.timetables[props.ttbIndex] : [];
@@ -17,7 +19,8 @@ const DownloadButton = (props) => {
                 }
             }
             let text = [];
-            text.append("Timetable Option " + props.ttbIndex +":\n")
+            console.log(courses)
+            text.push("Timetable Option " + props.ttbIndex +":\n")
             for( const course  of courses){
                 text.push(course.code + " " + course.type + " section: " + course.section + '\n');
             }
@@ -32,8 +35,11 @@ const DownloadButton = (props) => {
             // Required for this to work in FireFox
             element.click();
     }
+
+
     return (
       <div>
+       
        <button id="downloadBtn" onClick={downloadTxtFile} value="download">Download</button>
       </div>
     )

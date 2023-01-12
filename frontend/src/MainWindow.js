@@ -27,6 +27,7 @@ class MainWindow extends React.Component {
 
     return (
       <div className='main-window'>
+        
       <Tabs selectedIndex={this.state.tabIndex} onSelect={tabIndex => this.setState({ tabIndex })}>
         <TabList>
           <Tab>Fall</Tab>
