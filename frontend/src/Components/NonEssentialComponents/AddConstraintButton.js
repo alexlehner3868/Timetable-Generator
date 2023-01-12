@@ -15,7 +15,7 @@ const AddConstraintButton = (props) => {
     function handleSubmitEarly (event) {
       event.preventDefault()
       //these only work if they're all the same
-      addConstraint()
+      addConstraint("")
       console.log("Prioritizing Early Classes")
     } function handleSubmitAfternoon (event) {
         event.preventDefault()
@@ -44,6 +44,27 @@ const AddConstraintButton = (props) => {
     //use fieldset disabled key for constraints later
   return (
        <div>
+            <label>Prefer Morning Classes</label>
+            <select list="Priority" id="evening_priorities">
+                <option value="0">Select:</option>
+                <option value="1">Good To Have</option>
+                <option value="2">Great To Have</option>
+                <option value="3">Must Have</option>
+            </select> <br></br>
+            <label>Prefer Afternoon Classes</label>
+            <select list="Priority" id="afternoon_priorities">
+                <option value="0">Select:</option>
+                <option value="1">Good To Have</option>
+                <option value="2">Great To Have</option>
+                <option value="3">Must Have</option>
+            </select> <br></br>
+            <label>Prefer Evening Classes</label>
+            <select list="Priority" id="evening_priorities">
+                <option value="0">Select:</option>
+                <option value="1">Good To Have</option>
+                <option value="2">Great To Have</option>
+                <option value="3">Must Have</option>
+            </select> <br></br>
                 <input type="checkbox" id="early" name="fav_language" value="early" onClick = {handleSubmitEarly}></input>
                 <label for="early">Prefer Morning Classes</label><br></br>
                 <input type="checkbox" id="afternoon" name="fav_language" value="afternoon" onClick = {handleSubmitAfternoon}></input>
