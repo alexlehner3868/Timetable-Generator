@@ -86,7 +86,6 @@ int exec(vector<string> courses, vector<string> constraints) {
         constraint_type = constraints[0][0]*10 + constraints[0][1];
         priority = constraints[0][2];
         hours = constraints[0][3]*10 + constraints[0][4];
-        
         if (constraint_type == 0 && priority > 0 && hours > 0) {
             //all info passed is valid
             constraint_handler.set_prefer_morning_classes_constraint(priority);
@@ -116,6 +115,7 @@ int exec(vector<string> courses, vector<string> constraints) {
             constraint_handler.prefer_async_classes_constraint(priority);
         } */else {
             //pass, bad
+            
         }
         constraints.erase(constraints.begin());
     }
