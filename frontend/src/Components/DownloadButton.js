@@ -42,9 +42,8 @@ const DownloadButton = (props) => {
 
 
     return (
-      <div>
-       
-       <button id="downloadBtn" onClick={downloadTxtFile} value="download">Download</button>
+      <div className="download-button-div">
+       <button id="downloadBtn" onClick={downloadTxtFile} value="download"><img className="download-button-img" src="https://i.ibb.co/ctMCKRD/532.png" alt="532" border="0"/></button>
       </div>
     )
   }

@@ -92,6 +92,7 @@ code {
   margin: auto;
   grid-area: control-bar;
 }
+
 #course-list-header{
   text-align: left;
 }
@@ -264,6 +265,20 @@ code {
   font-family: cera-regular;
   color: rgb(28, 64, 161);
 }
+
+#downloadBtn{
+  background-color: inherit;
+  border: none;
+  cursor: pointer;
+  
+}
+
+.download-button-img{
+  background-color: none;
+  height: 30%;
+  width: 30%;
+  background-color: inherit;
+}
 .course-name {
   position: absolute;
   left: 25%;
@@ -285,6 +300,10 @@ code {
     height: 80px;
     width: 100%;
     
+}
+.download-button-div{
+  margin-top: 95%;
+  padding-top: 95%;
 }
 .search-results-box {
   position: relative;
