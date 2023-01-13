@@ -180,6 +180,7 @@ optional<Semester> Scheduler::attempt_to_add_section(
                                                 // F - FALL W - WINTER Y - BOTH [WONT SAY Y ANYM]
 
         };
+        int semester_offset = (class_chosen.semester == 'F') ? 0 : 5;
         bool successfully_inserted;
         // Is this class an async class
         Date period;
@@ -191,7 +192,7 @@ optional<Semester> Scheduler::attempt_to_add_section(
             // Add a entry for every hour that the lecure has
             for (int i = 0; i < section.duration_.at(class_in_section); i++) {
                 // If the class is in the winter offset the day by 5 ([1,5] = fall, [6,10] = winter)
-                int semester_offset = (class_chosen.semester == 'F') ? 0 : 5;
+                
                 period = make_pair(section.day_.at(class_in_section) + semester_offset,
                                    section.start_time_.at(class_in_section) + i);
 
@@ -229,7 +230,7 @@ optional<Semester> Scheduler::attempt_to_add_section(
                     // loop through each hour of the class (ex. if one is a two hour class this will
                     // run twice)
                     for (int i = 0; i < section.duration_.at(remove_class); i++) {
-                        Date remove_period = make_pair(section.day_.at(remove_class),
+                        Date remove_period = make_pair(section.day_.at(remove_class) + semester_offset,
                                                        section.start_time_.at(remove_class) + i);
 
                         if (remove_period != period) {
@@ -257,7 +258,7 @@ optional<Semester> Scheduler::attempt_to_add_section(
             for (int remove_class = 0; remove_class < class_in_section;
                  remove_class++) { // should this be < or <= (<= seg faults)
                 for (int i = 0; i < section.duration_.at(remove_class); i++) {
-                    Date period = make_pair(section.day_.at(remove_class),
+                    Date period = make_pair(section.day_.at(remove_class) + semester_offset,
                                             section.start_time_.at(remove_class) + i);
                     timetable.erase(period);
                 }
@@ -268,7 +269,7 @@ optional<Semester> Scheduler::attempt_to_add_section(
             for (int remove_class = 0; remove_class < class_in_section;
                  remove_class++) { // should this be < or <= (<= seg faults)
                 for (int i = 0; i < section.duration_.at(remove_class); i++) {
-                    Date period = make_pair(section.day_.at(remove_class),
+                    Date period = make_pair(section.day_.at(remove_class)+semester_offset,
                                             section.start_time_.at(remove_class) + i);
                     timetable.erase(period);
                 }
@@ -286,7 +287,7 @@ optional<Semester> Scheduler::attempt_to_add_section(
             for (int remove_class = 0; remove_class < class_in_section;
                  remove_class++) { // should this be < or <= (<= seg faults)
                 for (int i = 0; i < section.duration_.at(remove_class); i++) {
-                    Date period = make_pair(section.day_.at(remove_class),
+                    Date period = make_pair(section.day_.at(remove_class)+semester_offset,
                                             section.start_time_.at(remove_class) + i);
                     timetable.erase(period);
                 }
