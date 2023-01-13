@@ -83,17 +83,17 @@ int exec(vector<string> courses, vector<string> constraints) {
     int priority;
     int hours;
     while (constraints.size() > 0) {
-        constraint_type = constraints[0][0:1];
-        priority = contraints[0][2]
-        hours = constraints[0][3:4]
+        constraint_type = constraints[0][0]*10 + constraints[0][1];
+        priority = constraints[0][2];
+        hours = constraints[0][3]*10 + constraints[0][4];
         
         if (constraint_type == 0 && priority > 0 && hours > 0) {
             //all info passed is valid
-            constraint_handler.set_prefer_morning_classes(priority);
+            constraint_handler.set_prefer_morning_classes_constraint(priority);
         } else if (constraint_type == 1 && priority > 0 && hours > 0) {
-            constraint_handler.set_prefer_afternoon_classes(priority);
+            constraint_handler.set_prefer_afternoon_classes_constraint(priority);
         } else if (constraint_type == 2 && priority > 0 && hours > 0) {
-            constraint_handler.set_prefer_evening_classes(priority);
+            constraint_handler.set_prefer_evening_classes_constraint(priority);
         } else if (constraint_type == 3 && priority > 0 && hours > 0) {
             constraint_handler.set_minimize_days_at_school_constraint(priority);
         } else if (constraint_type == 4 && priority > 0 && hours > 0) {
