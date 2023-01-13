@@ -218,8 +218,8 @@ code {
 
 .search-bar {
     position: relative;
-    width: 60%;
-    height: 20%;
+    width: 80%;
+    height: 65px;
     font-size: x-large;
     text-align: center;
     border-radius: 5px;
@@ -231,17 +231,16 @@ code {
   border-top-width: 1px;
   border-bottom-width: 1px;
   border-top-color: white;*/
-  background-color: white;
+  background-color: rgb(233, 233, 233);
   padding: 0;
   position: absolute;
   display:inline-block;
   font-size: medium;
   width:100%;
-  height:80px;
-  background-color: white;
+  height:50%;
   transition: box-shadow 150ms cubic-bezier(0.61, 1, 0.88, 1);
   left: 0;
-  border: white;
+  border: rgb(21, 23, 153);
   border-style: solid;
   border-width: 3px; 
   
@@ -280,20 +279,19 @@ code {
 }
 .search-results {
     margin: 3px;
-    background-color: white;
+    background-color: rgb(233, 233, 233);
     font-size: medium;
     color: black;
     height: 80px;
-    width: 60%;
+    width: 100%;
     
 }
 .search-results-box {
   position: relative;
   /*this is the color of the scroll bar */
-  background-color: white;
-  height: 700px;
+  background-color: rgb(233, 233, 233);
+  height: 400px;
   width: 100%;
-  margin-top: 5px; 
   overflow: auto;
 }
 
