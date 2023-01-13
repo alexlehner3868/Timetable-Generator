@@ -34,123 +34,123 @@ const AddConstraintButton = (props) => {
       event.preventDefault()
       // remove all "early" constraints existing previously
       removeConstraint("00");
-      const priority = document.getElementById("morning_priorities").value
+      const priority = document.getElementById("morning_priorities").value;
       
       if (priority !== "0") {
-        console.log(priority);
-        console.log("Prioritizing Early Classes");
-        console.log("00" + priority + "00");
+        //console.log(priority);
+        //console.log("Prioritizing Early Classes");
+        //console.log("00" + priority + "00");
         addConstraint("00" + priority + "00");
       }
     } function handleSubmitAfternoon (event) {
-        event.preventDefault()
+        event.preventDefault();
         removeConstraint("01");
-        const priority = document.getElementById("afternoon_priorities").value
+        const priority = document.getElementById("afternoon_priorities").value;
       
         if (priority !== "0") {
-        console.log(priority);
-        console.log("Prioritizing Afternoon Classes");
-        console.log("01" + priority + "00");
+        //console.log(priority);
+        //console.log("Prioritizing Afternoon Classes");
+        //console.log("01" + priority + "00");
         addConstraint("01" + priority + "00");
         }
     } function handleSubmitEvening (event) {
-        event.preventDefault()
+        event.preventDefault();
         removeConstraint("02");
-        const priority = document.getElementById("evening_priorities").value
+        const priority = document.getElementById("evening_priorities").value;
       
         if (priority !== "0") {
-            console.log(priority);
-            console.log("Prioritizing Evening Classes");
-            console.log("02" + priority + "00");
+            //console.log(priority);
+            //console.log("Prioritizing Evening Classes");
+            //console.log("02" + priority + "00");
             addConstraint("02" + priority + "00");
         }
     } function handleSubmitMinDay (event) {
-        event.preventDefault()
+        event.preventDefault();
         removeConstraint("03");
-        const priority = document.getElementById("minimize_priorities").value
+        const priority = document.getElementById("minimize_priorities").value;
       
         if (priority !== "0") {
-            console.log(priority);
-            console.log("Prioritizing Minimum Days on Campus")
-            console.log("03" + priority + "00");
+            //console.log(priority);
+            //console.log("Prioritizing Minimum Days on Campus")
+            //console.log("03" + priority + "00");
             addConstraint("03" + priority + "00");
         }
     } function handleSubmitAsync (event) {
-        event.preventDefault()
+        event.preventDefault();
         removeConstraint("04");
-        const priority = document.getElementById("async_priorities").value
+        const priority = document.getElementById("async_priorities").value;
       
         if (priority !== "0") {
-            console.log(priority);
-            console.log("Prioritizing Asynchronous Courses")
-            console.log("04" + priority + "00");
+            //console.log(priority);
+            //console.log("Prioritizing Asynchronous Courses")
+            //console.log("04" + priority + "00");
             addConstraint("04" + priority + "00");
         }
     } function handleSubmitSync (event) {
-        event.preventDefault()
+        event.preventDefault();
         removeConstraint("05");
-        const priority = document.getElementById("sync_priorities").value
+        const priority = document.getElementById("sync_priorities").value;
       
         if (priority !== "0") {
-            console.log(priority);
-            console.log("Prioritizing Synchronous Courses")
-            console.log("05" + priority + "00");
+            //console.log(priority);
+            //console.log("Prioritizing Synchronous Courses")
+            //console.log("05" + priority + "00");
             addConstraint("05" + priority + "00");
         }
     } function handleSubmitLunch (event) {
-        event.preventDefault()
+        event.preventDefault();
         removeConstraint("06");
-        const priority = document.getElementById("lunch_priorities").value
+        const priority = document.getElementById("lunch_priorities").value;
       
         if (priority !== "0") {
-            console.log(priority);
-            console.log("Prioritizing Making Lunch Break")
-            console.log("06" + priority + "00");
+            //console.log(priority);
+            //console.log("Prioritizing Making Lunch Break")
+            //console.log("06" + priority + "00");
             addConstraint("06" + priority + "00");
         }
     } function handleSubmitDinner (event) {
-        event.preventDefault()
+        event.preventDefault();
         removeConstraint("07");
-        const priority = document.getElementById("dinner_priorities").value
+        const priority = document.getElementById("dinner_priorities").value;
       
         if (priority !== "0") {
-            console.log(priority);
-            console.log("Prioritizing Making Dinner Break")
-            console.log("07" + priority + "00");
+            //console.log(priority);
+            //console.log("Prioritizing Making Dinner Break")
+            //console.log("07" + priority + "00");
             addConstraint("07" + priority + "00");
         }
     } function handleSubmitNoClassBefore (event) {
-        event.preventDefault()
+        event.preventDefault();
         removeConstraint("08");
-        const priority = document.getElementById("before_priorities").value
+        const priority = document.getElementById("before_priorities").value;
       
         if (priority !== "0") {
-            console.log(priority);
-            console.log("Prioritizing Courses Before X")
-            console.log("08" + priority + "00");
+            //console.log(priority);
+            //console.log("Prioritizing Courses Before X")
+            //console.log("08" + priority + "00");
             addConstraint("08" + priority + "00");
         }
         console.log("Prioritizing Classes After X")
     } function handleSubmitNoClassAfter (event) {
-        event.preventDefault()
+        event.preventDefault();
         removeConstraint("09");
-        const priority = document.getElementById("after_priorities").value
+        const priority = document.getElementById("after_priorities").value;
       
         if (priority !== "0") {
-            console.log(priority);
-            console.log("Prioritizing Classes Before Y");
-            console.log("09" + priority + "00");
+            //console.log(priority);
+            //console.log("Prioritizing Classes Before Y");
+            //console.log("09" + priority + "00");
             addConstraint("09" + priority + "00");
         }
     } function handleSubmitMaxBack (event) {
-        event.preventDefault()
+        event.preventDefault();
         removeConstraint("10");
-        const priority = document.getElementById("max_class_priorities").value
-        const hours = document.getElementById("max_class_value").value
-        console.log(hours);
+        const priority = document.getElementById("max_class_priorities").value;
+        const hours = document.getElementById("max_class_value").value;
+        //console.log(hours);
         if (priority !== "0") {
-            console.log(priority);
-            console.log("Prioritizing Shortest Possible B2B Hours of Class");
+            //onsole.log(priority);
+            //console.log("Prioritizing Shortest Possible B2B Hours of Class");
             const int_hours = parseInt(hours);
             if (int_hours < 10 && int_hours > 0) { //single digit hour value
                 addConstraint("10" + priority + "0" + hours);
@@ -161,15 +161,15 @@ const AddConstraintButton = (props) => {
             }
         }
     } function handleSubmitMaxBreak (event) {
-        event.preventDefault()
+        event.preventDefault();
         removeConstraint("11");
-        const priority = document.getElementById("max_break_priorities").value
-        const hours = document.getElementById("max_break_value").value
+        const priority = document.getElementById("max_break_priorities").value;
+        const hours = document.getElementById("max_break_value").value;
       
         if (priority !== "0") {
-            console.log(priority);
-            console.log("Prioritizing Shortest Break")
-            console.log("11" + priority + hours);
+            //console.log(priority);
+            //console.log("Prioritizing Shortest Break")
+            //console.log("11" + priority + hours);
             const int_hours = parseInt(hours);
             if (int_hours < 10 && int_hours > 0) { //single digit hour value
                 addConstraint("11" + priority + "0" + hours);
@@ -179,6 +179,9 @@ const AddConstraintButton = (props) => {
                 // error so don't do anything
             }
         }
+    } function handleSubmitTimeBlock (event) {
+        event.preventDefault();
+
     } 
     
     
