@@ -40,10 +40,22 @@ const DownloadButton = (props) => {
             element.click();
     }
 
+    function downloadPDFWithjsPDF() {
+        var doc = new window.jspdf.jsPDF('p', 'pt', 'a4');
+      
+        doc.html(document.querySelector('#styledTable'), {
+          callback: function (doc) {
+            doc.save('MLB World Series Winners.pdf');
+          },
+          margin: [60, 60, 60, 60],
+          x: 32,
+          y: 32,
+        });
+      }
 
     return (
       <div className="download-button-div">
-       <button id="downloadBtn" onClick={downloadTxtFile} value="download"><img className="download-button-img" src="https://i.ibb.co/ctMCKRD/532.png" alt="532" border="0"/></button>
+       <button id="button_image" onClick={downloadTxtFile} value="download"><img className="download-button-img" src="https://i.ibb.co/ctMCKRD/532.png" alt="532" border="0"/></button>
       </div>
     )
   }

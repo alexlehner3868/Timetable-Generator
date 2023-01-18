@@ -5,11 +5,12 @@ const NextButton = ({nTimetables, ttbIndex, setTtbIndex}) => {
   };
 
   return (
-    <div>
+    <div className="next-button">
       <button
         onClick={event => Next()}
-        className="btn btn-primary mt-2"
-      >NEXT</button>
+        id="button_image">
+          <img className="up_down-button-img" src="https://i.ibb.co/6vc2HyQ/Down-Arrow.png" alt="532" border="0"/>
+        </button>
     </div>
   )
 }

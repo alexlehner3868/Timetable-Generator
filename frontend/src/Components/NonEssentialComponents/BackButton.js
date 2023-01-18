@@ -5,11 +5,12 @@ const BackButton = ({nTimetables, ttbIndex, setTtbIndex}) => {
   };
 
   return (
-    <div>
+    <div className="back-button">
       <button
         onClick={event => Back()}
-        className="btn btn-primary mt-2"
-      >BACK</button>
+        id="button_image">
+            <img id="up-btn" className="up_down-button-img" src="https://i.ibb.co/jTycPTf/Up-Arrow.png" alt="532" border="0"/>
+      </button>
     </div>
   )
 }

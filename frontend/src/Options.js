@@ -8,10 +8,10 @@ import DownloadButton from "./Components/DownloadButton";
 const Options = ({timetables, ttbIndex, setTtbIndex}) => {
   return (
     <div className="control-bar">
-      <h3>Bar :)</h3>
-      <BackButton nTimetables={timetables.length} ttbIndex={ttbIndex} setTtbIndex={setTtbIndex}/>
+      <BackButton  nTimetables={timetables.length} ttbIndex={ttbIndex} setTtbIndex={setTtbIndex}/>
+      <p className="current-timetable-number">{ttbIndex+1} / {timetables.length}</p>
       <NextButton nTimetables={timetables.length} ttbIndex={ttbIndex} setTtbIndex={setTtbIndex}/>
-      <DownloadButton timetables={timetables} ttbIndex={ttbIndex}/>
+      <DownloadButton  timetables={timetables} ttbIndex={ttbIndex}/>
     </div>
   )
 }
