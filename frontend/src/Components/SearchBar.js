@@ -22,9 +22,8 @@ const SearchBar = ({courses, setCourses}) => {
   }
 
   return (
-    <div className="sidebar">
-
-      <div className="search-bar">
+    <div >
+      <div className="search-bar-div">
       <input
         type="text"
         placeholder="Search For Class"

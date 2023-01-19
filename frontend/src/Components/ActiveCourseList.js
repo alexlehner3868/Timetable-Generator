@@ -7,9 +7,11 @@ const ActiveCourseList = ({courses, setCourses}) => {
     };
   
     return (
-      <div class = "border-section">
+      <div class = "active-courses">
+         <h4 id='course-list-header'>Desired Classes:</h4>
          {[...courses].map((course)=>(
             <div class="active-course-list">
+              
             <p id='active-course-list-text'>{course}</p>
             <button id='active-course-remove'onClick={event => removeCourse(course)} className="btn btn-primary mt-2">X</button>
             </div>

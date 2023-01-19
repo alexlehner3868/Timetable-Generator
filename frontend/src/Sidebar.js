@@ -19,20 +19,17 @@ class Sidebar extends React.Component {
       <div className='sidebar'>
       <Tabs selectedIndex={this.state.tabIndex} onSelect={tabIndex => this.setState({ tabIndex })}>
         <TabList>
-          <Tab>Search</Tab>
-          <Tab>Constraints</Tab>
           <Tab>Classes</Tab>
+          <Tab>Constraints</Tab>
         </TabList>
-        <TabPanel>
+        <TabPanel >
           <SearchBar courses={this.props.courses} setCourses={this.props.setCourses}/>
+          <ActiveCourseList courses={this.props.courses} setCourses={this.props.setCourses}/>
         </TabPanel>
         <TabPanel>
           <AddConstraintButton constraints={this.props.constraints} setConstraints={this.props.setConstraints}/>
         </TabPanel>
-        <TabPanel>
-          <h4 id='course-list-header'>Desired Classes:</h4>
-          <ActiveCourseList courses={this.props.courses} setCourses={this.props.setCourses}/>
-        </TabPanel>
+
       </Tabs>
       </div>
     );
