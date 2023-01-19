@@ -4,10 +4,11 @@ import 'reactjs-popup/dist/index.css';
 
 // -- Module --
 const HelpMenu = () => {
-
     return (
         <Popup className="help-menu"
-    trigger={<button className="button">Help</button>}
+    trigger={<button id="button_image">
+        <img className="help-image" src="https://i.ibb.co/D4PDG3V/Screenshot-2023-01-18-at-10-36-50-PM.png" alt="532" border="0"/>
+    </button>}
     modal
     nested
   >

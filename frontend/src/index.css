@@ -48,8 +48,8 @@ code {
   display: grid;
   padding-top: 1%;
   grid-template-columns: 10% 60% 30%;
-  grid-template-rows: 1fr max-content 1fr;
-  grid-template-areas: 'control-bar main-window sidebar' 'help-menu message generate-button';
+  grid-template-rows: max-content 1fr max-content 1fr;
+  grid-template-areas: 'help-menu . . ' 'control-bar main-window sidebar' '. message generate-button';
   overflow: hidden;
 }
 
@@ -64,9 +64,8 @@ code {
 }
 
 .main-window {
-  padding-top: 5px;
   grid-area: main-window;
-  margin: 30px;
+  margin-bottom: 2%;
   height: max-content;
 }
 
@@ -97,7 +96,7 @@ code {
 
 .control-bar {
   background-color: rgb(255, 255, 255);
-  height: 60%;
+  height: 80%;
   border-radius: 10px;
   border: 3px rgb(0, 0, 0)  solid;
   width: 80%;
@@ -337,7 +336,7 @@ code {
   background-color: inherit;
   border: none;
   cursor: pointer;
-  width:50%;
+  width: 50%;
 }
 
 .download-button-img{
@@ -358,6 +357,13 @@ code {
 .up_down-button-img{
   background-color: none;
   height: 50%;
+  width: 50%;
+  background-color: inherit;
+  margin: auto;
+}
+
+.help-image{
+  background-color: none;
   width: 50%;
   background-color: inherit;
   margin: auto;
