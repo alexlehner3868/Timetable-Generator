@@ -10,6 +10,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow: hidden; /* Hide scrollbars */
 }
 
 h1 {
@@ -49,6 +50,7 @@ code {
   grid-template-columns: 10% 60% 30%;
   grid-template-rows: 1fr max-content 1fr;
   grid-template-areas: 'control-bar main-window sidebar' 'help-menu message generate-button';
+  overflow: hidden;
 }
 
 .button{
