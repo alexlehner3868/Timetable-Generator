@@ -17,16 +17,19 @@ const HelpMenu = () => {
         <button className="close" onClick={close}>
           &times;
         </button>
-        <div className="header"> Live Timetable Love Help </div>
+        <div className="header"> How It Works  </div>
         <div className="content">
           {' '}
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, a nostrum.
-          Dolorem, repellat quidem ut, minima sint vel eveniet quibusdam voluptates
-          delectus doloremque, explicabo tempore dicta adipisci fugit amet dignissimos?
+          1. Use the panel on left to insert 
+          <br/>
+          2. 
+
           <br />
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur sit
-          commodi beatae optio voluptatum sed eius cumque, delectus saepe repudiandae
-          explicabo nemo nam libero ad, doloribus, voluptas rem alias. Vitae?
+          3. 
+          <br />
+          4. 
+          <br />
+          5. 
         </div>
       </div>
     )}
