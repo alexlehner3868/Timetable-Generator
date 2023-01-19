@@ -48,7 +48,17 @@ code {
   padding-top: 1%;
   grid-template-columns: 10% 60% 30%;
   grid-template-rows: 1fr max-content 1fr;
-  grid-template-areas: 'control-bar main-window sidebar' '. message generate-button';
+  grid-template-areas: 'control-bar main-window sidebar' 'help-menu message generate-button';
+}
+
+.button{
+  background-color: white;
+  border: 3px black  solid;
+  border-radius: 10px;
+  color: black;
+  font-size: 16px;
+  font-weight: bold;
+  margin: auto;
 }
 
 .main-window {
@@ -196,7 +206,48 @@ code {
   margin: auto;
 }
 
+/*HELP MENU */
+.modal {
+  font-size: 16px;
+  background-color: white;
+  color: black;
+}
+.modal > .header {
+  width: 100%;
+  border-bottom: 1px solid rgb(176, 107, 237);
+  font-size: 18px;
+  font-weight: bolder;
+  text-align: center;
+  color: rgb(176, 107, 237);
+  padding: 5px;
+}
+.modal > .content {
+  width: 100%;
+  padding: 10px 5px;
+}
+.modal > .actions {
+  width: 100%;
+  padding: 10px 5px;
+  margin: auto;
+  text-align: center;
+}
+.modal > .close {
+  cursor: pointer;
+  position: absolute;
+  display: block;
+  padding: 2px 5px;
+  line-height: 20px;
+  right: -10px;
+  top: -10px;
+  font-size: 24px;
+  background: #ffffff;
+  border-radius: 18px;
+  border: 1px solid #cfcece;
+}
 
+.help-menu{
+  grid-area: help-menu;
+}
 /*way too much garbage*/
 
 .class-name {

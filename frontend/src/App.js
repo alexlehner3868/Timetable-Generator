@@ -1,10 +1,13 @@
 // -- React --
 import React, { useEffect, useState } from "react";
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
 
 // -- Windows --
 import MainWindow from './MainWindow';
 import Sidebar from './Sidebar';
 import Options from './Options';
+import HelpMenu from "./Components/HelpMenu";
 
 // -- Components --
 import Generate from './Components/Generate';
@@ -90,6 +93,7 @@ function App() {
         <h1>Live Timetable Love</h1>
       </header>
       <div className="whole-webpage">
+        <HelpMenu/>
         <Options    timetables={timetables} ttbIndex={ttbIndex} setTtbIndex={setTtbIndex}/>
         <MainWindow timetables={timetables} ttbIndex={ttbIndex} setTtbIndex={setTtbIndex}/>
         <Sidebar    courses={courses} setCourses={setCourses} constraints={constraints} setConstraints={setConstraints}/>
