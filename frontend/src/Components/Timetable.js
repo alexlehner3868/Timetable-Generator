@@ -3,7 +3,7 @@ import React from "react";
 
 // -- Components --
 import Period from "./Period";
-
+const blockedOffTimes = [...Array(24)].map(_ => Array(10).fill(0));
 // -- Module --
 const Timetable = ({timetable, when}) => {
   // TODO:
@@ -15,6 +15,7 @@ const Timetable = ({timetable, when}) => {
   const ndays = 10;
   const nhours = 24;
   const grid = [...Array(nhours)].map(_ => Array(ndays).fill({}));
+
 
   // Extract sorted list of courses (for colouring)
   let courses = [];
@@ -47,6 +48,21 @@ const Timetable = ({timetable, when}) => {
     return (hour <= 12) ? hour + "AM": (hour - 12) + "PM"
   };
 
+
+  const blockOffHour = (day, hour) => {
+    blockedOffTimes[hour][day]++;
+    if(blockedOffTimes[hour][day]>3){
+      blockedOffTimes[hour][day] = blockedOffTimes[hour][day] - 4;
+    }
+    grid[hour][day].block++;
+    if(grid[hour][day].block === 4){
+      grid[hour][day].block = 0;
+    }
+    
+    // TODO add a block component to meet so that it can be changed 
+    console.log(grid[hour][day].block)
+  }
+
   // Render the timetable
   return (
     <div className="timetable">
@@ -62,13 +78,14 @@ const Timetable = ({timetable, when}) => {
         <div className="tr" id="table_day" key={hour}>
           <div className="td" id="legend-times">{int2hour(hour)}</div>
           {row.map((meet, day) => (
-            <div className='td' id="table_hour" key={day}>
-              <Period
+            <div className='td' id="table_hour" key={day} onClick={() => blockOffHour(day, hour)}>
+              <Period 
                 code={meet.course}
                 color={colors[meet.course]}
                 name={meet.name}
                 section={meet.section}
                 type={meet.type}
+                blockedOffLevel={blockedOffTimes[hour][day]}
               />
             </div>
           )).filter((_, day) => inRange(day, when.day.begin, when.day.end))}

@@ -130,7 +130,7 @@ code {
 .active-course-list{
   display: grid;
   grid-template-areas: 'active-course-name active-course-remove';
-  grid-template-columns: 80% 20%;
+  grid-template-columns: 4fr 1fr;
 
 }
 
