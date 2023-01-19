@@ -23,7 +23,6 @@ const HelpMenu = () => {
           1. Use the panel on left to insert 
           <br/>
           2. 
-
           <br />
           3. 
           <br />

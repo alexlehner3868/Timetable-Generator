@@ -12,19 +12,30 @@ import Data from "../data/courses.json";
 const SearchBar = ({courses, setCourses}) => {
   const [query, setQuery]  = useState("");
 
+  const showResults = (query) =>  {
+    var x = document.getElementById("search-results-box-id");
+    if(query === "" || query.length === 0){
+      x.style.display = "none";
+    }else{
+      x.style.display = "block";
+    }
+  }
+
   return (
     <div className="sidebar">
+
       <div className="search-bar">
       <input
         type="text"
         placeholder="Search For Class"
         className="search-bar"
         onChange={event => setQuery(event.target.value)}
+        onInput={event => showResults(event.target.value)}
       />
       <i className="fa fa-magnifying-glass fa-lg"></i>
       </div>
 
-      <div className="search-results-box">
+      <div className="search-results-box" id="search-results-box-id">
         {
           Data.filter(class_result => {
             if (query === "") {
@@ -49,7 +60,9 @@ const SearchBar = ({courses, setCourses}) => {
             </div>
           ))
         }
+        
       </div>
+      
     </div>
   )
 }

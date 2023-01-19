@@ -405,6 +405,7 @@ code {
   height: 400px;
   width: 100%;
   overflow: auto;
+  display: none;
 }
 
 .fieldset-form {
