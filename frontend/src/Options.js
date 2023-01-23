@@ -6,10 +6,18 @@ import DownloadButton from "./Components/DownloadButton";
 
 // -- Module --
 const Options = ({timetables, ttbIndex, setTtbIndex}) => {
+  let timetable_index_str;
+  if(timetables.length === 0 || ttbIndex == NaN){
+    timetable_index_str = "";
+  }else{
+    timetable_index_str = (ttbIndex+1).toString(); 
+    timetable_index_str += "/";
+    timetable_index_str +=(timetables.length).toString();
+  }
   return (
     <div className="control-bar">
       <BackButton  nTimetables={timetables.length} ttbIndex={ttbIndex} setTtbIndex={setTtbIndex}/>
-      <p className="current-timetable-number">{ttbIndex+1} / {timetables.length}</p>
+      <p className="current-timetable-number">{timetable_index_str}</p>
       <NextButton nTimetables={timetables.length} ttbIndex={ttbIndex} setTtbIndex={setTtbIndex}/>
       <DownloadButton  timetables={timetables} ttbIndex={ttbIndex}/>
     </div>
