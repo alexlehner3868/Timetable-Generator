@@ -8,7 +8,7 @@ const ActiveCourseList = ({courses, setCourses}) => {
   
     return (
       <div className = "active-courses">
-         <h4 id='course-list-header'>Desired Classes:</h4>
+         <h4 id='course-list-header'> <u>Desired Classes:</u></h4>
          {[...courses].map((course)=>(
             <div className="active-course-list">
               

@@ -67,6 +67,8 @@ code {
   grid-area: main-window;
   margin-bottom: 2%;
   height: max-content;
+  margin: auto;
+  width: 100%;
 }
 
 .message {
@@ -88,10 +90,10 @@ code {
 }
 
 .sidebar {
-  border: 5px;
-  border-style: double;
   grid-area: sidebar;
   height: 100%;
+  width: 80%;
+  margin: auto;
 }
 
 .control-bar {
@@ -175,11 +177,6 @@ code {
   width: 100%;
 }
 
-#semester_block{
-  border-style: solid;
-  border-width: 1px; border-color: rgb(0, 0, 0); 
-  width:50%;
-}
 
 #table_hour{
   border-style: solid;
@@ -272,6 +269,10 @@ code {
 .active-courses{
   grid-area: active-courses;
   position: absolute;
+  border: 1px solid black;
+  border-radius: 5px;
+  width: 20%;
+  margin-top: 1%;
 }
 .input-icons {
   width: 60%;
@@ -286,17 +287,19 @@ code {
 .search-bar-div{
   display: grid;
   grid-template-areas: 'search-icon search-bar';
+
 }
 
 .search-bar {
     position: relative;
-    width: 80%;
+    width: 90%;
     height: 100%;
     font-size: x-large;
     text-align: center;
+    border: none;
+    grid-area: search-bar;  
+    border: 1px solid black;
     border-radius: 5px;
-    border-color: black;
-    grid-area: search-bar;
 } 
 
 .add-course-square {/*

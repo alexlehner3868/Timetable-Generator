@@ -26,7 +26,7 @@ const SearchBar = ({courses, setCourses}) => {
       <div className="search-bar-div">
       <input
         type="text"
-        placeholder="Search For Class"
+        placeholder="Search For A Class..."
         className="search-bar"
         onChange={event => setQuery(event.target.value)}
         onInput={event => showResults(event.target.value)}
