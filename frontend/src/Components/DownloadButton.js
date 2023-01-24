@@ -51,8 +51,6 @@ const DownloadButton = (props) => {
           doc.save("TimetableOption"+ (props.ttbIndex+1) + ".pdf");
         },
         margin: [30, 30, 30, 30],
-        x: 32,
-        y: 32,
         width: 552,
       });
       }
