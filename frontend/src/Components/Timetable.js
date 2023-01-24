@@ -65,7 +65,7 @@ const Timetable = ({timetable, when}) => {
 
   // Render the timetable
   return (
-    <div className="timetable">
+    <div className="timetable" id="timetable">
       <div className="tr">
         <div className="td" id='legend-times'> </div>
         <div className="td">Monday</div>

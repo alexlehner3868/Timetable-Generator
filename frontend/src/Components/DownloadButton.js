@@ -1,10 +1,11 @@
+import { jsPDF } from "jspdf";
 
 // -- Module --
 const DownloadButton = (props) => {
-    
+  const timetable = (props.timetables.length) ? props.timetables[props.ttbIndex] : [];
     const downloadTxtFile = () => {
            // text content
-            const timetable = (props.timetables.length) ? props.timetables[props.ttbIndex] : [];
+            
             // Extract sorted list of courses (for colouring)
             let courses = []; 
             for (const meet of timetable){
@@ -41,21 +42,25 @@ const DownloadButton = (props) => {
     }
 
     function downloadPDFWithjsPDF() {
-        var doc = new window.jspdf.jsPDF('p', 'pt', 'a4');
+      const doc = new jsPDF('l', 'pt');
+      doc.setFontSize(500);
       
-        doc.html(document.querySelector('#styledTable'), {
-          callback: function (doc) {
-            doc.save('MLB World Series Winners.pdf');
-          },
-          margin: [60, 60, 60, 60],
-          x: 32,
-          y: 32,
-        });
+      doc.html(document.querySelector('#timetable'), {
+        callback: function (doc) {
+          
+          doc.save("TimetableOption"+ (props.ttbIndex+1) + ".pdf");
+        },
+        margin: [30, 30, 30, 30],
+        x: 32,
+        y: 32,
+        width: 552,
+      });
       }
+
 
     return (
       <div className="download-button-div">
-       <button id="button_image" onClick={downloadTxtFile} value="download"><img className="download-button-img" src="https://i.ibb.co/ctMCKRD/532.png" alt="532" border="0"/></button>
+       <button id="button_image" onClick={downloadPDFWithjsPDF} value="download"><img className="download-button-img" src="https://i.ibb.co/ctMCKRD/532.png" alt="532" border="0"/></button>
       </div>
     )
   }
