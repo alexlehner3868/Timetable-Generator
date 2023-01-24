@@ -8,7 +8,8 @@ import DownloadButton from "./Components/DownloadButton";
 const Options = ({timetables, ttbIndex, setTtbIndex}) => {
   let timetable_index_str;
   if(timetables.length === 0 || ttbIndex == NaN){
-    timetable_index_str = "";
+   // timetable_index_str = "";
+   timetable_index_str = "No timetables";
   }else{
     timetable_index_str = (ttbIndex+1).toString(); 
     timetable_index_str += "/";
