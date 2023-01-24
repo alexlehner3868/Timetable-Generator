@@ -17,18 +17,32 @@ const HelpMenu = () => {
         <button className="close" onClick={close}>
           &times;
         </button>
-        <div className="header"> How It Works  </div>
+        <div className="header">Instructions</div>
         <div className="content">
           {' '}
-          1. Use the panel on left to insert 
+          Welcome to Live Timetable Love aka UofT's best timetable generator tool.
           <br/>
-          2. 
+          <br/>We take in the courses that you want to take and any timing constraints you have 
+          <br/>and can generator a set of possible timetables that meets your unique needs! 
+          <br/><br/>
+          <u>How it works:</u>
+          <br/>
+           Step 1: Use the search bar on the right panel to search for and add all the courses you want.
+          <br/>
+          Step 2: On the right panel, use the constraint tab to insert your preferences and constraints.
+          <ul>
+            <li>Must Have: Highest priority aka must be satisfied in each constraint</li>
+            <li>Good to Have: Medium priority </li>
+            <li>Nice to Have: Lowest priority</li>
+            <li>No Priority: No preference aka dont take it into account</li>
+          </ul>
+          Step 3: Once all your classes and constraints are inserted, click the "generate" button
           <br />
-          3. 
+          Step 4: The timetables will be shown on the two center tabs, use the arrows on the left panel to
+          <br/>cycle through the options. They are ranked based on how well they satisfy your constraints 
+          <br/> with 1 being the best  
           <br />
-          4. 
-          <br />
-          5. 
+          Step 5: [Something here about dwnloading or saving blah] 
         </div>
       </div>
     )}
