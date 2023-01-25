@@ -24,14 +24,17 @@ const SearchBar = ({courses, setCourses}) => {
   return (
     <div >
       <div className="search-bar-div">
-      <input
-        type="text"
-        placeholder="Search For A Class..."
-        className="search-bar"
-        onChange={event => setQuery(event.target.value)}
-        onInput={event => showResults(event.target.value)}
-      />
-      <i className="fa fa-magnifying-glass fa-lg"></i>
+        <form id="search-course-form">
+          <i className="fa fa-magnifying-glass fa-lg"></i>
+          <input
+            type="text"
+            placeholder="Search For A Class..."
+            className="search-bar"
+            onChange={event => setQuery(event.target.value)}
+            onInput={event => showResults(event.target.value)}
+          />   
+      </form>
+      
       </div>
 
       <div className="search-results-box" id="search-results-box-id">
@@ -54,6 +57,7 @@ const SearchBar = ({courses, setCourses}) => {
                   method="post"
                   course={class_result.ACAD_ACT_CD}
                   setCourses={setCourses}
+                  showResults={showResults}
                 />
               </div>
             </div>
