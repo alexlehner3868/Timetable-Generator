@@ -60,7 +60,7 @@ const Timetable = ({timetable, when}) => {
     }
     
     // TODO add a block component to meet so that it can be changed 
-    console.log(grid[hour][day].block)
+    console.log(hour, day)
   }
 
   // Render the timetable

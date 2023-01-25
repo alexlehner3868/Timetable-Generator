@@ -18,6 +18,14 @@ import './tabs.css'
 
 // -- Module --
 function App() {
+  // -- Set document title (tab) dynamically based on visability
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === 'visible') {
+     document.title = "Live Timetable Love"
+    } else {
+      document.title = "WE MISS YOU! ❤️"
+    }
+  });
   // -- State --
   // Set of courses to consider
   const [courses,   setCourses]   = useState(new Set());
@@ -51,6 +59,7 @@ function App() {
     }
   }, []);
 
+  
   // Timetable(s) generated
   const [ttbIndex,   setTtbIndex]   = useState(0);
   const [timetables, setTimetables] = useState([]);
@@ -89,6 +98,9 @@ function App() {
 
   return (
     <div className="App">
+      <head>
+        <title>Live Timetable Love</title>
+      </head>
       <header className="Website-Header">
         <h1>Live Timetable Love</h1>
       </header>
