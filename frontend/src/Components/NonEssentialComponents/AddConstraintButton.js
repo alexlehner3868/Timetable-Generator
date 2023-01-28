@@ -189,93 +189,93 @@ const AddConstraintButton = (props) => {
   return (
        <div>
             <label>Prefer Morning Classes</label>
-            <select list="Priority" id="morning_priorities" onClick = {handleSubmitEarly}>
+            <select list="Priority" class="dropdown" id="morning_priorities" onClick = {handleSubmitEarly}>
                 <option value="0" ></option>
-                <option value="1" >Good To Have</option>
-                <option value="2" >Great To Have</option>
-                <option value="3" >Must Have</option>
+                <option class="good_to_have" value="1" >Good To Have</option>
+                <option class="great_to_have" value="2" >Great To Have</option>
+                <option class="must_have" value="3" >Must Have</option>
             </select> <br></br>
             <label>Prefer Afternoon Classes</label>
-            <select list="Priority" id="afternoon_priorities" onClick = {handleSubmitAfternoon}>
+            <select list="Priority" class="dropdown" id="afternoon_priorities" onClick = {handleSubmitAfternoon}>
                 <option value="0"></option>
-                <option value="1">Good To Have</option>
-                <option value="2">Great To Have</option>
-                <option value="3">Must Have</option>
-            </select> <br></br>
+                <option class="good_to_have" value="1">Good To Have</option>
+                <option class="great_to_have" value="2">Great To Have</option>
+                <option class="must_have" value="3">Must Have</option>
+                </select> <br></br>
             <label>Prefer Evening Classes</label>
-            <select list="Priority" id="evening_priorities" onClick = {handleSubmitEvening}>
+            <select list="Priority" class="dropdown" id="evening_priorities" onClick = {handleSubmitEvening}>
                 <option value="0"></option>
-                <option value="1">Good To Have</option>
-                <option value="2">Great To Have</option>
-                <option value="3">Must Have</option>
+                <option class="good_to_have" value="1">Good To Have</option>
+                <option class="great_to_have" value="2">Great To Have</option>
+                <option class="must_have" value="3">Must Have</option>
             </select> <br></br>
             <label>Minimize Days with Classes</label>
-            <select list="Priority" id="minimize_priorities" onClick = {handleSubmitMinDay}>
+            <select list="Priority" class="dropdown" id="minimize_priorities" onClick = {handleSubmitMinDay}>
                 <option value="0"></option>
-                <option value="1">Good To Have</option>
-                <option value="2">Great To Have</option>
-                <option value="3">Must Have</option>
+                <option class="good_to_have" value="1">Good To Have</option>
+                <option class="great_to_have" value="2">Great To Have</option>
+                <option class="must_have" value="3">Must Have</option>
             </select> <br></br>
             <label>Prefer Async Classes</label>
-            <select list="Priority" id="async_priorities" onClick = {handleSubmitAsync}>
+            <select list="Priority" class="dropdown" id="async_priorities" onClick = {handleSubmitAsync}>
                 <option value="0"></option>
-                <option value="1">Good To Have</option>
-                <option value="2">Great To Have</option>
-                <option value="3">Must Have</option>
+                <option class="good_to_have" value="1">Good To Have</option>
+                <option class="great_to_have" value="2">Great To Have</option>
+                <option class="must_have" value="3">Must Have</option>
             </select> <br></br>
             <label>Prefer Sync Classes</label>
-            <select list="Priority" id="sync_priorities" onClick = {handleSubmitSync}>
+            <select list="Priority" class="dropdown" id="sync_priorities" onClick = {handleSubmitSync}>
                 <option value="0"></option>
-                <option value="1">Good To Have</option>
-                <option value="2">Great To Have</option>
-                <option value="3">Must Have</option>
+                <option class="good_to_have" value="1">Good To Have</option>
+                <option class="great_to_have" value="2">Great To Have</option>
+                <option class="must_have" value="3">Must Have</option>
             </select> <br></br>
             <label>Prefer Lunch Break</label>
-            <select list="Priority" id="lunch_priorities" onClick = {handleSubmitLunch}>
+            <select list="Priority" class="dropdown" id="lunch_priorities" onClick = {handleSubmitLunch}>
                 <option value="0"></option>
-                <option value="1">Good To Have</option>
-                <option value="2">Great To Have</option>
-                <option value="3">Must Have</option>
+                <option class="good_to_have" value="1">Good To Have</option>
+                <option class="great_to_have" value="2">Great To Have</option>
+                <option class="must_have" value="3">Must Have</option>
             </select> <br></br>
             <label>Prefer Dinner Break</label>
-            <select list="Priority" id="dinner_priorities" onClick = {handleSubmitDinner}>
+            <select list="Priority" class="dropdown" id="dinner_priorities" onClick = {handleSubmitDinner}>
                 <option value="0"></option>
-                <option value="1">Good To Have</option>
-                <option value="2">Great To Have</option>
-                <option value="3">Must Have</option>
+                <option class="good_to_have" value="1">Good To Have</option>
+                <option class="great_to_have" value="2">Great To Have</option>
+                <option class="must_have" value="3">Must Have</option>
             </select> <br></br>
                 
             <label id="before">No Class Before: </label>
             <input type="number" id="before_value" min="10" max="20" onClick = {handleSubmitNoClassBefore} ></input> 
-            <select list="Priority" id="before_priorities" onClick = {handleSubmitNoClassBefore}>
+            <select list="Priority" class="dropdown" id="before_priorities" onClick = {handleSubmitNoClassBefore}>
                 <option value="0"></option>
-                <option value="1">Good To Have</option>
-                <option value="2">Great To Have</option>
-                <option value="3">Must Have</option>
+                <option class="good_to_have" value="1">Good To Have</option>
+                <option class="great_to_have" value="2">Great To Have</option>
+                <option class="must_have" value="3">Must Have</option>
             </select> <br></br>
             <label id="after">No Class After: </label>
             <input type="number" id="after_value" min="9" max="19" onClick = {handleSubmitNoClassAfter} ></input>
-            <select list="Priority" id="after_priorities" onClick = {handleSubmitNoClassAfter}>
+            <select list="Priority" class="dropdown" id="after_priorities" onClick = {handleSubmitNoClassAfter}>
                 <option value="0"></option>
-                <option value="1">Good To Have</option>
-                <option value="2">Great To Have</option>
-                <option value="3">Must Have</option>
+                <option class="good_to_have" value="1">Good To Have</option>
+                <option class="great_to_have" value="2">Great To Have</option>
+                <option class="must_have" value="3">Must Have</option>
             </select> <br></br>
             <label id="max">Max Hours of Class Back to Back</label>
             <input type="number" id="max_class_value" min="1" max="12" onClick = {handleSubmitMaxBack} ></input>
-            <select list="Priority" id="max_class_priorities" onClick = {handleSubmitMaxBack}>
+            <select list="Priority" class="dropdown" id="max_class_priorities" onClick = {handleSubmitMaxBack}>
                 <option value="0"></option>
-                <option value="1">Good To Have</option>
-                <option value="2">Great To Have</option>
-                <option value="3">Must Have</option>
+                <option class="good_to_have" value="1">Good To Have</option>
+                <option class="great_to_have" value="2">Great To Have</option>
+                <option class="must_have" value="3">Must Have</option>
             </select> <br></br>
             <label id="max">Max Hours of Break</label>
             <input type="number" id="max_break_value" min="1" max="12" onClick = {handleSubmitMaxBreak} ></input>
-            <select list="Priority" id="max_break_priorities" onClick = {handleSubmitMaxBreak}>
+            <select list="Priority" class="dropdown" id="max_break_priorities" onClick = {handleSubmitMaxBreak}>
                 <option value="0"></option>
-                <option value="1">Good To Have</option>
-                <option value="2">Great To Have</option>
-                <option value="3">Must Have</option>
+                <option class="good_to_have" value="1">Good To Have</option>
+                <option class="great_to_have" value="2">Great To Have</option>
+                <option class="must_have" value="3">Must Have</option>
             </select> <br></br>
 
        </div>
