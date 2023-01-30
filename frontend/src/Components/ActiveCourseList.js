@@ -5,9 +5,10 @@ const ActiveCourseList = ({courses, setCourses}) => {
       console.log(`removing course: ${course}`)
       setCourses(prev => new Set([...prev].filter(x => x !== course)))
     };
+
   
     return (
-      <div className = "active-courses">
+      <div className = "active-courses" id="active-courses">
          <h4 id='course-list-header'> <u>Desired Classes:</u></h4>
          {[...courses].map((course)=>(
             <div className="active-course-list">

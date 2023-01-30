@@ -14,10 +14,13 @@ const SearchBar = ({courses, setCourses}) => {
 
   const showResults = (query) =>  {
     var x = document.getElementById("search-results-box-id");
+    var y = document.getElementById("active-courses");
     if(query === "" || query.length === 0){
       x.style.display = "none";
+      y.style.display = "block";
     }else{
       x.style.display = "block";
+      y.style.display = "none";
     }
   }
 
