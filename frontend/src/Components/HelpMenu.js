@@ -7,7 +7,7 @@ const HelpMenu = () => {
     return (
         <Popup className="help-menu"
     trigger={<button id="button_image">
-        <img className="help-image" src="https://i.ibb.co/D4PDG3V/Screenshot-2023-01-18-at-10-36-50-PM.png" alt="532" border="0"/>
+        <img className="help-image" src="https://i.postimg.cc/w74ggBjy/Untitled.png" alt="532" border="0"/>
     </button>}
     modal
     nested

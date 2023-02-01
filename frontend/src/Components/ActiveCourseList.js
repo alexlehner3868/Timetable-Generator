@@ -11,7 +11,7 @@ const ActiveCourseList = ({courses, setCourses}) => {
       <div className = "active-courses" id="active-courses">
          <h4 id='course-list-header'> <u>Desired Classes:</u></h4>
          {[...courses].map((course)=>(
-            <div className="active-course-list">
+            <div className="active-course-list" >
               
             <p id='active-course-list-text'>{course}</p>
             <button id='active-course-remove'onClick={event => removeCourse(course)} >X</button>

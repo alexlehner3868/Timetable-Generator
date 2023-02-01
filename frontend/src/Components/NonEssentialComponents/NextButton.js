@@ -9,7 +9,7 @@ const NextButton = ({nTimetables, ttbIndex, setTtbIndex}) => {
       <button
         onClick={event => Next()}
         id="button_image">
-          <img className="up_down-button-img" src="https://i.ibb.co/6vc2HyQ/Down-Arrow.png" alt="532" border="0"/>
+          <img className="up_down-button-img" src="https://i.postimg.cc/K1h37QtD/down.png" alt="532" border="0"/>
         </button>
     </div>
   )

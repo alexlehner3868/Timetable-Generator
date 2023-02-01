@@ -102,10 +102,10 @@ function App() {
         <title>Live Timetable Love</title>
       </head>
       <header className="Website-Header">
-        <h1>Live Timetable Love</h1>
+        <h1 class="website-name">Live Timetable Love</h1>
+        <HelpMenu/>
       </header>
       <div className="whole-webpage">
-        <HelpMenu/>
         <Options    timetables={timetables} ttbIndex={ttbIndex} setTtbIndex={setTtbIndex}/>
         <MainWindow timetables={timetables} ttbIndex={ttbIndex} setTtbIndex={setTtbIndex}/>
         <Sidebar    courses={courses} setCourses={setCourses} constraints={constraints} setConstraints={setConstraints}/>
