@@ -35,11 +35,9 @@ class MainWindow extends React.Component {
         fall_count++;
       }else if( meet.day < 10){
         winter_count++;
-        console.log("winter calss:",meet)
       }
     }
-    console.log("winter", winter_count)
-    
+    // TODO -> change tab based on semester count
     return (
       <div className='main-window'>
         
