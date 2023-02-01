@@ -55,7 +55,7 @@ code {
   padding-top: 1%;
   grid-template-columns: 10% 60% 30%;
   grid-template-rows:  1fr max-content 1fr;
-  grid-template-areas: 'control-bar main-window sidebar' '. message generate-button';
+  grid-template-areas: 'control-bar main-window sidebar' '. . generate-button';
   overflow: hidden;
 }
 

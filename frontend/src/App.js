@@ -110,11 +110,6 @@ function App() {
         <MainWindow timetables={timetables} ttbIndex={ttbIndex} setTtbIndex={setTtbIndex}/>
         <Sidebar    courses={courses} setCourses={setCourses} constraints={constraints} setConstraints={setConstraints}/>
         <Generate   courses={courses} constraints={constraints} setTimetables={setTimetables}/>
-        <h1 className="message">
-          <p>
-            Message: {message}
-          </p>
-        </h1>
       </div>
     </div>
   );
