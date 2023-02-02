@@ -20,12 +20,18 @@ const ConstraintExplinations = () => {
         <div className="header">Constraints Priorities</div>
         <div className="content">
           {' '}
-        Here are the prioritiy levels in increasing order: 
-        <br/><br/>
-        <li>Not Active (shown as blank) → I have no preference to this, ignore it</li>
-        <li>Nice to Have</li>
-        <li>Good to Have</li>
-        <li>Must Have → This MUST be satisfied in my timetable</li>
+       Contstaint Priority Levels (in increasing order):
+        <br/>
+        <ul>1. Not Active (shown as blank)</ul>
+        <ul>2. Nice to Have</ul>
+        <ul>3. Good to Have</ul>
+        <ul>4. Must Have </ul>
+
+        <br/>
+        <b>Notes:</b>
+        <br/>
+        <li>Must Have constraints <u>MUST</u> be satisfied by every timetable created</li>
+        <li>Times are displayed in a 24 hour clock (ie military time)</li>
         </div>
       </div>
     )}
