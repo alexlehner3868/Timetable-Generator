@@ -25,12 +25,14 @@ class MainWindow extends React.Component {
       day: { begin: 5, end: 10},
       hour: { begin: 9, end: 21},
     };
+    /* Attempeed to preset which tab was open 
     let fall_count = 0;
     let winter_count = 0; 
+    */
     // Extract the timetable to show
     const timetable = (this.props.timetables.length) ? this.props.timetables[this.props.ttbIndex] : [];
+    /*Attempeed to preset which tab was open 
     for (const meet of timetable){
-      console.log(meet.day)
       if(meet.day < 6){
         fall_count++;
       }else if( meet.day < 10){
@@ -38,6 +40,7 @@ class MainWindow extends React.Component {
       }
     }
     // TODO -> change tab based on semester count
+    */
     return (
       <div className='main-window'>
         
