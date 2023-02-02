@@ -28,7 +28,7 @@ using namespace std;
  * TODO: If a course has a prereq also being schedule, make sure the pre req is first
  * TODO: set max courses per semester to 6
  */
-int non_test_count = 0;
+
 vector<TimeTable> Scheduler::schedule_classes(
     unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> &courses,
     ConstraintHandler* constraint_handler) {
@@ -36,6 +36,10 @@ vector<TimeTable> Scheduler::schedule_classes(
 
     // create timetable
     TimeTable timetable;
+
+    for(auto offering : courses){
+        maximum_number_of_sections += offering.numCourses();
+    }
 
     // run scheduling algorithm
     auto start = std::chrono::system_clock::now();
@@ -61,7 +65,6 @@ vector<TimeTable> Scheduler::schedule_classes(
         stats_collector_.track_constraints(constraint_handler, timetable_costs);
         stats_collector_.print_stats();
     }
-    //cerr<<"Non unique "<<non_test_count<<endl;
     return best_time_tables;
 }
 
@@ -80,13 +83,10 @@ void Scheduler::schedule_classes_helper(
     // All sections have been added
     if (courses.size() == 0) {
         number_of_explored_timetables++;
-        // TODO: check for balance
-        if (!timetable.balanced()) {
-            // return; // FIXME: this doesn't work yet
-        }
+
         int timetable_additional_cost = constraint_handler_->cost_of_timetable(timetable.classes());
         timetable.add_cost(timetable_additional_cost);
-        if (unique_check(timetable)) { // <---- This function is broken
+        if (timetable.size() == maximum_number_of_sections && unique_check(timetable)) { 
             unique_timetables_found_++;
             // Priority queue has less than the max num of timetables
             if ((int)timetables_.size() < (int)max_num_of_timetables_to_show) {
@@ -101,8 +101,6 @@ void Scheduler::schedule_classes_helper(
                     full_timetable_pruned_++;
                 }
             }
-        }else{
-            non_test_count++;
         }
     }
 

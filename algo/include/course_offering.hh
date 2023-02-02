@@ -69,6 +69,13 @@ public:
         return practical_sections_.size();
     }
 
+    int numCourses(){
+        int num_lec = (lecture_sections_.size() > 0 ) ? lecture_sections_[0].num_classes_in_section() : 0;
+        int num_pra = (practical_sections_.size() > 0 ) ? practical_sections_[0].num_classes_in_section() : 0;
+        int num_tut = (tutorial_sections_.size() > 0 ) ? tutorial_sections_[0].num_classes_in_section() : 0;
+        return num_lec + num_pra + num_tut;
+    }
+
     struct CourseOfferingHash {
         size_t operator()(const CourseOfferings &c) const {
             return hash<string>()(c.course_id_);

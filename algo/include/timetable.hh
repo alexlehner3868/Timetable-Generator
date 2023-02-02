@@ -43,6 +43,10 @@ public:
         return (scheduled_classes.find(period) != scheduled_classes.end());
     }
 
+    int size(){
+        return scheduled_classes.size();
+    }
+    
     void erase(Date period) {
         scheduled_classes.erase(period);
     }
