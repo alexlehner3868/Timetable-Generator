@@ -6,6 +6,7 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import SearchBar from './Components/SearchBar';
 import AddConstraintButton from './Components/NonEssentialComponents/AddConstraintButton.js';
 import ActiveCourseList from './Components/ActiveCourseList';
+import ConstraintExplinations from './Components/NonEssentialComponents/ConstraintExplinations';
 // -- Module --
 class Sidebar extends React.Component {
   constructor() {
@@ -28,6 +29,7 @@ class Sidebar extends React.Component {
         </TabPanel>
         <TabPanel>
           <AddConstraintButton constraints={this.props.constraints} setConstraints={this.props.setConstraints}/>
+          <ConstraintExplinations/>
         </TabPanel>
 
       </Tabs>
