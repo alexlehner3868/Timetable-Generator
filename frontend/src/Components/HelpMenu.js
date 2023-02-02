@@ -25,24 +25,27 @@ const HelpMenu = () => {
           <br/>We take in the courses that you want to take and any timing constraints you have 
           <br/>and can generator a set of possible timetables that meets your unique needs! 
           <br/><br/>
-          <u>How it works:</u>
+          <b><u>How it works:</u></b>
           <br/>
-           Step 1: Use the search bar on the right panel to search for and add all the courses you want.
+           <b>Step 1: </b>Use the search bar on the right panel to search for and add all the courses you want.
           <br/>
-          Step 2: On the right panel, use the constraint tab to insert your preferences and constraints.
+          <b>Step 2: </b> On the right panel, use the constraint tab to insert your preferences and constraints.
           <ul>
             <li>Must Have: Highest priority aka must be satisfied in each constraint</li>
             <li>Good to Have: Medium priority </li>
             <li>Nice to Have: Lowest priority</li>
             <li>No Priority: No preference aka dont take it into account</li>
           </ul>
-          Step 3: Once all your classes and constraints are inserted, click the "generate" button
+          <b>Step 3: </b> Once all your classes and constraints are inserted, click the "generate" button
           <br />
-          Step 4: The timetables will be shown on the two center tabs, use the arrows on the left panel to
+          <b>Step 5: </b> The timetables will be shown on the two center tabs, use the arrows on the left panel to
           <br/>cycle through the options. They are ranked based on how well they satisfy your constraints 
           <br/> with 1 being the best  
-          <br />
-          Step 5: [Something here about dwnloading or saving blah] 
+
+          <br/>
+          <hr/>
+          <u><b>Special Mentions:</b></u><br/>
+          This project is dedicated to Professor Hans Kunov with special thanks to Professor Micah Stickel for his continued support and guidance throughout this project! 
         </div>
       </div>
     )}
