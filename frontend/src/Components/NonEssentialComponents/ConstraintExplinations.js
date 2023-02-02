@@ -22,15 +22,15 @@ const ConstraintExplinations = () => {
           {' '}
        Contstaint Priority Levels (in increasing order):
         <br/>
-        <ul>1. Not Active (shown as blank)</ul>
-        <ul>2. Nice to Have</ul>
-        <ul>3. Good to Have</ul>
-        <ul>4. Must Have </ul>
-
+        <ul>
+            <li>Must Have: Highest priority, <u>MUST</u> be satisfied in each constraint</li>
+            <li>Good to Have: Medium priority </li>
+            <li>Nice to Have: Lowest priority</li>
+            <li>No Priority: No preference, dont take it into account</li>
+          </ul>
         <br/>
         <b>Notes:</b>
         <br/>
-        <li>Must Have constraints <u>MUST</u> be satisfied by every timetable created</li>
         <li>Times are displayed in a 24 hour clock (ie military time)</li>
         </div>
       </div>
