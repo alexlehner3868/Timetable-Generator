@@ -92,7 +92,7 @@ code {
 }
 
 .generate-button{
-  grid-area: generate-button
+  grid-area: generate-button;
 }
 
 .sidebar {
