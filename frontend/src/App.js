@@ -2,6 +2,9 @@
 import React, { useEffect, useState } from "react";
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
+import { AwesomeButton } from "react-awesome-button";
+import "react-awesome-button/dist/styles.css";
+
 
 // -- Windows --
 import MainWindow from './MainWindow';
