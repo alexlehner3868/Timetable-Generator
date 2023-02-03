@@ -39,7 +39,6 @@ vector<TimeTable> Scheduler::schedule_classes(
 
     for(auto offering : courses){
         maximum_number_of_sections += offering.numCourses();
-        cout<<"Course: "<< offering.course_id_ << " has " << offering.numCourses()<<endl;
     }
     cout<<"Max num of sections = "<<maximum_number_of_sections<<endl;
     
@@ -104,8 +103,8 @@ void Scheduler::schedule_classes_helper(
                 }
             }
         }else{
-           // cout<<"Failed: "<<timetable.size()<<endl;
-            print_timetable(timetable, 0);
+            cout<<"Failed: "<<timetable.size()<<endl;
+            //print_timetable(timetable, 0);
         }
     }
 
