@@ -110,7 +110,8 @@ function App() {
         <MainWindow timetables={timetables} ttbIndex={ttbIndex} setTtbIndex={setTtbIndex}/>
         <Sidebar    courses={courses} setCourses={setCourses} constraints={constraints} setConstraints={setConstraints}/>
         <Generate   courses={courses} constraints={constraints} setTimetables={setTimetables}/>
-      </div>
+        <p class="dedication">Dedicated to Professor Hans Kunov</p>
+        </div>
     </div>
   );
 }
