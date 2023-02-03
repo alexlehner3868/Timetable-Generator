@@ -28,7 +28,6 @@ const SearchBar = ({courses, setCourses}) => {
     <div >
       <div className="search-bar-div">
         <form id="search-course-form">
-          <i className="fa fa-magnifying-glass fa-lg"></i>
           <input
             type="text"
             placeholder="Search For A Class..."
