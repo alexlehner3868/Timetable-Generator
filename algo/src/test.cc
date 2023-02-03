@@ -85,7 +85,7 @@ unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> get_classes(
     offerings.insert(class_three);
     offerings.insert(class_four);
     offerings.insert(class_five);
-    offerings.insert(class_six);
+    //offerings.insert(class_six);
 
 
     std::vector<Section> course_seven_lecture_sections = course_data.add_course("ECE216H1", 1);
@@ -139,11 +139,11 @@ unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> get_classes(
     class_eleven.semester(Semester::Winter);
 
 
-    offerings.insert(class_seven);
-    offerings.insert(class_eight);
-    offerings.insert(class_nine);
-    offerings.insert(class_ten);
-    offerings.insert(class_eleven);
+  //  offerings.insert(class_seven);
+  //  offerings.insert(class_eight);
+  //  offerings.insert(class_nine);
+   // offerings.insert(class_ten);
+    //offerings.insert(class_eleven);
 
     return offerings;
 }
