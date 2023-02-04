@@ -68,15 +68,15 @@ const Timetable = ({timetable, when}) => {
     <div className="timetable" id="timetable">
       <div className="tr">
         <div className="td" id='legend-times'> </div>
-        <div className="td">Monday</div>
-        <div className="td">Tuesday</div>
-        <div className="td">Wednesday</div>
-        <div className="td">Thursday</div>
-        <div className="td">Friday</div>
+        <div className="td"><b>Monday</b></div>
+        <div className="td"><b>Tuesday</b></div>
+        <div className="td"><b>Wednesday</b></div>
+        <div className="td"><b>Thursday</b></div>
+        <div className="td"><b>Friday</b></div>
       </div>
       {grid.map((row, hour) => (
         <div className="tr" id="table_day" key={hour}>
-          <div className="td" id="legend-times">{int2hour(hour)}</div>
+          <div className="td" id="legend-times"><b>{int2hour(hour)}</b></div>
           {row.map((meet, day) => (
             <div className='td' id="table_hour" key={day} onClick={() => blockOffHour(day, hour)}>
               <Period 
