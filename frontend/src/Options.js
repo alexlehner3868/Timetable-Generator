@@ -17,9 +17,11 @@ const Options = ({timetables, ttbIndex, setTtbIndex}) => {
   }
   return (
     <div className="control-bar">
+  
       <BackButton  nTimetables={timetables.length} ttbIndex={ttbIndex} setTtbIndex={setTtbIndex}/>
       <p className="current-timetable-number">{timetable_index_str}</p>
       <NextButton nTimetables={timetables.length} ttbIndex={ttbIndex} setTtbIndex={setTtbIndex}/>
+  
       <DownloadButton  timetables={timetables} ttbIndex={ttbIndex}/>
     </div>
   )

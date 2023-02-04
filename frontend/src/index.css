@@ -102,18 +102,21 @@ code {
 }
 
 .control-bar {
-  background-color: rgb(255, 255, 255);
-  height: 80%;
+  height: 70%;
   border-radius: 10px;
   border: 3px rgb(0, 0, 0)  solid;
   width: 80%;
   margin: auto;
   grid-area: control-bar;
+  background-color: rgb(255, 255, 255);
+  border: 3px rgb(0, 0, 0)  solid;
+  border-radius: 10px;
+
 }
 
 .back-button{
   grid-area: back-button;
-  margin:auto;
+  margin-top:100%;
 }
 
 .current-timetable-number{
@@ -122,6 +125,7 @@ code {
 }
 .next-button{
   grid-area: next-button;
+  margin-top: 5%;
 }
 
 #course-list-header{
@@ -343,7 +347,7 @@ code {
   background-color: inherit;
   border: none;
   cursor: pointer;
-  width: 50%;
+  width: 60%;
 }
 
 .download-button-img{
@@ -356,9 +360,11 @@ code {
 }
 
 #up-btn{
-  margin-top: 90%;
-  padding-top: 90%;
-  margin-bottom: 0;
+  padding-top: 50%;
+}
+
+#down-btn{
+  padding-bottom: 50%;
 }
 
 .up_down-button-img{
@@ -408,9 +414,11 @@ code {
     
 }
 .download-button-div{
-  margin-top: 65%;
-  padding-top: 80%;
+  margin-top: 100%;
   grid-area: download-button;
+  margin: auto;
+  padding-top: 100%;
+  width: 80%;
  
 }
 .search-results-box {
