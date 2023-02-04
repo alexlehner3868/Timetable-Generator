@@ -46,8 +46,8 @@ class MainWindow extends React.Component {
         
       <Tabs selectedIndex={this.state.tabIndex} onSelect={tabIndex => this.setState({ tabIndex })}>
         <TabList>
-          <Tab>Fall</Tab>
-          <Tab>Winter</Tab>
+          <Tab><b>Fall</b></Tab>
+          <Tab><b>Winter</b></Tab>
         </TabList>
         <TabPanel>
           <Semester timetable={timetable} when={fall}/>
