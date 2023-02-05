@@ -87,7 +87,7 @@ void Scheduler::schedule_classes_helper(
 
         int timetable_additional_cost = constraint_handler_->cost_of_timetable(timetable.classes());
         timetable.add_cost(timetable_additional_cost);
-        if (timetable.size() == maximum_number_of_sections && unique_check(timetable)) { 
+        if (/*timetable.size() == maximum_number_of_sections && */unique_check(timetable)) { 
             unique_timetables_found_++;
             // Priority queue has less than the max num of timetables
             if ((int)timetables_.size() < (int)max_num_of_timetables_to_show) {
