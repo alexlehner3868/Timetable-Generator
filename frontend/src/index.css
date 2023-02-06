@@ -264,6 +264,11 @@ code {
 .class-section{
   font-size: x-small;
 }
+.search-bar i {
+  position: absolute;
+  grid-area: search-icon;
+  margin: auto;
+}
 
 .active-courses{
   grid-area: active-courses;
