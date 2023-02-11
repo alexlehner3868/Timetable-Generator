@@ -36,12 +36,17 @@ vector<TimeTable> Scheduler::schedule_classes(
 
     // create timetable
     TimeTable timetable;
-
+    
+    // Calculate num section in full timetable
+    for(auto offering : courses){
+         maximum_number_of_sections_ += offering.numCourses();
+     }
     // run scheduling algorithm
     auto start = std::chrono::system_clock::now();
     schedule_classes_helper(courses, timetable);
     auto end = std::chrono::system_clock::now();
 
+   
     // Convert pq to vector and return
     vector<TimeTable> best_time_tables;
     vector<int> timetable_costs;
@@ -79,14 +84,13 @@ void Scheduler::schedule_classes_helper(
     }
     // All sections have been added
     if (courses.size() == 0) {
+        cout<<"ALEX IN HERE"<<endl;
         number_of_explored_timetables++;
-        // TODO: check for balance
-        if (!timetable.balanced()) {
-            // return; // FIXME: this doesn't work yet
-        }
+   
         int timetable_additional_cost = constraint_handler_->cost_of_timetable(timetable.classes());
         timetable.add_cost(timetable_additional_cost);
-        if (unique_check(timetable)) { // <---- This function is broken
+        if (timetable.size() ==  maximum_number_of_sections_  && unique_check(timetable)) { 
+            cout<<"ADDED"<<endl;
             unique_timetables_found_++;
             // Priority queue has less than the max num of timetables
             if ((int)timetables_.size() < (int)max_num_of_timetables_to_show) {
@@ -102,6 +106,10 @@ void Scheduler::schedule_classes_helper(
                 }
             }
         }else{
+            cout<<"too small "<<timetable.size()<<endl;
+
+            print_timetable(timetable, 0);
+           // *(int*)0 = 0;
             non_test_count++;
         }
     }
@@ -121,7 +129,8 @@ void Scheduler::schedule_classes_helper(
     for (auto course : courses) {
         // Attempt to add a section
         auto sem = attempt_to_add_section(timetable, LEC, course, courses);
-        // Track which semester we put it in
+        // Track which semester we put it in/
+        /*
         if (!course.semester_ && sem) {
             switch (*sem) {
                 case Semester::Fall:
@@ -132,6 +141,7 @@ void Scheduler::schedule_classes_helper(
                     break;
             }
         }
+        */
     }
 }
 
@@ -156,8 +166,11 @@ optional<Semester> Scheduler::attempt_to_add_section(
     for (int i = 0; i < num_sections; i++) {
         shuffled_sections.push_back(i);
     }
-    auto rng = std::default_random_engine{};
-    shuffle(begin(shuffled_sections), end(shuffled_sections), rng);
+    /* Commented out for deterministic testing
+        auto rng = std::default_random_engine{};
+        shuffle(begin(shuffled_sections), end(shuffled_sections), rng);
+    */
+
     for (int section_indx : shuffled_sections) {
         // cout<<"Looking at section id "<<section_indx<<endl;
         Section section;
@@ -167,6 +180,10 @@ optional<Semester> Scheduler::attempt_to_add_section(
             section = course.tutorial_sections_.at(section_indx);
         } else {
             section = course.practical_sections_.at(section_indx);
+        }
+        // ALEX: TESTING
+        if(course.course_id_ == "ECE216H1"){
+            cout<<"ECE216 looking at "<<toClassType(class_type) << " sectid "<< section_indx<<endl; 
         }
         int class_in_section;
         // Create an object to represent the section that was chosen
@@ -181,16 +198,24 @@ optional<Semester> Scheduler::attempt_to_add_section(
 
         };
         int semester_offset = (class_chosen.semester == 'F') ? 0 : 5;
-        bool successfully_inserted;
+        bool successfully_inserted = true;
         // Is this class an async class
         Date period;
         // Try adding all of the lecture sections for that section and class to the timetable
         for (class_in_section = 0; class_in_section < (int)section.duration_.size();
              class_in_section++) {
+            // ALEX: TESTING
+            if(course.course_id_ == "ECE216H1"){
+                cout<<"placing "<<class_in_section<< "/ "<<(int)section.duration_.size()<<endl; 
+            }
             class_chosen.async = section.async_.at(class_in_section);
             int section_cost = 0;
             // Add a entry for every hour that the lecure has
             for (int i = 0; i < section.duration_.at(class_in_section); i++) {
+                    // ALEX: TESTING
+                if(course.course_id_ == "ECE216H1" && class_type == PRA){
+                    cout<<" PLACING: "<< section.day_.at(class_in_section) + semester_offset<< " "<< section.start_time_.at(class_in_section) + i<<endl;
+                 }
                 // If the class is in the winter offset the day by 5 ([1,5] = fall, [6,10] = winter)
                 
                 period = make_pair(section.day_.at(class_in_section) + semester_offset,
@@ -208,10 +233,18 @@ optional<Semester> Scheduler::attempt_to_add_section(
 
                 // Check if the class was sucessfully inserted
                 if (!successfully_inserted) {
+                         // ALEX: TESTING
+                    if(course.course_id_ == "ECE216H1"){
+                        cout<<"fail placing multi hour "<<i<< "/ "<<section.duration_.at(class_in_section)<<endl; 
+                    }
                     break;
                     // Combination is invalid
                     // Time occupied by another course offering or constraint
                 } else {
+                                // ALEX: TESTING
+                    if(course.course_id_ == "ECE216H1"){
+                        cout<<"sucess placing multi hour "<<i<< "/ "<<section.duration_.at(class_in_section)<<endl; 
+                    }
                     // Keep track of which semester we chose
                     semester = make_optional((class_chosen.semester == 'F') ? Semester::Fall : Semester::Winter);
                     if(!class_chosen.async){
@@ -225,6 +258,10 @@ optional<Semester> Scheduler::attempt_to_add_section(
             // There is a conflict with the class section that was just inputted so remove it
             // Don't remove the class that it conflicted with - simply remove the others
             if (!successfully_inserted ) {
+                     // ALEX: TESTING
+                    if(course.course_id_ == "ECE216H1"){
+                        cout<<"not sucess. remove"<<timetable.size()<<endl; 
+                    }
                 // loop through each class in the section
                 for (int remove_class = 0; remove_class <= class_in_section; remove_class++) {
                     // loop through each hour of the class (ex. if one is a two hour class this will
@@ -234,13 +271,28 @@ optional<Semester> Scheduler::attempt_to_add_section(
                                                        section.start_time_.at(remove_class) + i);
 
                         if (remove_period != period) {
+                           
+                            if(section.day_.at(remove_class) + semester_offset == 8 &&  section.start_time_.at(remove_class) + i == 10){
+                                cout<<"REMOVING CLASS AT MY TIME: "<< class_chosen.course_code<< class_chosen.type<<endl;
+                                cout<<period.first<< " " <<period.second<<" vs "<< remove_period.first<<" "<<remove_period.second<<endl;
+                                cout<<timetable.atTime(period).course_code<<endl;
+                            }
+                            cout<<"removing "<< timetable.atTime(remove_period).course_code<< " at "<< section.day_.at(remove_class) + semester_offset<< " "<< section.start_time_.at(remove_class) + i <<endl;
                             timetable.erase(remove_period);
                         }
+                         // ALEX: TESTING
+                    if(course.course_id_ == "ECE216H1"){
+                        cout<<"Removing class in sec "<< remove_class << " hour "<< i<<timetable.size()<<endl; 
+                    }
                     }
                 }
 
                 break;
             } else {
+                     // ALEX: TESTING
+                    if(course.course_id_ == "ECE216H1"){
+                        cout<<"whole section added add cost to section"<<endl; 
+                    }
                 timetable.add_cost(section_cost);
             }
         }
@@ -251,45 +303,82 @@ optional<Semester> Scheduler::attempt_to_add_section(
          * Remove the current class from the courses list and then recall this function to place the
          * rest of the classes
          */
-        if (class_type == LEC) {
-            // add TUT now
-            attempt_to_add_section(timetable, TUT, course, courses);
-            // remove class from timetable
-            for (int remove_class = 0; remove_class < class_in_section;
-                 remove_class++) { // should this be < or <= (<= seg faults)
-                for (int i = 0; i < section.duration_.at(remove_class); i++) {
-                    Date period = make_pair(section.day_.at(remove_class) + semester_offset,
-                                            section.start_time_.at(remove_class) + i);
-                    timetable.erase(period);
+        if(successfully_inserted){
+            if (class_type == LEC) {
+                     // ALEX: TESTING
+                    if(course.course_id_ == "ECE216H1"){
+                        cout<<"all lec added, try tut now"<<timetable.size()<<endl; 
+                    }
+                // add TUT now
+                attempt_to_add_section(timetable, TUT, course, courses);
+                   // ALEX: TESTING
+                    if(course.course_id_ == "ECE216H1"){
+                        cout<<"function tut returning"<<timetable.size()<<endl; 
+                    }
+                // remove class from timetable
+                for (int remove_class = 0; remove_class < class_in_section;
+                    remove_class++) { // should this be < or <= (<= seg faults)
+                    for (int i = 0; i < section.duration_.at(remove_class); i++) {
+                        Date period = make_pair(section.day_.at(remove_class) + semester_offset,
+                                                section.start_time_.at(remove_class) + i);
+                        timetable.erase(period);
+                    }
                 }
-            }
-        } else if (class_type == TUT) {
-            // cout << "type tut and about to call PRA" << endl;
-            attempt_to_add_section(timetable, PRA, course, courses);
-            for (int remove_class = 0; remove_class < class_in_section;
-                 remove_class++) { // should this be < or <= (<= seg faults)
-                for (int i = 0; i < section.duration_.at(remove_class); i++) {
-                    Date period = make_pair(section.day_.at(remove_class)+semester_offset,
-                                            section.start_time_.at(remove_class) + i);
-                    timetable.erase(period);
+            } else if (class_type == TUT) {
+                     // ALEX: TESTING
+                    if(course.course_id_ == "ECE221H1"){
+                        cout<<"ECE221 TUT: "<<endl; 
+                        print_timetable(timetable, 0);
+                    }
+                // cout << "type tut and about to call PRA" << endl;
+                attempt_to_add_section(timetable, PRA, course, courses);
+                   // ALEX: TESTING
+                    if(course.course_id_ == "ECE216H1"){
+                        cout<<"function pra return "<<timetable.size()<<endl; 
+                    }
+                for (int remove_class = 0; remove_class < class_in_section;
+                    remove_class++) { // should this be < or <= (<= seg faults)
+                    for (int i = 0; i < section.duration_.at(remove_class); i++) {
+                        Date period = make_pair(section.day_.at(remove_class)+semester_offset,
+                                                section.start_time_.at(remove_class) + i);
+                        timetable.erase(period);
+                    }
                 }
-            }
-        } else {
-            // cout << "type PRA and removing course" << endl;
-            // print_timetable(timetable);
-            unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>
-                remaining_classes = courses;
-            remaining_classes.erase(course);
-            // cout << " (section exists) is courses empty?: " << remaining_classes.empty() << endl;
-            schedule_classes_helper(remaining_classes, timetable);
-
-            // remove class from timetable
-            for (int remove_class = 0; remove_class < class_in_section;
-                 remove_class++) { // should this be < or <= (<= seg faults)
-                for (int i = 0; i < section.duration_.at(remove_class); i++) {
-                    Date period = make_pair(section.day_.at(remove_class)+semester_offset,
-                                            section.start_time_.at(remove_class) + i);
-                    timetable.erase(period);
+            } else {
+                   // ALEX: TESTING
+                    if(course.course_id_ == "ECE216H1"){
+                        cout<<"done pra, call scheduler on remainign class"<<timetable.size()<<endl; 
+                        print_timetable(timetable, 0);
+                    }
+                         // ALEX: TESTING
+                    if(course.course_id_ == "ECE221H1"){
+                        cout<<"ECE221 PRA: "<<endl; 
+                        print_timetable(timetable, 0);
+                      
+                    }
+                    
+                // cout << "type PRA and removing course" << endl;
+                // print_timetable(timetable);
+                unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>
+                    remaining_classes = courses;
+                remaining_classes.erase(course);
+                //ALEX TESTING 
+                    if(timetable.size() == maximum_number_of_sections_){
+                            cout<<"THIS IS A FULL TIMETABLE"<<endl;
+                            cout<<remaining_classes.size()<<endl;
+                        }
+                // cout << " (section exists) is courses empty?: " << remaining_classes.empty() << endl;
+                schedule_classes_helper(remaining_classes, timetable);
+   // ALEX: TESTING
+   
+                // remove class from timetable
+                for (int remove_class = 0; remove_class < class_in_section;
+                    remove_class++) { // should this be < or <= (<= seg faults)
+                    for (int i = 0; i < section.duration_.at(remove_class); i++) {
+                        Date period = make_pair(section.day_.at(remove_class)+semester_offset,
+                                                section.start_time_.at(remove_class) + i);
+                        timetable.erase(period);
+                    }
                 }
             }
         }

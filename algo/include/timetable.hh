@@ -47,6 +47,14 @@ public:
         scheduled_classes.erase(period);
     }
 
+    int size(){
+        return scheduled_classes.size();
+    }
+
+    SelectedCourseSection atTime(Date period){
+        return scheduled_classes[period];
+    }
+
     bool insert_async(SelectedCourseSection possible_section){
         int fake_date = 0 - (2*num_async_classes);
         scheduled_classes.insert({{fake_date,fake_date}, possible_section});

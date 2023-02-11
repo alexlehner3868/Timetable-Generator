@@ -29,6 +29,7 @@ private:
     int max_number_of_timetables_to_explore = 400;
     ConstraintHandler* constraint_handler_;
     StatCollector stats_collector_;
+    int maximum_number_of_sections_ = 0;
 
     // Stats
     int partial_timetables_pruned_ = 0;

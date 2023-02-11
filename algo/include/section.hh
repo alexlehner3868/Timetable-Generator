@@ -35,6 +35,14 @@ public:
     int num_classes_in_section() {
         return duration_.size();
     }
+
+     int num_hours_in_section(){
+        int hours = 0;
+        for(auto i : duration_){
+            hours+=i;
+        }
+        return hours;
+    }
 };
 
 #endif

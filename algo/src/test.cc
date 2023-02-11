@@ -80,7 +80,7 @@ unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> get_classes(
     class_six.semester(Semester::Fall);
 
     unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> offerings;
-    offerings.insert(class_one);
+   offerings.insert(class_one);
     offerings.insert(class_two);
     offerings.insert(class_three);
     offerings.insert(class_four);
