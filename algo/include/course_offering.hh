@@ -79,7 +79,6 @@ public:
          int num_lec = (lecture_sections_.size() > 0 ) ? lecture_sections_[0].num_hours_in_section() : 0;
          int num_pra = (practical_sections_.size() > 0 ) ? practical_sections_[0].num_hours_in_section() : 0;
          int num_tut = (tutorial_sections_.size() > 0 ) ? tutorial_sections_[0].num_hours_in_section() : 0;
-         cout<<" course id "<<course_id_<< " L"<< num_lec<<" P"<<num_pra<<" T"<<num_tut<<endl;
          return num_lec+num_pra+num_tut;
      }
 
