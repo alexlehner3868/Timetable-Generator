@@ -1,0 +1,14 @@
+// -- React --
+import React from "react";
+
+// -- Module --
+const Navbar = (props) => {
+    return (
+        <nav className="navbar">
+          <ul className="navbar-nav"> </ul>
+        </nav>  
+      );
+  }
+  
+  // -- Exports --
+  export default Navbar;

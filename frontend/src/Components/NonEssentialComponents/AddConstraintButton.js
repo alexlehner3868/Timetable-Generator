@@ -34,12 +34,14 @@ const AddConstraintButton = (props) => {
       event.preventDefault()
       // remove all "early" constraints existing previously
       removeConstraint("00");
+      console.log("HERE")
       const priority = document.getElementById("morning_priorities").value;
       
       if (priority !== "0") {
         //console.log(priority);
         //console.log("Prioritizing Early Classes");
         //console.log("00" + priority + "00");
+        console.log("ADDING mornign const", priority)
         addConstraint("00" + priority + "00");
       }
     } function handleSubmitAfternoon (event) {
@@ -189,56 +191,56 @@ const AddConstraintButton = (props) => {
   return (
        <div>
             <label>Prefer Morning Classes</label>
-            <select list="Priority" class="dropdown" id="morning_priorities" onClick = {handleSubmitEarly}>
+            <select list="Priority" class="dropdown" id="morning_priorities" onChange = {handleSubmitEarly}>
                 <option value="0" ></option>
                 <option class="good_to_have" value="1" >Good To Have</option>
                 <option class="great_to_have" value="2" >Great To Have</option>
                 <option class="must_have" value="3" >Must Have</option>
             </select> <br></br>
             <label>Prefer Afternoon Classes</label>
-            <select list="Priority" class="dropdown" id="afternoon_priorities" onClick = {handleSubmitAfternoon}>
+            <select list="Priority" class="dropdown" id="afternoon_priorities" onChange = {handleSubmitAfternoon}>
                 <option value="0"></option>
                 <option class="good_to_have" value="1">Good To Have</option>
                 <option class="great_to_have" value="2">Great To Have</option>
                 <option class="must_have" value="3">Must Have</option>
                 </select> <br></br>
             <label>Prefer Evening Classes</label>
-            <select list="Priority" class="dropdown" id="evening_priorities" onClick = {handleSubmitEvening}>
+            <select list="Priority" class="dropdown" id="evening_priorities" onChange = {handleSubmitEvening}>
                 <option value="0"></option>
                 <option class="good_to_have" value="1">Good To Have</option>
                 <option class="great_to_have" value="2">Great To Have</option>
                 <option class="must_have" value="3">Must Have</option>
             </select> <br></br>
             <label>Minimize Days with Classes</label>
-            <select list="Priority" class="dropdown" id="minimize_priorities" onClick = {handleSubmitMinDay}>
+            <select list="Priority" class="dropdown" id="minimize_priorities" onChange = {handleSubmitMinDay}>
                 <option value="0"></option>
                 <option class="good_to_have" value="1">Good To Have</option>
                 <option class="great_to_have" value="2">Great To Have</option>
                 <option class="must_have" value="3">Must Have</option>
             </select> <br></br>
             <label>Prefer Async Classes</label>
-            <select list="Priority" class="dropdown" id="async_priorities" onClick = {handleSubmitAsync}>
+            <select list="Priority" class="dropdown" id="async_priorities" onChange = {handleSubmitAsync}>
                 <option value="0"></option>
                 <option class="good_to_have" value="1">Good To Have</option>
                 <option class="great_to_have" value="2">Great To Have</option>
                 <option class="must_have" value="3">Must Have</option>
             </select> <br></br>
             <label>Prefer Sync Classes</label>
-            <select list="Priority" class="dropdown" id="sync_priorities" onClick = {handleSubmitSync}>
+            <select list="Priority" class="dropdown" id="sync_priorities" onChange = {handleSubmitSync}>
                 <option value="0"></option>
                 <option class="good_to_have" value="1">Good To Have</option>
                 <option class="great_to_have" value="2">Great To Have</option>
                 <option class="must_have" value="3">Must Have</option>
             </select> <br></br>
             <label>Prefer Lunch Break</label>
-            <select list="Priority" class="dropdown" id="lunch_priorities" onClick = {handleSubmitLunch}>
+            <select list="Priority" class="dropdown" id="lunch_priorities" onChange = {handleSubmitLunch}>
                 <option value="0"></option>
                 <option class="good_to_have" value="1">Good To Have</option>
                 <option class="great_to_have" value="2">Great To Have</option>
                 <option class="must_have" value="3">Must Have</option>
             </select> <br></br>
             <label>Prefer Dinner Break</label>
-            <select list="Priority" class="dropdown" id="dinner_priorities" onClick = {handleSubmitDinner}>
+            <select list="Priority" class="dropdown" id="dinner_priorities" onChange = {handleSubmitDinner}>
                 <option value="0"></option>
                 <option class="good_to_have" value="1">Good To Have</option>
                 <option class="great_to_have" value="2">Great To Have</option>
@@ -246,32 +248,32 @@ const AddConstraintButton = (props) => {
             </select> <br></br>
                 
             <label id="before">No Class Before: </label>
-            <input type="number" id="before_value" min="10" max="20" onClick = {handleSubmitNoClassBefore} ></input> 
-            <select list="Priority" class="dropdown" id="before_priorities" onClick = {handleSubmitNoClassBefore}>
+            <input type="number" id="before_value" min="10" max="20" onChange = {handleSubmitNoClassBefore} ></input> 
+            <select list="Priority" class="dropdown" id="before_priorities" onChange = {handleSubmitNoClassBefore}>
                 <option value="0"></option>
                 <option class="good_to_have" value="1">Good To Have</option>
                 <option class="great_to_have" value="2">Great To Have</option>
                 <option class="must_have" value="3">Must Have</option>
             </select> <br></br>
             <label id="after">No Class After: </label>
-            <input type="number" id="after_value" min="9" max="19" onClick = {handleSubmitNoClassAfter} ></input>
-            <select list="Priority" class="dropdown" id="after_priorities" onClick = {handleSubmitNoClassAfter}>
+            <input type="number" id="after_value" min="9" max="19" onChange = {handleSubmitNoClassAfter} ></input>
+            <select list="Priority" class="dropdown" id="after_priorities" onChange = {handleSubmitNoClassAfter}>
                 <option value="0"></option>
                 <option class="good_to_have" value="1">Good To Have</option>
                 <option class="great_to_have" value="2">Great To Have</option>
                 <option class="must_have" value="3">Must Have</option>
             </select> <br></br>
             <label id="max">Max Hours of Class Back to Back</label>
-            <input type="number" id="max_class_value" min="1" max="12" onClick = {handleSubmitMaxBack} ></input>
-            <select list="Priority" class="dropdown" id="max_class_priorities" onClick = {handleSubmitMaxBack}>
+            <input type="number" id="max_class_value" min="1" max="12" onChange = {handleSubmitMaxBack} ></input>
+            <select list="Priority" class="dropdown" id="max_class_priorities" onChange = {handleSubmitMaxBack}>
                 <option value="0"></option>
                 <option class="good_to_have" value="1">Good To Have</option>
                 <option class="great_to_have" value="2">Great To Have</option>
                 <option class="must_have" value="3">Must Have</option>
             </select> <br></br>
             <label id="max">Max Hours of Break</label>
-            <input type="number" id="max_break_value" min="1" max="12" onClick = {handleSubmitMaxBreak} ></input>
-            <select list="Priority" class="dropdown" id="max_break_priorities" onClick = {handleSubmitMaxBreak}>
+            <input type="number" id="max_break_value" min="1" max="12" onChange = {handleSubmitMaxBreak} ></input>
+            <select list="Priority" class="dropdown" id="max_break_priorities" onChange = {handleSubmitMaxBreak}>
                 <option value="0"></option>
                 <option class="good_to_have" value="1">Good To Have</option>
                 <option class="great_to_have" value="2">Great To Have</option>
