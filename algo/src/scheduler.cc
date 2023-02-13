@@ -122,7 +122,7 @@ void Scheduler::schedule_classes_helper(
     // Loop through all of the Course Offerings (ie the course and all its sections)
     for (auto course : courses) {
         // Attempt to add a section
-        auto sem = attempt_to_add_section(timetable, LEC, course, courses);
+        auto sem = attempt_to_add_section(timetable, LEC, course, courses, char());
         // Track which semester we put it in/
         /*
         if (!course.semester_ && sem) {
@@ -143,7 +143,7 @@ optional<Semester> Scheduler::attempt_to_add_section(
     TimeTable &timetable,
     int class_type,
     CourseOfferings course,
-    unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> &courses) {
+    unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> &courses, char sem) {
     int num_sections = 0;
     optional<Semester> semester = nullopt;
 
@@ -189,6 +189,11 @@ optional<Semester> Scheduler::attempt_to_add_section(
 
         };
         int semester_offset = (class_chosen.semester == 'F') ? 0 : 5;
+        if(class_type != LEC){
+            if(sem != class_chosen.semester){
+                continue;
+            }
+        }
         bool successfully_inserted = true;
         // Is this class an async class
         Date period;
@@ -263,7 +268,7 @@ optional<Semester> Scheduler::attempt_to_add_section(
         if(successfully_inserted){
             if (class_type == LEC) {
                 // add TUT now
-                attempt_to_add_section(timetable, TUT, course, courses);
+                attempt_to_add_section(timetable, TUT, course, courses, class_chosen.semester);
                 // remove class from timetable
                 for (int remove_class = 0; remove_class < class_in_section;
                     remove_class++) { // should this be < or <= (<= seg faults)
@@ -275,7 +280,7 @@ optional<Semester> Scheduler::attempt_to_add_section(
                 }
             } else if (class_type == TUT) {
                 // cout << "type tut and about to call PRA" << endl;
-                attempt_to_add_section(timetable, PRA, course, courses);
+                attempt_to_add_section(timetable, PRA, course, courses, sem);
 
                 for (int remove_class = 0; remove_class < class_in_section;
                     remove_class++) { // should this be < or <= (<= seg faults)
@@ -314,10 +319,10 @@ optional<Semester> Scheduler::attempt_to_add_section(
         // class_type << endl;
         if (class_type == LEC) {
             // add TUT now
-            attempt_to_add_section(timetable, TUT, course, courses);
+            attempt_to_add_section(timetable, TUT, course, courses, sem);
             // remove class from timetable
         } else if (class_type == TUT) {
-            attempt_to_add_section(timetable, PRA, course, courses);
+            attempt_to_add_section(timetable, PRA, course, courses, sem);
         } else {
             // cout << "type PRA and removing course" << endl;
             // print_timetable(timetable);

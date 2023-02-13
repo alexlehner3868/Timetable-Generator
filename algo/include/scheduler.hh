@@ -57,7 +57,7 @@ public:
         TimeTable &timetable,
         int class_type,
         CourseOfferings course,
-        unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> &courses);
+        unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> &courses, char sem);
     bool unique_check(TimeTable &timetable);
     std::vector<std::string> make_timetable_str(TimeTable &timetable);
     void print_timetables(vector<TimeTable> timetables);
