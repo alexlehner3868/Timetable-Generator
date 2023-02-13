@@ -1,5 +1,5 @@
 // -- Module --
-const Generate = ({courses, constraints, setTimetables}) => {
+const Generate = ({courses, constraints, setTimetables, setTtbIndex}) => {
   const Request = async () => {
     // Extract the courses, constraints as strings
     const course_array = Array.from(courses);
@@ -19,6 +19,8 @@ const Generate = ({courses, constraints, setTimetables}) => {
     console.log("generated:", response);
     // Update the global state
     setTimetables(response);
+    // Put the user back on first timetable
+    setTtbIndex(0);
   };
 
   return (

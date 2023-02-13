@@ -62,7 +62,7 @@ const Timetable = ({timetable, when}) => {
     // TODO add a block component to meet so that it can be changed 
     console.log(hour, day)
   }
-
+  console.log("Im on timetable" ,grid)
   // Render the timetable
   return (
     <div className="timetable" id="timetable">

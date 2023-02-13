@@ -109,7 +109,7 @@ function App() {
         <Options    timetables={timetables} ttbIndex={ttbIndex} setTtbIndex={setTtbIndex}/>
         <MainWindow timetables={timetables} ttbIndex={ttbIndex} setTtbIndex={setTtbIndex}/>
         <Sidebar    courses={courses} setCourses={setCourses} constraints={constraints} setConstraints={setConstraints}/>
-        <Generate   courses={courses} constraints={constraints} setTimetables={setTimetables}/>
+        <Generate   courses={courses} constraints={constraints} setTimetables={setTimetables} setTtbIndex={setTtbIndex}/>
         <p class="dedication">Dedicated to Professor Hans Kunov</p>
         </div>
     </div>
