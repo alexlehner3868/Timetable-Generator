@@ -34,7 +34,7 @@ const Timetable = ({timetable, when}) => {
   // Process the timetable
   if (timetable) {
     for (const meet of timetable) {
-      grid[meet.time - 1][meet.day - 1] = meet;
+      grid[meet.time][meet.day - 1] = meet;
     }
   }
 

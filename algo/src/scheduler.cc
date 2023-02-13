@@ -160,10 +160,10 @@ optional<Semester> Scheduler::attempt_to_add_section(
     for (int i = 0; i < num_sections; i++) {
         shuffled_sections.push_back(i);
     }
-    /* Commented out for deterministic testing
+
         auto rng = std::default_random_engine{};
         shuffle(begin(shuffled_sections), end(shuffled_sections), rng);
-    */
+    
 
     for (int section_indx : shuffled_sections) {
         // cout<<"Looking at section id "<<section_indx<<endl;
