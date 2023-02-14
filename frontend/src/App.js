@@ -96,6 +96,11 @@ function App() {
     }
   }, []);
 
+  const removeAll = (constraint) => {
+    setConstraints(prev => new Set())
+    setCourses(prev => new Set())
+  };
+
   return (
     <div className="App">
       <head>
@@ -109,6 +114,7 @@ function App() {
         <Options    timetables={timetables} ttbIndex={ttbIndex} setTtbIndex={setTtbIndex}/>
         <MainWindow timetables={timetables} ttbIndex={ttbIndex} setTtbIndex={setTtbIndex}/>
         <Sidebar    courses={courses} setCourses={setCourses} constraints={constraints} setConstraints={setConstraints}/>
+        <button onClick={event => removeAll()}>Clear Courses & Constraints</button>
         <Generate   courses={courses} constraints={constraints} setTimetables={setTimetables} setTtbIndex={setTtbIndex}/>
         <p class="dedication">Dedicated to Professor Hans Kunov</p>
         </div>
