@@ -15,6 +15,10 @@ const AddConstraintButton = (props) => {
                                                                 && x.slice(0,3)!== (constraint + "3")
                                                                 ))))
     };
+
+    const removeAllConstraints = (constraint) => {
+        props.setConstraints(prev => new Set())
+    };
     /* First two digits indicate constraint type, third indicates priority, fourth and fifth digit include time info (for constraints 7-11):
         00 - prefer early classes
         01 - prefer afternoon classes
@@ -29,7 +33,12 @@ const AddConstraintButton = (props) => {
         10 - max hours of class back to back
         11 - no breaks longer than a certain time
     */
-
+    function handleDeleteAll (event) {
+        event.preventDefault()
+        removeAllConstraints();
+        console.log("deleting all constraints");
+        console.log()
+    }
     function handleSubmitEarly (event) {
       event.preventDefault()
       // remove all "early" constraints existing previously
@@ -279,7 +288,7 @@ const AddConstraintButton = (props) => {
                 <option class="great_to_have" value="2">Great To Have</option>
                 <option class="must_have" value="3">Must Have</option>
             </select> <br></br>
-
+            <button onClick = {handleDeleteAll}>Clear All</button>
        </div>
   )}
 
