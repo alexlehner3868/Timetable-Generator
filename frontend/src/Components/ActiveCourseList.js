@@ -6,7 +6,10 @@ const ActiveCourseList = ({courses, setCourses}) => {
       setCourses(prev => new Set([...prev].filter(x => x !== course)))
     };
 
-  
+    const removeAllCourses = course => {
+      setCourses(prev => new Set())
+    };
+
     return (
       <div className = "active-courses" id="active-courses">
          <h4 id='course-list-header'> <u>Desired Classes:</u></h4>
@@ -16,8 +19,9 @@ const ActiveCourseList = ({courses, setCourses}) => {
             <p id='active-course-list-text'>{course}</p>
             <button id='active-course-remove'onClick={event => removeCourse(course)} >X</button>
             </div>
+            
           ))}
-        
+        <button onClick={event => removeAllCourses()}>Clear All</button>
       </div>
     )
   }
