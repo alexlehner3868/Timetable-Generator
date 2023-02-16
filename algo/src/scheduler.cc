@@ -161,8 +161,8 @@ optional<Semester> Scheduler::attempt_to_add_section(
         shuffled_sections.push_back(i);
     }
 
-        auto rng = std::default_random_engine{};
-        shuffle(begin(shuffled_sections), end(shuffled_sections), rng);
+    //auto rng = std::default_random_engine{};
+    //shuffle(begin(shuffled_sections), end(shuffled_sections), rng);
     
 
     for (int section_indx : shuffled_sections) {
