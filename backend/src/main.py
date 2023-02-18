@@ -74,6 +74,7 @@ def main():
             all_args.append(f"-x{constraints}")
         # Run subprocess
         out = subprocess.run(all_args, capture_output=True)
+        print(all_args)
         # Return output
         return out.stdout
 

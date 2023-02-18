@@ -134,24 +134,41 @@ const AddConstraintButton = (props) => {
         event.preventDefault();
         removeConstraint("08");
         const priority = document.getElementById("before_priorities").value;
-      
+        const hours = document.getElementById("before_value").value;
+        var string_hours;
+        //if hours between 10 and 20 (inclusive) 
+        if (hours >= 10 && hours <= 20) {
+            string_hours = hours.toString();
+        } else {
+            string_hours = "00";
+        }
+
         if (priority !== "0") {
             //console.log(priority);
             //console.log("Prioritizing Courses Before X")
             //console.log("08" + priority + "00");
-            addConstraint("08" + priority + "00");
+            addConstraint("08" + priority + string_hours);
         }
         console.log("Prioritizing Classes After X")
     } function handleSubmitNoClassAfter (event) {
         event.preventDefault();
         removeConstraint("09");
         const priority = document.getElementById("after_priorities").value;
-      
+        const hours = document.getElementById("after_value").value;
+        var string_hours;
+        //if hours between 10 and 20 (inclusive) 
+        if (hours > 9 && hours <= 19) {
+            string_hours = hours.toString();
+        } else if (hours == 9) {
+            string_hours = "09"
+        } else {
+            string_hours = "00";
+        }
         if (priority !== "0") {
             //console.log(priority);
             //console.log("Prioritizing Classes Before Y");
             //console.log("09" + priority + "00");
-            addConstraint("09" + priority + "00");
+            addConstraint("09" + priority + string_hours);
         }
     } function handleSubmitMaxBack (event) {
         event.preventDefault();
@@ -257,7 +274,7 @@ const AddConstraintButton = (props) => {
             </select> <br></br>
                 
             <label id="before">No Class Before: </label>
-            <input type="number" id="before_value" min="10" max="20" onChange = {handleSubmitNoClassBefore} ></input> 
+            <input type="number" id="before_value" min="10" max="20" onClick = {handleSubmitNoClassBefore} ></input> 
             <select list="Priority" class="dropdown" id="before_priorities" onChange = {handleSubmitNoClassBefore}>
                 <option value="0"></option>
                 <option class="good_to_have" value="1">Good To Have</option>
@@ -265,7 +282,7 @@ const AddConstraintButton = (props) => {
                 <option class="must_have" value="3">Must Have</option>
             </select> <br></br>
             <label id="after">No Class After: </label>
-            <input type="number" id="after_value" min="9" max="19" onChange = {handleSubmitNoClassAfter} ></input>
+            <input type="number" id="after_value" min="9" max="19" onClick = {handleSubmitNoClassAfter} ></input>
             <select list="Priority" class="dropdown" id="after_priorities" onChange = {handleSubmitNoClassAfter}>
                 <option value="0"></option>
                 <option class="good_to_have" value="1">Good To Have</option>

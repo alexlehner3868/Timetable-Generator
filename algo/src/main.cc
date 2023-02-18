@@ -87,7 +87,14 @@ int exec(vector<string> courses, vector<string> constraints) {
         constraint_type = 10*int(constraints[0][0]-48) + int(constraints[0][1]-48);
         priority = int(constraints[0][2]-48);
         hours = 10*int(constraints[0][3]-48) + int(constraints[0][4]-48);
-        cout << "hours: " << hours << "constraint type: " << constraint_type << "priority" << priority << endl;
+        //cout << "hours: " << hours << "constraint type: " << constraint_type << "priority" << priority << endl;
+        if (priority == 1) {
+            priority = 3;
+        } else if (priority == 2) {
+            priority = 6;
+        } else if (priority == 3) {
+            priority = 10;
+        }
         if (constraint_type == 0 && priority > 0) {
             //all info passed is valid
             constraint_handler.set_prefer_morning_classes_constraint(priority);
