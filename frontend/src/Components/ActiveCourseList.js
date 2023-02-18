@@ -1,6 +1,11 @@
+// https://tailwindcss.com/docs/guides/create-react-app 
+//use this to make pretty dropdowns 
+//https://reactjsexample.com/a-pretty-cool-country-selector-using-tailwindcss-and-framer-motion/ 
+
 // -- Module --
 const ActiveCourseList = ({courses, setCourses}) => {
 
+    
     const removeCourse = course => {
       console.log(`removing course: ${course}`)
       setCourses(prev => new Set([...prev].filter(x => x !== course)))
@@ -197,6 +202,7 @@ const ActiveCourseList = ({courses, setCourses}) => {
                 <option class="mat2" value="8">2nd Year Materials</option>
                 <option class="mech2" value="9">2nd Year Mech</option>
             </select> <br></br>
+            
       </div>
     )
   }
