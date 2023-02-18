@@ -18,6 +18,22 @@ const AddConstraintButton = (props) => {
 
     const removeAllConstraints = (constraint) => {
         props.setConstraints(prev => new Set())
+        document.getElementById("morning_priorities").value = 0;
+        document.getElementById("afternoon_priorities").value = 0;
+        document.getElementById("evening_priorities").value = 0;
+        document.getElementById("minimize_priorities").value = 0;
+        document.getElementById("async_priorities").value = 0;
+        document.getElementById("sync_priorities").value = 0;
+        document.getElementById("lunch_priorities").value = 0;
+        document.getElementById("dinner_priorities").value = 0;
+        document.getElementById("before_priorities").value = 0;
+        document.getElementById("before_value").value = "";
+        document.getElementById("after_priorities").value = 0;
+        document.getElementById("after_value").value = "";
+        document.getElementById("max_class_priorities").value = 0;
+        document.getElementById("max_class_value").value = "";
+        document.getElementById("max_break_priorities").value = 0;
+        document.getElementById("max_break_value").value = "";
     };
     /* First two digits indicate constraint type, third indicates priority, fourth and fifth digit include time info (for constraints 7-11):
         00 - prefer early classes
@@ -212,8 +228,13 @@ const AddConstraintButton = (props) => {
         
     } 
     
+    function repopulate_constraints (constraint) {
+        //for each element, find constraint number and get the document id to match
+    }
+    //props.constraints.forEach(repopulate_constraints(value))
+
     
-    
+
   return (
        <div>
             <label>Prefer Morning Classes</label>
