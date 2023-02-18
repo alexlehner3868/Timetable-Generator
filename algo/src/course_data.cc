@@ -248,7 +248,7 @@ std::vector<Section> CourseData::add_course(string course_id, int section_type) 
         if(sem == 'Y'){
             if(section[6].back() == '9'){
                 class_semester.insert(class_semester.end(), 'F');
-            }else{
+            } else{
                  class_semester.insert(class_semester.end(), 'W'); 
             }
         }else{
