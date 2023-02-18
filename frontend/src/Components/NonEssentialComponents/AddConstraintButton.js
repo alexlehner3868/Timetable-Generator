@@ -328,6 +328,8 @@ const AddConstraintButton = (props) => {
                         max_break_value = hours_refresh;
                     }
                     break;
+                default:
+                    break;
                 
             }
         }
