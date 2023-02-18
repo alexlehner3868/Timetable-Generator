@@ -253,7 +253,13 @@ const AddConstraintButton = (props) => {
         //second char is constraint priority
         const priority = parseInt(constraint.slice(2,3))
         //3rd and 4th char are hours (useless unless for last for constraints)
-        const hours_refresh = parseInt(constraint.slice(3,5))
+        
+        var hours_refresh = 0;
+        if (constraint.slice(3,5)) {
+            hours_refresh = parseInt(constraint.slice(3,5))
+        } else {
+            hours_refresh = 0;
+        }
         console.log("type is ", type, ", priority is ", priority, ", hours is ", hours_refresh)
         
         //don't assign priority unless 1-3 (set)
