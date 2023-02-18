@@ -25,18 +25,17 @@ const ActiveCourseList = ({courses, setCourses}) => {
           //add all first year ece courses
           setCourses(prev => new Set(prev.add("APS100H1")))
           setCourses(prev => new Set(prev.add("APS111H1")))
-          
           setCourses(prev => new Set(prev.add("CIV100H1")))
           setCourses(prev => new Set(prev.add("APS110H1")))
-          setCourses(prev => new Set(prev.add("MAT188H1")))/*
-          setCourses(prev => new Set(prev.add("MAT186H1")))*/
+          setCourses(prev => new Set(prev.add("MAT188H1")))
+          setCourses(prev => new Set(prev.add("MAT186H1")))
           
           setCourses(prev => new Set(prev.add("APS105H1")))
-          setCourses(prev => new Set(prev.add("APS112H1")))/*
+          setCourses(prev => new Set(prev.add("APS112H1")))
           setCourses(prev => new Set(prev.add("MIE100H1")))
           setCourses(prev => new Set(prev.add("ECE110H1")))
           setCourses(prev => new Set(prev.add("ECE191H1")))
-          setCourses(prev => new Set(prev.add("MAT187H1"))) */
+          setCourses(prev => new Set(prev.add("MAT187H1"))) 
 
           break;
         case 2:

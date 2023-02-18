@@ -198,6 +198,7 @@ std::vector<Section> CourseData::add_course(string course_id, int section_type) 
     for (std::vector<std::string> section : course_data) {
         // error checking on this - make sure it is valid
         current_section_num = stoi(section[2]) - SECTION_OFFSET;
+        
         // cout << "pushing back section " << current_section_num << " and course id " << course_id
         // << endl;
         //  each vector contains all the info for one section of a lecture
@@ -233,8 +234,15 @@ std::vector<Section> CourseData::add_course(string course_id, int section_type) 
 
         // if class start time doesn't exist, then class is async
         class_async.insert(class_async.end(), {empty(section[4])});
-        class_durations.insert(class_durations.end(), {(stoi(section[5]) - stoi(section[4]))});
-        class_start_time.insert(class_start_time.end(), {stoi(section[4])});
+        if (section[5].empty() && section[4].empty()) {
+            class_durations.insert(class_durations.end(), {0});
+            class_start_time.insert(class_start_time.end(), {0});
+        } else {
+            class_durations.insert(class_durations.end(), {(stoi(section[5]) - stoi(section[4]))});
+            class_start_time.insert(class_start_time.end(), {stoi(section[4])});
+        }
+        
+        
         // take the first char of the string 'F' or 'W' or 'Y'
         char sem = section[0][0];
         if(sem == 'Y'){
