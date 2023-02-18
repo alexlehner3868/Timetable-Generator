@@ -228,66 +228,163 @@ const AddConstraintButton = (props) => {
         
     } 
     
-    function repopulate_constraints (constraint) {
+    var morning;
+    var afternoon;
+    var evening;
+    var minimize;
+    var async;
+    var sync;
+    var lunch;
+    var dinner;
+    var before;
+    var before_value;
+    var after;
+    var after_value;
+    var max_class;
+    var max_class_value;
+    var max_break;
+    var max_break_value;
+
+    function repopulate_constraints(constraint) {
         //for each element, find constraint number and get the document id to match
+        console.log(constraint)
+        //first extract first two characters (those are the constraint type)
+        const type = parseInt(constraint.slice(0,2))
+        //second char is constraint priority
+        const priority = parseInt(constraint.slice(2,3))
+        //3rd and 4th char are hours (useless unless for last for constraints)
+        const hours_refresh = parseInt(constraint.slice(3,5))
+        console.log("type is ", type, ", priority is ", priority, ", hours is ", hours_refresh)
+        
+        //don't assign priority unless 1-3 (set)
+        if (priority == 1 || priority == 2 || priority == 3) {
+                
+            switch (type) {
+                case 0:
+                    morning = priority;
+                    break;
+                case 1:
+                    afternoon = priority;
+                    break;
+                case 2:
+                    evening = priority;
+                    break;
+                case 3:
+                    minimize = priority;
+                    break;
+                case 4:
+                    async = priority;
+                    break;
+                case 5:
+                    sync = priority;
+                    break;
+                case 6:
+                    lunch = priority;
+                    break;
+                case 7:
+                    dinner = priority;
+                    break;
+                case 8:
+                    before = priority;
+                    if (hours_refresh < 10 || hours_refresh > 20) {
+                        //invalid
+                        hours_refresh = 0;
+                    } else {
+                        //valid
+                        before_value = hours_refresh;
+                    }
+                    break;
+                case 9:
+                    after = priority;
+                    if (hours_refresh < 9 || hours_refresh > 19) {
+                        //invalid
+                        hours_refresh = 0;
+                    } else {
+                        //valid
+                        after_value = hours_refresh;
+                    }
+                    break;
+                case 10:
+                    max_class = priority;
+                    if (hours_refresh < 1 || hours_refresh > 12) {
+                        hours_refresh = 0;
+                    } else {
+                        max_class_value = hours_refresh;
+                    }
+                    break;
+                case 11:
+                    max_break = priority;
+                    //not valid
+                    if (hours_refresh < 1 || hours_refresh > 12) {
+                        hours_refresh = 0;
+                    } else {
+                        //valid
+                        max_break_value = hours_refresh;
+                    }
+                    break;
+                
+            }
+        }
     }
-    //props.constraints.forEach(repopulate_constraints(value))
+    props.constraints.forEach(function(constraint) {
+        repopulate_constraints(constraint);
+    });
 
     
 
   return (
        <div>
             <label>Prefer Morning Classes</label>
-            <select list="Priority" class="dropdown" id="morning_priorities" onChange = {handleSubmitEarly}>
+            <select list="Priority" defaultValue={morning} class="dropdown" id="morning_priorities" onChange = {handleSubmitEarly}>
                 <option value="0" ></option>
                 <option class="good_to_have" value="1" >Good To Have</option>
                 <option class="great_to_have" value="2" >Great To Have</option>
                 <option class="must_have" value="3" >Must Have</option>
             </select> <br></br>
             <label>Prefer Afternoon Classes</label>
-            <select list="Priority" class="dropdown" id="afternoon_priorities" onChange = {handleSubmitAfternoon}>
+            <select list="Priority" defaultValue={afternoon} class="dropdown" id="afternoon_priorities" onChange = {handleSubmitAfternoon}>
                 <option value="0"></option>
                 <option class="good_to_have" value="1">Good To Have</option>
                 <option class="great_to_have" value="2">Great To Have</option>
                 <option class="must_have" value="3">Must Have</option>
                 </select> <br></br>
             <label>Prefer Evening Classes</label>
-            <select list="Priority" class="dropdown" id="evening_priorities" onChange = {handleSubmitEvening}>
+            <select list="Priority" defaultValue={evening} class="dropdown" id="evening_priorities" onChange = {handleSubmitEvening}>
                 <option value="0"></option>
                 <option class="good_to_have" value="1">Good To Have</option>
                 <option class="great_to_have" value="2">Great To Have</option>
                 <option class="must_have" value="3">Must Have</option>
             </select> <br></br>
             <label>Minimize Days with Classes</label>
-            <select list="Priority" class="dropdown" id="minimize_priorities" onChange = {handleSubmitMinDay}>
+            <select list="Priority" defaultValue={minimize} class="dropdown" id="minimize_priorities" onChange = {handleSubmitMinDay}>
                 <option value="0"></option>
                 <option class="good_to_have" value="1">Good To Have</option>
                 <option class="great_to_have" value="2">Great To Have</option>
                 <option class="must_have" value="3">Must Have</option>
             </select> <br></br>
             <label>Prefer Async Classes</label>
-            <select list="Priority" class="dropdown" id="async_priorities" onChange = {handleSubmitAsync}>
+            <select list="Priority" defaultValue={async} class="dropdown" id="async_priorities" onChange = {handleSubmitAsync}>
                 <option value="0"></option>
                 <option class="good_to_have" value="1">Good To Have</option>
                 <option class="great_to_have" value="2">Great To Have</option>
                 <option class="must_have" value="3">Must Have</option>
             </select> <br></br>
             <label>Prefer Sync Classes</label>
-            <select list="Priority" class="dropdown" id="sync_priorities" onChange = {handleSubmitSync}>
+            <select list="Priority" defaultValue={sync} class="dropdown" id="sync_priorities" onChange = {handleSubmitSync}>
                 <option value="0"></option>
                 <option class="good_to_have" value="1">Good To Have</option>
                 <option class="great_to_have" value="2">Great To Have</option>
                 <option class="must_have" value="3">Must Have</option>
             </select> <br></br>
             <label>Prefer Lunch Break</label>
-            <select list="Priority" class="dropdown" id="lunch_priorities" onChange = {handleSubmitLunch}>
+            <select list="Priority" defaultValue={lunch} class="dropdown" id="lunch_priorities" onChange = {handleSubmitLunch}>
                 <option value="0"></option>
                 <option class="good_to_have" value="1">Good To Have</option>
                 <option class="great_to_have" value="2">Great To Have</option>
                 <option class="must_have" value="3">Must Have</option>
             </select> <br></br>
             <label>Prefer Dinner Break</label>
-            <select list="Priority" class="dropdown" id="dinner_priorities" onChange = {handleSubmitDinner}>
+            <select list="Priority" defaultValue={dinner} class="dropdown" id="dinner_priorities" onChange = {handleSubmitDinner}>
                 <option value="0"></option>
                 <option class="good_to_have" value="1">Good To Have</option>
                 <option class="great_to_have" value="2">Great To Have</option>
@@ -295,32 +392,32 @@ const AddConstraintButton = (props) => {
             </select> <br></br>
                 
             <label id="before">No Class Before: </label>
-            <input type="number" id="before_value" min="10" max="20" onClick = {handleSubmitNoClassBefore} ></input> 
-            <select list="Priority" class="dropdown" id="before_priorities" onChange = {handleSubmitNoClassBefore}>
+            <input type="number" defaultValue={before_value} id="before_value" min="10" max="20" onClick = {handleSubmitNoClassBefore} ></input> 
+            <select list="Priority" defaultValue={before} class="dropdown" id="before_priorities" onChange = {handleSubmitNoClassBefore}>
                 <option value="0"></option>
                 <option class="good_to_have" value="1">Good To Have</option>
                 <option class="great_to_have" value="2">Great To Have</option>
                 <option class="must_have" value="3">Must Have</option>
             </select> <br></br>
             <label id="after">No Class After: </label>
-            <input type="number" id="after_value" min="9" max="19" onClick = {handleSubmitNoClassAfter} ></input>
-            <select list="Priority" class="dropdown" id="after_priorities" onChange = {handleSubmitNoClassAfter}>
+            <input type="number" defaultValue={after_value} id="after_value" min="9" max="19" onClick = {handleSubmitNoClassAfter} ></input>
+            <select list="Priority" defaultValue={after} class="dropdown" id="after_priorities" onChange = {handleSubmitNoClassAfter}>
                 <option value="0"></option>
                 <option class="good_to_have" value="1">Good To Have</option>
                 <option class="great_to_have" value="2">Great To Have</option>
                 <option class="must_have" value="3">Must Have</option>
             </select> <br></br>
             <label id="max">Max Hours of Class Back to Back</label>
-            <input type="number" id="max_class_value" min="1" max="12" onChange = {handleSubmitMaxBack} ></input>
-            <select list="Priority" class="dropdown" id="max_class_priorities" onChange = {handleSubmitMaxBack}>
+            <input type="number" defaultValue={max_class_value} id="max_class_value" min="1" max="12" onChange = {handleSubmitMaxBack} ></input>
+            <select list="Priority" defaultValue={max_class} class="dropdown" id="max_class_priorities" onChange = {handleSubmitMaxBack}>
                 <option value="0"></option>
                 <option class="good_to_have" value="1">Good To Have</option>
                 <option class="great_to_have" value="2">Great To Have</option>
                 <option class="must_have" value="3">Must Have</option>
             </select> <br></br>
             <label id="max">Max Hours of Break</label>
-            <input type="number" id="max_break_value" min="1" max="12" onChange = {handleSubmitMaxBreak} ></input>
-            <select list="Priority" class="dropdown" id="max_break_priorities" onChange = {handleSubmitMaxBreak}>
+            <input type="number" defaultValue={max_break_value} id="max_break_value" min="1" max="12" onChange = {handleSubmitMaxBreak} ></input>
+            <select list="Priority" defaultValue={max_break} class="dropdown" id="max_break_priorities" onChange = {handleSubmitMaxBreak}>
                 <option value="0"></option>
                 <option class="good_to_have" value="1">Good To Have</option>
                 <option class="great_to_have" value="2">Great To Have</option>
@@ -329,5 +426,6 @@ const AddConstraintButton = (props) => {
             <button onClick = {handleDeleteAll}>Clear All</button>
        </div>
   )}
+
 
 export default AddConstraintButton;
