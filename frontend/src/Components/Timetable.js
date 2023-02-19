@@ -83,7 +83,7 @@ const Timetable = ({timetable, when}) => {
                 code={meet.course}
                 color={colors[meet.course]}
                 name={meet.name}
-                section={meet.section}
+                section={meet.section-1}
                 type={meet.type}
                 blockedOffLevel={blockedOffTimes[hour][day]}
               />
