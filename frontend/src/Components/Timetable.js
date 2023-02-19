@@ -52,6 +52,7 @@ const Timetable = (props) => {
 
 
   const blockOffHour = (day, hour) => {
+    /*
     blockedOffTimes[hour][day]++;
     if(blockedOffTimes[hour][day]>3){
       blockedOffTimes[hour][day] = blockedOffTimes[hour][day] - 4;
@@ -60,7 +61,7 @@ const Timetable = (props) => {
     if(grid[hour][day].block === 4){
       grid[hour][day].block = 0;
     }
-    
+    */
     // TODO add a block component to meet so that it can be changed 
     console.log(hour, day)
 
@@ -82,8 +83,12 @@ const Timetable = (props) => {
       var constraint = "12" + day + "0" + hour;
       if ( !props.constraints.has(constraint)) {
         addConstraint(constraint);
+        blockedOffTimes[hour][day] = 3;
+        grid[hour][day].block = 3;
       } else {
         removeConstraintTime(constraint);
+        blockedOffTimes[hour][day] = 0;
+        grid[hour][day].block = 0;
       }
     } else if (hour > 9 && hour < 21) {
       var constraint = "12" + day + hour;
@@ -91,9 +96,13 @@ const Timetable = (props) => {
       if ( !props.constraints.has(constraint)) {
         console.log("adding")
         addConstraint(constraint);
+        blockedOffTimes[hour][day] = 2;
+        grid[hour][day].block = 2;
       } else {
         console.log("removing")
         removeConstraintTime(constraint);
+        blockedOffTimes[hour][day] = 0;
+        grid[hour][day].block = 0;
         console.log(props.constraints)
       }
     }

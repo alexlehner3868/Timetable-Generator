@@ -32,6 +32,7 @@ const Period = (props) => {
   const blockedOffLevel = props.blockedOffLevel || null;
   
   if(blockedOffLevel !== null || blockedOffLevel > 0){
+    console.log("im color")
     color = blockedOffLevelColors[blockedOffLevel-1];
     
   }
