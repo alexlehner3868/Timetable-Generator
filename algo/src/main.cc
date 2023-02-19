@@ -120,9 +120,11 @@ int exec(vector<string> courses, vector<string> constraints) {
             constraint_handler.set_back_to_back_constraint(hours, priority);
         } else if (constraint_type == 11 && priority > 0 && hours > 0) {
             constraint_handler.set_no_breaks_larger_than_X_constraint(hours, priority);
-        } /*THIS IS FOR EVENTUAL TIME BLOCKelse if (constraint_type == 12 && priority > 0 && hours > 0) {
-            constraint_handler.prefer_async_classes_constraint(priority);
-        } */else {
+        } else if (constraint_type == 12 && priority > 0) {
+            //hardcode into fall semester for now
+            //hardcode priority to must have
+            add_time_constraint(start_time, 1, day, 'F', 10);
+        } else {
             //pass, bad
             
         }

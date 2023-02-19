@@ -2,10 +2,10 @@
 import Timetable from "./Timetable"
 
 // -- Module --
-const Semester = ({timetable, when}) =>{
+const Semester = (props) =>{
   return (
     <div className='semester'>
-      <Timetable timetable={timetable} when={when}/>
+      <Timetable timetable={props.timetable} when={props.when} constraints={props.constraints} setConstraints={props.setConstraints}/>
     </div>
   )
 }

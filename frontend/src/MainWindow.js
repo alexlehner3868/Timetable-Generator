@@ -50,10 +50,10 @@ class MainWindow extends React.Component {
           <Tab><b>Winter</b></Tab>
         </TabList>
         <TabPanel>
-          <Semester timetable={timetable} when={fall}/>
+          <Semester timetable={timetable} when={fall} constraints={this.props.constraints} setConstraints={this.props.setConstraints}/>
         </TabPanel>
         <TabPanel>
-          <Semester timetable={timetable} when={winter}/>
+          <Semester timetable={timetable} when={winter} constraints={this.props.constraints} setConstraints={this.props.setConstraints}/>
         </TabPanel>
       </Tabs>
       </div>

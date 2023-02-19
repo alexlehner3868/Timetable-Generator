@@ -145,7 +145,7 @@ function App() {
       </header>
       <div className="whole-webpage">
         <Options    timetables={timetables} ttbIndex={ttbIndex} setTtbIndex={setTtbIndex}/>
-        <MainWindow timetables={timetables} ttbIndex={ttbIndex} setTtbIndex={setTtbIndex}/>
+        <MainWindow timetables={timetables} ttbIndex={ttbIndex} setTtbIndex={setTtbIndex} constraints={constraints} setConstraints={setConstraints}/>
         <Sidebar    courses={courses} setCourses={setCourses} constraints={constraints} setConstraints={setConstraints}/>
         
         <Generate   courses={courses} constraints={constraints} setTimetables={setTimetables} setTtbIndex={setTtbIndex}/>
