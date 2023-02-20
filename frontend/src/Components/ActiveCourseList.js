@@ -9,7 +9,9 @@ const ActiveCourseList = ({courses, setCourses}) => {
     
     const removeCourse = course => {
       console.log(`removing course: ${course}`)
-      setCourses(prev => new Set([...prev].filter(x => x !== course)))
+      const sortedCourses = Array.from(courses).sort();
+      setCourses(new Set(sortedCourses));
+      setCourses(prev => new Set([...prev].filter(x => x !== course)));
     };
 
     const removeAllCourses = course => {

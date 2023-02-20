@@ -1,10 +1,12 @@
 import { AwesomeButton } from 'react-awesome-button';
 import 'react-awesome-button/dist/styles.css';
 // -- Module --
-const EditCourse = ({course, setCourses, showResults}) => {
+const EditCourse = ({course, setCourses, showResults, courses}) => {
   const addCourse = course => {
     console.log(`adding course: ${course}`)
     setCourses(prev => new Set(prev.add(course)))
+    const sortedCourses = Array.from(courses).sort();
+    setCourses(new Set(sortedCourses));
   };
 
   function clearInput() {

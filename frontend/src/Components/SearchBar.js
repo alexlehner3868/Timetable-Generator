@@ -62,6 +62,7 @@ const SearchBar = ({courses, setCourses}) => {
                   course={class_result.ACAD_ACT_CD}
                   setCourses={setCourses}
                   showResults={showResults}
+                  courses={courses}
                 />
               </div>
             </div>
