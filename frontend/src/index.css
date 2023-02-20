@@ -147,7 +147,7 @@ code {
     display: grid;
     grid-template-areas: 'active-course-name active-course-remove';
     grid-template-columns: 4fr 1fr;
-    
+    height: 40px;
     text-decoration:none;
     color:rgb(0, 0, 0);
     position:relative;
@@ -162,29 +162,40 @@ code {
 }
 .active-course-list:nth-child(1){
   background-color:navajowhite;
-  border-color: black;
+  box-shadow: inset 0px 1px 0px navajowhite, 0px 5px 0px 0px rgb(213, 149, 52)/*, 0px 10px 5px #999*/;
 } .active-course-list:nth-child(2){
   background-color:lavender;
+  box-shadow: inset 0px 1px 0px lavender, 0px 5px 0px 0px rgb(178, 178, 252)/*, 0px 10px 5px #999*/;
 } .active-course-list:nth-child(3){
   background-color:paleturquoise;
+  box-shadow: inset 0px 1px 0px paleturquoise, 0px 5px 0px 0px rgb(61, 203, 203)/*, 0px 10px 5px #999*/;
 } .active-course-list:nth-child(4){
   background-color:palevioletred;
+  box-shadow: inset 0px 1px 0px palevioletred, 0px 5px 0px 0px rgb(143, 28, 67)/*, 0px 10px 5px #999*/;
 } .active-course-list:nth-child(5){
   background-color:pink;
+  box-shadow: inset 0px 1px 0px pink, 0px 5px 0px 0px rgb(198, 101, 117)/*, 0px 10px 5px #999*/;
 } .active-course-list:nth-child(6){
   background-color:salmon;
+  box-shadow: inset 0px 1px 0px salmon, 0px 5px 0px 0px rgb(190, 78, 66)/*, 0px 10px 5px #999*/;
 } .active-course-list:nth-child(7){
   background-color:lightskyblue;
+  box-shadow: inset 0px 1px 0px lightskyblue, 0px 5px 0px 0px rgb(55, 130, 177)/*, 0px 10px 5px #999*/;
 } .active-course-list:nth-child(8){
   background-color:lavender;
+  box-shadow: inset 0px 1px 0px lavender, 0px 5px 0px 0px rgb(178, 178, 252)/*, 0px 10px 5px #999*/;
 } .active-course-list:nth-child(9){
   background-color:hotpink;
+  box-shadow: inset 0px 1px 0px hotpink, 0px 5px 0px 0px rgb(150, 45, 98)/*, 0px 10px 5px #999*/;
 } .active-course-list:nth-child(10){
   background-color:lightblue;
+  box-shadow: inset 0px 1px 0px lightblue, 0px 5px 0px 0px rgb(60, 140, 166)/*, 0px 10px 5px #999*/;
 } .active-course-list:nth-child(11){
   background-color:lightseagreen;
+  box-shadow: inset 0px 1px 0px lightseagreen, 0px 5px 0px 0px rgb(8, 74, 71)/*, 0px 10px 5px #999*/;
 } .active-course-list:nth-child(12){
   background-color:salmon;
+  box-shadow: inset 0px 1px 0px salmon, 0px 5px 0px 0px rgb(190, 78, 66)/*, 0px 10px 5px #999*/;
 }
 
 
