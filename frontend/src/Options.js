@@ -3,21 +3,33 @@ import React from "react";
 import NextButton from "./Components/NonEssentialComponents/NextButton";
 import BackButton from "./Components/NonEssentialComponents/BackButton";
 import DownloadButton from "./Components/DownloadButton";
+import NextButtonT from "./Components/NonEssentialComponents/NextButtonT";
+import BackButtonT from "./Components/NonEssentialComponents/BackButtonT";
 
 // -- Module --
 const Options = ({timetables, ttbIndex, setTtbIndex}) => {
   let timetable_index_str;
-  if(timetables.length === 0 || ttbIndex == NaN){
+  if (timetables.length === 0 || ttbIndex == NaN) {
    // timetable_index_str = "";
    timetable_index_str = "No timetables";
-  }else{
+  } else{
     timetable_index_str = (ttbIndex+1).toString(); 
     timetable_index_str += "/";
     timetable_index_str +=(timetables.length).toString();
   }
+
+  function handleSubmitNumTimetables (event) {
+    event.preventDefault();
+    
+  } 
+
   return (
     <div className="control-bar">
-  
+      
+      <p className="current-timetable-number">Timetables to Show</p>
+      
+      <input type="number" defaultValue="20" id="num_timetables" min="1" max="40" onChange = {handleSubmitNumTimetables} ></input>
+
       <BackButton  nTimetables={timetables.length} ttbIndex={ttbIndex} setTtbIndex={setTtbIndex}/>
       <p className="current-timetable-number">{timetable_index_str}</p>
       <NextButton nTimetables={timetables.length} ttbIndex={ttbIndex} setTtbIndex={setTtbIndex}/>
