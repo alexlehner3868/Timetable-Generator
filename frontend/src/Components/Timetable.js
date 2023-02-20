@@ -115,8 +115,19 @@ const Timetable = (props) => {
         console.log(props.constraints)
       }
     }
-    //then recall generate 
+    //then recall generate
+  }
 
+  for (var i = 0; i < 24; i++) {
+    for (var j = 0; j < 10; j++) {
+      //check if class exists, two hours of class in a row,
+      //class info matches
+      if (grid[i][j] && grid[i][j+1] && grid[i][j].course == grid[i][j].course && grid[i][j].type == grid[i][j].type && grid[i][j].section == grid[i][j].section) {
+        //console.log("hiiii");
+        grid[i][j].multiPos = 1;
+        grid[i][j+1].multiPos = 2;
+      }
+    }
   }
   console.log("Im on timetable" ,grid)
   // Render the timetable
@@ -142,6 +153,7 @@ const Timetable = (props) => {
                 section={meet.section-1}
                 type={meet.type}
                 blockedOffLevel={blockedOffTimes[hour][day]}
+                multiPos={meet.multiPos}
               />
             </div>
           )).filter((_, day) => inRange(day, props.when.day.begin, props.when.day.end))}
