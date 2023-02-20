@@ -97,7 +97,16 @@ const Timetable = (props) => {
         console.log("adding")
         addConstraint(constraint);
         blockedOffTimes[hour][day] = 3;
-        grid[hour][day].block = 2;
+        grid[hour][day].block = 2;/*
+        grid[hour][day] = {
+          course: "BLOCKED OFF TIME",
+          day: {day},
+          section: 3,
+          semester:"F",
+          time: {hour},
+          type: "PRA"
+        }
+        console.log(grid[hour][day])*/
       } else {
         console.log("removing")
         removeConstraintTime(constraint);
