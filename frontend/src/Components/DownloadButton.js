@@ -24,7 +24,7 @@ const DownloadButton = (props) => {
     text +=("_________________________________________\n")
     text +=("Here are the sections to enroll in:\n")
     for( const course  of courses){
-        text += ("     " + course.code + " " + course.type + " section: " + course.section + '\n');
+        text += ("     " + course.code + " " + course.type + " section: " + (course.section-1) + '\n');
     }
     
     return text;
