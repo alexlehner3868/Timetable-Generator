@@ -1,3 +1,5 @@
+import { AwesomeButton } from 'react-awesome-button';
+import 'react-awesome-button/dist/styles.css';
 // -- Module --
 const EditCourse = ({course, setCourses, showResults}) => {
   const addCourse = course => {
@@ -23,11 +25,11 @@ const EditCourse = ({course, setCourses, showResults}) => {
   };
 
   return (
-    <div>
-      <button
-        onClick={event => AddCourseButtonClick(course)}
-        className="btn btn-primary mt-2"
-      >Add</button>
+    <div className="add-button">
+      <AwesomeButton
+        onPress={event => AddCourseButtonClick(course)}
+        
+      >Add</AwesomeButton>
     </div>
   )
 }

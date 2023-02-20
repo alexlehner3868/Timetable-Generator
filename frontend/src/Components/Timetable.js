@@ -96,7 +96,7 @@ const Timetable = (props) => {
       if ( !props.constraints.has(constraint)) {
         console.log("adding")
         addConstraint(constraint);
-        blockedOffTimes[hour][day] = 2;
+        blockedOffTimes[hour][day] = 3;
         grid[hour][day].block = 2;
       } else {
         console.log("removing")

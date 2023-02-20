@@ -1,6 +1,8 @@
 // -- React --
 import React from "react";
 import {useState} from "react";
+import { AwesomeButton } from 'react-awesome-button';
+import 'react-awesome-button/dist/styles.css';
 
 // -- Components --
 import EditCourse from './EditCourse';

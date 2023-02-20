@@ -67,16 +67,18 @@ def main():
         all_args = [args.algo]
         # Extract courses
         courses = request.args["courses"]
-        all_args.append(f"-c{courses}")
+        if courses:
+            all_args.append(f"-c{courses}")
         # Extract constraints
         constraints = request.args.get("constraints")
         if constraints:
             all_args.append(f"-x{constraints}")
         # Run subprocess
-        out = subprocess.run(all_args, capture_output=True)
-        print(all_args)
-        # Return output
-        return out.stdout
+        if (not constraints and not courses):
+            out = subprocess.run(all_args, capture_output=True)
+            print(all_args)
+            # Return output
+            return out.stdout
 
     # Run app
     app.run(
