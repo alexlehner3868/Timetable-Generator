@@ -28,7 +28,7 @@ const EditCourse = ({course, setCourses, showResults}) => {
     <div className="add-button">
       <AwesomeButton
         onPress={event => AddCourseButtonClick(course)}
-        
+        ripple={false}
       >Add</AwesomeButton>
     </div>
   )

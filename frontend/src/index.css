@@ -139,13 +139,26 @@ code {
   text-align: left;
   margin-left: 5%;
   grid-area: active-course-name;
+  background-color:rgb(73, 83, 111);
+	
+	text-decoration:none;
+	color:#fff;
+	position:relative;
+	padding:10px 20px;
+	border-left:solid 1px rgb(73, 83, 111);
+	/*background-image: linear-gradient(bottom, rgb(73, 83, 111) 0%, rgb(43, 48, 65) 100%);*/
+	border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+	box-shadow: inset 0px 1px 0px rgb(73, 83, 111), 0px 5px 0px 0px rgb(43, 48, 65)/*, 0px 10px 5px #999*/;
 }
 
 .active-course-list{
   display: grid;
   grid-template-areas: 'active-course-name active-course-remove';
   grid-template-columns: 4fr 1fr;
-
+  
 }
 
 
