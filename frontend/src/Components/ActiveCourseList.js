@@ -182,14 +182,15 @@ const ActiveCourseList = ({courses, setCourses}) => {
       <div className = "active-courses" id="active-courses">
         
          <h4 id='course-list-header'> <u>Desired Classes:</u></h4>
-         {[...courses].map((course)=>(
+         <div className="all-courses">
+         {[...courses].map((course, index)=>(
             <div className="active-course-list" >
               
             <p id='active-course-list-text'>{course}</p>
             <button id='active-course-remove'onClick={event => removeCourse(course)} >X</button>
             </div>
             
-          ))}
+          ))}</div>
         <AwesomeButton onPress={event => removeAllCourses()}>Clear All</AwesomeButton>
         <select list="prepopulate" class="dropdown" id="prepopulate" onChange = {handleSubmitPrepopulate}>
                 <option value="0">Pick a Preset Schedule:</option>

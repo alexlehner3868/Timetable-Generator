@@ -139,26 +139,52 @@ code {
   text-align: left;
   margin-left: 5%;
   grid-area: active-course-name;
-  background-color:rgb(73, 83, 111);
-	
-	text-decoration:none;
-	color:#fff;
-	position:relative;
-	padding:10px 20px;
-	border-left:solid 1px rgb(43, 48, 65);
-	/*background-image: linear-gradient(bottom, rgb(73, 83, 111) 0%, rgb(43, 48, 65) 100%);*/
-	border-top-right-radius: 5px;
-  border-top-left-radius: 5px;
-	border-bottom-right-radius: 5px;
-	border-bottom-left-radius: 5px;
-	box-shadow: inset 0px 1px 0px rgb(73, 83, 111), 0px 5px 0px 0px rgb(43, 48, 65)/*, 0px 10px 5px #999*/;
-}
-
-.active-course-list{
-  display: grid;
-  grid-template-areas: 'active-course-name active-course-remove';
-  grid-template-columns: 4fr 1fr;
   
+  }
+  
+.active-course-list{
+    margin: 10px;
+    display: grid;
+    grid-template-areas: 'active-course-name active-course-remove';
+    grid-template-columns: 4fr 1fr;
+    
+    text-decoration:none;
+    color:rgb(0, 0, 0);
+    position:relative;
+    padding:10px 20px;
+    
+    /*background-image: linear-gradient(bottom, rgb(73, 83, 111) 0%, rgb(43, 48, 65) 100%);*/
+    /*border-left:solid 1px rgb(43, 48, 65);*/
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+.active-course-list:nth-child(1){
+  background-color:navajowhite;
+  border-color: black;
+} .active-course-list:nth-child(2){
+  background-color:lavender;
+} .active-course-list:nth-child(3){
+  background-color:paleturquoise;
+} .active-course-list:nth-child(4){
+  background-color:palevioletred;
+} .active-course-list:nth-child(5){
+  background-color:pink;
+} .active-course-list:nth-child(6){
+  background-color:salmon;
+} .active-course-list:nth-child(7){
+  background-color:lightskyblue;
+} .active-course-list:nth-child(8){
+  background-color:lavender;
+} .active-course-list:nth-child(9){
+  background-color:hotpink;
+} .active-course-list:nth-child(10){
+  background-color:lightblue;
+} .active-course-list:nth-child(11){
+  background-color:lightseagreen;
+} .active-course-list:nth-child(12){
+  background-color:salmon;
 }
 
 

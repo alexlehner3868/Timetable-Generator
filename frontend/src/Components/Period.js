@@ -4,16 +4,18 @@ import React from "react";
 // -- Globals --
 var colors = [
   "White",
-  "HoneyDew",
+  "navajowhite",
   "Lavender",
   "PaleTurquoise",
   "PaleVioletRed",
   "Pink",
-  "SlateBlue",
-  "LightGreen",
+  "Salmon",
+  "LightSkyBlue",
   "Lavender",
   "HotPink",
   "LightBlue",
+  "LightSeaGreen",
+  "Salmon",
 ];
 
 var blockedOffLevelColors = [
