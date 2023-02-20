@@ -79,6 +79,8 @@ def main():
             print(all_args)
             # Return output
             return out.stdout
+        else:
+            return []
 
     # Run app
     app.run(
