@@ -4,6 +4,7 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <vector>
+#include <string>
 
 #include <clip/clip.h>
 
@@ -82,6 +83,9 @@ int exec(vector<string> courses, vector<string> constraints) {
     int constraint_type;
     int priority;
     int hours;
+    vector<char> block_semesters;
+    vector<int> block_start_time;
+    vector<int> block_day;
     while (constraints.size() > 0) {
         
         constraint_type = 10*int(constraints[0][0]-48) + int(constraints[0][1]-48);
@@ -123,7 +127,18 @@ int exec(vector<string> courses, vector<string> constraints) {
         } else if (constraint_type == 12 && int(constraints[0][2]-48) > 0 && hours > 0) {
             //hardcode into fall semester for now
             //hardcode priority to must have
-            constraint_handler.add_time_constraint(hours, 1, int(constraints[0][2]-48), 'F', 10);
+            if (int(constraints[0][2]-48) < 6) {
+                //add_time_constraint(int start_time, int duration, int day, char semester, int priority);
+                constraint_handler.add_time_constraint(hours, 1, int(constraints[0][2]-48), 'F', 10);
+                block_semesters.insert(block_semesters.end(), 'F');
+                block_day.insert(block_day.end(), int(constraints[0][2]-48));
+                block_start_time.insert(block_start_time.end(), hours);
+            } else {
+                constraint_handler.add_time_constraint(hours, 1, int(constraints[0][2]-48), 'S', 10);
+                block_semesters.insert(block_semesters.end(), 'S');
+                block_day.insert(block_day.end(), int(constraints[0][2]-48));
+                block_start_time.insert(block_start_time.end(), hours);
+            }
         } else {
             //pass, bad
             
@@ -146,20 +161,29 @@ int exec(vector<string> courses, vector<string> constraints) {
 
     // for each timetable, add the time constraints
     vector<TimeTable> best_timetables_post_constraints;
+    int index = 0;
     for (auto in_timetable:best_timetables) {
-        SelectedCourseSection class_chosen{
-            .course_code = "BLOCK",
-            .type = 1, // Lecture
-            .section = 2,
-            .semester = 'F', // Each section should only be in either F or W
-                                                // (need support for full year courses)
-                                                // semester can be a char instead of a vector
-                                                // F - FALL W - WINTER Y - BOTH [WONT SAY Y ANYM]
-            .async = false
-        };
-        Date period = make_pair(3, 13);
-        in_timetable.insert(std::make_pair(period, class_chosen));
-        best_timetables_post_constraints.insert(best_timetables_post_constraints.begin(),in_timetable);
+        
+        for (auto sem:block_semesters) {
+            char semester = sem;
+            int day = block_day[index];
+            int start_time = block_start_time[index];
+            index++;
+            SelectedCourseSection class_chosen{
+                .course_code = "BLOCKED",
+                .type = 4, // UNKNOWN
+                .section = 0,
+                .semester = semester, // Each section should only be in either F or W
+                                                    // (need support for full year courses)
+                                                    // semester can be a char instead of a vector
+                                                    // F - FALL W - WINTER Y - BOTH [WONT SAY Y ANYM]
+                .async = false
+            };
+            Date period = make_pair(day+1, start_time);
+            in_timetable.insert(std::make_pair(period, class_chosen));
+        }
+        index = 0;
+        best_timetables_post_constraints.insert(best_timetables_post_constraints.end(),in_timetable);
     }
 
     scheduler_handler.print_timetables(best_timetables_post_constraints);

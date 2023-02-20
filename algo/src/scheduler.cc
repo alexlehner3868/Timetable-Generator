@@ -463,7 +463,7 @@ string Scheduler::jsonify(TimeTable &timetable) {
                 type = "PRA";
                 break;
             default:
-                type = "UNK";
+                type = "_";
                 break;
         }
         json << "\"type\":\"" << type << "\",";
