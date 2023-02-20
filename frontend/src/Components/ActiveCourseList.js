@@ -1,7 +1,8 @@
 // https://tailwindcss.com/docs/guides/create-react-app 
 //use this to make pretty dropdowns 
 //https://reactjsexample.com/a-pretty-cool-country-selector-using-tailwindcss-and-framer-motion/ 
-
+import { AwesomeButton } from 'react-awesome-button';
+import 'react-awesome-button/dist/styles.css';
 // -- Module --
 const ActiveCourseList = ({courses, setCourses}) => {
 
@@ -189,7 +190,7 @@ const ActiveCourseList = ({courses, setCourses}) => {
             </div>
             
           ))}
-        <button onClick={event => removeAllCourses()}>Clear All</button>
+        <AwesomeButton onPress={event => removeAllCourses()}>Clear All</AwesomeButton>
         <select list="prepopulate" class="dropdown" id="prepopulate" onChange = {handleSubmitPrepopulate}>
                 <option value="0">Pick a Preset Schedule:</option>
                 <option class="ece_1" value="1" >1st Year ECE/TrackOne</option>

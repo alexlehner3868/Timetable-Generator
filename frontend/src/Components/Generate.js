@@ -1,3 +1,5 @@
+import { AwesomeButton } from 'react-awesome-button';
+import 'react-awesome-button/dist/styles.css';
 // -- Module --
 const Generate = ({courses, constraints, setTimetables, setTtbIndex}) => {
   const Request = async () => {
@@ -25,10 +27,10 @@ const Generate = ({courses, constraints, setTimetables, setTtbIndex}) => {
 
   return (
     <div className="generate-button">
-      <button
-        onClick={event => Request()}
-        className="btn btn-primary mt-2"
-      >Generate</button>
+      <AwesomeButton
+      type="primary"
+        onPress={event => Request()}
+      >Generate</AwesomeButton>
     </div>
   )
 }

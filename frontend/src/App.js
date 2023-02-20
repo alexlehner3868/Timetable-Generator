@@ -2,6 +2,8 @@
 import React, { useEffect, useState } from "react";
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
+import { AwesomeButton } from 'react-awesome-button';
+import 'react-awesome-button/dist/styles.css';
 
 // -- Windows --
 import MainWindow from './MainWindow';
@@ -151,7 +153,7 @@ function App() {
         <Generate   courses={courses} constraints={constraints} setTimetables={setTimetables} setTtbIndex={setTtbIndex}/>
         <p class="dedication">Dedicated to Professor Hans Kunov</p>
         <p></p>
-        <button class="clear-button" onClick={event => removeAll()}>Clear Courses & Constraints</button>
+        <AwesomeButton className="clear-button" onPress={event => removeAll()}>Clear Courses & Constraints</AwesomeButton>
         </div>
     </div>
   );

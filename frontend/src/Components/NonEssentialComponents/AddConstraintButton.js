@@ -1,4 +1,5 @@
-
+import { AwesomeButton } from 'react-awesome-button';
+import 'react-awesome-button/dist/styles.css';
 
 const AddConstraintButton = (props) => {
     const addConstraint = (constraint) => {
@@ -431,7 +432,7 @@ const AddConstraintButton = (props) => {
                 <option class="great_to_have" value="2">Great To Have</option>
                 <option class="must_have" value="3">Must Have</option>
             </select> <br></br>
-            <button onClick = {handleDeleteAll}>Clear All</button>
+            <AwesomeButton onPress = {handleDeleteAll}>Clear All</AwesomeButton>
        </div>
   )}
 
