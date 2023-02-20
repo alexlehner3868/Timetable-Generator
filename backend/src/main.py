@@ -74,7 +74,7 @@ def main():
         if constraints:
             all_args.append(f"-x{constraints}")
         # Run subprocess
-        if (not constraints and not courses):
+        if (courses):
             out = subprocess.run(all_args, capture_output=True)
             print(all_args)
             # Return output
