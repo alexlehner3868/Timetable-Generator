@@ -120,10 +120,10 @@ int exec(vector<string> courses, vector<string> constraints) {
             constraint_handler.set_back_to_back_constraint(hours, priority);
         } else if (constraint_type == 11 && priority > 0 && hours > 0) {
             constraint_handler.set_no_breaks_larger_than_X_constraint(hours, priority);
-        } else if (constraint_type == 12 && priority > 0) {
+        } else if (constraint_type == 12 && int(constraints[0][2]-48) > 0 && hours > 0) {
             //hardcode into fall semester for now
             //hardcode priority to must have
-            add_time_constraint(start_time, 1, day, 'F', 10);
+            constraint_handler.add_time_constraint(hours, 1, int(constraints[0][2]-48), 'F', 10);
         } else {
             //pass, bad
             
@@ -143,7 +143,26 @@ int exec(vector<string> courses, vector<string> constraints) {
     vector<TimeTable> best_timetables = scheduler_handler.schedule_classes(offerings, &constraint_handler);
 
     result_string += scheduler_handler.get_result_string(); // need to return this to the front end too
-    scheduler_handler.print_timetables(best_timetables);
+
+    // for each timetable, add the time constraints
+    vector<TimeTable> best_timetables_post_constraints;
+    for (auto in_timetable:best_timetables) {
+        SelectedCourseSection class_chosen{
+            .course_code = "BLOCK",
+            .type = 1, // Lecture
+            .section = 2,
+            .semester = 'F', // Each section should only be in either F or W
+                                                // (need support for full year courses)
+                                                // semester can be a char instead of a vector
+                                                // F - FALL W - WINTER Y - BOTH [WONT SAY Y ANYM]
+            .async = false
+        };
+        Date period = make_pair(3, 13);
+        in_timetable.insert(std::make_pair(period, class_chosen));
+        best_timetables_post_constraints.insert(best_timetables_post_constraints.begin(),in_timetable);
+    }
+
+    scheduler_handler.print_timetables(best_timetables_post_constraints);
 
     // -- User input (later)
     // 1. Search and add classes to timetable
