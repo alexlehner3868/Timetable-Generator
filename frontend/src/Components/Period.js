@@ -28,7 +28,6 @@ const Period = (props) => {
   // Extract course properties
   const code = props.code || null;
   let color = colors[props.color || 0];
-  const name = props.name || null;
   const section = (props.section) ? "01" + String(props.section).padStart(2, "0") : null;
   const type = props.type || null;
   const blockedOffLevel = props.blockedOffLevel || null;
@@ -42,7 +41,6 @@ const Period = (props) => {
       backgroundColor: color,
     }} >
       <div className="class-id">{code}</div>
-      <div className="class-name">{name}</div>
       <div className="class-section">{type} {section}</div>
     </div>
   )

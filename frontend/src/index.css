@@ -47,6 +47,7 @@ code {
   grid-area: 'title';
   margin: auto;
   height: 30%;
+  font-family: 'Roboto Mono', monospace;
 }
 
 .whole-webpage {
@@ -307,18 +308,13 @@ code {
 }
 /*way too much garbage*/
 
-.class-name {
-  margin: auto;
-  font-weight: bolder;
-  font-size: x-small;
-}
-
 .class-id{
   margin: auto;
   font-size: small;
   font-weight: bold;
 }
 .class-section{
+  font-weight: 500;
   font-size: x-small;
 }
 

@@ -140,7 +140,9 @@ function App() {
     <div className="App">
       <head>
         <title>Live Timetable Love</title>
-      </head>
+        <link rel="preconnect" href="https://fonts.googleapis.com"/> 
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/> 
+        <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,600;1,300&family=Rubik:wght@600;700&display=swap" rel="stylesheet"/>      </head>
       <header className="Website-Header">
         <h1 class="website-name">Live Timetable Love</h1>
         <HelpMenu/>
