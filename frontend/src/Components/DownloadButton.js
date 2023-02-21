@@ -19,8 +19,8 @@ const DownloadButton = (props) => {
         }
     }
     let text = "";
-
-    text += ("Timetable Option " + props.ttbIndex +":\n")
+    let idx = 1 ;
+    text += ("Timetable Option " + 1+props.ttbIndex +":\n")
     text +=("_________________________________________\n")
     text +=("Here are the sections to enroll in:\n")
     for( const course  of courses){
