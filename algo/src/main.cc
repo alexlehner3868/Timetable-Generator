@@ -20,7 +20,7 @@
 
 using namespace std;
 
-int exec(vector<string> courses, vector<string> constraints) {
+int exec(vector<string> courses, vector<string> constraints, int num_timetables) {
     string result_string = "";
     //--- Data Procesing ----
     // 1. Parses csv to get classes
@@ -148,6 +148,8 @@ int exec(vector<string> courses, vector<string> constraints) {
     //constraint_handler.add_time_constraint(10, 2, 2, 'F', MUST_HAVE); // tuesday at 10 am for 2 hours in the fall with
     //constraint_handler.set_no_classes_before_X_constraint(13, GOOD_TO_HAVE);
     Scheduler scheduler_handler;
+    
+    scheduler_handler.set_num_timetables(num_timetables);
     if (!constraint_handler.prune_semesters(offerings) /*&& !scheduler_handler.allow_incomplete*/) {
         result_string += "Timetable not created due to course specified in semester, but not offered. ";
         //return 1; // TODO: change me
@@ -243,16 +245,28 @@ int main(int argc, char *argv[]) {
             .shortname('x')
             .help("Comma separated list of constraints.")
         );
+    parser.add(
+        clip::Opt<string>("numtimetables")
+            .shortname('n')
+            .help("How many timetables to display.")
+        );
     // Parse args
     parser.parse();
 
     // Retrieve string of courses from input
     const auto &course_str = parser.getOpt<string>("courses").value();
     const auto &constraint_str = parser.getOpt<string>("constraints").value();
+    const auto &num_timetables_str = parser.getOpt<string>("numtimetables").value();
     // Split courses into a vector
     size_t start;
     const char delim = ',';
     vector<string> courses, constraints;
+    int num_timetables;
+    if (!num_timetables_str.empty()) {
+        num_timetables = stoi(num_timetables_str);
+    } else {
+        num_timetables = 20;
+    }
     size_t end = 0;
     while ((start = course_str.find_first_not_of(delim, end)) != std::string::npos) {
         end = course_str.find(delim, start);
@@ -263,7 +277,6 @@ int main(int argc, char *argv[]) {
         end = constraint_str.find(delim, start);
         constraints.push_back(constraint_str.substr(start, end - start));
     }
-
     // Execute the algorithm
-    return exec(courses, constraints);
+    return exec(courses, constraints, num_timetables);
 }

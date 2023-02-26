@@ -62,6 +62,7 @@ public:
     std::vector<std::string> make_timetable_str(TimeTable &timetable);
     void print_timetables(vector<TimeTable> timetables);
     string get_result_string();
+    int set_num_timetables(int num_timetables);
 };
 
 #endif

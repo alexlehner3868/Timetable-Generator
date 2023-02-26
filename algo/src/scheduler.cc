@@ -543,6 +543,9 @@ bool Scheduler::unique_check(TimeTable &timetable) {
     timetables_str.push_back(new_timetable_str);
     return true;
 }
-
+int  Scheduler::set_num_timetables(int num_timetables) {
+    Scheduler::max_num_of_timetables_to_show = num_timetables;
+    return Scheduler::max_num_of_timetables_to_show;
+}
 // Default constructor
 Scheduler::Scheduler() {}

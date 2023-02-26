@@ -7,7 +7,7 @@ import NextButtonT from "./Components/NonEssentialComponents/NextButtonT";
 import BackButtonT from "./Components/NonEssentialComponents/BackButtonT";
 
 // -- Module --
-const Options = ({timetables, ttbIndex, setTtbIndex}) => {
+const Options = ({timetables, ttbIndex, setTtbIndex, num_timetables, setNumTimetables}) => {
   let timetable_index_str;
   if (timetables.length === 0 || ttbIndex == NaN) {
    // timetable_index_str = "";
@@ -20,7 +20,11 @@ const Options = ({timetables, ttbIndex, setTtbIndex}) => {
 
   function handleSubmitNumTimetables (event) {
     event.preventDefault();
-    
+    const num_timetables_val = document.getElementById("num_timetables").value;
+    if (num_timetables_val && num_timetables_val > 0 && num_timetables_val < 41) {
+      setNumTimetables(num_timetables_val);
+      //console.log("printing the new num timetables", num_timetables_val)
+    }
   } 
 
   return (

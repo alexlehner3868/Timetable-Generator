@@ -98,6 +98,21 @@ function App() {
     }
   }, []);
 
+  const [num_timetables, setNumTimetables] = useState(20);
+  useEffect(() => { // save when updated
+    if (num_timetables && num_timetables > 0 && num_timetables < 41) {
+      localStorage.setItem("num_time", JSON.stringify(num_timetables));
+      //console.log("saved number of timetables", JSON.parse(localStorage.getItem("num_time")));
+    }
+  }, [num_timetables]);
+  useEffect(() => { // restore on first render
+    const num_timetables = JSON.parse(localStorage.getItem("num_time"));
+    if (num_timetables && num_timetables > 0 && num_timetables < 41) {
+      setNumTimetables(num_timetables);
+      console.log("restored num_timetables", num_timetables);
+    }
+  }, []);
+
   const removeAll = (constraint) => {
     if (document.getElementById("morning_priorities")) {
       document.getElementById("morning_priorities").value = 0;
@@ -134,6 +149,7 @@ function App() {
     }
     setConstraints(prev => new Set())
     setCourses(prev => new Set())
+    setNumTimetables(20);
   };
 
   return (
@@ -148,11 +164,11 @@ function App() {
         <HelpMenu/>
       </header>
       <div className="whole-webpage">
-        <Options    timetables={timetables} ttbIndex={ttbIndex} setTtbIndex={setTtbIndex}/>
+        <Options    timetables={timetables} ttbIndex={ttbIndex} setTtbIndex={setTtbIndex} num_timetables={num_timetables} setNumTimetables={setNumTimetables}/>
         <MainWindow timetables={timetables} ttbIndex={ttbIndex} setTtbIndex={setTtbIndex} constraints={constraints} setConstraints={setConstraints}/>
         <Sidebar    courses={courses} setCourses={setCourses} constraints={constraints} setConstraints={setConstraints}/>
         
-        <Generate   courses={courses} constraints={constraints} setTimetables={setTimetables} setTtbIndex={setTtbIndex}/>
+        <Generate   courses={courses} constraints={constraints} setTimetables={setTimetables} setTtbIndex={setTtbIndex} num_timetables={num_timetables}/>
         <p class="dedication">Dedicated to Professor Hans Kunov</p>
         <p></p>
         <AwesomeButton className="clear-button" onPress={event => removeAll()}>Clear Courses & Constraints</AwesomeButton>
