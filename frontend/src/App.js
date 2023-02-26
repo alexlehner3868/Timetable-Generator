@@ -98,11 +98,11 @@ function App() {
     }
   }, []);
 
-  const [num_timetables, setNumTimetables] = useState(20);
+  const [num_timetables, setNumTimetables] = useState();
   useEffect(() => { // save when updated
     if (num_timetables && num_timetables > 0 && num_timetables < 41) {
       localStorage.setItem("num_time", JSON.stringify(num_timetables));
-      //console.log("saved number of timetables", JSON.parse(localStorage.getItem("num_time")));
+      console.log("saved number of timetables", JSON.parse(localStorage.getItem("num_time")));
     }
   }, [num_timetables]);
   useEffect(() => { // restore on first render

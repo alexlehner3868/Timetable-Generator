@@ -26,13 +26,14 @@ const Options = ({timetables, ttbIndex, setTtbIndex, num_timetables, setNumTimet
       //console.log("printing the new num timetables", num_timetables_val)
     }
   } 
+  console.log(num_timetables)
 
   return (
     <div className="control-bar">
       
       <p className="current-timetable-number">Timetables to Show</p>
       
-      <input type="number" defaultValue="20" id="num_timetables" min="1" max="40" onChange = {handleSubmitNumTimetables} ></input>
+      <input type="number" defaultValue={num_timetables} id="num_timetables" min="1" max="40" onChange = {handleSubmitNumTimetables} ></input>
 
       <BackButton  nTimetables={timetables.length} ttbIndex={ttbIndex} setTtbIndex={setTtbIndex}/>
       <p className="current-timetable-number">{timetable_index_str}</p>
