@@ -144,8 +144,9 @@ code {
   }
   
 .active-course-list{
-    margin: 10px;
+  
     display: grid;
+    margin: 10px;
     grid-template-areas: 'active-course-name active-course-remove';
     grid-template-columns: 4fr 1fr;
     height: 40px;
@@ -210,6 +211,9 @@ code {
   background: none;
 }
 
+.all-courses {
+  height: 300px;
+}
 .App-link {
   color: #61dafb;
 }
@@ -325,6 +329,7 @@ code {
   border-radius: 5px;
   width: 20%;
   margin-top: 1%;
+  overflow-y: auto;
 }
 .input-icons {
   width: 60%;
@@ -488,4 +493,6 @@ code {
   border-width: 2px;
   border-color: black;
 }
-
+.list_course {
+  max-height:100%
+}
