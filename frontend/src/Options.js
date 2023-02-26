@@ -3,8 +3,6 @@ import React from "react";
 import NextButton from "./Components/NonEssentialComponents/NextButton";
 import BackButton from "./Components/NonEssentialComponents/BackButton";
 import DownloadButton from "./Components/DownloadButton";
-import NextButtonT from "./Components/NonEssentialComponents/NextButtonT";
-import BackButtonT from "./Components/NonEssentialComponents/BackButtonT";
 
 // -- Module --
 const Options = ({timetables, ttbIndex, setTtbIndex, num_timetables, setNumTimetables}) => {
