@@ -248,7 +248,7 @@ const AddConstraintButton = (props) => {
 
     function repopulate_constraints(constraint) {
         //for each element, find constraint number and get the document id to match
-        console.log(constraint)
+        //console.log(constraint)
         //first extract first two characters (those are the constraint type)
         const type = parseInt(constraint.slice(0,2))
         //second char is constraint priority
@@ -261,7 +261,7 @@ const AddConstraintButton = (props) => {
         } else {
             hours_refresh = 0;
         }
-        console.log("type is ", type, ", priority is ", priority, ", hours is ", hours_refresh)
+        //console.log("type is ", type, ", priority is ", priority, ", hours is ", hours_refresh)
         
         //don't assign priority unless 1-3 (set)
         if (priority == 1 || priority == 2 || priority == 3) {

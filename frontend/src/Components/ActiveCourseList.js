@@ -186,7 +186,7 @@ const ActiveCourseList = ({courses, setCourses}) => {
          <h4 id='course-list-header'> <u>Desired Classes:</u></h4>
          <div className="all-courses"> 
          {[...courses].map((course, index)=>(
-            <div className="active-course-list" >
+            <div className="active-course-list" key={index}>
               
             <p id='active-course-list-text'>{course}</p>
             <button id='active-course-remove'onClick={event => removeCourse(course)} >X</button>

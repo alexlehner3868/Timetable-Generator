@@ -122,7 +122,7 @@ void Scheduler::schedule_classes_helper(
     // Loop through all of the Course Offerings (ie the course and all its sections)
     for (auto course : courses) {
         // Attempt to add a section
-        auto sem = attempt_to_add_section(timetable, LEC, course, courses, char());
+        /*auto sem = */attempt_to_add_section(timetable, LEC, course, courses, char());
         // Track which semester we put it in/
         /*
         if (!course.semester_ && sem) {
