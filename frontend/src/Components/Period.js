@@ -38,7 +38,7 @@ const Period = (props) => {
   }
   return (
     <div style = {{
-      backgroundColor: colors[3], 
+      backgroundColor: color, 
       border: 2,
       borderWidth: 1,
       borderColor: colors[7],
