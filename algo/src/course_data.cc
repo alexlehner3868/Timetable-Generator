@@ -8,6 +8,7 @@
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <algorithm>
 
 #include "scheduler.hh"
 
@@ -299,25 +300,56 @@ std::vector<Section> CourseData::add_course(string course_id, int section_type) 
     // note we are changing the vector as we iterate through it...
     int vector_top = 0;
     int vector_inner = 0;
-    int add_section = 0;
     set<int> sections;
+
     for (auto section: available_sections) {
         // compare each section
         vector_inner = vector_top + 1;
-        for (auto inner_section = available_sections[vector_inner]; inner_section != available_sections.end(); inner_section = available_sections[vector_inner]) {
-            
+        for (vector<Section>::iterator inner_section = available_sections.begin() + vector_inner; inner_section != available_sections.end(); inner_section++) {
+            if ( ((*inner_section).duration_ == section.duration_) &&
+                 ((*inner_section).start_time_ == section.start_time_) &&
+                 ((*inner_section).semester_ == section.semester_) &&
+                 ((*inner_section).day_ == section.day_) &&
+                 ((*inner_section).async_ == section.async_) &&vector_top != vector_inner) {
+                    //cout << " section " << vector_inner+1 << " with top section " <<vector_top+1<< " to be deleted" << endl;
+                    sections.insert(vector_inner);
+                    //cout << vector_inner << endl;
+            }
             vector_inner++;
         }
         vector_top++;
     }
-    // or sections with same data but different number, we delete the extras 
-    int index = 0;
+    // or sections with same data but different number, we delete the extras
+    //set with all the section ids!
+    set<int> all_sections;
+    for (int i = 0; i < int(available_sections.size()); i++) {
+        all_sections.insert(i);
+        //cout << "Adding " << i << " to list of all sections" << endl;
+    }
+    
+
+    //set with the proper section ids!
+    set<int> new_sections = all_sections;
+    
     for (auto section: sections) {
-        available_sections_pruned.push_back(available_sections[section]);
-        //cout << "The course " << course_id << " with type " << section_type << " has section " << available_sections_pruned[index].section_id_[0] << endl;
-        index++;
+        //cout << "Checking if all sections contains " << section << endl;
+        //cout << all_sections.contains(section) << endl;
+        if ((all_sections.contains(section))) {
+            new_sections.erase(section);
+            //cout << "removing section " << section << endl;
+        }
     }
 
+
+    for (auto section_to_add: new_sections) {
+        //cout << "Section " << section_to_add << "is in the final list" << endl;
+        available_sections_pruned.push_back(available_sections[section_to_add]);
+    }
+    //cout << endl << endl;
     // make sure this is error free
+
+    for (auto section: available_sections_pruned) {
+        //cout << section.section_id_[0] << endl;
+    }
     return available_sections_pruned;
 }
