@@ -149,8 +149,10 @@ std::vector<Section> CourseData::add_course(string course_id, int section_type) 
     vector<int> class_day;
     vector<char> class_semester;
     vector<bool> class_async;
-    int old_section_num = 0;
-    int current_section_num = 0;
+    vector<int> old_section_num;
+    old_section_num.push_back(0);
+    vector<int> current_section_num;
+    current_section_num.push_back(0);
     std::vector<std::vector<std::string>> course_data;
     std::vector<Section> available_sections;
 
@@ -194,10 +196,12 @@ std::vector<Section> CourseData::add_course(string course_id, int section_type) 
         old_section_num = 1;
     }*/
 
-    old_section_num = 1;
+    old_section_num.clear();
+    old_section_num.push_back(1);
     for (std::vector<std::string> section : course_data) {
         // error checking on this - make sure it is valid
-        current_section_num = stoi(section[2]) - SECTION_OFFSET;
+        current_section_num.clear();
+        current_section_num.push_back(stoi(section[2]) - SECTION_OFFSET);
         
         // cout << "pushing back section " << current_section_num << " and course id " << course_id
         // << endl;
@@ -211,7 +215,7 @@ std::vector<Section> CourseData::add_course(string course_id, int section_type) 
         // 6 - session id
 
         // if no more sections need to be added to the vectors
-        if (old_section_num != current_section_num) {
+        if (old_section_num[0] != current_section_num[0]) {
 
             // create a section containing all the information we just queried from SQL DB
             // cout << "adding a class with the section number " << old_section_num << " and course
@@ -223,7 +227,8 @@ std::vector<Section> CourseData::add_course(string course_id, int section_type) 
                                 class_semester,
                                 class_day,
                                 class_async);
-            old_section_num = current_section_num;
+            old_section_num.clear();
+            old_section_num.push_back(current_section_num[0]);
             available_sections.push_back(add_section);
             class_durations.clear();
             class_start_time.clear();
@@ -272,7 +277,7 @@ std::vector<Section> CourseData::add_course(string course_id, int section_type) 
         }
     }
     // add the last section once no more sections exist
-    if (current_section_num != 0) {
+    if (current_section_num[0] != 0) {
         Section add_section(old_section_num,
                             class_durations,
                             class_start_time,
@@ -286,6 +291,30 @@ std::vector<Section> CourseData::add_course(string course_id, int section_type) 
         class_semester.clear();
         class_async.clear();
     }
+
+
+
+    // here we want to check sections that have the same info but different section number
+    // note we are changing the vector as we iterate through it...
+    int vector_it = 0;
+    for (auto section: available_sections) {
+        // compare each section
+        for (auto inner_section: available_sections) {
+            // to each other section in the list
+            if ( (inner_section.duration_ == section.duration_) &&
+                 (inner_section.start_time_ == section.start_time_) &&
+                 (inner_section.semester_ == section.semester_) &&
+                 (inner_section.day_ == section.day_) &&
+                 (inner_section.async_ == section.async_) ) {
+                //sections match, delete the extra
+                    vector_it;
+            }
+            vector_it++;
+        }
+        vector_it = 0;
+    }
+    // or sections with same data but different number, we delete the extras 
+
 
     // make sure this is error free
     // cout << "about to return" << endl;

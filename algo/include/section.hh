@@ -11,7 +11,7 @@ using namespace std;
 class Section {
 private:
 public:
-    Section(int section_id,
+    Section(vector<int> section_id,
             vector<int> duration,
             vector<int> start_time,
             vector<char> semester,
@@ -25,7 +25,7 @@ public:
         async_ = async;
     }
     Section() {}
-    int section_id_;
+    vector<int> section_id_;
     vector<int> duration_;   // length of class in hour integer segements
     vector<int> start_time_; // military time in hours
     vector<int> day_;        // Monday = 0 .... Fri = 5

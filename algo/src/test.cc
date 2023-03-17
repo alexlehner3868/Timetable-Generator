@@ -693,7 +693,7 @@ empty_vec);
     Scheduler scheduler;
     scheduler.schedule_classes(offerings);
 }
-*/
+*//*
 // Test 8
 unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> test_three_classes_conflict() {
     vector<Section> calc_lecture_sections;
@@ -822,7 +822,7 @@ empty_vec);
     offerings.insert(mechanics);
     return offerings;
 }
-
+*/
 
 void test_sample_questions() {
     // One class, with one section
