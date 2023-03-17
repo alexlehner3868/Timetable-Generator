@@ -178,6 +178,7 @@ optional<Semester> Scheduler::attempt_to_add_section(
 
         int class_in_section;
         // Create an object to represent the section that was chosen
+      
         SelectedCourseSection class_chosen{
             .course_code = course.course_id_,
             .type = class_type, // Lecture

@@ -9,6 +9,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <set>
 
 #include "section.hh"
 #include "sqlite3.h"

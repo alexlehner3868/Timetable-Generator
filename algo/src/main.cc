@@ -5,7 +5,7 @@
 #include <unordered_set>
 #include <vector>
 #include <string>
-
+#include <set>
 #include <clip/clip.h>
 
 #include "constraints.hh"
@@ -69,9 +69,11 @@ int exec(vector<string> courses, vector<string> constraints, int num_timetables)
                     cout << "[error]: malformed course code: " << code << endl;
                     std::exit(1);
             }
+
             vector<Section> lec = data.add_course(code, 1);
             vector<Section> tut = data.add_course(code, 2);
             vector<Section> pra = data.add_course(code, 3);
+
             CourseOfferings course(code, code, lec, tut, pra);
             if (sem)
                 course.semester(*std::move(sem));

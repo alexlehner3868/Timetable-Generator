@@ -155,6 +155,7 @@ std::vector<Section> CourseData::add_course(string course_id, int section_type) 
     current_section_num.push_back(0);
     std::vector<std::vector<std::string>> course_data;
     std::vector<Section> available_sections;
+    std::vector<Section> available_sections_pruned;
 
     if (section_type == LEC) {
         // we want to add lectures
@@ -296,7 +297,10 @@ std::vector<Section> CourseData::add_course(string course_id, int section_type) 
 
     // here we want to check sections that have the same info but different section number
     // note we are changing the vector as we iterate through it...
-    int vector_it = 0;
+    int vector_top = 0;
+    int vector_inner = 0;
+    int add_section = 0;
+    set<int> sections;
     for (auto section: available_sections) {
         // compare each section
         for (auto inner_section: available_sections) {
@@ -305,18 +309,35 @@ std::vector<Section> CourseData::add_course(string course_id, int section_type) 
                  (inner_section.start_time_ == section.start_time_) &&
                  (inner_section.semester_ == section.semester_) &&
                  (inner_section.day_ == section.day_) &&
-                 (inner_section.async_ == section.async_) ) {
+                 (inner_section.async_ == section.async_) && vector_top != vector_inner) {
                 //sections match, delete the extra
-                    vector_it;
+                cout << "The class is " << course_id << " and the sections are " << vector_top+1 << " and " << vector_inner+1 << " for section_type " << section_type << endl;
+                // make sure the one deleted is not 
+                if (sections.find(vector_inner) != sections.end()) {
+                    //found it, remove it
+                    sections.erase(vector_inner);
+                }
+                
+            } else {
+                //cout << "WORKING The class is " << course_id << " and the sections are " << vector_top+1 << " and " << vector_inner+1 << " for section_type " << section_type << endl;
+                // add the inner section to a new list
+                sections.insert(vector_inner);
+                //cout << "inner vector passed is " << vector_inner << endl;
+                add_section++;
             }
-            vector_it++;
+            vector_inner++;
         }
-        vector_it = 0;
+        vector_inner = 0;
+        vector_top++;
     }
     // or sections with same data but different number, we delete the extras 
-
+    int index = 0;
+    for (auto section: sections) {
+        available_sections_pruned.push_back(available_sections[section]);
+        //cout << "The course " << course_id << " with type " << section_type << " has section " << available_sections_pruned[index].section_id_[0] << endl;
+        index++;
+    }
 
     // make sure this is error free
-    // cout << "about to return" << endl;
-    return available_sections;
+    return available_sections_pruned;
 }
