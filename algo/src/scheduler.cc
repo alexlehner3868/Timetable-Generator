@@ -548,5 +548,9 @@ int  Scheduler::set_num_timetables(int num_timetables) {
     Scheduler::max_num_of_timetables_to_show = num_timetables;
     return Scheduler::max_num_of_timetables_to_show;
 }
+int  Scheduler::set_max_explore(int explore_timetables) {
+    Scheduler::max_number_of_timetables_to_explore = explore_timetables;
+    return Scheduler::max_number_of_timetables_to_explore;
+}
 // Default constructor
 Scheduler::Scheduler() {}

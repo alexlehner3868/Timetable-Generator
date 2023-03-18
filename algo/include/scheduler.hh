@@ -63,6 +63,7 @@ public:
     void print_timetables(vector<TimeTable> timetables);
     string get_result_string();
     int set_num_timetables(int num_timetables);
+    int set_max_explore(int explore_timetables);
 };
 
 #endif
