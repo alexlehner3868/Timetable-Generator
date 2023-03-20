@@ -18,16 +18,6 @@
 
 using namespace std;
 
-/**
- * TODO: remove classes
- * TODO: add constraints
- * TODO: add support for async classes
- * TODO: add option to allow conflicts? -> uoft allows you to enroll even when you have 3 conflicts
- * at once
- * TODO: Add in constraints that force course to be in a certain semester.
- * TODO: If a course has a prereq also being schedule, make sure the pre req is first
- * TODO: set max courses per semester to 6
- */
 int non_test_count = 0;
 vector<TimeTable> Scheduler::schedule_classes(
     unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> &courses,
@@ -203,6 +193,9 @@ optional<Semester> Scheduler::attempt_to_add_section(
              class_in_section++) {
 
             class_chosen.async = section.async_.at(class_in_section);
+            if(class_chosen.async){
+                // ALEX successfully_inserted = timetable.insert(class_chosen);
+            }
             int section_cost = 0;
             // Add a entry for every hour that the lecure has
             for (int i = 0; i < section.duration_.at(class_in_section); i++) {
@@ -211,16 +204,9 @@ optional<Semester> Scheduler::attempt_to_add_section(
                 period = make_pair(section.day_.at(class_in_section) + semester_offset,
                                    section.start_time_.at(class_in_section) + i);
 
-                // Insert into the timetable
-                if(class_chosen.async){
-                    // Insert an async class into timetable
-                    successfully_inserted = timetable.insert_async(class_chosen);
-                }else{
-                    // Insert a non-async class into timetable
-                    successfully_inserted = timetable.insert(std::make_pair(period, class_chosen));
-                }
-
-
+                // Insert a non-async class into timetable
+                successfully_inserted = timetable.insert(std::make_pair(period, class_chosen));
+                
                 // Check if the class was sucessfully inserted
                 if (!successfully_inserted) {
                     break;
@@ -244,14 +230,19 @@ optional<Semester> Scheduler::attempt_to_add_section(
                 for (int remove_class = 0; remove_class <= class_in_section; remove_class++) {
                     // loop through each hour of the class (ex. if one is a two hour class this will
                     // run twice)
-                    for (int i = 0; i < section.duration_.at(remove_class); i++) {
-                        Date remove_period = make_pair(section.day_.at(remove_class) + semester_offset,
-                                                       section.start_time_.at(remove_class) + i);
-
-                        if (remove_period != period) {
-                            timetable.erase(remove_period);
+                    if(section.async_.at(remove_class)){
+                      // ALEX  timetable.erase(class_chosen);
+                    }else{
+                        for (int i = 0; i < section.duration_.at(remove_class); i++) {
+                            Date remove_period = make_pair(section.day_.at(remove_class) + semester_offset,
+                                                        section.start_time_.at(remove_class) + i);
+                            
+                            if (remove_period != period) {
+                                timetable.erase(remove_period);
+                            }
                         }
                     }
+                   
                 }
 
                 break;
@@ -273,11 +264,16 @@ optional<Semester> Scheduler::attempt_to_add_section(
                 // remove class from timetable
                 for (int remove_class = 0; remove_class < class_in_section;
                     remove_class++) { // should this be < or <= (<= seg faults)
-                    for (int i = 0; i < section.duration_.at(remove_class); i++) {
-                        Date period = make_pair(section.day_.at(remove_class) + semester_offset,
-                                                section.start_time_.at(remove_class) + i);
-                        timetable.erase(period);
+                    if(section.async_.at(remove_class)){
+                      // ALEX  timetable.erase(class_chosen);
+                    }else{
+                        for (int i = 0; i < section.duration_.at(remove_class); i++) {
+                            Date period = make_pair(section.day_.at(remove_class) + semester_offset,
+                                                    section.start_time_.at(remove_class) + i);
+                            timetable.erase(period);
+                        }
                     }
+                    
                 }
             } else if (class_type == TUT) {
                 // cout << "type tut and about to call PRA" << endl;
@@ -285,10 +281,14 @@ optional<Semester> Scheduler::attempt_to_add_section(
 
                 for (int remove_class = 0; remove_class < class_in_section;
                     remove_class++) { // should this be < or <= (<= seg faults)
-                    for (int i = 0; i < section.duration_.at(remove_class); i++) {
-                        Date period = make_pair(section.day_.at(remove_class)+semester_offset,
-                                                section.start_time_.at(remove_class) + i);
-                        timetable.erase(period);
+                    if(section.async_.at(remove_class)){
+                       // ALEX timetable.erase(class_chosen);
+                    }else{
+                        for (int i = 0; i < section.duration_.at(remove_class); i++) {
+                            Date period = make_pair(section.day_.at(remove_class)+semester_offset,
+                                                    section.start_time_.at(remove_class) + i);
+                            timetable.erase(period);
+                        }
                     }
                 }
             } else {
@@ -304,10 +304,14 @@ optional<Semester> Scheduler::attempt_to_add_section(
                 // remove class from timetable
                 for (int remove_class = 0; remove_class < class_in_section;
                     remove_class++) { // should this be < or <= (<= seg faults)
-                    for (int i = 0; i < section.duration_.at(remove_class); i++) {
-                        Date period = make_pair(section.day_.at(remove_class)+semester_offset,
-                                                section.start_time_.at(remove_class) + i);
-                        timetable.erase(period);
+                    if(section.async_.at(remove_class)){
+                     // ALEX   timetable.erase(class_chosen);
+                    }else{
+                        for (int i = 0; i < section.duration_.at(remove_class); i++) {
+                            Date period = make_pair(section.day_.at(remove_class)+semester_offset,
+                                                    section.start_time_.at(remove_class) + i);
+                            timetable.erase(period);
+                        }
                     }
                 }
             }

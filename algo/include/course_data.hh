@@ -24,6 +24,14 @@ struct SelectedCourseSection {
     bool async;
 };
 
+/* ALEX BROKEN 
+struct SelectedCourseSection_Hash{
+    string operator()(const SelectedCourseSection &sec) const {
+        return std::hash<string>()(sec.course_code + to_string(sec.type) +to_string(sec.section) + to_string(sec.semester));
+    }
+};
+*/
+
 enum class_type { LEC = 1, TUT = 2, PRA = 3, CONSTRAINT = 4 };
 
 class CourseData {

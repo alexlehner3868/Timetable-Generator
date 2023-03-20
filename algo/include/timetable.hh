@@ -4,6 +4,8 @@
 #include <iostream>
 #include <string>
 #include <unordered_map>
+#include <unordered_set>
+
 #include <vector>
 
 #include "course_data.hh"
@@ -15,6 +17,7 @@ using namespace std;
 class TimeTable {
 public:
     std::unordered_map<Date, SelectedCourseSection, Date_Hash> scheduled_classes;
+   // ALEX BROKEN std::unordered_set<SelectedCourseSection, SelectedCourseSection_Hash> scheduled_async_classes;
     int num_async_classes = 0;
     int current_time_table_cost = 0;
     int chose_fall = 0;
@@ -55,11 +58,13 @@ public:
         return scheduled_classes[period];
     }
 
-    bool insert_async(SelectedCourseSection possible_section){
-        int fake_date = 0 - (2*num_async_classes);
-        scheduled_classes.insert({{fake_date,fake_date}, possible_section});
-        num_async_classes++;
+    bool insert(SelectedCourseSection possible_section){
+       // scheduled_async_classes.insert(possible_section);
         return true;
+    }
+
+    void erase (SelectedCourseSection section){
+       // scheduled_async_classes.erase(section);
     }
 
     std::unordered_map<Date, SelectedCourseSection, Date_Hash> classes() {
