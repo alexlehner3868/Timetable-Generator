@@ -194,7 +194,7 @@ optional<Semester> Scheduler::attempt_to_add_section(
 
             class_chosen.async = section.async_.at(class_in_section);
             if(class_chosen.async){
-                // ALEX successfully_inserted = timetable.insert(class_chosen);
+                successfully_inserted = timetable.insert(class_chosen);
             }
             int section_cost = 0;
             // Add a entry for every hour that the lecure has
@@ -231,7 +231,7 @@ optional<Semester> Scheduler::attempt_to_add_section(
                     // loop through each hour of the class (ex. if one is a two hour class this will
                     // run twice)
                     if(section.async_.at(remove_class)){
-                      // ALEX  timetable.erase(class_chosen);
+                        timetable.erase(class_chosen);
                     }else{
                         for (int i = 0; i < section.duration_.at(remove_class); i++) {
                             Date remove_period = make_pair(section.day_.at(remove_class) + semester_offset,
@@ -265,7 +265,7 @@ optional<Semester> Scheduler::attempt_to_add_section(
                 for (int remove_class = 0; remove_class < class_in_section;
                     remove_class++) { // should this be < or <= (<= seg faults)
                     if(section.async_.at(remove_class)){
-                      // ALEX  timetable.erase(class_chosen);
+                        timetable.erase(class_chosen);
                     }else{
                         for (int i = 0; i < section.duration_.at(remove_class); i++) {
                             Date period = make_pair(section.day_.at(remove_class) + semester_offset,
@@ -282,7 +282,7 @@ optional<Semester> Scheduler::attempt_to_add_section(
                 for (int remove_class = 0; remove_class < class_in_section;
                     remove_class++) { // should this be < or <= (<= seg faults)
                     if(section.async_.at(remove_class)){
-                       // ALEX timetable.erase(class_chosen);
+                         timetable.erase(class_chosen);
                     }else{
                         for (int i = 0; i < section.duration_.at(remove_class); i++) {
                             Date period = make_pair(section.day_.at(remove_class)+semester_offset,
@@ -305,7 +305,7 @@ optional<Semester> Scheduler::attempt_to_add_section(
                 for (int remove_class = 0; remove_class < class_in_section;
                     remove_class++) { // should this be < or <= (<= seg faults)
                     if(section.async_.at(remove_class)){
-                     // ALEX   timetable.erase(class_chosen);
+                       timetable.erase(class_chosen);
                     }else{
                         for (int i = 0; i < section.duration_.at(remove_class); i++) {
                             Date period = make_pair(section.day_.at(remove_class)+semester_offset,
