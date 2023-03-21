@@ -81,7 +81,7 @@ unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> get_classes(
 
     unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> offerings;
    offerings.insert(class_one);
-    offerings.insert(class_two);
+   // offerings.insert(class_two);
     //offerings.insert(class_three);
     //offerings.insert(class_four);
     //offerings.insert(class_five);

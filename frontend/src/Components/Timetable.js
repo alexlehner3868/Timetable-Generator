@@ -17,7 +17,8 @@ const Timetable = (props) => {
   const ndays = 10;
   const nhours = 24;
   const grid = [...Array(nhours)].map(_ => Array(ndays).fill({}));
-
+  const semester = (props.when.day.begin == 0 ? 'F' : 'S');
+  
 
   // Extract sorted list of courses (for colouring)
   let courses = [];
@@ -34,12 +35,31 @@ const Timetable = (props) => {
       colors[course] = idx++;
 
   // Process the timetable
+  let async_courses = new Set()
   if (props.timetable) {
     for (const meet of props.timetable) {
+     
+      if(meet.time == -1){
+        if(meet.semester == semester){
+          console.log(meet);
+          async_courses.add(meet)
+        }
+       
+        continue;
+      }
       grid[meet.time][meet.day - 1] = meet;
     }
   }
 
+
+  let async_course_list = ""
+  if(async_courses.size > 0){
+    async_course_list = "Asynchronous Courses: "
+    for(const meet of async_courses){
+      async_course_list += meet.course + " (" + meet.type + "0"+ meet.section + ") "
+    }
+  }
+  console.log(async_course_list)
   // Compute x is in [begin, end)
   const inRange = (x, begin, end) => {
     return (begin <= x) && (x < end);
@@ -129,36 +149,39 @@ const Timetable = (props) => {
       }
     }
   }
-  console.log("Im on timetable" ,grid)
+  
   // Render the timetable
   return (
-    <div className="timetable" id="timetable">
-      <div className="tr">
-        <div className="td" id='legend-times'> </div>
-        <div className="td"><b>Monday</b></div>
-        <div className="td"><b>Tuesday</b></div>
-        <div className="td"><b>Wednesday</b></div>
-        <div className="td"><b>Thursday</b></div>
-        <div className="td"><b>Friday</b></div>
-      </div>
-      {grid.map((row, hour) => (
-        <div className="tr" id="table_day" key={hour}>
-          <div className="td" id="legend-times"><b>{int2hour(hour)}</b></div>
-          {row.map((meet, day) => (
-            <div className='td' id="table_hour" key={day} onClick={() => blockOffHour(day, hour)}>
-              <Period 
-                code={meet.course}
-                color={colors[meet.course]}
-                name={meet.name}
-                section={meet.section-1}
-                type={meet.type}
-                blockedOffLevel={blockedOffTimes[hour][day]}
-                multiPos={meet.multiPos}
-              />
-            </div>
-          )).filter((_, day) => inRange(day, props.when.day.begin, props.when.day.end))}
+  <div>
+      <div className="timetable" id="timetable">
+        <div className="tr">
+          <div className="td" id='legend-times'> </div>
+          <div className="td"><b>Monday</b></div>
+          <div className="td"><b>Tuesday</b></div>
+          <div className="td"><b>Wednesday</b></div>
+          <div className="td"><b>Thursday</b></div>
+          <div className="td"><b>Friday</b></div>
         </div>
-      )).filter((_, hour) => inRange(hour, props.when.hour.begin, props.when.hour.end))}
+        {grid.map((row, hour) => (
+          <div className="tr" id="table_day" key={hour}>
+            <div className="td" id="legend-times"><b>{int2hour(hour)}</b></div>
+            {row.map((meet, day) => (
+              <div className='td' id="table_hour" key={day} onClick={() => blockOffHour(day, hour)}>
+                <Period 
+                  code={meet.course}
+                  color={colors[meet.course]}
+                  name={meet.name}
+                  section={meet.section-1}
+                  type={meet.type}
+                  blockedOffLevel={blockedOffTimes[hour][day]}
+                  multiPos={meet.multiPos}
+                />
+              </div>
+            )).filter((_, day) => inRange(day, props.when.day.begin, props.when.day.end))}
+          </div>
+        )).filter((_, hour) => inRange(hour, props.when.hour.begin, props.when.hour.end))}
+      </div>
+      <p1>{async_course_list}</p1>
     </div>
   )
 }
