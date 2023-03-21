@@ -69,12 +69,46 @@ public:
     }
     
     string async_course_string(SelectedCourseSection possible_section){
-        return possible_section.course_code +  "_" + to_string(possible_section.section) + "_" + possible_section.semester + "_"+ to_string(possible_section.type);
+        return possible_section.course_code +  " " + to_string(possible_section.section) + " " + possible_section.semester + " "+ to_string(possible_section.type);
     }
 
     std::unordered_map<Date, SelectedCourseSection, Date_Hash> classes() {
         return scheduled_classes;
     }
+
+    SelectedCourseSection create_class_section(string course_info){
+        stringstream ss(course_info);
+
+        string course_code;
+        string class_type;
+        string section;
+        string semester;
+
+        ss >> course_code;
+        ss >> section;
+        ss >> semester;
+        ss >> class_type;
+
+        SelectedCourseSection course{
+            .course_code = course_code,
+            .type = stoi(class_type), // Lecture
+            .section = stoi(section),
+            .semester = semester[0],
+            .async = true
+        };
+        return course;
+    }
+
+    vector<pair<Date, SelectedCourseSection>> all_classes(){
+        vector<pair<Date, SelectedCourseSection>> courses;
+        for(auto c : scheduled_classes){
+            courses.push_back({c.first, c.second});
+        }
+        for(string c : scheduled_async_classes){
+            courses.push_back({{-1, -1}, create_class_section(c)});
+        }
+        return courses;
+    } 
 
     int cost() {
         return current_time_table_cost;
