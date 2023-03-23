@@ -113,6 +113,9 @@ function App() {
     }
   }, []);
 
+  // Used to store the tabIndex of the timetable (ie F vs W)
+  const [tabIndex, setTabIndex] = useState(0);
+
   const removeAll = (constraint) => {
     if (document.getElementById("morning_priorities")) {
       document.getElementById("morning_priorities").value = 0;
@@ -164,8 +167,8 @@ function App() {
         <HelpMenu/>
       </header>
       <div className="whole-webpage">
-        <Options    timetables={timetables} ttbIndex={ttbIndex} setTtbIndex={setTtbIndex} num_timetables={num_timetables} setNumTimetables={setNumTimetables}/>
-        <MainWindow timetables={timetables} ttbIndex={ttbIndex} setTtbIndex={setTtbIndex} constraints={constraints} setConstraints={setConstraints}/>
+        <Options    timetables={timetables} ttbIndex={ttbIndex} setTtbIndex={setTtbIndex} num_timetables={num_timetables} setNumTimetables={setNumTimetables} setTabIndex={setTabIndex}/>
+        <MainWindow timetables={timetables} ttbIndex={ttbIndex} setTtbIndex={setTtbIndex} constraints={constraints} setConstraints={setConstraints} tabIndex={tabIndex} setTabIndex={setTabIndex}/>
         <Sidebar    courses={courses} setCourses={setCourses} constraints={constraints} setConstraints={setConstraints}/>
         
         <Generate   courses={courses} constraints={constraints} setTimetables={setTimetables} setTtbIndex={setTtbIndex} num_timetables={num_timetables}/>

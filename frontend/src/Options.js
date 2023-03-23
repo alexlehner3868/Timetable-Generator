@@ -3,9 +3,10 @@ import React from "react";
 import NextButton from "./Components/NonEssentialComponents/NextButton";
 import BackButton from "./Components/NonEssentialComponents/BackButton";
 import DownloadButton from "./Components/DownloadButton";
+import ToggleDownloadButton from "./Components/NonEssentialComponents/ToggleDownloadButton";
 
 // -- Module --
-const Options = ({timetables, ttbIndex, setTtbIndex, num_timetables, setNumTimetables}) => {
+const Options = ({timetables, ttbIndex, setTtbIndex, num_timetables, setNumTimetables, setTabIndex}) => {
   let timetable_index_str;
   if (timetables.length === 0 || ttbIndex == NaN) {
    // timetable_index_str = "";
@@ -37,7 +38,7 @@ const Options = ({timetables, ttbIndex, setTtbIndex, num_timetables, setNumTimet
       <p className="current-timetable-number">{timetable_index_str}</p>
       <NextButton nTimetables={timetables.length} ttbIndex={ttbIndex} setTtbIndex={setTtbIndex}/>
   
-      <DownloadButton  timetables={timetables} ttbIndex={ttbIndex}/>
+      <DownloadButton  timetables={timetables} ttbIndex={ttbIndex} setTabIndex={setTabIndex}/>
     </div>
   )
 }

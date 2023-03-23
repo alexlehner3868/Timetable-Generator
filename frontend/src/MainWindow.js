@@ -11,7 +11,7 @@ import Semester from './Components/Semester';
 class MainWindow extends React.Component {
   constructor() {
     super();
-    this.state = { tabIndex: 0, message: ""};
+    //this.state = { tabIndex: 0, message: ""};
   }
 
  
@@ -44,7 +44,7 @@ class MainWindow extends React.Component {
     return (
       <div className='main-window'>
         
-      <Tabs selectedIndex={this.state.tabIndex} onSelect={tabIndex => this.setState({ tabIndex })}>
+      <Tabs selectedIndex={this.props.tabIndex} onSelect={tabIndex => this.props.setTabIndex(tabIndex)}>
         <TabList>
           <Tab><b>Fall</b></Tab>
           <Tab><b>Winter</b></Tab>
