@@ -212,38 +212,7 @@ int exec(vector<string> courses, vector<string> constraints, int num_timetables)
 
     scheduler_handler.print_timetables(best_timetables_post_constraints);
 
-    // -- User input (later)
-    // 1. Search and add classes to timetable
-    // 2. Remove classes
-    // 3. Add constraints
-    /*
-        string input;
-        while(1){
-            cout<<"command: ";
-            cin>>input;
-            if(input == "add"){
-                string courseid;
-                cin >> courseid;
-                course_data.find_course_times(courseid);
-            }else if(input == "quit"){
-                return;
-            }else if(input == "schedule"){
 
-            }else if(input == "remove"){
-
-            }
-        }
-        */
-    // -- Scheduling Algo
-    // 1. Loop through all options and see what works
-    // 2. Evaluate all possible options based on constraints
-    // 3. What happens if no solution
-
-    // -- GUI
-    // -- Web stuff
-
-    // -- Testing Code
-    // test_sample_questions();
     return 0;
 }
 
