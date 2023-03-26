@@ -36,9 +36,13 @@ const HelpMenu = () => {
             <li>Nice to Have: Lowest priority</li>
             <li>No Priority: No preference aka dont take it into account</li>
           </ul>
-          <b>Step 3: </b> Once all your classes and constraints are inserted, click the "generate" button
+          <ul>
+            <li>Tip 1: Enter time in using a 24-hour clock</li>
+            <li>Tip 2: Click on the timetable to block off a certain hour </li>
+          </ul>
+          <b>Step 3: </b> Once all your classes and constraints are inserted, click the "Generate Timetable" button
           <br />
-          <b>Step 5: </b> The timetables will be shown on the two center tabs, use the arrows on the left panel to
+          <b>Step 4: </b> The timetables will be shown on the two center tabs, use the arrows on the left panel to
           <br/>cycle through the options. They are ranked based on how well they satisfy your constraints 
           <br/> with 1 being the best  
 
