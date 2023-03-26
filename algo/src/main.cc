@@ -170,10 +170,12 @@ int exec(vector<string> courses, vector<string> constraints, int num_timetables)
         default: scheduler_handler.set_max_explore(4000); break;
     }
 
-    if (!constraint_handler.prune_semesters(offerings) /*&& !scheduler_handler.allow_incomplete*/) {
-        result_string += "Timetable not created due to course specified in semester, but not offered. ";
-        //return 1; // TODO: change me
-    }
+    
+    // if (!constraint_handler.prune_semesters(offerings) /*&& !scheduler_handler.allow_incomplete*/) {
+    //     result_string += "Timetable not created due to course specified in semester, but not offered. ";
+    //     //return 1; // TODO: change me
+    // }
+
     if (!constraint_handler.preprocess_high_priority_classes_out(offerings, result_string)) {
         //return 1; // TODO: change me
     }
