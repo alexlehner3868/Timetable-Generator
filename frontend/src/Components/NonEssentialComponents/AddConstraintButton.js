@@ -343,21 +343,21 @@ const AddConstraintButton = (props) => {
 
   return (
        <div>
-            <label>Prefer Morning Classes</label>
+            <label>Prefer No Morning Classes</label>
             <select list="Priority" defaultValue={morning} class="dropdown" id="morning_priorities" onChange = {handleSubmitEarly}>
                 <option value="0" ></option>
                 <option class="good_to_have" value="1" >Good To Have</option>
                 <option class="great_to_have" value="2" >Great To Have</option>
                 <option class="must_have" value="3" >Must Have</option>
             </select> <br></br>
-            <label>Prefer Afternoon Classes</label>
+            <label>Prefer No Afternoon Classes</label>
             <select list="Priority" defaultValue={afternoon} class="dropdown" id="afternoon_priorities" onChange = {handleSubmitAfternoon}>
                 <option value="0"></option>
                 <option class="good_to_have" value="1">Good To Have</option>
                 <option class="great_to_have" value="2">Great To Have</option>
                 <option class="must_have" value="3">Must Have</option>
                 </select> <br></br>
-            <label>Prefer Evening Classes</label>
+            <label>Prefer No Evening Classes</label>
             <select list="Priority" defaultValue={evening} class="dropdown" id="evening_priorities" onChange = {handleSubmitEvening}>
                 <option value="0"></option>
                 <option class="good_to_have" value="1">Good To Have</option>
