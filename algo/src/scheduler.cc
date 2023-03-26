@@ -20,7 +20,6 @@
 #include "scheduler.hh"
 
 using namespace std;
-using namespace concurrency;
 
 int non_test_count = 0;
 vector<TimeTable> Scheduler::schedule_classes(
