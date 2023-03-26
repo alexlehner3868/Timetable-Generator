@@ -341,8 +341,6 @@ code {
 .active-courses{
   grid-area: active-courses;
   position: absolute;
-  border: 1px solid black;
-  border-radius: 5px;
   width: 20%;
   margin-top: 1%;
   overflow-y: auto;
