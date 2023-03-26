@@ -342,7 +342,7 @@ const AddConstraintButton = (props) => {
     
 
   return (
-       <div>
+       <div id='add-constraint-button'>
             <label>Prefer No Morning Classes</label>
             <select list="Priority" defaultValue={morning} class="dropdown" id="morning_priorities" onChange = {handleSubmitEarly}>
                 <option value="0" ></option>

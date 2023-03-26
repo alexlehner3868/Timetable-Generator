@@ -30,8 +30,9 @@ class Sidebar extends React.Component {
         </TabPanel>
         <TabPanel>
           <AddConstraintButton constraints={this.props.constraints} setConstraints={this.props.setConstraints}/>
-          <p>Tip 1: Input all times using a 24-hour clock (ie military time)</p>
-          <p>Tip 2: To block off time, click on the timetable </p>
+          <br/>
+          <p>Block off Time: click on the hour on the timetable to block it off</p>
+          <p>Note: Input all times using a 24-hour clock (ie military time)</p>
         </TabPanel>
 
       </Tabs>

@@ -119,7 +119,9 @@ code {
   margin: auto;
 }
 
-
+#add-constraint-button{
+  text-align: left;
+}
 
 .control-bar {
   height: 70%;
