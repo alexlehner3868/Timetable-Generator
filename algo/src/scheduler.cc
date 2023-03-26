@@ -8,6 +8,10 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <chrono>
+#include <iostream>
+#include <random>
+
+
 
 #include "constraints.hh"
 #include "course_offering.hh"
@@ -16,6 +20,7 @@
 #include "scheduler.hh"
 
 using namespace std;
+using namespace concurrency;
 
 int non_test_count = 0;
 vector<TimeTable> Scheduler::schedule_classes(
@@ -75,7 +80,6 @@ void Scheduler::schedule_classes_helper(
     // All sections have been added
     if (courses.size() == 0) {
         number_of_explored_timetables++;
-   
         int timetable_additional_cost = constraint_handler_->cost_of_timetable(timetable.classes());
         timetable.add_cost(timetable_additional_cost);
         if (timetable.size() ==  maximum_number_of_sections_  && unique_check(timetable)) { 
@@ -96,6 +100,7 @@ void Scheduler::schedule_classes_helper(
         }else{
             non_test_count++;
         }
+        return;
     }
 
     // the current timetable is worse than the worst best cost. stop exploring it
@@ -111,17 +116,21 @@ void Scheduler::schedule_classes_helper(
     // Loop through all of the Course Offerings (ie the course and all its sections)
     for (auto course : courses) {
         // Attempt to add a section
-        attempt_to_add_section(timetable, LEC, course, courses, char());
+        bool success = attempt_to_add_section(timetable, LEC, course, courses, char());
+        if(!success){
+            break;
+        }
     }
 }
 
-optional<Semester> Scheduler::attempt_to_add_section(
+bool Scheduler::attempt_to_add_section(
     TimeTable &timetable,
     int class_type,
     CourseOfferings course,
     unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> &courses, char sem) {
     int num_sections = 0;
     optional<Semester> semester = nullopt;
+    bool found_at_least_one_option = false; 
 
     if (class_type == LEC) {
         num_sections = (int)course.numLecSections();
@@ -180,6 +189,7 @@ optional<Semester> Scheduler::attempt_to_add_section(
             class_chosen.async = section.async_.at(class_in_section);
             if(class_chosen.async){
                 successfully_inserted = timetable.insert(class_chosen);
+                 found_at_least_one_option = true;
             }
             int section_cost = 0;
             // Add a entry for every hour that the lecure has
@@ -199,7 +209,6 @@ optional<Semester> Scheduler::attempt_to_add_section(
                     // Time occupied by another course offering or constraint
                 } else {
                     // Keep track of which semester we chose
-                    semester = make_optional((class_chosen.semester == 'F') ? Semester::Fall : Semester::Winter);
                     if(!class_chosen.async){
                         section_cost += constraint_handler_->cost_of_class(period);
                     }
@@ -232,6 +241,7 @@ optional<Semester> Scheduler::attempt_to_add_section(
 
                 break;
             } else {
+                found_at_least_one_option = true;
                 timetable.add_cost(section_cost);
             }
         }
@@ -309,10 +319,10 @@ optional<Semester> Scheduler::attempt_to_add_section(
         // class_type << endl;
         if (class_type == LEC) {
             // add TUT now
-            attempt_to_add_section(timetable, TUT, course, courses, sem);
+             found_at_least_one_option = attempt_to_add_section(timetable, TUT, course, courses, sem);
             // remove class from timetable
         } else if (class_type == TUT) {
-            attempt_to_add_section(timetable, PRA, course, courses, sem);
+            found_at_least_one_option =  attempt_to_add_section(timetable, PRA, course, courses, sem);
         } else {
             // cout << "type PRA and removing course" << endl;
             // print_timetable(timetable);
@@ -326,7 +336,7 @@ optional<Semester> Scheduler::attempt_to_add_section(
         }
     }
 
-    return semester;
+    return  found_at_least_one_option;
 }
 
 void Scheduler::print_timetables(vector<TimeTable> timetables) {

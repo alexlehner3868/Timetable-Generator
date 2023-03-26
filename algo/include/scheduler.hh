@@ -54,7 +54,7 @@ public:
         TimeTable &timetable);
     void print_timetable(TimeTable &timetable, int preset);
     string jsonify(TimeTable &timetable);
-    optional<Semester> attempt_to_add_section(
+    bool attempt_to_add_section(
         TimeTable &timetable,
         int class_type,
         CourseOfferings course,
