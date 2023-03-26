@@ -3,7 +3,7 @@ import React from "react";
 
 // -- Module --
 const Message = ({message}) => {
-   const msg = (message == null || message == "" ? "Timetable generation status will show here..." : message)
+   const msg = (message == null || message == "" ? "Add courses and constraints to generate timetables" : message)
 
     return (
         <div className="resultMessage" id="resultMessage">

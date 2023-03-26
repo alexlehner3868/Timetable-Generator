@@ -116,6 +116,7 @@ function App() {
   // Used to store the tabIndex of the timetable (ie F vs W)
   const [tabIndex, setTabIndex] = useState(0);
 
+
   return (
     <div className="App">
       <head>
