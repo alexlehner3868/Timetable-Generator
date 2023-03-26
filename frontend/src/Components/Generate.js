@@ -1,5 +1,7 @@
 import { AwesomeButton } from 'react-awesome-button';
 import 'react-awesome-button/dist/styles.css';
+
+// NOTE: THIS ITEM IS NO LONGER USED. IT HAS BEEN MERGED INTO CONTROL BUTTONS
 // -- Module --
 const Generate = ({courses, constraints, setTimetables, setTtbIndex, num_timetables}) => {
   const Request = async () => {
