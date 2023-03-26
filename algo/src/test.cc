@@ -17,7 +17,6 @@ using namespace std;
 
 unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> get_classes() {
     CourseData course_data;
-
     std::vector<Section> empty_vec;
     // add lectures
     std::vector<Section> course_one_lecture_sections = course_data.add_course("APS100H1", 1);
@@ -26,7 +25,7 @@ unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> get_classes(
     std::vector<Section> course_four_lecture_sections = course_data.add_course("APS110H1", 1);
     std::vector<Section> course_five_lecture_sections = course_data.add_course("MAT188H1", 1);
     std::vector<Section> course_six_lecture_sections = course_data.add_course("MAT186H1", 1);
-
+    cout<<"fall sem lec got"<<endl;
     // add tutorials
     std::vector<Section> course_one_tutorial_sections = course_data.add_course("APS100H1", 2);
     std::vector<Section> course_two_tutorial_sections = course_data.add_course("APS111H1", 2);
@@ -34,6 +33,7 @@ unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> get_classes(
     std::vector<Section> course_four_tutorial_sections = course_data.add_course("APS110H1", 2);
     std::vector<Section> course_five_tutorial_sections = course_data.add_course("MAT188H1", 2);
     std::vector<Section> course_six_tutorial_sections = course_data.add_course("MAT186H1", 2);
+
     // add practicals
     std::vector<Section> course_one_practical_sections = course_data.add_course("APS100H1", 3);
     std::vector<Section> course_two_practical_sections = course_data.add_course("APS111H1", 3);
@@ -87,7 +87,6 @@ unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> get_classes(
     //offerings.insert(class_five);
     //offerings.insert(class_six);
 
-
     std::vector<Section> course_seven_lecture_sections = course_data.add_course("APS105H1", 1);
     std::vector<Section> course_eight_lecture_sections = course_data.add_course("APS112H1", 1);
     std::vector<Section> course_nine_lecture_sections = course_data.add_course("MIE100H1", 1);
@@ -100,6 +99,7 @@ unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> get_classes(
     std::vector<Section> course_nine_tutorial_sections = course_data.add_course("MIE100H1", 2);
     std::vector<Section> course_ten_tutorial_sections = course_data.add_course("ECE110H1", 2);
     std::vector<Section> course_eleven_tutorial_sections = course_data.add_course("MAT187H1", 2);
+
     // add practicals
     std::vector<Section> course_seven_practical_sections = course_data.add_course("APS105H1", 3);
     std::vector<Section> course_eight_practical_sections = course_data.add_course("APS112H1", 3);
@@ -138,10 +138,9 @@ unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> get_classes(
                                course_eleven_practical_sections);
     //class_eleven.semester(Semester::Winter);
 
-
     offerings.insert(class_seven);
     offerings.insert(class_eight);
-    //offerings.insert(class_nine);
+    offerings.insert(class_nine);
     offerings.insert(class_ten);
     offerings.insert(class_eleven);
 

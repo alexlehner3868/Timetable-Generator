@@ -9,7 +9,6 @@
 #include <unordered_set>
 #include <chrono>
 
-
 #include "constraints.hh"
 #include "course_offering.hh"
 #include "period.hh"
@@ -32,9 +31,9 @@ vector<TimeTable> Scheduler::schedule_classes(
          maximum_number_of_sections_ += offering.numCourses();
      }
     // run scheduling algorithm
-    auto start = std::chrono::system_clock::now();
+    //auto start = std::chrono::system_clock::now();
     schedule_classes_helper(courses, timetable);
-    auto end = std::chrono::system_clock::now();
+   // auto end = std::chrono::system_clock::now();
 
    
     // Convert pq to vector and return
@@ -50,25 +49,26 @@ vector<TimeTable> Scheduler::schedule_classes(
     if (num_tables == 0) {
        result_string += "Could not generate any possible timetables";
     }
-
+/*
     if(output_stats){
         stats_collector_.set_scheduler_counts(partial_timetables_pruned_, full_timetable_pruned_, number_of_explored_timetables, max_number_of_timetables_to_explore, max_num_of_timetables_to_show, num_tables, unique_timetables_found_, std::chrono::duration_cast<std::chrono::microseconds>(end - start).count());
         stats_collector_.track_constraints(constraint_handler, timetable_costs);
         stats_collector_.print_stats();
     }
+    */
     //cerr<<"Non unique "<<non_test_count<<endl;
     return best_time_tables;
 }
 
 string Scheduler::get_result_string() {
-    return ""; // FIXME
+    return result_string; 
 }
 
 void Scheduler::schedule_classes_helper(
     unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> &courses,
     TimeTable &timetable) {
 
-    if (number_of_explored_timetables > max_number_of_timetables_to_explore) {
+    if (timetables_.size() > 0 && number_of_explored_timetables > max_number_of_timetables_to_explore) {
         timetables_not_explored_++;
         return;
     }
@@ -108,24 +108,10 @@ void Scheduler::schedule_classes_helper(
             return;
         }
     }
-
     // Loop through all of the Course Offerings (ie the course and all its sections)
     for (auto course : courses) {
         // Attempt to add a section
-        /*auto sem = */attempt_to_add_section(timetable, LEC, course, courses, char());
-        // Track which semester we put it in/
-        /*
-        if (!course.semester_ && sem) {
-            switch (*sem) {
-                case Semester::Fall:
-                    timetable.chose_fall++;
-                    break;
-                case Semester::Winter:
-                    timetable.chose_winter++;
-                    break;
-            }
-        }
-        */
+        attempt_to_add_section(timetable, LEC, course, courses, char());
     }
 }
 
@@ -144,6 +130,7 @@ optional<Semester> Scheduler::attempt_to_add_section(
     } else {
         num_sections = (int)course.numPraSections();
     }
+    /*
     //  Loop through all of the possible lecture sections in the course
     vector<int> shuffled_sections;
     for (int i = 0; i < num_sections; i++) {
@@ -152,9 +139,8 @@ optional<Semester> Scheduler::attempt_to_add_section(
 
     //auto rng = std::default_random_engine{};
     //shuffle(begin(shuffled_sections), end(shuffled_sections), rng);
-    
-
-    for (int section_indx : shuffled_sections) {
+   */
+    for (int section_indx = 0; section_indx < num_sections; section_indx++) {
         Section section;
         if (class_type == LEC) {
             section = course.lecture_sections_.at(section_indx);
@@ -316,7 +302,7 @@ optional<Semester> Scheduler::attempt_to_add_section(
             }
         }
     }
-
+    
     if (num_sections < 1) {
         // if section is empty DO SOMETHING
         // cout << "there are no sections for class "<< course.course_id_ << " and of type " <<
