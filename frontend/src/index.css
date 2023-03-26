@@ -55,10 +55,19 @@ code {
   padding-top: 1%;
   grid-template-columns: 10% 60% 30%;
   grid-template-rows:  1fr max-content 1fr;
-  grid-template-areas: 'control-bar main-window sidebar' 'dedication . .';
+  grid-template-areas: 'control-bar main-window sidebar' 'dedication resultMessage .';
   overflow: hidden;
 }
-
+.resultMessage{
+  grid-area: resultMessage;
+  background-color: rgb(255, 255, 255);
+  border: 2px black  solid;
+  color: rgb(0, 0, 0);
+  border-radius: 10px;
+  width: 80%;
+  margin: auto;
+  font-weight: bold;
+}
 .button{
   background-color: white;
   border: 3px black  solid;
@@ -77,19 +86,6 @@ code {
   width: 100%;
 }
 
-.message {
-  grid-area: message;
-  font-size: 20px;
-  text-align: left;
-  vertical-align: top;
-  background-color: white;
-  border-radius: 10px;
-  align-items: center;
-  margin: auto;
-  width: 80%;
-  border-radius: 10px;
-  border: 3px rgb(0, 0, 0)  solid;
-}
 
 .control-buttons {
   display: grid;

@@ -1,15 +1,15 @@
 // -- React --
 import React from "react";
 
-
 // -- Module --
-const Message = () => {
+const Message = ({message}) => {
+   const msg = (message == null || message == "" ? "Timetable generation status will show here..." : message)
 
-  return (
-    <div>
-     <p>Mesasage: </p>
-    </div>
-  )
+    return (
+        <div className="resultMessage" id="resultMessage">
+        <p>{msg}</p>
+        </div>
+    )
 }
 
 // -- Exports --
