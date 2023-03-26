@@ -55,7 +55,7 @@ code {
   padding-top: 1%;
   grid-template-columns: 10% 60% 30%;
   grid-template-rows:  1fr max-content 1fr;
-  grid-template-areas: 'control-bar main-window sidebar' '. . generate-button' '. . clear-button';
+  grid-template-areas: 'control-bar main-window sidebar' 'dedication . .';
   overflow: hidden;
 }
 
@@ -91,19 +91,35 @@ code {
   border: 3px rgb(0, 0, 0)  solid;
 }
 
-.generate-button{
-  grid-area: generate-button
-}
-.clear-button {
-  grid-area: clear-button;
+.control-buttons {
+  display: grid;
+  grid-gap: 5%;
+  padding-top: 3%;
+  grid-template-areas: "generate-button generate-button" "clear-class clear-constraints" "clear-all clear-all"; 
 }
 
+.generate-button{
+  grid-area: generate-button;
+}
+
+.clear-class{
+  grid-area: clear-class;
+}
+.clear-constraints{
+  grid-area: clear-constraints;
+}
+
+.clear-all{
+  grid-area: clear-all;
+}
 .sidebar {
   grid-area: sidebar;
   height: 100%;
   width: 80%;
   margin: auto;
 }
+
+
 
 .control-bar {
   height: 70%;

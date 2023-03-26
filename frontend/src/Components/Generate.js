@@ -28,8 +28,8 @@ const Generate = ({courses, constraints, setTimetables, setTtbIndex, num_timetab
   };
 
   return (
-    <div className="generate-button">
-      <AwesomeButton
+    <div >
+      <AwesomeButton className="generate-button"
       type="primary"
         onPress={event => Request()}
       >Generate</AwesomeButton>

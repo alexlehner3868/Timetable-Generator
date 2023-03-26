@@ -7,6 +7,7 @@ import SearchBar from './Components/SearchBar';
 import AddConstraintButton from './Components/NonEssentialComponents/AddConstraintButton.js';
 import ActiveCourseList from './Components/ActiveCourseList';
 import ConstraintExplinations from './Components/NonEssentialComponents/ConstraintExplinations';
+import ControlButtons from './Components/NonEssentialComponents/ControlButtons';
 // -- Module --
 class Sidebar extends React.Component {
   constructor() {
@@ -30,9 +31,12 @@ class Sidebar extends React.Component {
         <TabPanel>
           <AddConstraintButton constraints={this.props.constraints} setConstraints={this.props.setConstraints}/>
           <ConstraintExplinations/>
+          <p>Tip 1: Input all times using a 24-hour clock (ie military time)</p>
+          <p>Tip 2: To block off time, click on the timetable </p>
         </TabPanel>
 
       </Tabs>
+      <ControlButtons courses={this.props.courses} constraints={this.props.constraints} setTimetables={this.props.setTimetables} setTtbIndex={this.props.setTtbIndex} num_timetables={this.props.num_timetables} setCourses={this.props.setCourses} setConstraints={this.props.setConstraints} setNumTimetables={this.props.setNumTimetables}/>
       </div>
     );
   }
@@ -40,10 +44,4 @@ class Sidebar extends React.Component {
 
 // -- Exports --
 export default Sidebar;
-/*
-   <div>
-          {[...this.props.courses].map((course)=>(
-            <p id='active-course-list'>{course}</p>
-          ))}
-         </div>
-         */
+

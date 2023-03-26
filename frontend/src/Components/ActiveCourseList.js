@@ -193,7 +193,7 @@ const ActiveCourseList = ({courses, setCourses}) => {
             </div>
             
           ))}
-        <AwesomeButton onPress={event => removeAllCourses()}>Clear All</AwesomeButton>
+       
         <select list="prepopulate" class="dropdown" id="prepopulate" onChange = {handleSubmitPrepopulate}>
                 <option value="0">Pick a Preset Schedule:</option>
                 <option class="ece_1" value="1" >1st Year ECE/TrackOne</option>

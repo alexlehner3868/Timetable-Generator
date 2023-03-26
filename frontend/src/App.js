@@ -4,7 +4,7 @@ import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import { AwesomeButton } from 'react-awesome-button';
 import 'react-awesome-button/dist/styles.css';
-
+import ControlButtons from "./Components/NonEssentialComponents/ControlButtons";
 // -- Windows --
 import MainWindow from './MainWindow';
 import Sidebar from './Sidebar';
@@ -116,45 +116,6 @@ function App() {
   // Used to store the tabIndex of the timetable (ie F vs W)
   const [tabIndex, setTabIndex] = useState(0);
 
-  const removeAll = (constraint) => {
-    if (document.getElementById("morning_priorities")) {
-      document.getElementById("morning_priorities").value = 0;
-    } if (document.getElementById("afternoon_priorities")) {
-      document.getElementById("afternoon_priorities").value = 0;
-    } if (document.getElementById("evening_priorities")) {
-      document.getElementById("evening_priorities").value = 0;
-    } if (document.getElementById("minimize_priorities")) {
-      document.getElementById("minimize_priorities").value = 0;
-    } if (document.getElementById("async_priorities")) {
-      document.getElementById("async_priorities").value = 0;
-    } if (document.getElementById("sync_priorities")) {
-      document.getElementById("sync_priorities").value = 0;
-    } if (document.getElementById("lunch_priorities")) {
-      document.getElementById("lunch_priorities").value = 0;
-    } if (document.getElementById("dinner_priorities")) {
-      document.getElementById("dinner_priorities").value = 0;
-    } if (document.getElementById("before_priorities")) {
-      document.getElementById("before_priorities").value = 0;
-    } if (document.getElementById("before_value")) {
-      document.getElementById("before_value").value = "";
-    } if (document.getElementById("after_priorities")) {
-      document.getElementById("after_priorities").value = 0;
-    } if (document.getElementById("after_value")) {
-      document.getElementById("after_value").value = "";
-    } if (document.getElementById("max_class_priorities")) {
-      document.getElementById("max_class_priorities").value = 0;
-    } if (document.getElementById("max_class_value")) {
-      document.getElementById("max_class_value").value = "";
-    } if (document.getElementById("max_break_priorities")) {
-      document.getElementById("max_break_priorities").value = 0;
-    } if (document.getElementById("max_break_value")) {
-      document.getElementById("max_break_value").value = "";
-    }
-    setConstraints(prev => new Set())
-    setCourses(prev => new Set())
-    setNumTimetables(20);
-  };
-
   return (
     <div className="App">
       <head>
@@ -169,12 +130,9 @@ function App() {
       <div className="whole-webpage">
         <Options    timetables={timetables} ttbIndex={ttbIndex} setTtbIndex={setTtbIndex} num_timetables={num_timetables} setNumTimetables={setNumTimetables} setTabIndex={setTabIndex}/>
         <MainWindow timetables={timetables} ttbIndex={ttbIndex} setTtbIndex={setTtbIndex} constraints={constraints} setConstraints={setConstraints} tabIndex={tabIndex} setTabIndex={setTabIndex}/>
-        <Sidebar    courses={courses} setCourses={setCourses} constraints={constraints} setConstraints={setConstraints}/>
-        
-        <Generate   courses={courses} constraints={constraints} setTimetables={setTimetables} setTtbIndex={setTtbIndex} num_timetables={num_timetables}/>
-        <p class="dedication">Dedicated to Professor Hans Kunov</p>
+        <Sidebar    courses={courses} setCourses={setCourses} constraints={constraints} setConstraints={setConstraints} setTimetables={setTimetables} setTtbIndex={setTtbIndex} num_timetables={num_timetables} setNumTimetables={setNumTimetables}/>
+        <p className="dedication">Dedicated to Professor Hans Kunov</p>
         <p></p>
-        <AwesomeButton className="clear-button" onPress={event => removeAll()}>Clear Courses & Constraints</AwesomeButton>
         </div>
     </div>
   );

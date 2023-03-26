@@ -432,7 +432,7 @@ const AddConstraintButton = (props) => {
                 <option class="great_to_have" value="2">Great To Have</option>
                 <option class="must_have" value="3">Must Have</option>
             </select> <br></br>
-            <AwesomeButton onPress = {handleDeleteAll}>Clear All</AwesomeButton>
+           
        </div>
   )}
 
