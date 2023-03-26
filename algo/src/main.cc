@@ -181,7 +181,7 @@ int exec(vector<string> courses, vector<string> constraints, int num_timetables)
     }
     vector<TimeTable> best_timetables = scheduler_handler.schedule_classes(offerings, &constraint_handler);
 
-    result_string += scheduler_handler.get_result_string(); // need to return this to the front end too
+    result_string += scheduler_handler.get_result_string(); // TODO: need to return this to the front end too
 
     // for each timetable, add the time constraints
     vector<TimeTable> best_timetables_post_constraints;
