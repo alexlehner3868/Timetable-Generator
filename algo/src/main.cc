@@ -103,11 +103,11 @@ int exec(vector<string> courses, vector<string> constraints, int num_timetables)
         }
         if (constraint_type == 0 && priority > 0) {
             //all info passed is valid
-            constraint_handler.set_prefer_morning_classes_constraint(priority);
+            constraint_handler.set_no_morning_classes_constraint(priority);
         } else if (constraint_type == 1 && (priority > 0)) {
-            constraint_handler.set_prefer_afternoon_classes_constraint(priority);
+            constraint_handler.set_no_afternoon_classes_constraint(priority);
         } else if (constraint_type == 2 && priority > 0) {
-            constraint_handler.set_prefer_evening_classes_constraint(priority);
+            constraint_handler.set_no_evening_classes_constraint(priority);
         } else if (constraint_type == 3 && priority > 0) {
             constraint_handler.set_minimize_days_at_school_constraint(priority);
         } else if (constraint_type == 4 && priority > 0) {

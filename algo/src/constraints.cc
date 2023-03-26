@@ -38,16 +38,16 @@ void ConstraintHandler::set_minimize_days_at_school_constraint(int priority) {
     minimize_days_at_school_ = priority;
 }
 
-void ConstraintHandler::set_prefer_morning_classes_constraint(int priority) {
-    prefer_morning_classes_ = priority;
+void ConstraintHandler::set_no_morning_classes_constraint(int priority) {
+    no_morning_classes_ = priority;
 }
 
-void ConstraintHandler::set_prefer_afternoon_classes_constraint(int priority) {
-    prefer_afternoon_classes_ = priority;
+void ConstraintHandler::set_no_afternoon_classes_constraint(int priority) {
+    no_afternoon_classes_ = priority;
 }
 
-void ConstraintHandler::set_prefer_evening_classes_constraint(int priority) {
-    prefer_evening_classes_ = priority;
+void ConstraintHandler::set_no_evening_classes_constraint(int priority) {
+    no_evening_classes_ = priority;
 }
 void ConstraintHandler::set_prefer_async_classes_constraint(int priority){
   prefer_async_classes_ = priority;
@@ -210,17 +210,17 @@ int ConstraintHandler::cost_of_class(Date d) {
     if (time_constraints_.find(d) != time_constraints_.end()) {
         cost += (time_constraints_[d]);
     }
-    // Reward clas for being in a prefered time (decrease cost)
-    if (prefer_morning_classes_ != NO_PRIORITY && d.second < 11) {
-        cost -= prefer_morning_classes_;
+    // Penalize class for being in a prefered time (decrease cost)
+    if (no_morning_classes_ != NO_PRIORITY && d.second < 11) {
+        cost += no_morning_classes_;
     }
-    // Reward clas for being in a prefered time (decrease cost)
-    if (prefer_evening_classes_ != NO_PRIORITY && d.second > 4) {
-        cost -= prefer_evening_classes_;
+    // Penalize class for being in a prefered time (decrease cost)
+    if (no_evening_classes_ != NO_PRIORITY && d.second > 4) {
+        cost += no_evening_classes_;
     }
-    // Reward clas for being in a prefered time (decrease cost)
-    if (prefer_afternoon_classes_ != NO_PRIORITY && d.second > 12 && d.second < 4) {
-        cost -= prefer_afternoon_classes_;
+    // Penalize class for being in a prefered time (decrease cost)
+    if (no_afternoon_classes_ != NO_PRIORITY && d.second > 12 && d.second < 4) {
+        cost += no_afternoon_classes_;
     }
     // Penalize class for being after time (increase cost)
     if (no_classes_after_X_.second > NO_PRIORITY && d.second >= no_classes_after_X_.first) {
@@ -351,9 +351,9 @@ ConstraintHandler::ConstraintHandler() {
     no_more_than_X_hours_per_day_ = make_pair(24, NO_PRIORITY);
 
     minimize_days_at_school_ = NO_PRIORITY;
-    prefer_morning_classes_ = NO_PRIORITY;
-    prefer_afternoon_classes_ = NO_PRIORITY;
-    prefer_evening_classes_ = NO_PRIORITY;
+    no_morning_classes_ = NO_PRIORITY;
+    no_afternoon_classes_ = NO_PRIORITY;
+    no_evening_classes_ = NO_PRIORITY;
     prefer_async_classes_ = NO_PRIORITY;
     prefer_sync_classes_ = NO_PRIORITY;
 
@@ -385,14 +385,14 @@ stringstream ConstraintHandler::output_constraints_stats(){
   if(minimize_days_at_school_ != NO_PRIORITY){
     ss<<"   Minimize Days At School: "<< toPriority(minimize_days_at_school_)<<endl;
   }
-  if(prefer_morning_classes_ != NO_PRIORITY){
-    ss<<"   Prefer Morning Classes: "<< toPriority(prefer_morning_classes_)<<endl;
+  if(no_morning_classes_ != NO_PRIORITY){
+    ss<<"   Prefer Morning Classes: "<< toPriority(no_morning_classes_)<<endl;
   }
-  if(prefer_afternoon_classes_ != NO_PRIORITY){
-    ss<<"   Prefer Afternoon Classes: "<< toPriority(prefer_afternoon_classes_)<<endl;
+  if(no_afternoon_classes_ != NO_PRIORITY){
+    ss<<"   Prefer Afternoon Classes: "<< toPriority(no_afternoon_classes_)<<endl;
   }
-  if(prefer_evening_classes_ != NO_PRIORITY){
-    ss<<"   Prefer Evening Classes: "<< toPriority(prefer_evening_classes_)<<endl;
+  if(no_evening_classes_ != NO_PRIORITY){
+    ss<<"   Prefer Evening Classes: "<< toPriority(no_evening_classes_)<<endl;
   }
   if(prefer_async_classes_ != NO_PRIORITY){
      ss<<"   Prefer Async Classes: "<< toPriority(prefer_async_classes_)<<endl;
