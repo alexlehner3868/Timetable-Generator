@@ -183,6 +183,10 @@ int exec(vector<string> courses, vector<string> constraints, int num_timetables)
 
     result_string += scheduler_handler.get_result_string(); // TODO: need to return this to the front end too
 
+    if(result_string.empty()){
+        result_string = "Timetables generated successfully";
+    }
+    
     // for each timetable, add the time constraints
     vector<TimeTable> best_timetables_post_constraints;
     int index = 0;

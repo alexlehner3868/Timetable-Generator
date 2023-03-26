@@ -131,6 +131,7 @@ function App() {
         <Options    timetables={timetables} ttbIndex={ttbIndex} setTtbIndex={setTtbIndex} num_timetables={num_timetables} setNumTimetables={setNumTimetables} setTabIndex={setTabIndex}/>
         <MainWindow timetables={timetables} ttbIndex={ttbIndex} setTtbIndex={setTtbIndex} constraints={constraints} setConstraints={setConstraints} tabIndex={tabIndex} setTabIndex={setTabIndex}/>
         <Sidebar    courses={courses} setCourses={setCourses} constraints={constraints} setConstraints={setConstraints} setTimetables={setTimetables} setTtbIndex={setTtbIndex} num_timetables={num_timetables} setNumTimetables={setNumTimetables}/>
+        
         <p className="dedication">Dedicated to Professor Hans Kunov</p>
         <p></p>
         </div>
