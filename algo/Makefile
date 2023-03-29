@@ -216,14 +216,14 @@ TAR   = tar
 # Compilers
 AR   = ar
 CC  ?= cc
-CXX ?= c++
+CXX ?= c++ 
 # Devices
 DEVNULL = /dev/null
 # Flags
 ARFLAGS   = crs
-CFLAGS   ?= -Wall -g
+CFLAGS   ?= -Wall -g 
 CPPFLAGS += $(INCLUDES)
-CXXFLAGS ?= -Wall -g
+CXXFLAGS ?= -Wall -g -fopenmp
 DEPFLAGS  = -MM -MF $@ -MT $(OBJ)/$*$(.o)
 LDFLAGS  += 
 LDLIBS   +=

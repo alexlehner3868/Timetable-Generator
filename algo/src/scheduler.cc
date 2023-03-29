@@ -10,8 +10,7 @@
 #include <chrono>
 #include <iostream>
 #include <random>
-
-
+#include <execution>
 
 #include "constraints.hh"
 #include "course_offering.hh"
@@ -112,6 +111,7 @@ void Scheduler::schedule_classes_helper(
             return;
         }
     }
+    #pragma omp parallel for
     // Loop through all of the Course Offerings (ie the course and all its sections)
     for (auto course : courses) {
         // Attempt to add a section
@@ -138,7 +138,7 @@ bool Scheduler::attempt_to_add_section(
     } else {
         num_sections = (int)course.numPraSections();
     }
-    /*
+    
     //  Loop through all of the possible lecture sections in the course
     vector<int> shuffled_sections;
     for (int i = 0; i < num_sections; i++) {
@@ -147,7 +147,7 @@ bool Scheduler::attempt_to_add_section(
 
     //auto rng = std::default_random_engine{};
     //shuffle(begin(shuffled_sections), end(shuffled_sections), rng);
-   */
+    #pragma omp parallel for
     for (int section_indx = 0; section_indx < num_sections; section_indx++) {
         Section section;
         if (class_type == LEC) {
