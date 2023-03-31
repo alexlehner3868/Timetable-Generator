@@ -36,7 +36,7 @@ class Sidebar extends React.Component {
         </TabPanel>
 
       </Tabs>
-      <ControlButtons courses={this.props.courses} constraints={this.props.constraints} setTimetables={this.props.setTimetables} setTtbIndex={this.props.setTtbIndex} num_timetables={this.props.num_timetables} setCourses={this.props.setCourses} setConstraints={this.props.setConstraints} setNumTimetables={this.props.setNumTimetables}/>
+      <ControlButtons setMessage={this.props.setMessage} courses={this.props.courses} constraints={this.props.constraints} setTimetables={this.props.setTimetables} setTtbIndex={this.props.setTtbIndex} num_timetables={this.props.num_timetables} setCourses={this.props.setCourses} setConstraints={this.props.setConstraints} setNumTimetables={this.props.setNumTimetables}/>
       </div>
     );
   }

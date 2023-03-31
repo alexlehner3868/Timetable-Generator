@@ -2,7 +2,7 @@ import { AwesomeButton } from 'react-awesome-button';
 import 'react-awesome-button/dist/styles.css';
 import Generate from '../Generate';
 
-const ControlButtons = ({courses, constraints, setTimetables, setTtbIndex, num_timetables, setCourses, setConstraints, setNumTimetables}) => {
+const ControlButtons = ({courses, constraints, setTimetables, setTtbIndex, num_timetables, setCourses, setConstraints, setNumTimetables, setMessage}) => {
 
     const Request = async () => {
         // Extract the courses, constraints as strings
@@ -22,7 +22,11 @@ const ControlButtons = ({courses, constraints, setTimetables, setTtbIndex, num_t
         })
         .then(response => response.json())
         // Log the response
-        console.log("generated:", response);
+    
+        console.log("about to print");
+        console.log("generated:", response.slice(0,-1));
+        console.log("message:", response.slice(-1)[0][0].Message);
+        setMessage(response.slice(-1)[0][0].Message);
         // Update the global state
         setTimetables(response);
         // Put the user back on first timetable

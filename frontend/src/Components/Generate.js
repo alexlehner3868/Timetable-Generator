@@ -3,6 +3,7 @@ import 'react-awesome-button/dist/styles.css';
 
 // NOTE: THIS ITEM IS NO LONGER USED. IT HAS BEEN MERGED INTO CONTROL BUTTONS
 // -- Module --
+/*
 const Generate = ({courses, constraints, setTimetables, setTtbIndex, num_timetables}) => {
   const Request = async () => {
     // Extract the courses, constraints as strings
@@ -22,9 +23,13 @@ const Generate = ({courses, constraints, setTimetables, setTtbIndex, num_timetab
     })
     .then(response => response.json())
     // Log the response
-    console.log("generated:", response);
+    
+    console.log("about to print");
+    console.log("generated:", response.slice(0,-1));
+    console.log("message:", response.slice(-1));
     // Update the global state
-    setTimetables(response);
+    setTimetables(response.slice(0,-1));
+    //setMessage(response.slice(-1))
     // Put the user back on first timetable
     setTtbIndex(0);
   };
@@ -41,3 +46,4 @@ const Generate = ({courses, constraints, setTimetables, setTtbIndex, num_timetab
 
 // -- Exports --
 export default Generate;
+*/

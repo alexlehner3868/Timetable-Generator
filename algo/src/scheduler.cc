@@ -338,9 +338,9 @@ bool Scheduler::attempt_to_add_section(
     return  found_at_least_one_option;
 }
 
-void Scheduler::print_timetables(vector<TimeTable> timetables) {
+void Scheduler::print_timetables(vector<TimeTable> timetables, string result_string) {
     int counter = timetables.size();
-    cout << "[";
+    cout << "["; 
     for (auto timetable : timetables) {
         // Output the current timetable
         cout << jsonify(timetable);
@@ -349,7 +349,9 @@ void Scheduler::print_timetables(vector<TimeTable> timetables) {
         // If there are more remaining, separate by a comma
         if (counter)
           cout << ",";
-    }
+    } 
+    cout << "," << "[{";
+    cout << "\"Message\":\"" << result_string <<  "\"" << "}]";
     cout << "]";
 }
 

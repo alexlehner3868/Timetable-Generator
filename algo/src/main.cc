@@ -214,7 +214,7 @@ int exec(vector<string> courses, vector<string> constraints, int num_timetables)
         best_timetables_post_constraints.insert(best_timetables_post_constraints.end(),in_timetable);
     }
 
-    scheduler_handler.print_timetables(best_timetables_post_constraints);
+    scheduler_handler.print_timetables(best_timetables_post_constraints, result_string);
 
 
     return 0;

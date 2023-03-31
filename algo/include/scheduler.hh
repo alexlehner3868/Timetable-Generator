@@ -61,7 +61,7 @@ public:
         unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> &courses, char sem);
     bool unique_check(TimeTable &timetable);
     std::vector<std::string> make_timetable_str(TimeTable &timetable);
-    void print_timetables(vector<TimeTable> timetables);
+    void print_timetables(vector<TimeTable> timetables, string result_string);
     string get_result_string();
     int set_num_timetables(int num_timetables);
     int set_max_explore(int explore_timetables);

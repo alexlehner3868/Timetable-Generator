@@ -75,7 +75,7 @@ def main():
             all_args.append(f"-x{constraints}")
         num_timetables = request.args.get("numtimetables")
         if (num_timetables):
-            if int(num_timetables) > 0:
+            if int(num_timetables) > 0 and int(num_timetables) < 41:
                 all_args.append(f"-n{num_timetables}")
         # Run subprocess
         if (courses):

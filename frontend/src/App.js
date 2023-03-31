@@ -130,8 +130,8 @@ function App() {
       </header>
       <div className="whole-webpage">
         <Options    timetables={timetables} ttbIndex={ttbIndex} setTtbIndex={setTtbIndex} num_timetables={num_timetables} setNumTimetables={setNumTimetables} setTabIndex={setTabIndex}/>
-        <MainWindow timetables={timetables} ttbIndex={ttbIndex} setTtbIndex={setTtbIndex} constraints={constraints} setConstraints={setConstraints} tabIndex={tabIndex} setTabIndex={setTabIndex}/>
-        <Sidebar    courses={courses} setCourses={setCourses} constraints={constraints} setConstraints={setConstraints} setTimetables={setTimetables} setTtbIndex={setTtbIndex} num_timetables={num_timetables} setNumTimetables={setNumTimetables}/>
+        <MainWindow message={message} timetables={timetables} ttbIndex={ttbIndex} setTtbIndex={setTtbIndex} constraints={constraints} setConstraints={setConstraints} tabIndex={tabIndex} setTabIndex={setTabIndex}/>
+        <Sidebar    setMessage={setMessage} courses={courses} setCourses={setCourses} constraints={constraints} setConstraints={setConstraints} setTimetables={setTimetables} setTtbIndex={setTtbIndex} num_timetables={num_timetables} setNumTimetables={setNumTimetables}/>
         <Message message={message}/>
         <p className="dedication">Dedicated to Professor Hans Kunov</p>
         <p></p>
