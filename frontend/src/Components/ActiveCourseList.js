@@ -4,11 +4,12 @@
 import { AwesomeButton } from 'react-awesome-button';
 import 'react-awesome-button/dist/styles.css';
 // -- Module --
-const ActiveCourseList = ({courses, setCourses}) => {
+const ActiveCourseList = ({courses, setCourses, setMessage}) => {
 
     
     const removeCourse = course => {
       console.log(`removing course: ${course}`)
+      setMessage("Please generate timetables again.");
       const sortedCourses = Array.from(courses).sort();
       setCourses(new Set(sortedCourses));
       setCourses(prev => new Set([...prev].filter(x => x !== course)));
@@ -178,6 +179,7 @@ const ActiveCourseList = ({courses, setCourses}) => {
           break;
 
       }
+      setMessage("Please generate timetables.");
 
     } 
     return (

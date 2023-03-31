@@ -25,8 +25,8 @@ class Sidebar extends React.Component {
           <Tab>Constraints</Tab>
         </TabList>
         <TabPanel >
-          <SearchBar courses={this.props.courses} setCourses={this.props.setCourses}/>
-          <ActiveCourseList courses={this.props.courses} setCourses={this.props.setCourses}/>
+          <SearchBar setMessage={this.props.setMessage} courses={this.props.courses} setCourses={this.props.setCourses}/>
+          <ActiveCourseList setMessage={this.props.setMessage} courses={this.props.courses} setCourses={this.props.setCourses}/>
         </TabPanel>
         <TabPanel>
           <AddConstraintButton constraints={this.props.constraints} setConstraints={this.props.setConstraints}/>

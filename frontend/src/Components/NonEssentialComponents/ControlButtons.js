@@ -70,10 +70,12 @@ const ControlButtons = ({courses, constraints, setTimetables, setTtbIndex, num_t
         setConstraints(prev => new Set())
         setCourses(prev => new Set())
         setNumTimetables(20);
+        setMessage("Please add courses and constraints to generate timetables.");
       };
 
       const removeAllCourses = course => {
         setCourses(prev => new Set())
+        setMessage("Please add a course to generate timetables.");
       };
 
       const removeAllConstraints = (constraint) => {
@@ -112,6 +114,7 @@ const ControlButtons = ({courses, constraints, setTimetables, setTtbIndex, num_t
         }
         setConstraints(prev => new Set())
         setNumTimetables(20);
+        setMessage("Please generate timetables again.");
     };
 
       function handleDeleteAll (event) {

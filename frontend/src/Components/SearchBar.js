@@ -11,7 +11,7 @@ import EditCourse from './EditCourse';
 import Data from "../data/courses.json";
 
 // -- Module --
-const SearchBar = ({courses, setCourses}) => {
+const SearchBar = ({courses, setCourses, setMessage}) => {
   const [query, setQuery]  = useState("");
 
   const showResults = (query) =>  {
@@ -63,6 +63,7 @@ const SearchBar = ({courses, setCourses}) => {
                   setCourses={setCourses}
                   showResults={showResults}
                   courses={courses}
+                  setMessage={setMessage}
                 />
               </div>
             </div>
