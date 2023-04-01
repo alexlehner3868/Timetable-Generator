@@ -106,12 +106,12 @@ const Timetable = (props) => {
       var constraint = "12" + day + "0" + hour;
       if ( !props.constraints.has(constraint)) {
         addConstraint(constraint);
-        blockedOffTimes[hour][day] = 3;
-        grid[hour][day].block = 3;
+        //blockedOffTimes[hour][day] = 3;
+        //grid[hour][day].block = 3;
       } else {
         removeConstraintTime(constraint);
-        blockedOffTimes[hour][day] = 0;
-        grid[hour][day].block = 0;
+        //blockedOffTimes[hour][day] = 0;
+        //grid[hour][day].block = 0;
       }
     } else if (hour > 9 && hour < 21) {
       var constraint = "12" + day + hour;
@@ -119,25 +119,26 @@ const Timetable = (props) => {
       if ( !props.constraints.has(constraint)) {
         console.log("adding")
         addConstraint(constraint);
-        blockedOffTimes[hour][day] = 3;
-        grid[hour][day].block = 2;/*
-        grid[hour][day] = {
+        console.log("timetable is: ", props.timetable)
+        //blockedOffTimes[hour][day] = 3;
+        //grid[hour][day].block = 2;
+        props.timetable.push({
           course: "BLOCKED OFF TIME",
-          day: {day},
+          day: day+1,
           section: 3,
           semester:"F",
-          time: {hour},
+          time: hour,
           type: "PRA"
-        }
-        console.log(grid[hour][day])*/
+        });
+        console.log(props.timetable)
       } else {
         console.log("removing", constraint)
         removeConstraintTime(constraint);
         blockedOffTimes[hour][day] = 0;
-        grid[hour][day].block = 0;
+        //grid[hour][day].block = 0;
         console.log(props.constraints)
       }
-    }
+    } 
     //then recall generate
   }
 

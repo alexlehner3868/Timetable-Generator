@@ -24,11 +24,17 @@ const ControlButtons = ({courses, constraints, setTimetables, setTtbIndex, num_t
         // Log the response
     
         console.log("about to print");
-        console.log("generated:", response.slice(0,-1));
-        console.log("message:", response.slice(-1)[0][0].Message);
-        setMessage(response.slice(-1)[0][0].Message);
+        console.log(response)
+        if (response.length != 0) {
+          console.log("generated:", response.slice(0,-1));
+          console.log("message:", response.slice(-1)[0][0].Message);
+          setMessage(response.slice(-1)[0][0].Message);
+          setTimetables(response.slice(0,-1));
+        } else {
+          setMessage("Empty timetable. Please add courses and/or constraints.")
+          setTimetables([])
+        }
         // Update the global state
-        setTimetables(response.slice(0,-1));
         // Put the user back on first timetable
         setTtbIndex(0);
       };
