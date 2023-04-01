@@ -59,7 +59,7 @@ const Timetable = (props) => {
       async_course_list += meet.course + " (" + meet.type + "0"+ meet.section + ") "
     }
   }
-  console.log(async_course_list)
+  //console.log(async_course_list)
   // Compute x is in [begin, end)
   const inRange = (x, begin, end) => {
     return (begin <= x) && (x < end);
@@ -106,10 +106,47 @@ const Timetable = (props) => {
       var constraint = "12" + day + "0" + hour;
       if ( !props.constraints.has(constraint)) {
         addConstraint(constraint);
+        props.timetable.push({
+          course: "BLOCKED OFF TIME",
+          day: day+1,
+          section: 3,
+          semester:"F",
+          time: hour,
+          type: "PRA"
+        });
         //blockedOffTimes[hour][day] = 3;
         //grid[hour][day].block = 3;
       } else {
+        console.log()
+        console.log()
+        console.log()
+        console.log()
         removeConstraintTime(constraint);
+        //loop until find the OFFENSIVE object
+        for (i = 0; i < props.timetable.length; i++) {
+          console.log("timetable at index", props.timetable[i])
+          
+          if (props.timetable[i].course == "BLOCKED OFF TIME" &&
+            props.timetable[i].day == day+1 &&
+            props.timetable[i].section == 3 &&
+            props.timetable[i].semester == "F" &&
+            props.timetable[i].time == hour &&
+            props.timetable[i].type == "PRA" &&
+            props.timetable[i].multiPos == 1) {
+              console.log("found it at index ", i)
+              props.timetable.splice(i, 1)
+          } else if (props.timetable[i].course == "BLOCKED" &&
+          props.timetable[i].day == day+1 &&
+          props.timetable[i].section == 3 &&
+          props.timetable[i].semester == "F" &&
+          props.timetable[i].time == hour &&
+          props.timetable[i].type == "_" &&
+          props.timetable[i].multiPos == 1) {
+            console.log("found it at index ", i)
+              props.timetable.splice(i, 1)
+          }
+        }
+        
         //blockedOffTimes[hour][day] = 0;
         //grid[hour][day].block = 0;
       }
@@ -134,8 +171,29 @@ const Timetable = (props) => {
       } else {
         console.log("removing", constraint)
         removeConstraintTime(constraint);
-        blockedOffTimes[hour][day] = 0;
-        //grid[hour][day].block = 0;
+        for (i = 0; i < props.timetable.length; i++) {
+          console.log("timetable at index", props.timetable[i])
+          
+          if (props.timetable[i].course == "BLOCKED OFF TIME" &&
+            props.timetable[i].day == day+1 &&
+            props.timetable[i].section == 3 &&
+            props.timetable[i].semester == "F" &&
+            props.timetable[i].time == hour &&
+            props.timetable[i].type == "PRA" &&
+            props.timetable[i].multiPos == 1) {
+              console.log("found it at index ", i)
+              props.timetable.splice(i, 1)
+          } else if (props.timetable[i].course == "BLOCKED" &&
+          props.timetable[i].day == day+1 &&
+          props.timetable[i].section == 3 &&
+          props.timetable[i].semester == "F" &&
+          props.timetable[i].time == hour &&
+          props.timetable[i].type == "_" &&
+          props.timetable[i].multiPos == 1) {
+            console.log("found it at index ", i)
+              props.timetable.splice(i, 1)
+          }
+        }
         console.log(props.constraints)
       }
     } 
