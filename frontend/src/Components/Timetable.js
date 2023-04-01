@@ -87,6 +87,8 @@ const Timetable = (props) => {
 
     //have the hour and day to block off time
     //simply add the block off time constraint
+
+    //new functions for adding/removing time blocks 
     const addConstraint = (constraint) => {
       console.log(`adding constraint: ${constraint}`)
       props.setConstraints(prev => new Set(prev.add(constraint)))
@@ -95,6 +97,7 @@ const Timetable = (props) => {
       console.log(`removing constraint: ${constraint}`)
       props.setConstraints(prev => new Set([...prev].filter(x => (x.slice(0,5) !== (constraint.slice(0,5))))))
     };
+
     //since the constraint type is 12, days is always one char and time is two chars, use "hours" for time 
     //when blocked off and "priority" for the day
     //constraint type is 
@@ -128,7 +131,7 @@ const Timetable = (props) => {
         }
         console.log(grid[hour][day])*/
       } else {
-        console.log("removing")
+        console.log("removing", constraint)
         removeConstraintTime(constraint);
         blockedOffTimes[hour][day] = 0;
         grid[hour][day].block = 0;

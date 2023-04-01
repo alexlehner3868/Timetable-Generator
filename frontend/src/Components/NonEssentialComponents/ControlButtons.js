@@ -28,7 +28,7 @@ const ControlButtons = ({courses, constraints, setTimetables, setTtbIndex, num_t
         console.log("message:", response.slice(-1)[0][0].Message);
         setMessage(response.slice(-1)[0][0].Message);
         // Update the global state
-        setTimetables(response);
+        setTimetables(response.slice(0,-1));
         // Put the user back on first timetable
         setTtbIndex(0);
       };
