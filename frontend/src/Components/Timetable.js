@@ -121,14 +121,16 @@ const Timetable = (props) => {
         console.log()
         console.log()
         console.log()
+        console.log("trying to remove constraint")
         removeConstraintTime(constraint);
         //loop until find the OFFENSIVE object
+        console.log("now looping")
         for (i = 0; i < props.timetable.length; i++) {
           console.log("timetable at index", props.timetable[i])
           
           if (props.timetable[i].course == "BLOCKED OFF TIME" &&
             props.timetable[i].day == day+1 &&
-            props.timetable[i].section == 3 &&
+            (props.timetable[i].section == 1 || props.timetable[i].section == 3) &&
             props.timetable[i].semester == "F" &&
             props.timetable[i].time == hour &&
             props.timetable[i].type == "PRA" &&
@@ -137,7 +139,7 @@ const Timetable = (props) => {
               props.timetable.splice(i, 1)
           } else if (props.timetable[i].course == "BLOCKED" &&
           props.timetable[i].day == day+1 &&
-          props.timetable[i].section == 3 &&
+          (props.timetable[i].section == 1 || props.timetable[i].section == 3) &&
           props.timetable[i].semester == "F" &&
           props.timetable[i].time == hour &&
           props.timetable[i].type == "_" &&
@@ -176,7 +178,7 @@ const Timetable = (props) => {
           
           if (props.timetable[i].course == "BLOCKED OFF TIME" &&
             props.timetable[i].day == day+1 &&
-            props.timetable[i].section == 3 &&
+            (props.timetable[i].section == 1 || props.timetable[i].section == 3) &&
             props.timetable[i].semester == "F" &&
             props.timetable[i].time == hour &&
             props.timetable[i].type == "PRA" &&
@@ -185,7 +187,7 @@ const Timetable = (props) => {
               props.timetable.splice(i, 1)
           } else if (props.timetable[i].course == "BLOCKED" &&
           props.timetable[i].day == day+1 &&
-          props.timetable[i].section == 3 &&
+          (props.timetable[i].section == 1 || props.timetable[i].section == 3) &&
           props.timetable[i].semester == "F" &&
           props.timetable[i].time == hour &&
           props.timetable[i].type == "_" &&
