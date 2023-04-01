@@ -23,11 +23,11 @@ const ControlButtons = ({courses, constraints, setTimetables, setTtbIndex, num_t
         .then(response => response.json())
         // Log the response
     
-        console.log("about to print");
-        console.log(response)
+        //console.log("about to print");
+        //console.log(response)
         if (response.length != 0) {
-          console.log("generated:", response.slice(0,-1));
-          console.log("message:", response.slice(-1)[0][0].Message);
+          //console.log("generated:", response.slice(0,-1));
+          //console.log("message:", response.slice(-1)[0][0].Message);
           setMessage(response.slice(-1)[0][0].Message);
           setTimetables(response.slice(0,-1));
         } else {

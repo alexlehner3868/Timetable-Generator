@@ -25,7 +25,7 @@ const Options = ({timetables, ttbIndex, setTtbIndex, num_timetables, setNumTimet
       //console.log("printing the new num timetables", num_timetables_val)
     }
   } 
-  console.log(num_timetables)
+  //console.log(num_timetables)
 
   return (
     <div className="control-bar">
