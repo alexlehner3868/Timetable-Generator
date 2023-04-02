@@ -176,10 +176,11 @@ int exec(vector<string> courses, vector<string> constraints, int num_timetables)
     //     result_string += "Timetable not created due to course specified in semester, but not offered. ";
     //     //return 1; // TODO: change me
     // }
-    if (!constraint_handler.preprocess_high_priority_classes_out(offerings, result_string)) {
-        //return 1; // TODO: change me
+    
+    if(constraint_handler.blocked_off_time_exists()){
+        constraint_handler.preprocess_high_priority_classes_out(offerings, result_string);
     }
-
+    
     vector<TimeTable> best_timetables = scheduler_handler.schedule_classes(offerings, &constraint_handler);
     result_string += scheduler_handler.get_result_string(); // TODO: need to return this to the front end too
 

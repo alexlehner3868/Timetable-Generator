@@ -88,6 +88,10 @@ public:
     int cost_of_class(Date d);
     int cost_of_timetable(std::unordered_map<Date, SelectedCourseSection, Date_Hash> timetable);
     int sync_vs_async_cost(bool is_class_sync);
+    
+    bool blocked_off_time_exists(){
+        return time_constraints_.size();
+    }
     // For stats
     stringstream output_constraints_stats();
 };
