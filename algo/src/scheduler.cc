@@ -24,7 +24,11 @@ int non_test_count = 0;
 vector<TimeTable> Scheduler::schedule_classes(
     unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> &courses,
     ConstraintHandler* constraint_handler) {
-    constraint_handler_ = constraint_handler;
+    if(constraint_handler->any_constraints_exists()){
+        constraint_handler_ = constraint_handler;
+        check_for_constraint_ = true;
+    }
+    
 
     // create timetable
     TimeTable timetable;
@@ -33,6 +37,8 @@ vector<TimeTable> Scheduler::schedule_classes(
     for(auto offering : courses){
          maximum_number_of_sections_ += offering.numCourses();
      }
+
+    
     // run scheduling algorithm
     //auto start = std::chrono::system_clock::now();
     schedule_classes_helper(courses, timetable);
@@ -78,8 +84,11 @@ void Scheduler::schedule_classes_helper(
     // All sections have been added
     if (courses.size() == 0) {
         number_of_explored_timetables++;
-        int timetable_additional_cost = constraint_handler_->cost_of_timetable(timetable.classes());
-        timetable.add_cost(timetable_additional_cost);
+        if(check_for_constraint_){
+            int timetable_additional_cost = constraint_handler_->cost_of_timetable(timetable.classes());
+            timetable.add_cost(timetable_additional_cost);
+        }
+           
         if (timetable.size() ==  maximum_number_of_sections_  && unique_check(timetable)) { 
             unique_timetables_found_++;
             // Priority queue has less than the max num of timetables
@@ -208,11 +217,12 @@ bool Scheduler::attempt_to_add_section(
                     // Time occupied by another course offering or constraint
                 } else {
                     // Keep track of which semester we chose
-                    if(!class_chosen.async){
-                        section_cost += constraint_handler_->cost_of_class(period);
+                    if(check_for_constraint_){
+                        if(!class_chosen.async){
+                            section_cost += constraint_handler_->cost_of_class(period);
+                        }
+                        section_cost  += constraint_handler_ ->sync_vs_async_cost(class_chosen.async);
                     }
-                    section_cost  += constraint_handler_ ->sync_vs_async_cost(class_chosen.async);
-
                 }
             }
 

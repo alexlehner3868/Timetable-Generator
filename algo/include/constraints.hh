@@ -88,9 +88,35 @@ public:
     int cost_of_class(Date d);
     int cost_of_timetable(std::unordered_map<Date, SelectedCourseSection, Date_Hash> timetable);
     int sync_vs_async_cost(bool is_class_sync);
-    
+
     bool blocked_off_time_exists(){
         return time_constraints_.size();
+    }
+    bool any_constraints_exists(){
+        if (time_constraints_.size()) {
+            return true;
+        }
+        // Penalize class for being in a prefered time (decrease cost)
+        if (no_morning_classes_ != NO_PRIORITY ) {
+          return true;
+        }
+        // Penalize class for being in a prefered time (decrease cost)
+        if (no_evening_classes_ != NO_PRIORITY ) {
+           return true;
+        }
+        // Penalize class for being in a prefered time (decrease cost)
+        if (no_afternoon_classes_ != NO_PRIORITY) {
+           return true;
+        }
+        // Penalize class for being after time (increase cost)
+        if (no_classes_after_X_.second > NO_PRIORITY) {
+           return true;
+        }
+        // Penalize class for being before time (increase cost)
+        if (no_classes_before_X_.second > NO_PRIORITY) {
+            return true;
+        }
+        return false;
     }
     // For stats
     stringstream output_constraints_stats();

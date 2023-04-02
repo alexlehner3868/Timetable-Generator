@@ -38,7 +38,7 @@ private:
     int timetables_not_explored_ = 0;
     bool output_stats = true;
     int unique_timetables_found_ = 0;
-
+    bool check_for_constraint_ = false;
     // For output
     string result_string; 
 
