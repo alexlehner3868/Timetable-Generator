@@ -73,12 +73,13 @@ vector<TimeTable> Scheduler::schedule_classes(
 string Scheduler::get_result_string() {
     return result_string; 
 }
+int print = 1;
 
 void Scheduler::schedule_classes_helper(
     unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> &courses,
     TimeTable &timetable) {
 
-    if (timetables_.size() > 0 && number_of_explored_timetables > max_number_of_timetables_to_explore) {
+    if (/*timetables_.size() > 0 && */number_of_explored_timetables > max_number_of_timetables_to_explore) {
         timetables_not_explored_++;
         return;
     }
@@ -124,8 +125,20 @@ void Scheduler::schedule_classes_helper(
         }
     }
     //#pragma omp parallel for
+
+    //we want to first place the courses with the fewest sections
+    int index = 0;
+    int nums[6] = {0};
+
+
     // Loop through all of the Course Offerings (ie the course and all its sections)
     for (auto course : courses) {
+        nums[index] = course.numCourses();
+        if (print) {cout << nums[index] << endl;}
+        index++;
+    }
+    for (auto course : courses) {
+        
         // Attempt to add a section
         //auto start = std::chrono::system_clock::now();
         bool success = attempt_to_add_section(timetable, LEC, course, courses, char());
@@ -141,7 +154,6 @@ void Scheduler::schedule_classes_helper(
         }*/
     }
 }
-
 bool Scheduler::attempt_to_add_section(
     TimeTable &timetable,
     int class_type,
@@ -158,10 +170,16 @@ bool Scheduler::attempt_to_add_section(
     } else {
         num_sections = (int)course.numPraSections();
     }
-    int srand_val = time(nullptr)+ time(nullptr)*sin(time(nullptr));
+    int srand_val = abs(time(nullptr)*cos(time(nullptr)) + time(nullptr)*sin(time(nullptr)));
     //value for second semester
-    srand(1418983059);//1680587506);//1680628838//1680628943
-    //cout << "the srand value is " << srand_val << endl;
+    srand(srand_val);//20874366//1418983059//55662427(long, not worth it)//1859965549(quick)//302889345
+    //55662427(kinda)
+    //1680587506);//1680628838//1680628943
+    if (print) {
+        cout << "the srand value is " << srand_val << endl;
+        cout << course.course_id_ <<endl;
+        print = 0;
+    }
     //  Loop through all of the possible lecture sections in the course
     vector<int> shuffled_sections;
     for (int i = 0; i < num_sections; i++) {
@@ -185,8 +203,8 @@ bool Scheduler::attempt_to_add_section(
     case (3): max_abide = (int)num_sections; break;
     case (4): max_abide = (int)num_sections/3; break;
     case (5): max_abide = (int)num_sections/4; break;
-    case (6): max_abide = (int)num_sections/5; break;
-    default: max_abide = (int)num_sections/2; break;
+    case (6): max_abide = (int)num_sections/8; break;
+    default: max_abide = (int)num_sections/10; break;
    }
    
     for (int section_indx = 0; section_indx < max_abide; section_indx++) {
