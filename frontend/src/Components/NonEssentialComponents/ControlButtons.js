@@ -5,6 +5,7 @@ import Generate from '../Generate';
 const ControlButtons = ({courses, constraints, setTimetables, setTtbIndex, num_timetables, setCourses, setConstraints, setNumTimetables, setMessage}) => {
 
     const Request = async () => {
+        setMessage("Please wait for a timeable to generate...");
         // Extract the courses, constraints as strings
         const course_array = Array.from(courses);
         const constraint_array = Array.from(constraints);
@@ -22,7 +23,8 @@ const ControlButtons = ({courses, constraints, setTimetables, setTtbIndex, num_t
         })
         .then(response => response.json())
         // Log the response
-    
+        
+        setMessage("Timetable generation completed.");
         //console.log("about to print");
         //console.log(response)
         if (response.length != 0) {
