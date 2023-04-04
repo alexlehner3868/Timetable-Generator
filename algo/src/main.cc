@@ -218,40 +218,59 @@ int exec(vector<string> courses, vector<string> constraints, int num_timetables)
         constraint_handler.preprocess_high_priority_classes_out(offerings, result_string);
     }
     // Remove sections that are not in decided semester 
+    /*
     constraint_handler.prune_semesters(offerings);
+    
     // Split the offerings into fall and winter course s
     pair<unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>, unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>> split_offerings = split_into_semesters(offerings);
- 
     // Schedule each semester 
     vector<TimeTable> best_timetables_f = scheduler_handler.schedule_classes(split_offerings.first, &constraint_handler);
     vector<TimeTable> best_timetables_w = scheduler_handler.schedule_classes(split_offerings.second, &constraint_handler);
-
-    result_string += scheduler_handler.get_result_string(); // TODO: need to return this to the front end too
+*/
+vector<TimeTable> best_timetables  = scheduler_handler.schedule_classes(offerings, &constraint_handler);
+    result_string += scheduler_handler.get_result_string(); 
 
     if(result_string.empty()){
         result_string = "Timetables generated successfully";
     }   
     
-    vector<TimeTable> best_timetables;
+
+    /*
     // Combine winter and fall options to make joint timetables of fall and winter 
     if(best_timetables_f.size() > 0 && best_timetables_w.size() >0 ){
-        for(auto  fall : best_timetables_f){
-            for(auto winter : best_timetables_w){
-                if(best_timetables.size() < num_timetables){
-                    TimeTable best_timetable = combineTimeTables(winter, fall);
-                    best_timetables.push_back(best_timetable);
-                }else{
-                    break;
-                }
+        bool increment_winter = true;
+        int w_index = 0;
+        int f_index = 0;
+
+        while(best_timetables.size() < num_timetables && w_index < best_timetables_w.size() && f_index < best_timetables_f.size()){
+            TimeTable merged_timetable = combineTimeTables(best_timetables_f[f_index], best_timetables_w[w_index]);
+            best_timetables.push_back(merged_timetable);
+            
+            if(increment_winter){
+                w_index++; 
+            }else{
+                f_index++;
             }
-            if(best_timetables.size() >= num_timetables) break;
+            increment_winter = !increment_winter;
         }
+        while(best_timetables.size() < num_timetables && w_index < best_timetables_w.size()){
+            f_index = 0;
+            TimeTable merged_timetable = combineTimeTables(best_timetables_f[f_index], best_timetables_w[w_index]);
+            w_index++;
+        }
+
+        while(best_timetables.size() < num_timetables && f_index < best_timetables_f.size()){
+            w_index = 0;
+            TimeTable merged_timetable = combineTimeTables(best_timetables_f[f_index], best_timetables_w[w_index]);
+            f_index++;
+        }
+
     }else if(best_timetables_f.size() > 0){
         best_timetables = best_timetables_f;
     }else{
         best_timetables = best_timetables_w;
     }
-  
+  */
     vector<TimeTable> best_timetables_post_constraints;
     int index = 0;
     for (auto in_timetable: best_timetables) {

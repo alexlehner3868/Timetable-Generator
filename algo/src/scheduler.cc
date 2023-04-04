@@ -30,12 +30,13 @@ vector<TimeTable> Scheduler::schedule_classes(
         check_for_constraint_ = true;
     }
 
+    if(courses.size() == 0) return vector<TimeTable>();
     // Clear saved before scheduling 
     maximum_number_of_sections_ = 0; 
     number_of_explored_timetables = 0; 
     timetables_ = priority_queue<TimeTable, vector<TimeTable>, CompareTimeTable>();
     timetables_str.clear();
-    
+
     // create timetable
     TimeTable timetable;
     // Calculate num section in full timetable
