@@ -33,7 +33,7 @@ vector<TimeTable> Scheduler::schedule_classes(
     // create timetable
     TimeTable timetable;
     
-    cout << "max num is" << max_number_of_timetables_to_explore << endl;
+    //cout << "max num is" << max_number_of_timetables_to_explore << endl;
     // Calculate num section in full timetable
     for(auto offering : courses) {
          maximum_number_of_sections_ += offering.numCourses();
@@ -126,7 +126,15 @@ void Scheduler::schedule_classes_helper(
     // Loop through all of the Course Offerings (ie the course and all its sections)
     for (auto course : courses) {
         // Attempt to add a section
+        //auto start = std::chrono::system_clock::now();
         bool success = attempt_to_add_section(timetable, LEC, course, courses, char());
+        //auto end = std::chrono::system_clock::now();
+
+        //cout << "Time for run is " << (int) std::chrono::duration_cast<std::chrono::microseconds>(end - start).count() << endl;
+        /*if ((int) std::chrono::duration_cast<std::chrono::microseconds>(end - start).count() > 20000) {
+            cout << "abnormally long run for course " << course.course_id_ << "of " << (int) std::chrono::duration_cast<std::chrono::microseconds>(end - start).count() << endl;
+            print_timetable(timetable, 0);
+        }*/
         /*if(!success){
             //break;
         }*/
@@ -149,7 +157,7 @@ bool Scheduler::attempt_to_add_section(
     } else {
         num_sections = (int)course.numPraSections();
     }
-    
+    srand(time(nullptr));
     //  Loop through all of the possible lecture sections in the course
     vector<int> shuffled_sections;
     for (int i = 0; i < num_sections; i++) {
@@ -166,7 +174,13 @@ bool Scheduler::attempt_to_add_section(
     //auto rng = std::default_random_engine{};
     //shuffle(begin(shuffled_sections), end(shuffled_sections), rng);
    // #pragma omp parallel for
-    for (int section_indx = 0; section_indx < num_sections; section_indx++) {
+   int max_abide;
+   if (courses.size() > 3) {
+    max_abide = (int)num_sections/2;
+   } else {
+    max_abide = num_sections;
+   }
+    for (int section_indx = 0; section_indx < max_abide; section_indx++) {
         Section section;
         if (class_type == LEC) {
             section = course.lecture_sections_.at(shuffled_sections[section_indx]);
@@ -206,7 +220,7 @@ bool Scheduler::attempt_to_add_section(
             class_chosen.async = section.async_.at(class_in_section);
             if(class_chosen.async){
                 successfully_inserted = timetable.insert(class_chosen);
-                 found_at_least_one_option = true;
+                found_at_least_one_option = true;
             }
             int section_cost = 0;
             // Add a entry for every hour that the lecure has
