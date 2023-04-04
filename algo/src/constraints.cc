@@ -351,9 +351,9 @@ ConstraintHandler::ConstraintHandler() {
     no_more_than_X_hours_per_day_ = make_pair(24, NO_PRIORITY);
 
     minimize_days_at_school_ = NO_PRIORITY;
-    no_morning_classes_ = NO_PRIORITY;
-    no_afternoon_classes_ = NO_PRIORITY;
-    no_evening_classes_ = NO_PRIORITY;
+    no_morning_classes_ = NO_PRIORITY; 
+    no_afternoon_classes_ = NO_PRIORITY; 
+    no_evening_classes_ = NO_PRIORITY; 
     prefer_async_classes_ = NO_PRIORITY;
     prefer_sync_classes_ = NO_PRIORITY;
 

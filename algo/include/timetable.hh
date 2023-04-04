@@ -125,7 +125,7 @@ public:
 
 struct CompareTimeTable {
     bool operator()(TimeTable const &t1, TimeTable const &t2) {
-        return t1.current_time_table_cost > t2.current_time_table_cost;
+        return t1.current_time_table_cost < t2.current_time_table_cost;
     }
 };
 

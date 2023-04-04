@@ -48,15 +48,20 @@ vector<TimeTable> Scheduler::schedule_classes(
 
    
     // Convert pq to vector and return
-    vector<TimeTable> best_time_tables;
-    vector<int> timetable_costs;
     int num_tables = timetables_.size();
-    for (int i = 0; i < num_tables; i++) {
+    vector<TimeTable> best_time_tables(num_tables);
+    vector<int> timetable_costs(num_tables);
+    
+    for (int i = num_tables-1; i >= 0; i--) {
         TimeTable t = timetables_.top();
-        timetable_costs.push_back(t.cost());
-        best_time_tables.push_back(t);
+        timetable_costs.insert(timetable_costs.begin() + i, t.cost());
+        best_time_tables.insert(best_time_tables.begin() + i, t);
         timetables_.pop();
     }
+
+    //Reverse order so best are first 
+
+
     if (num_tables == 0) {
        result_string += "Could not generate any possible timetables";
     }
