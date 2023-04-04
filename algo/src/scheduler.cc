@@ -79,7 +79,7 @@ void Scheduler::schedule_classes_helper(
     unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> &courses,
     TimeTable &timetable) {
 
-    if (/*timetables_.size() > 0 && */number_of_explored_timetables > max_number_of_timetables_to_explore) {
+    if (timetables_.size() > 0 && number_of_explored_timetables > max_number_of_timetables_to_explore) {
         timetables_not_explored_++;
         return;
     }
@@ -126,17 +126,7 @@ void Scheduler::schedule_classes_helper(
     }
     //#pragma omp parallel for
 
-    //we want to first place the courses with the fewest sections
-    int index = 0;
-    int nums[6] = {0};
-
-
-    // Loop through all of the Course Offerings (ie the course and all its sections)
-    for (auto course : courses) {
-        nums[index] = course.numCourses();
-        if (print) {cout << nums[index] << endl;}
-        index++;
-    }
+    
     for (auto course : courses) {
         
         // Attempt to add a section
@@ -175,11 +165,11 @@ bool Scheduler::attempt_to_add_section(
     srand(srand_val);//20874366//1418983059//55662427(long, not worth it)//1859965549(quick)//302889345
     //55662427(kinda)
     //1680587506);//1680628838//1680628943
-    if (print) {
+    /*if (print) {
         cout << "the srand value is " << srand_val << endl;
         cout << course.course_id_ <<endl;
         print = 0;
-    }
+    }*/
     //  Loop through all of the possible lecture sections in the course
     vector<int> shuffled_sections;
     for (int i = 0; i < num_sections; i++) {
@@ -206,8 +196,10 @@ bool Scheduler::attempt_to_add_section(
     case (6): max_abide = (int)num_sections/8; break;
     default: max_abide = (int)num_sections/10; break;
    }
-   
-    for (int section_indx = 0; section_indx < max_abide; section_indx++) {
+   if (!max_abide && num_sections > 0) {
+    max_abide = 1;
+   }
+    for (int section_indx = 0; section_indx < max_abide; section_indx++) { //num_sections
         Section section;
         if (class_type == LEC) {
             section = course.lecture_sections_.at(shuffled_sections[section_indx]);
@@ -400,19 +392,29 @@ bool Scheduler::attempt_to_add_section(
 
 void Scheduler::print_timetables(vector<TimeTable> timetables, string result_string) {
     int counter = timetables.size();
-    cout << "["; 
-    for (auto timetable : timetables) {
-        // Output the current timetable
-        cout << jsonify(timetable);
-        // Reduce how many more we must output
-        counter--;
-        // If there are more remaining, separate by a comma
-        if (counter)
-          cout << ",";
-    } 
-    cout << "," << "[{";
-    cout << "\"Message\":\"" << result_string <<  "\"" << "}]";
-    cout << "]";
+    if (!counter) {
+        cout << "["; 
+        cout << "[]";
+        cout << "," << "[{";
+        cout << "\"Message\":\"" << result_string <<  "\"" << "}";
+        cout << "]";
+        cout << "]";
+    } else {
+        cout << "["; 
+        for (auto timetable : timetables) {
+            // Output the current timetable
+            cout << jsonify(timetable);
+            // Reduce how many more we must output
+            counter--;
+            // If there are more remaining, separate by a comma
+            if (counter)
+            cout << ",";
+        } 
+        cout << "," << "[{";
+        cout << "\"Message\":\"" << result_string <<  "\"" << "}]";
+        cout << "]";
+    }
+    
 }
 
 void Scheduler::print_timetable(TimeTable &timetable, int preset) {
