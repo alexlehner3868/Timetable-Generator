@@ -6,6 +6,7 @@
 #include "clip/parser.h"
 
 #define FMT_HEADER_ONLY
+#define FMT_CONSTEVAL
 #include <fmt/format.h>
 #include <unistd.h>
 

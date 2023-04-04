@@ -116,6 +116,9 @@ public:
         if (no_classes_before_X_.second > NO_PRIORITY) {
             return true;
         }
+        if(no_more_than_X_hours_per_day_.second > NO_PRIORITY){
+            return true; 
+        }
         return false;
     }
     // For stats

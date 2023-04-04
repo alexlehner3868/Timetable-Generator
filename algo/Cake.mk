@@ -10,7 +10,7 @@ CONFIG ?= BASIC
 
 # Flags
 LDLIBS    = -lsqlite3 -lfmt
-CXXFLAGS ?= -Wall -g -std=c++20
+CXXFLAGS ?= -Wall -g -std=c++20 -fopenmp
 
 # Linux-only
 ifeq ($(shell uname),Linux)
@@ -19,4 +19,6 @@ LDFLAGS  += -L./dep/lib
 else ifeq ($(shell uname),Darwin)
 CPPFLAGS += -I$(shell brew --prefix fmt)/include
 LDFLAGS  += -L$(shell brew --prefix fmt)/lib
+CXX = $(shell brew --prefix llvm)/bin/clang++ 
+CC = $(shell brew --prefix llvm)/bin/clang
 endif

@@ -120,13 +120,13 @@ void Scheduler::schedule_classes_helper(
             return;
         }
     }
-    #pragma omp parallel for
+    //#pragma omp parallel for
     // Loop through all of the Course Offerings (ie the course and all its sections)
     for (auto course : courses) {
         // Attempt to add a section
         bool success = attempt_to_add_section(timetable, LEC, course, courses, char());
         if(!success){
-            break;
+            //break;
         }
     }
 }
@@ -156,7 +156,7 @@ bool Scheduler::attempt_to_add_section(
 
     //auto rng = std::default_random_engine{};
     //shuffle(begin(shuffled_sections), end(shuffled_sections), rng);
-    #pragma omp parallel for
+   // #pragma omp parallel for
     for (int section_indx = 0; section_indx < num_sections; section_indx++) {
         Section section;
         if (class_type == LEC) {
