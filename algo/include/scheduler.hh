@@ -30,7 +30,7 @@ private:
     ConstraintHandler* constraint_handler_ = nullptr;
     StatCollector stats_collector_;
     int maximum_number_of_sections_ = 0;
-
+    std::chrono::time_point<std::chrono::system_clock> start_schedule_time_;
 
     std::default_random_engine rng_ = std::default_random_engine{};
     // Stats

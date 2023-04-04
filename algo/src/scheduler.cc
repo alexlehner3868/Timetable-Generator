@@ -11,6 +11,7 @@
 #include <iostream>
 #include <random>
 #include <execution>
+#include <stdlib.h>
 
 #include "math.h"
 #include "constraints.hh"
@@ -20,6 +21,9 @@
 #include "scheduler.hh"
 
 using namespace std;
+
+#define MAX_SEARCH_TIME 0.75
+#define QUICK_SEED 1859965549
 
 int non_test_count = 0;
 vector<TimeTable> Scheduler::schedule_classes(
@@ -45,10 +49,17 @@ vector<TimeTable> Scheduler::schedule_classes(
     }
 
     // run scheduling algorithm
-    auto start = std::chrono::system_clock::now();
-    schedule_classes_helper(courses, timetable);
-    auto end = std::chrono::system_clock::now();
-
+   start_schedule_time_ = std::chrono::system_clock::now();
+    schedule_classes_helper(courses, timetable);   
+    auto current_time = std::chrono::system_clock::now();
+    auto durantion = std::chrono::duration_cast<std::chrono::seconds>(current_time - start_schedule_time_).count();
+    // If we search for longer than 30 seconds  ALEX
+    TimeTable new_timetable;
+    if(durantion > MAX_SEARCH_TIME && timetables_.size() == 0){
+        start_schedule_time_ = std::chrono::system_clock::now();
+        srand(QUICK_SEED);
+        schedule_classes_helper(courses, new_timetable);  
+    }   
    
     // Convert pq to vector and return
     int num_tables = timetables_.size();
@@ -67,7 +78,7 @@ vector<TimeTable> Scheduler::schedule_classes(
        result_string += "Could not generate any possible timetables";
     }
     if(output_stats){
-        stats_collector_.set_scheduler_counts(partial_timetables_pruned_, full_timetable_pruned_, number_of_explored_timetables, max_number_of_timetables_to_explore, max_num_of_timetables_to_show, num_tables, unique_timetables_found_, std::chrono::duration_cast<std::chrono::microseconds>(end - start).count());
+    //    stats_collector_.set_scheduler_counts(partial_timetables_pruned_, full_timetable_pruned_, number_of_explored_timetables, max_number_of_timetables_to_explore, max_num_of_timetables_to_show, num_tables, unique_timetables_found_, std::chrono::duration_cast<std::chrono::microseconds>(current_time - start_schedule_time_).count());
         stats_collector_.track_constraints(constraint_handler, timetable_costs);
         stats_collector_.print_stats();
     }
@@ -83,6 +94,14 @@ int print = 1;
 void Scheduler::schedule_classes_helper(
     unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> &courses,
     TimeTable &timetable) {
+
+    auto current_time = std::chrono::system_clock::now();
+    auto durantion = std::chrono::duration_cast<std::chrono::seconds>(current_time - start_schedule_time_).count();
+    
+    // If we search for longer than 30 seconds  
+    if(durantion > MAX_SEARCH_TIME && timetables_.size() == 0){
+        return;
+    }
 
     if (timetables_.size() > 0 && number_of_explored_timetables > max_number_of_timetables_to_explore) {
         timetables_not_explored_++;
@@ -157,6 +176,13 @@ bool Scheduler::attempt_to_add_section(
     int num_sections = 0;
     optional<Semester> semester = nullopt;
     bool found_at_least_one_option = false; 
+
+    auto current_time = std::chrono::system_clock::now();
+    auto durantion = std::chrono::duration_cast<std::chrono::seconds>(current_time - start_schedule_time_).count();
+    // If we search for longer than 30 seconds  ALEX
+    if(durantion > MAX_SEARCH_TIME && timetables_.size() == 0){
+        return false;
+    }
 
     if (class_type == LEC) {
         num_sections = (int)course.numLecSections();

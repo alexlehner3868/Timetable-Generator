@@ -138,10 +138,10 @@ unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> get_classes(
                                course_eleven_practical_sections);
     class_eleven.semester(Semester::Winter);
 
-   // offerings.insert(class_seven);
-    //offerings.insert(class_eight);
-   //offerings.insert(class_nine);
-    //offerings.insert(class_ten);
+    offerings.insert(class_seven);
+    offerings.insert(class_eight);
+   offerings.insert(class_nine);
+    offerings.insert(class_ten);
     //offerings.insert(class_eleven);
 
     return offerings;
