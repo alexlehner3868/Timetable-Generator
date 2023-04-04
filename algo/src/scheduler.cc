@@ -33,16 +33,17 @@ vector<TimeTable> Scheduler::schedule_classes(
     // create timetable
     TimeTable timetable;
     
+    cout << "max num is" << max_number_of_timetables_to_explore << endl;
     // Calculate num section in full timetable
-    for(auto offering : courses){
+    for(auto offering : courses) {
          maximum_number_of_sections_ += offering.numCourses();
-     }
+    }
 
     
     // run scheduling algorithm
-    //auto start = std::chrono::system_clock::now();
+    auto start = std::chrono::system_clock::now();
     schedule_classes_helper(courses, timetable);
-   // auto end = std::chrono::system_clock::now();
+    auto end = std::chrono::system_clock::now();
 
    
     // Convert pq to vector and return
@@ -58,7 +59,6 @@ vector<TimeTable> Scheduler::schedule_classes(
     if (num_tables == 0) {
        result_string += "Could not generate any possible timetables";
     }
-
     if(output_stats){
         stats_collector_.set_scheduler_counts(partial_timetables_pruned_, full_timetable_pruned_, number_of_explored_timetables, max_number_of_timetables_to_explore, max_num_of_timetables_to_show, num_tables, unique_timetables_found_, std::chrono::duration_cast<std::chrono::microseconds>(end - start).count());
         stats_collector_.track_constraints(constraint_handler, timetable_costs);
@@ -114,6 +114,8 @@ void Scheduler::schedule_classes_helper(
     // TODO -> VERIFY that timetables_.top is showing the worst best cost
     if ((int) timetables_.size() > 0 && (int) timetables_.size() >= (int) max_num_of_timetables_to_show) {
         TimeTable t = timetables_.top();
+        //NOT SURE IF THIS ONE LINE SHOULD BE HERE...
+        //number_of_explored_timetables++;
         int cost = t.cost();
         if (timetable.cost() > cost) {
             partial_timetables_pruned_++;
@@ -125,9 +127,9 @@ void Scheduler::schedule_classes_helper(
     for (auto course : courses) {
         // Attempt to add a section
         bool success = attempt_to_add_section(timetable, LEC, course, courses, char());
-        if(!success){
+        /*if(!success){
             //break;
-        }
+        }*/
     }
 }
 
@@ -153,18 +155,25 @@ bool Scheduler::attempt_to_add_section(
     for (int i = 0; i < num_sections; i++) {
         shuffled_sections.push_back(i);
     }
-
+    int size = shuffled_sections.size();
+    for (int i = 0; i < size - 1; i++) {
+      int j = i + rand() % (size - i);
+      swap(shuffled_sections[i], shuffled_sections[j]);
+    }
+   /*for (int i = 0; i < num_sections; i++) {
+        cout << shuffled_sections[i] <<endl;
+    }*/
     //auto rng = std::default_random_engine{};
     //shuffle(begin(shuffled_sections), end(shuffled_sections), rng);
    // #pragma omp parallel for
     for (int section_indx = 0; section_indx < num_sections; section_indx++) {
         Section section;
         if (class_type == LEC) {
-            section = course.lecture_sections_.at(section_indx);
+            section = course.lecture_sections_.at(shuffled_sections[section_indx]);
         } else if (class_type == TUT) {
-            section = course.tutorial_sections_.at(section_indx);
+            section = course.tutorial_sections_.at(shuffled_sections[section_indx]);
         } else {
-            section = course.practical_sections_.at(section_indx);
+            section = course.practical_sections_.at(shuffled_sections[section_indx]);
         }
 
         int class_in_section;
@@ -182,11 +191,11 @@ bool Scheduler::attempt_to_add_section(
 
         };
         int semester_offset = (class_chosen.semester == 'F') ? 0 : 5;
-        if(class_type != LEC){
+        /*if(class_type != LEC){
             if(sem != class_chosen.semester && course.numLecSections() != 0){
                 continue;
             }
-        }
+        }*/
         bool successfully_inserted = true;
         // Is this class an async class
         Date period;

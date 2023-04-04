@@ -26,10 +26,11 @@ private:
     int max_sections_scheduled();
     int max_num_of_timetables_to_show = 20;
     int number_of_explored_timetables = 0;
-    int max_number_of_timetables_to_explore = 10000;
+    int max_number_of_timetables_to_explore;
     ConstraintHandler* constraint_handler_;
     StatCollector stats_collector_;
     int maximum_number_of_sections_ = 0;
+
 
     std::default_random_engine rng_ = std::default_random_engine{};
     // Stats
