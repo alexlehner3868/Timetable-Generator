@@ -58,13 +58,13 @@ vector<TimeTable> Scheduler::schedule_classes(
     if (num_tables == 0) {
        result_string += "Could not generate any possible timetables";
     }
-/*
+
     if(output_stats){
         stats_collector_.set_scheduler_counts(partial_timetables_pruned_, full_timetable_pruned_, number_of_explored_timetables, max_number_of_timetables_to_explore, max_num_of_timetables_to_show, num_tables, unique_timetables_found_, std::chrono::duration_cast<std::chrono::microseconds>(end - start).count());
         stats_collector_.track_constraints(constraint_handler, timetable_costs);
         stats_collector_.print_stats();
     }
-    */
+    
     //cerr<<"Non unique "<<non_test_count<<endl;
     return best_time_tables;
 }
