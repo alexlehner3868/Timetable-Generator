@@ -64,6 +64,11 @@ public:
         return true;
     }
 
+    bool insert_async(string c){
+        scheduled_async_classes.insert(c);
+        return true;
+    }
+
     void erase (SelectedCourseSection section){
         scheduled_async_classes.erase(async_course_string(section));
     }
@@ -74,6 +79,10 @@ public:
 
     std::unordered_map<Date, SelectedCourseSection, Date_Hash> classes() {
         return scheduled_classes;
+    }
+
+    std::unordered_set<string>  async_classes(){
+        return scheduled_async_classes;
     }
 
     SelectedCourseSection create_class_section(string course_info){
@@ -110,6 +119,7 @@ public:
         return courses;
     } 
 
+
     int cost() {
         return current_time_table_cost;
     }
@@ -121,6 +131,7 @@ public:
     bool balanced() {
       return std::abs(this->chose_fall - this->chose_winter) <= 3;
     }
+
 };
 
 struct CompareTimeTable {

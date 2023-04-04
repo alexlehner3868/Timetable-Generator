@@ -25,22 +25,24 @@ int non_test_count = 0;
 vector<TimeTable> Scheduler::schedule_classes(
     unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> &courses,
     ConstraintHandler* constraint_handler) {
-    if(constraint_handler->any_constraints_exists()){
+    if(constraint_handler_ == nullptr && constraint_handler->any_constraints_exists()){
         constraint_handler_ = constraint_handler;
         check_for_constraint_ = true;
     }
-    
 
+    // Clear saved before scheduling 
+    maximum_number_of_sections_ = 0; 
+    number_of_explored_timetables = 0; 
+    timetables_ = priority_queue<TimeTable, vector<TimeTable>, CompareTimeTable>();
+    timetables_str.clear();
+    
     // create timetable
     TimeTable timetable;
-    
-    //cout << "max num is" << max_number_of_timetables_to_explore << endl;
     // Calculate num section in full timetable
     for(auto offering : courses) {
          maximum_number_of_sections_ += offering.numCourses();
     }
 
-    
     // run scheduling algorithm
     auto start = std::chrono::system_clock::now();
     schedule_classes_helper(courses, timetable);
@@ -51,16 +53,14 @@ vector<TimeTable> Scheduler::schedule_classes(
     int num_tables = timetables_.size();
     vector<TimeTable> best_time_tables(num_tables);
     vector<int> timetable_costs(num_tables);
-    
     for (int i = num_tables-1; i >= 0; i--) {
         TimeTable t = timetables_.top();
-        timetable_costs.insert(timetable_costs.begin() + i, t.cost());
-        best_time_tables.insert(best_time_tables.begin() + i, t);
+        timetable_costs[i] = t.cost();
+        best_time_tables[i] = t;
         timetables_.pop();
     }
 
     //Reverse order so best are first 
-
 
     if (num_tables == 0) {
        result_string += "Could not generate any possible timetables";
@@ -70,7 +70,6 @@ vector<TimeTable> Scheduler::schedule_classes(
         stats_collector_.track_constraints(constraint_handler, timetable_costs);
         stats_collector_.print_stats();
     }
-    
     //cerr<<"Non unique "<<non_test_count<<endl;
     return best_time_tables;
 }

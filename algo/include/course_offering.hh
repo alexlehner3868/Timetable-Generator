@@ -81,6 +81,43 @@ public:
          int num_tut = (tutorial_sections_.size() > 0 ) ? tutorial_sections_[0].num_hours_in_section() : 0;
          return num_lec+num_pra+num_tut;
      }
+    
+    pair<int, int> sec_per_sem(){
+        int f_count = 0;
+        int w_count = 0;
+        if(numLecSections() > 0){
+            for(auto sec : lecture_sections_){
+                for(auto sem : sec.semester_){
+                    if (sem == 'F'){
+                        f_count++;
+                    }else{
+                        w_count++;
+                    }
+                }
+            }
+        }else if(numTutSections() > 0){
+            for(auto sec : tutorial_sections_){
+                for(auto sem : sec.semester_){
+                    if (sem == 'F'){
+                        f_count++;
+                    }else{
+                        w_count++;
+                    }
+                }
+            }
+        }else if(numPraSections() > 0){
+            for(auto sec : practical_sections_){
+                for(auto sem : sec.semester_){
+                    if (sem == 'F'){
+                        f_count++;
+                    }else{
+                        w_count++;
+                    }
+                }
+            }
+        }
+        return pair<int, int>(f_count, w_count);
+    }
 
     string name_;
     string course_id_;
