@@ -12,6 +12,7 @@
 #include <random>
 #include <execution>
 
+#include "math.h"
 #include "constraints.hh"
 #include "course_offering.hh"
 #include "period.hh"
@@ -157,7 +158,10 @@ bool Scheduler::attempt_to_add_section(
     } else {
         num_sections = (int)course.numPraSections();
     }
-    srand(time(nullptr));
+    int srand_val = time(nullptr)+ time(nullptr)*sin(time(nullptr));
+    //value for second semester
+    srand(1418983059);//1680587506);//1680628838//1680628943
+    //cout << "the srand value is " << srand_val << endl;
     //  Loop through all of the possible lecture sections in the course
     vector<int> shuffled_sections;
     for (int i = 0; i < num_sections; i++) {
@@ -175,11 +179,16 @@ bool Scheduler::attempt_to_add_section(
     //shuffle(begin(shuffled_sections), end(shuffled_sections), rng);
    // #pragma omp parallel for
    int max_abide;
-   if (courses.size() > 3) {
-    max_abide = (int)num_sections/2;
-   } else {
-    max_abide = num_sections;
+   switch (courses.size()) {
+    case (1): max_abide = (int)num_sections; break;
+    case (2): max_abide = (int)num_sections; break;
+    case (3): max_abide = (int)num_sections; break;
+    case (4): max_abide = (int)num_sections/3; break;
+    case (5): max_abide = (int)num_sections/4; break;
+    case (6): max_abide = (int)num_sections/5; break;
+    default: max_abide = (int)num_sections/2; break;
    }
+   
     for (int section_indx = 0; section_indx < max_abide; section_indx++) {
         Section section;
         if (class_type == LEC) {

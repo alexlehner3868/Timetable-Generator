@@ -273,5 +273,6 @@ int main(int argc, char *argv[]) {
         constraints.push_back(constraint_str.substr(start, end - start));
     }
     // Execute the algorithm
+     std::sort(courses.begin(),courses.end());
     return exec(courses, constraints, num_timetables);
 }
