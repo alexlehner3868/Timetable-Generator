@@ -224,6 +224,25 @@ const AddConstraintButton = (props) => {
                 // error so don't do anything
             }
         }
+    } function handleSubmitMaxHour (event) {
+        event.preventDefault();
+        removeConstraint("12");
+        const priority = document.getElementById("max_hour_priorities").value;
+        const hours = document.getElementById("max_hour_value").value;
+      
+        if (priority !== "0") {
+            //console.log(priority);
+            //console.log("Prioritizing Shortest Break")
+            //console.log("11" + priority + hours);
+            const int_hours = parseInt(hours);
+            if (int_hours < 10 && int_hours > 0) { //single digit hour value
+                addConstraint("12" + priority + "0" + hours);
+            } else if (int_hours > 9 && int_hours < 13 ) {
+                addConstraint("12" + priority + hours);
+            } else {
+                // error so don't do anything
+            }
+        }
     } function handleSubmitTimeBlock (event) {
         event.preventDefault();
         
@@ -245,6 +264,8 @@ const AddConstraintButton = (props) => {
     var max_class_value;
     var max_break;
     var max_break_value;
+    var max_hour;
+    var max_hour_value;
 
     function repopulate_constraints(constraint) {
         //for each element, find constraint number and get the document id to match
@@ -321,6 +342,16 @@ const AddConstraintButton = (props) => {
                     break;
                 case 11:
                     max_break = priority;
+                    //not valid
+                    if (hours_refresh < 1 || hours_refresh > 12) {
+                        hours_refresh = 0;
+                    } else {
+                        //valid
+                        max_break_value = hours_refresh;
+                    }
+                    break;
+                case 12:
+                    max_hour = priority;
                     //not valid
                     if (hours_refresh < 1 || hours_refresh > 12) {
                         hours_refresh = 0;
@@ -427,6 +458,14 @@ const AddConstraintButton = (props) => {
             <label id="max">Max Hours of Break</label>
             <input type="number" defaultValue={max_break_value} id="max_break_value" min="1" max="12" onChange = {handleSubmitMaxBreak} ></input>
             <select list="Priority" defaultValue={max_break} class="dropdown" id="max_break_priorities" onChange = {handleSubmitMaxBreak}>
+                <option value="0"></option>
+                <option class="good_to_have" value="1">Good To Have</option>
+                <option class="great_to_have" value="2">Great To Have</option>
+                <option class="must_have" value="3">Must Have</option>
+            </select> <br></br>
+            <label id="max">Max Hours of Class Per Day</label>
+            <input type="number" defaultValue={max_hour_value} id="max_hour_value" min="1" max="12" onChange = {handleSubmitMaxHour} ></input>
+            <select list="Priority" defaultValue={max_hour} class="dropdown" id="max_hour_priorities" onChange = {handleSubmitMaxHour}>
                 <option value="0"></option>
                 <option class="good_to_have" value="1">Good To Have</option>
                 <option class="great_to_have" value="2">Great To Have</option>

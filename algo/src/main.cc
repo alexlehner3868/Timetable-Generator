@@ -184,7 +184,9 @@ int exec(vector<string> courses, vector<string> constraints, int num_timetables)
             constraint_handler.set_back_to_back_constraint(hours, priority);
         } else if (constraint_type == 11 && priority > 0 && hours > 0) {
             constraint_handler.set_no_breaks_larger_than_X_constraint(hours, priority);
-        } else if (constraint_type == 12 && int(constraints[0][2]-48) > 0 && hours > 0) {
+        } else if (constraint_type == 12 && priority > 0 && hours > 0) {
+            constraint_handler.set_no_more_than_X_hours_per_day_constraint(hours, priority);
+        } else if (constraint_type == 13 && int(constraints[0][2]-48) > 0 && hours > 0) {
             //hardcode into fall semester for now
             //hardcode priority to must have
             if (int(constraints[0][2]-48) < 6) {

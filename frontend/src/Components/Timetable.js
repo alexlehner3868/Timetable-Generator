@@ -103,7 +103,7 @@ const Timetable = (props) => {
     //constraint type is 
     
     if (hour == 9) {
-      var constraint = "12" + day + "0" + hour;
+      var constraint = "13" + day + "0" + hour;
       if ( !props.constraints.has(constraint)) {
         addConstraint(constraint);
         props.timetable.push({
@@ -150,7 +150,7 @@ const Timetable = (props) => {
         //grid[hour][day].block = 0;
       }
     } else if (hour > 9 && hour < 21) {
-      var constraint = "12" + day + hour;
+      var constraint = "13" + day + hour;
       //console.log(props.constraints);
       if ( !props.constraints.has(constraint)) {
         //console.log("adding")
