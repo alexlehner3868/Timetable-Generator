@@ -197,7 +197,7 @@ int exec(vector<string> courses, vector<string> constraints, int num_timetables)
             //since the constraint type is 13, days is always one char and time is two chars, use "hours" for time 
             //when blocked off and "priority" for the day
             //hardcode priority to must have
-            if (int(constraint[2])-48 < 6) {
+            if (int(constraint[2])-48 < 5) {
                 //add_time_constraint(int start_time, int duration, int day, char semester, int priority);
                 constraint_handler.add_time_constraint(hours, 1, int(constraint[2])-48, 'F', 10);
                 block_semesters.insert(block_semesters.end(), 'F');
@@ -270,10 +270,10 @@ int exec(vector<string> courses, vector<string> constraints, int num_timetables)
                                                     // F - FALL W - WINTER Y - BOTH [WONT SAY Y ANYM]
                 .async = false
             };
-            index = 0;
             Date period = make_pair(day+1, start_time);
             in_timetable.insert(std::make_pair(period, class_chosen));
         }
+        index = 0;
         best_timetables_post_constraints.push_back(in_timetable);
 
     }

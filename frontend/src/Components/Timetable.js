@@ -102,7 +102,7 @@ const Timetable = (props) => {
     //when blocked off and "priority" for the day
     //constraint type is 
     var sem = 'F';
-    if (day > 6) {
+    if (day > 4) {
       sem = 'S';
     }
     if (hour == 9) {
@@ -174,26 +174,21 @@ const Timetable = (props) => {
       } else {
         //console.log("removing", constraint)
         removeConstraintTime(constraint);
+        console.log("searching for ", day+1)
         for (i = 0; i < props.timetable.length; i++) {
           //console.log("timetable at index", props.timetable[i])
-          
+          console.log("found ", props.timetable[i].day, " with course ", props.timetable[i].course)
           if (props.timetable[i].course == "BLOCKED OFF TIME" &&
             props.timetable[i].day == day+1 &&
-            (props.timetable[i].section == 1 || props.timetable[i].section == 3) &&
             props.timetable[i].semester == sem &&
-            props.timetable[i].time == hour &&
-            props.timetable[i].type == "PRA" &&
-            props.timetable[i].multiPos == 1) {
-              //console.log("found it at index ", i)
+            props.timetable[i].time == hour) {
+              console.log("found it at index ", i)
               props.timetable.splice(i, 1)
           } else if (props.timetable[i].course == "BLOCKED" &&
           props.timetable[i].day == day+1 &&
-          (props.timetable[i].section == 1 || props.timetable[i].section == 3) &&
           props.timetable[i].semester == sem &&
-          props.timetable[i].time == hour &&
-          props.timetable[i].type == "_" &&
-          props.timetable[i].multiPos == 1) {
-            //console.log("found it at index ", i)
+          props.timetable[i].time == hour) {
+            console.log("found it at index ", i)
               props.timetable.splice(i, 1)
           }
         }
