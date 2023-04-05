@@ -194,6 +194,7 @@ bool ConstraintHandler::preprocess_high_priority_classes_out(unordered_set<Cours
   return valid_sections_after_removal;
 }
 
+
 bool ConstraintHandler::prune_semesters(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> &offerings) {
   bool succeeded = true;
 

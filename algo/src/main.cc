@@ -60,6 +60,23 @@ pair<unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>, unorde
     return {fall_classes, winter_classes};
 }
 */
+
+unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> reorder_offerings(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> &original_offerings){
+    priority_queue<pair<int, int>, vector<pair<int,int>>, greater<pair<int,int>>> pq; 
+    unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> ordered_set;
+    vector<CourseOfferings> vector_of_offerings(original_offerings.begin(), original_offerings.end());
+    int num_off = vector_of_offerings.size();
+    for(int i = 0 ; i < num_off; i++){
+        pq.push({vector_of_offerings[i].num_courses_, i});
+    }
+    while(!pq.empty()){
+        ordered_set.insert(vector_of_offerings[pq.top().second]);
+        pq.pop();
+    }
+
+    return ordered_set;
+}
+
 int exec(vector<string> courses, vector<string> constraints, int num_timetables) {
     string result_string = "";
     //--- Data Procesing ----
@@ -214,7 +231,9 @@ int exec(vector<string> courses, vector<string> constraints, int num_timetables)
         constraint_handler.preprocess_high_priority_classes_out(offerings, result_string);
     }
 
- 
+    // Reorder the offerings based on number of things that need to be scheduled 
+    offerings = reorder_offerings(offerings);
+
     vector<TimeTable> best_timetables  = scheduler_handler.schedule_classes(offerings, &constraint_handler);
     result_string += scheduler_handler.get_result_string(); 
 
