@@ -110,12 +110,12 @@ const Timetable = (props) => {
       if ( !props.constraints.has(constraint)) {
         addConstraint(constraint);
         props.timetable.push({
-          course: "BLOCKED OFF TIME",
+          course: "BLOCKED",
           day: day+1,
-          section: 3,
+          section: "_",
           semester:sem,
           time: hour,
-          type: "PRA"
+          type: "_"
         });
         //blockedOffTimes[hour][day] = 3;
         //grid[hour][day].block = 3;
@@ -131,20 +131,14 @@ const Timetable = (props) => {
           
           if (props.timetable[i].course == "BLOCKED OFF TIME" &&
             props.timetable[i].day == day+1 &&
-            (props.timetable[i].section == 1 || props.timetable[i].section == 3) &&
             props.timetable[i].semester == sem &&
-            props.timetable[i].time == hour &&
-            props.timetable[i].type == "PRA" &&
-            props.timetable[i].multiPos == 1) {
+            props.timetable[i].time == hour) {
               //console.log("found it at index ", i)
               props.timetable.splice(i, 1)
           } else if (props.timetable[i].course == "BLOCKED" &&
           props.timetable[i].day == day+1 &&
-          (props.timetable[i].section == 1 || props.timetable[i].section == 3) &&
           props.timetable[i].semester == sem &&
-          props.timetable[i].time == hour &&
-          props.timetable[i].type == "_" &&
-          props.timetable[i].multiPos == 1) {
+          props.timetable[i].time == hour) {
             //console.log("found it at index ", i)
               props.timetable.splice(i, 1)
           }
@@ -163,32 +157,32 @@ const Timetable = (props) => {
         //blockedOffTimes[hour][day] = 3;
         //grid[hour][day].block = 2;
         props.timetable.push({
-          course: "BLOCKED OFF TIME",
+          course: "BLOCKED",
           day: day+1,
-          section: 3,
+          section: "_",
           semester:sem,
           time: hour,
-          type: "PRA"
+          type: "_"
         });
         //console.log(props.timetable)
       } else {
         //console.log("removing", constraint)
         removeConstraintTime(constraint);
-        console.log("searching for ", day+1)
+        //console.log("searching for ", day+1)
         for (i = 0; i < props.timetable.length; i++) {
           //console.log("timetable at index", props.timetable[i])
-          console.log("found ", props.timetable[i].day, " with course ", props.timetable[i].course)
+          //console.log("found ", props.timetable[i].day, " with course ", props.timetable[i].course)
           if (props.timetable[i].course == "BLOCKED OFF TIME" &&
             props.timetable[i].day == day+1 &&
             props.timetable[i].semester == sem &&
             props.timetable[i].time == hour) {
-              console.log("found it at index ", i)
+              //console.log("found it at index ", i)
               props.timetable.splice(i, 1)
           } else if (props.timetable[i].course == "BLOCKED" &&
           props.timetable[i].day == day+1 &&
           props.timetable[i].semester == sem &&
           props.timetable[i].time == hour) {
-            console.log("found it at index ", i)
+            //console.log("found it at index ", i)
               props.timetable.splice(i, 1)
           }
         }

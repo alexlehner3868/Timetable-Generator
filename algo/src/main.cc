@@ -193,20 +193,21 @@ int exec(vector<string> courses, vector<string> constraints, int num_timetables)
             constraint_handler.set_no_breaks_larger_than_X_constraint(hours, priority);
         } else if (constraint_type == 12 && priority > 0 && hours > 0) {
             constraint_handler.set_no_more_than_X_hours_per_day_constraint(hours, priority);
-        } else if (constraint_type == 13 && int(constraint[2])-48 > 0 && hours > 0) {
+        } else if (constraint_type == 13 && hours > 0) {
             //since the constraint type is 13, days is always one char and time is two chars, use "hours" for time 
             //when blocked off and "priority" for the day
             //hardcode priority to must have
-            if (int(constraint[2])-48 < 5) {
+            if (priority < 5) {
                 //add_time_constraint(int start_time, int duration, int day, char semester, int priority);
-                constraint_handler.add_time_constraint(hours, 1, int(constraint[2])-48, 'F', 10);
+                //cout << "adding time constraints" << endl;
+                constraint_handler.add_time_constraint(hours, 1, priority/*this is really the day*/, 'F', 10);
                 block_semesters.insert(block_semesters.end(), 'F');
-                block_day.insert(block_day.end(), int(constraint[2])-48);
+                block_day.insert(block_day.end(), priority);
                 block_start_time.insert(block_start_time.end(), hours);
             } else {
-                constraint_handler.add_time_constraint(hours, 1, int(constraint[2])-48, 'S', 10);
+                constraint_handler.add_time_constraint(hours, 1, priority, 'S', 10);
                 block_semesters.insert(block_semesters.end(), 'S');
-                block_day.insert(block_day.end(), int(constraint[2])-48);
+                block_day.insert(block_day.end(), priority);
                 block_start_time.insert(block_start_time.end(), hours);
             }
         } else {

@@ -20,6 +20,10 @@ void ConstraintHandler::add_time_constraint(int start_time,
         }
         time_constraints_.insert({make_pair(day, start_time + i), priority});
     }
+    /*cout << "printing" << endl;
+    for (auto constraint:time_constraints_) {
+      cout << "day " << constraint.first.first << " time " << constraint.first.second <<endl;
+    }*/
 }
 
 void ConstraintHandler::set_back_to_back_constraint(int max_back_to_back, int priority) {
