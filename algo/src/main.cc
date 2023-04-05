@@ -21,6 +21,7 @@
 
 using namespace std;
 
+/* TO BE DELETED
 TimeTable combineTimeTables (TimeTable & t1, TimeTable &t2){
     TimeTable merged_timetable = t1;
 
@@ -58,7 +59,7 @@ pair<unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>, unorde
     }
     return {fall_classes, winter_classes};
 }
-
+*/
 int exec(vector<string> courses, vector<string> constraints, int num_timetables) {
     string result_string = "";
     //--- Data Procesing ----
@@ -208,26 +209,13 @@ int exec(vector<string> courses, vector<string> constraints, int num_timetables)
         case 14: scheduler_handler.set_max_explore(70000); break;
         default: scheduler_handler.set_max_explore(4000); break;
     }
-
-    // if (!constraint_handler.prune_semesters(offerings) /*&& !scheduler_handler.allow_incomplete*/) {
-    //     result_string += "Timetable not created due to course specified in semester, but not offered. ";
-    //     //return 1; // TODO: change me
-    // }
     
     if(constraint_handler.blocked_off_time_exists()){
         constraint_handler.preprocess_high_priority_classes_out(offerings, result_string);
     }
-    // Remove sections that are not in decided semester 
-    /*
-    constraint_handler.prune_semesters(offerings);
-    
-    // Split the offerings into fall and winter course s
-    pair<unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>, unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>> split_offerings = split_into_semesters(offerings);
-    // Schedule each semester 
-    vector<TimeTable> best_timetables_f = scheduler_handler.schedule_classes(split_offerings.first, &constraint_handler);
-    vector<TimeTable> best_timetables_w = scheduler_handler.schedule_classes(split_offerings.second, &constraint_handler);
-*/
-vector<TimeTable> best_timetables  = scheduler_handler.schedule_classes(offerings, &constraint_handler);
+
+ 
+    vector<TimeTable> best_timetables  = scheduler_handler.schedule_classes(offerings, &constraint_handler);
     result_string += scheduler_handler.get_result_string(); 
 
     if(result_string.empty()){
@@ -235,42 +223,6 @@ vector<TimeTable> best_timetables  = scheduler_handler.schedule_classes(offering
     }   
     
 
-    /*
-    // Combine winter and fall options to make joint timetables of fall and winter 
-    if(best_timetables_f.size() > 0 && best_timetables_w.size() >0 ){
-        bool increment_winter = true;
-        int w_index = 0;
-        int f_index = 0;
-
-        while(best_timetables.size() < num_timetables && w_index < best_timetables_w.size() && f_index < best_timetables_f.size()){
-            TimeTable merged_timetable = combineTimeTables(best_timetables_f[f_index], best_timetables_w[w_index]);
-            best_timetables.push_back(merged_timetable);
-            
-            if(increment_winter){
-                w_index++; 
-            }else{
-                f_index++;
-            }
-            increment_winter = !increment_winter;
-        }
-        while(best_timetables.size() < num_timetables && w_index < best_timetables_w.size()){
-            f_index = 0;
-            TimeTable merged_timetable = combineTimeTables(best_timetables_f[f_index], best_timetables_w[w_index]);
-            w_index++;
-        }
-
-        while(best_timetables.size() < num_timetables && f_index < best_timetables_f.size()){
-            w_index = 0;
-            TimeTable merged_timetable = combineTimeTables(best_timetables_f[f_index], best_timetables_w[w_index]);
-            f_index++;
-        }
-
-    }else if(best_timetables_f.size() > 0){
-        best_timetables = best_timetables_f;
-    }else{
-        best_timetables = best_timetables_w;
-    }
-  */
     vector<TimeTable> best_timetables_post_constraints;
     int index = 0;
     for (auto in_timetable: best_timetables) {
