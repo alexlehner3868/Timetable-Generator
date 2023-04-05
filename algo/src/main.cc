@@ -270,6 +270,7 @@ int exec(vector<string> courses, vector<string> constraints, int num_timetables)
                                                     // F - FALL W - WINTER Y - BOTH [WONT SAY Y ANYM]
                 .async = false
             };
+            index = 0;
             Date period = make_pair(day+1, start_time);
             in_timetable.insert(std::make_pair(period, class_chosen));
         }

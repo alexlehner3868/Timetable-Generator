@@ -21,12 +21,11 @@ const ControlButtons = ({courses, constraints, setTimetables, setTtbIndex, num_t
           method: "GET",
           mode: "cors",
         })
-        .then(response => response.json())
+        .then(response =>  response.json())
         // Log the response
-        
         setMessage("Timetable generation completed.");
         //console.log("about to print");
-        //console.log(response)
+        console.log("response is", response)
         if (response.length != 0) {
           //console.log("generated:", response.slice(0,-1));
           //console.log("message:", response.slice(-1)[0][0].Message);

@@ -98,10 +98,13 @@ const Timetable = (props) => {
       props.setConstraints(prev => new Set([...prev].filter(x => (x.slice(0,5) !== (constraint.slice(0,5))))))
     };
 
-    //since the constraint type is 12, days is always one char and time is two chars, use "hours" for time 
+    //since the constraint type is 13, days is always one char and time is two chars, use "hours" for time 
     //when blocked off and "priority" for the day
     //constraint type is 
-    
+    var sem = 'F';
+    if (day > 6) {
+      sem = 'S';
+    }
     if (hour == 9) {
       var constraint = "13" + day + "0" + hour;
       if ( !props.constraints.has(constraint)) {
@@ -110,7 +113,7 @@ const Timetable = (props) => {
           course: "BLOCKED OFF TIME",
           day: day+1,
           section: 3,
-          semester:"F",
+          semester:sem,
           time: hour,
           type: "PRA"
         });
@@ -122,13 +125,14 @@ const Timetable = (props) => {
         removeConstraintTime(constraint);
         //loop until find the OFFENSIVE object
         //console.log("now looping")
+        
         for (i = 0; i < props.timetable.length; i++) {
           //console.log("timetable at index", props.timetable[i])
           
           if (props.timetable[i].course == "BLOCKED OFF TIME" &&
             props.timetable[i].day == day+1 &&
             (props.timetable[i].section == 1 || props.timetable[i].section == 3) &&
-            props.timetable[i].semester == "F" &&
+            props.timetable[i].semester == sem &&
             props.timetable[i].time == hour &&
             props.timetable[i].type == "PRA" &&
             props.timetable[i].multiPos == 1) {
@@ -137,7 +141,7 @@ const Timetable = (props) => {
           } else if (props.timetable[i].course == "BLOCKED" &&
           props.timetable[i].day == day+1 &&
           (props.timetable[i].section == 1 || props.timetable[i].section == 3) &&
-          props.timetable[i].semester == "F" &&
+          props.timetable[i].semester == sem &&
           props.timetable[i].time == hour &&
           props.timetable[i].type == "_" &&
           props.timetable[i].multiPos == 1) {
@@ -162,7 +166,7 @@ const Timetable = (props) => {
           course: "BLOCKED OFF TIME",
           day: day+1,
           section: 3,
-          semester:"F",
+          semester:sem,
           time: hour,
           type: "PRA"
         });
@@ -176,7 +180,7 @@ const Timetable = (props) => {
           if (props.timetable[i].course == "BLOCKED OFF TIME" &&
             props.timetable[i].day == day+1 &&
             (props.timetable[i].section == 1 || props.timetable[i].section == 3) &&
-            props.timetable[i].semester == "F" &&
+            props.timetable[i].semester == sem &&
             props.timetable[i].time == hour &&
             props.timetable[i].type == "PRA" &&
             props.timetable[i].multiPos == 1) {
@@ -185,7 +189,7 @@ const Timetable = (props) => {
           } else if (props.timetable[i].course == "BLOCKED" &&
           props.timetable[i].day == day+1 &&
           (props.timetable[i].section == 1 || props.timetable[i].section == 3) &&
-          props.timetable[i].semester == "F" &&
+          props.timetable[i].semester == sem &&
           props.timetable[i].time == hour &&
           props.timetable[i].type == "_" &&
           props.timetable[i].multiPos == 1) {
