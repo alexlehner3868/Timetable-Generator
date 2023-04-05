@@ -146,11 +146,18 @@ int exec(vector<string> courses, vector<string> constraints, int num_timetables)
     vector<char> block_semesters;
     vector<int> block_start_time;
     vector<int> block_day;
-    while (constraints.size() > 0) {
-        
-        constraint_type = 10*int(constraints[0][0]-48) + int(constraints[0][1]-48);
-        priority = int(constraints[0][2]-48);
-        hours = 10*int(constraints[0][3]-48) + int(constraints[0][4]-48);
+
+    int index = 0;
+
+    
+
+    for (auto constraint: constraints) {
+        //cout << "constraint is " << constraint << endl;
+        //cout << "day is " << int(constraint[2])-48 << endl;
+        constraint_type = 10*int(constraint[0])-480 + int(constraint[1])-48;
+        priority = int(constraint[2])-48;
+        hours = 10*int(constraint[3])-480 + int(constraint[4])-48;
+        //cout << "constraint type is " << constraint_type << endl;
         //cout << "hours: " << hours << "constraint type: " << constraint_type << "priority" << priority << endl;
         if (priority == 1) {
             priority = 3;
@@ -186,26 +193,26 @@ int exec(vector<string> courses, vector<string> constraints, int num_timetables)
             constraint_handler.set_no_breaks_larger_than_X_constraint(hours, priority);
         } else if (constraint_type == 12 && priority > 0 && hours > 0) {
             constraint_handler.set_no_more_than_X_hours_per_day_constraint(hours, priority);
-        } else if (constraint_type == 13 && int(constraints[0][2]-48) > 0 && hours > 0) {
-            //hardcode into fall semester for now
+        } else if (constraint_type == 13 && int(constraint[2])-48 > 0 && hours > 0) {
+            //since the constraint type is 13, days is always one char and time is two chars, use "hours" for time 
+            //when blocked off and "priority" for the day
             //hardcode priority to must have
-            if (int(constraints[0][2]-48) < 6) {
+            if (int(constraint[2])-48 < 6) {
                 //add_time_constraint(int start_time, int duration, int day, char semester, int priority);
-                constraint_handler.add_time_constraint(hours, 1, int(constraints[0][2]-48), 'F', 10);
+                constraint_handler.add_time_constraint(hours, 1, int(constraint[2])-48, 'F', 10);
                 block_semesters.insert(block_semesters.end(), 'F');
-                block_day.insert(block_day.end(), int(constraints[0][2]-48));
+                block_day.insert(block_day.end(), int(constraint[2])-48);
                 block_start_time.insert(block_start_time.end(), hours);
             } else {
-                constraint_handler.add_time_constraint(hours, 1, int(constraints[0][2]-48), 'S', 10);
+                constraint_handler.add_time_constraint(hours, 1, int(constraint[2])-48, 'S', 10);
                 block_semesters.insert(block_semesters.end(), 'S');
-                block_day.insert(block_day.end(), int(constraints[0][2]-48));
+                block_day.insert(block_day.end(), int(constraint[2])-48);
                 block_start_time.insert(block_start_time.end(), hours);
             }
         } else {
             //pass, bad
             
         }
-        constraints.erase(constraints.begin());
     }
     //constraint_handler.add_time_constraint(10, 2, 2, 'F', MUST_HAVE); // tuesday at 10 am for 2 hours in the fall with
     //constraint_handler.set_no_classes_before_X_constraint(13, GOOD_TO_HAVE);
@@ -245,7 +252,7 @@ int exec(vector<string> courses, vector<string> constraints, int num_timetables)
     
 
     vector<TimeTable> best_timetables_post_constraints;
-    int index = 0;
+    index = 0;
     for (auto in_timetable: best_timetables) {
         
         for (auto sem:block_semesters) {

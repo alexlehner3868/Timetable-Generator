@@ -15,7 +15,7 @@ void ConstraintHandler::add_time_constraint(int start_time,
                                             char semester,
                                             int priority) {
     for (int i = 0; i < duration; i++) {
-        if (semester == 'W') {
+        if (semester == 'W' || semester == 'S') {
             day += 5;
         }
         time_constraints_.insert({make_pair(day, start_time + i), priority});
