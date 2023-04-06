@@ -85,12 +85,19 @@ public:
         return hash<string>()(c.course_id_);
         }
     };
-
-    bool operator< (const CourseOfferings &right) const{
-        return min_sections_ > right.min_sections_;
+    struct CustomCompare{
+        bool operator()(const CourseOfferings& lhs, const CourseOfferings& rhs)
+        {
+            return lhs.min_sections_ > rhs.min_sections_;
+        }
+    };
+       friend bool operator< (const CourseOfferings &left, const CourseOfferings &right) {
+        
+        return left.min_sections_ < right.min_sections_;
     }
-    bool operator> (const CourseOfferings &right) const{
-        return min_sections_ > right.min_sections_;
+     friend bool operator> (const CourseOfferings &left, const CourseOfferings &right) {
+       
+        return left.min_sections_ > right.min_sections_;
     }
 
    int numCourses(){

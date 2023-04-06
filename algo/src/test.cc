@@ -140,7 +140,7 @@ priority_queue<CourseOfferings, vector<CourseOfferings>, greater<CourseOfferings
 
     offerings.push(class_seven);
     offerings.push(class_eight);
-   //offerings.push(class_nine);
+   offerings.push(class_nine);
     offerings.push(class_ten);
     offerings.push(class_eleven);
 

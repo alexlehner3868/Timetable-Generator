@@ -150,7 +150,6 @@ void Scheduler::schedule_classes_helper(
     }
     //#pragma omp parallel for
 
-    
    // for (auto course : courses) {
         // Attempt to add a section
         //auto start = std::chrono::system_clock::now();
@@ -166,6 +165,7 @@ void Scheduler::schedule_classes_helper(
             //break;
         }*/
     //}
+    
 }
 bool Scheduler::attempt_to_add_section(
     TimeTable &timetable,

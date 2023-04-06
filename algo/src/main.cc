@@ -83,6 +83,10 @@ priority_queue<CourseOfferings, vector<CourseOfferings>, greater<CourseOfferings
     return ordered_set;
 }
 */
+
+ 
+
+
 int exec(vector<string> courses, vector<string> constraints, int num_timetables) {
     string result_string = "";
     //--- Data Procesing ----
