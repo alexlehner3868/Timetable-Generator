@@ -148,10 +148,10 @@ void Scheduler::schedule_classes_helper(
     //#pragma omp parallel for
 
     
-    for (auto course : courses) {
+   // for (auto course : courses) {
         // Attempt to add a section
         //auto start = std::chrono::system_clock::now();
-        bool success = attempt_to_add_section(timetable, LEC, course, courses, char());
+        bool success = attempt_to_add_section(timetable, LEC, *courses.begin(), courses, char());
         //auto end = std::chrono::system_clock::now();
 
         //cout << "Time for run is " << (int) std::chrono::duration_cast<std::chrono::microseconds>(end - start).count() << endl;
@@ -162,7 +162,7 @@ void Scheduler::schedule_classes_helper(
         /*if(!success){
             //break;
         }*/
-    }
+    //}
 }
 bool Scheduler::attempt_to_add_section(
     TimeTable &timetable,
@@ -214,7 +214,7 @@ bool Scheduler::attempt_to_add_section(
     //auto rng = std::default_random_engine{};
     //shuffle(begin(shuffled_sections), end(shuffled_sections), rng);
    // #pragma omp parallel for
-   int max_abide;
+      int max_abide;
    switch (courses.size()) {
     case (1): max_abide = (int)num_sections; break;
     case (2): max_abide = (int)num_sections; break;
@@ -227,7 +227,7 @@ bool Scheduler::attempt_to_add_section(
    if (!max_abide && num_sections > 0) {
     max_abide = 1;
    }
-    for (int section_indx = 0; section_indx < max_abide; section_indx++) { //num_sections
+    for (int section_indx = 0; section_indx < num_sections; section_indx++) { //num_sections
         Section section;
         if (class_type == LEC) {
             section = course.lecture_sections_.at(shuffled_sections[section_indx]);
@@ -252,11 +252,11 @@ bool Scheduler::attempt_to_add_section(
 
         };
         int semester_offset = (class_chosen.semester == 'F') ? 0 : 5;
-        /*if(class_type != LEC){
+        if(class_type != LEC){
             if(sem != class_chosen.semester && course.numLecSections() != 0){
                 continue;
             }
-        }*/
+        }
         bool successfully_inserted = true;
         // Is this class an async class
         Date period;
@@ -389,6 +389,9 @@ bool Scheduler::attempt_to_add_section(
                     }
                 }
             }
+        }
+        if(max_abide <section_indx && found_at_least_one_option){
+            break;
         }
     }
     
