@@ -175,7 +175,6 @@ bool Scheduler::attempt_to_add_section(
     int num_sections = 0;
     optional<Semester> semester = nullopt;
     bool found_at_least_one_option = false; 
-
 /*
     auto current_time = std::chrono::system_clock::now();
     auto durantion = std::chrono::duration_cast<std::chrono::seconds>(current_time - start_schedule_time_).count();
@@ -191,9 +190,9 @@ bool Scheduler::attempt_to_add_section(
     } else {
         num_sections = (int)course.numPraSections();
     }
-    int srand_val = abs(time(nullptr)*cos(time(nullptr)) + time(nullptr)*sin(time(nullptr)));
+    //int srand_val = abs(time(nullptr)*cos(time(nullptr)) + time(nullptr)*sin(time(nullptr)));
     //value for second semester
-    srand(srand_val);//20874366//1418983059//55662427(long, not worth it)//1859965549(quick)//302889345
+    //srand(srand_val);//20874366//1418983059//55662427(long, not worth it)//1859965549(quick)//302889345
     //55662427(kinda)
     //1680587506);//1680628838//1680628943
     /*if (print) {
@@ -206,11 +205,13 @@ bool Scheduler::attempt_to_add_section(
     for (int i = 0; i < num_sections; i++) {
         shuffled_sections.push_back(i);
     }
+    /*
     int size = shuffled_sections.size();
     for (int i = 0; i < size - 1; i++) {
       int j = i + rand() % (size - i);
       swap(shuffled_sections[i], shuffled_sections[j]);
     }
+    */
    /*for (int i = 0; i < num_sections; i++) {
         cout << shuffled_sections[i] <<endl;
     }*/
@@ -395,7 +396,7 @@ bool Scheduler::attempt_to_add_section(
             }
         }
         if(max_abide <section_indx && found_at_least_one_option){
-           break; // TODO: AMaybe delete so we get more than one
+           //break; // TODO: AMaybe delete so we get more than one
         }
     }
     

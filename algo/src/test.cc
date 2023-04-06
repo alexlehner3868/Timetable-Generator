@@ -80,12 +80,12 @@ priority_queue<CourseOfferings, vector<CourseOfferings>, greater<CourseOfferings
     class_six.semester(Semester::Fall);
 
     priority_queue<CourseOfferings, vector<CourseOfferings>, greater<CourseOfferings>> offerings;
-  offerings.push(class_one);
-   offerings.push(class_two);
- offerings.push(class_three);
-    offerings.push(class_four);
-    offerings.push(class_five);
-   offerings.push(class_six);
+  //offerings.push(class_one);
+  // offerings.push(class_two);
+ ///offerings.push(class_three);
+   // offerings.push(class_four);
+    //offerings.push(class_five);
+   ///offerings.push(class_six);
 
     std::vector<Section> course_seven_lecture_sections = course_data.add_course("APS105H1", 1);
     std::vector<Section> course_eight_lecture_sections = course_data.add_course("APS112H1", 1);
@@ -138,11 +138,11 @@ priority_queue<CourseOfferings, vector<CourseOfferings>, greater<CourseOfferings
                                course_eleven_practical_sections);
     class_eleven.semester(Semester::Winter);
 
-    //offerings.push(class_seven);
-    //offerings.push(class_eight);
- //  offerings.push(class_nine);
-   //offerings.push(class_ten);
-    //offerings.push(class_eleven);
+    offerings.push(class_seven);
+    offerings.push(class_eight);
+   //offerings.push(class_nine);
+    offerings.push(class_ten);
+    offerings.push(class_eleven);
 
     return offerings;
 }
