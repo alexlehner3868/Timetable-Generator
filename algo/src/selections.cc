@@ -62,7 +62,7 @@ void Selections::run_scheduler() {
     }
 
     CourseData course_data;
-    unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> offerings;
+    priority_queue<CourseOfferings, vector<CourseOfferings>, greater<CourseOfferings>> offerings;
     std::vector<Section> empty_vec;
     // add lectures
     std::vector<Section> course_one_lecture_sections = course_data.add_course(fall_courses[0], 1);
@@ -118,12 +118,12 @@ void Selections::run_scheduler() {
                               course_six_tutorial_sections,
                               course_six_practical_sections);
 
-    offerings.insert(class_one);
-    offerings.insert(class_two);
-    offerings.insert(class_three);
-    offerings.insert(class_four);
-    offerings.insert(class_five);
-    offerings.insert(class_six);
+    offerings.push(class_one);
+    offerings.push(class_two);
+    offerings.push(class_three);
+    offerings.push(class_four);
+    offerings.push(class_five);
+    offerings.push(class_six);
 
 
     std::vector<Section> course_seven_lecture_sections = course_data.add_course(winter_courses[0], 1);
@@ -172,11 +172,11 @@ void Selections::run_scheduler() {
                                course_eleven_practical_sections);
 
 
-    offerings.insert(class_seven);
-    offerings.insert(class_eight);
-    offerings.insert(class_nine);
-    offerings.insert(class_ten);
-    offerings.insert(class_eleven);
+    offerings.push(class_seven);
+    offerings.push(class_eight);
+    offerings.push(class_nine);
+    offerings.push(class_ten);
+    offerings.push(class_eleven);
 
     // official_constraints.preprocess_high_priority_classes_out(offerings);
     vector<TimeTable> best_timetables = official_scheduler.schedule_classes(offerings, &official_constraints);

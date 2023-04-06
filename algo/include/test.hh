@@ -3,11 +3,11 @@
 
 using namespace std;
 
-unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> get_classes();
+priority_queue<CourseOfferings, vector<CourseOfferings>, greater<CourseOfferings>> get_classes();
 void test_sample_questions();
-void remove_course(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& offerings, string course_id);
+void remove_course(priority_queue<CourseOfferings, vector<CourseOfferings>, greater<CourseOfferings>>& offerings, string course_id);
 void get_schedule();
-unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> test_three_classes_conflict();
+priority_queue<CourseOfferings, vector<CourseOfferings>, greater<CourseOfferings>> test_three_classes_conflict();
 
 
 #endif

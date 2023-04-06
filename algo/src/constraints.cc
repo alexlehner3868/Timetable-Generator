@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <queue>
 
 #include "course_data.hh"
 
@@ -75,7 +76,7 @@ void ConstraintHandler::set_prefer_dinner_break_constraint(int priority){
   prefer_dinner_break_ = priority;
 }
 
-bool ConstraintHandler::preprocess_high_priority_classes_out(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& original_offerings, string& result){
+bool ConstraintHandler::preprocess_high_priority_classes_out(priority_queue<CourseOfferings, vector<CourseOfferings>, greater<CourseOfferings>>& original_offerings, string& result){
   // Maybe? Add before_X and after_X times if it is a high priority (ie add all times above X for all days )
   // TimeConstraint(int start, int day, int priority, char semester)
   bool section_removed = false;
@@ -85,10 +86,11 @@ bool ConstraintHandler::preprocess_high_priority_classes_out(unordered_set<Cours
   vector<Section> new_tut_sections;
   vector<Section> new_pra_sections;
 
-  unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> new_offerings;
+  priority_queue<CourseOfferings, vector<CourseOfferings>, greater<CourseOfferings>> new_offerings;
   // copy original_offerings so we can loop through it and delete at the same time
-  //unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>::iterator offerings_iterator = original_offerings.begin();
-  for(auto offering: original_offerings){
+  //priority_queue<CourseOfferings, vector<CourseOfferings>, greater<CourseOfferings>>::iterator offerings_iterator = original_offerings.begin();
+  while(!original_offerings.empty()){
+    auto offering = original_offerings.top();
     bool lec_exists = offering.lecture_sections_.size() > 0;
     bool tut_exists = offering.tutorial_sections_.size() > 0;
     bool pra_exists = offering.practical_sections_.size() > 0;
@@ -190,7 +192,8 @@ bool ConstraintHandler::preprocess_high_priority_classes_out(unordered_set<Cours
     std::string new_course_id = offering.course_id_;
     CourseOfferings preprocessed_class(new_course_name,new_course_id,new_lec_sections, new_tut_sections, new_pra_sections);
     preprocessed_class.semester_ = offering.semester_;
-    new_offerings.insert(preprocessed_class);
+    new_offerings.push(preprocessed_class);
+    original_offerings.pop();
   }
 
   //copy new offerings over
@@ -198,8 +201,8 @@ bool ConstraintHandler::preprocess_high_priority_classes_out(unordered_set<Cours
   return valid_sections_after_removal;
 }
 
-
-bool ConstraintHandler::prune_semesters(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> &offerings) {
+/*
+bool ConstraintHandler::prune_semesters(priority_queue<CourseOfferings, vector<CourseOfferings>, greater<CourseOfferings>> &offerings) {
   bool succeeded = true;
 
   // Ignore offerings that are in the wrong semester
@@ -208,7 +211,7 @@ bool ConstraintHandler::prune_semesters(unordered_set<CourseOfferings, CourseOff
 
   return succeeded;
 }
-
+*/
 int ConstraintHandler::cost_of_class(Date d) {
     int cost = 0;
     // Penalize class for being in a blocked off region (increase cost)

@@ -5,6 +5,7 @@
 #include <string>
 #include <unordered_map>
 #include <vector>
+#include <queue>
 
 #include "course_data.hh"
 #include "course_offering.hh"
@@ -80,9 +81,9 @@ public:
 
     // Remove sections for initial pruning 
     bool preprocess_high_priority_classes_out(
-        unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> &original_offerings, string& result);
+        priority_queue<CourseOfferings, vector<CourseOfferings>, greater<CourseOfferings>> &original_offerings, string& result);
     bool prune_semesters(
-        unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> &offerings);
+        priority_queue<CourseOfferings, vector<CourseOfferings>, greater<CourseOfferings>> &offerings);
 
     // Calculate costs for pruning/ranking 
     int cost_of_class(Date d);

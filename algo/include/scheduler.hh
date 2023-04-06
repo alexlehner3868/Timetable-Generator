@@ -48,10 +48,10 @@ public:
 
     Scheduler();
     vector<TimeTable> schedule_classes(
-        unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> &courses,
+        priority_queue<CourseOfferings, vector<CourseOfferings>, greater<CourseOfferings>> &courses,
         ConstraintHandler *constraint_handler);
     void schedule_classes_helper(
-        unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> &courses,
+        priority_queue<CourseOfferings, vector<CourseOfferings>, greater<CourseOfferings>> &courses,
         TimeTable &timetable);
     void print_timetable(TimeTable &timetable, int preset);
     string jsonify(TimeTable &timetable);
@@ -59,7 +59,7 @@ public:
         TimeTable &timetable,
         int class_type,
         CourseOfferings course,
-        unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> &courses, char sem);
+        priority_queue<CourseOfferings, vector<CourseOfferings>, greater<CourseOfferings>> &courses, char sem);
     bool unique_check(TimeTable &timetable);
     std::vector<std::string> make_timetable_str(TimeTable &timetable);
     void print_timetables(vector<TimeTable> timetables, string result_string);

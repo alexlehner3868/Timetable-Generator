@@ -35,9 +35,9 @@ TimeTable combineTimeTables (TimeTable & t1, TimeTable &t2){
     return merged_timetable;
 }
 
-pair<unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>, unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>> split_into_semesters(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& offerings){
-   unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> fall_classes;
-   unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> winter_classes;
+pair<priority_queue<CourseOfferings, vector<CourseOfferings>, greater<CourseOfferings>>, priority_queue<CourseOfferings, vector<CourseOfferings>, greater<CourseOfferings>>> split_into_semesters(priority_queue<CourseOfferings, vector<CourseOfferings>, greater<CourseOfferings>>& offerings){
+   priority_queue<CourseOfferings, vector<CourseOfferings>, greater<CourseOfferings>> fall_classes;
+   priority_queue<CourseOfferings, vector<CourseOfferings>, greater<CourseOfferings>> winter_classes;
 
     for(auto offering : offerings){
         pair<int, int> sem_count =  offering.sec_per_sem(); 
@@ -60,23 +60,29 @@ pair<unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>, unorde
     return {fall_classes, winter_classes};
 }
 */
-
-unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> reorder_offerings(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> &original_offerings){
+/*
+priority_queue<CourseOfferings, vector<CourseOfferings>, greater<CourseOfferings>> reorder_offerings(priority_queue<CourseOfferings, vector<CourseOfferings>, greater<CourseOfferings>> &original_offerings){
     priority_queue<pair<int, int>, vector<pair<int,int>>, less<pair<int,int>>> pq; 
-    unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> ordered_set;
+    priority_queue<CourseOfferings, vector<CourseOfferings>, greater<CourseOfferings>> ordered_set;
     vector<CourseOfferings> vector_of_offerings(original_offerings.begin(), original_offerings.end());
+    priority_queue<CourseOfferings, vector<CourseOfferings>, greater<CourseOfferings>> pq2; 
     int num_off = vector_of_offerings.size();
     for(int i = 0 ; i < num_off; i++){
         pq.push({vector_of_offerings[i].min_sections_, i});
+        pq2.push(vector_of_offerings[i]);
     }
     while(!pq.empty()){
         ordered_set.insert(vector_of_offerings[pq.top().second]);
         pq.pop();
     }
+    while(!pq2.empty()){
+        cout<<pq2.top().course_id_<<" "<<pq2.top().min_sections_<<endl;
+        pq2.pop();
+    }
 
     return ordered_set;
 }
-
+*/
 int exec(vector<string> courses, vector<string> constraints, int num_timetables) {
     string result_string = "";
     //--- Data Procesing ----
@@ -105,7 +111,7 @@ int exec(vector<string> courses, vector<string> constraints, int num_timetables)
     // TODO: add evaluator and cost tracking
     // Stage 5: parse timetables to give to front end
     // TODO: function (best timetables) -> url
-    unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> offerings;
+    priority_queue<CourseOfferings, vector<CourseOfferings>, greater<CourseOfferings>> offerings;
     if (courses.empty()){
         offerings = get_classes();
    } else {
@@ -134,7 +140,7 @@ int exec(vector<string> courses, vector<string> constraints, int num_timetables)
             CourseOfferings course(code, code, lec, tut, pra);
             if (sem)
                 course.semester(*std::move(sem));
-            offerings.insert(course);
+            offerings.push(course);
         }
     }
 
@@ -242,8 +248,8 @@ int exec(vector<string> courses, vector<string> constraints, int num_timetables)
     }
 
     // Reorder the offerings based on number of things that need to be scheduled 
-    offerings = reorder_offerings(offerings);
-
+    //offerings = reorder_offerings(offerings);
+    
     vector<TimeTable> best_timetables  = scheduler_handler.schedule_classes(offerings, &constraint_handler);
     result_string += scheduler_handler.get_result_string(); 
 

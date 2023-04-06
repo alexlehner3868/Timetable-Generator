@@ -75,12 +75,23 @@ public:
         return practical_sections_.size();
     }
 
-    struct CourseOfferingHash {
+
+    size_t operator()(const CourseOfferings &c) const {
+        return hash<string>()(c.course_id_);
+    }
+
+    struct CourseOfferingHash{
         size_t operator()(const CourseOfferings &c) const {
-            return hash<string>()(c.course_id_);
+        return hash<string>()(c.course_id_);
         }
     };
 
+    bool operator< (const CourseOfferings &right) const{
+        return min_sections_ > right.min_sections_;
+    }
+    bool operator> (const CourseOfferings &right) const{
+        return min_sections_ > right.min_sections_;
+    }
 
    int numCourses(){
          int num_lec = (lecture_sections_.size() > 0 ) ? lecture_sections_[0].num_hours_in_section() : 0;

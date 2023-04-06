@@ -15,7 +15,7 @@
 
 using namespace std;
 
-unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> get_classes() {
+priority_queue<CourseOfferings, vector<CourseOfferings>, greater<CourseOfferings>> get_classes() {
     CourseData course_data;
     std::vector<Section> empty_vec;
     // add lectures
@@ -79,13 +79,13 @@ unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> get_classes(
                               course_six_practical_sections);
     class_six.semester(Semester::Fall);
 
-    unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> offerings;
-  offerings.insert(class_one);
-   offerings.insert(class_two);
- offerings.insert(class_three);
-    offerings.insert(class_four);
-    offerings.insert(class_five);
-   offerings.insert(class_six);
+    priority_queue<CourseOfferings, vector<CourseOfferings>, greater<CourseOfferings>> offerings;
+  offerings.push(class_one);
+   offerings.push(class_two);
+ offerings.push(class_three);
+    offerings.push(class_four);
+    offerings.push(class_five);
+   offerings.push(class_six);
 
     std::vector<Section> course_seven_lecture_sections = course_data.add_course("APS105H1", 1);
     std::vector<Section> course_eight_lecture_sections = course_data.add_course("APS112H1", 1);
@@ -138,11 +138,11 @@ unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> get_classes(
                                course_eleven_practical_sections);
     class_eleven.semester(Semester::Winter);
 
-    offerings.insert(class_seven);
-    //offerings.insert(class_eight);
- //  offerings.insert(class_nine);
-   //offerings.insert(class_ten);
-    //offerings.insert(class_eleven);
+    //offerings.push(class_seven);
+    //offerings.push(class_eight);
+ //  offerings.push(class_nine);
+   //offerings.push(class_ten);
+    //offerings.push(class_eleven);
 
     return offerings;
 }
@@ -168,8 +168,8 @@ void test_one_class_one_section(){
 
     CourseOfferings calculus("Calculus 1", "MAT186", calc_lecture_sections, empty_vec, empty_vec);
 
-    unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> offerings;
-    offerings.insert(calculus);
+    priority_queue<CourseOfferings, vector<CourseOfferings>, greater<CourseOfferings>> offerings;
+    offerings.push(calculus);
     Scheduler scheduler;
     scheduler.schedule_classes(offerings);
 }
@@ -237,8 +237,8 @@ void test_one_class_multiple_sections(){
 
     CourseOfferings calculus("Calculus 1", "MAT186", calc_lecture_sections, empty_vec, empty_vec);
 
-    unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> offerings;
-    offerings.insert(calculus);
+    priority_queue<CourseOfferings, vector<CourseOfferings>, greater<CourseOfferings>> offerings;
+    offerings.push(calculus);
     Scheduler scheduler;
     scheduler.schedule_classes(offerings);
 }
@@ -293,9 +293,9 @@ class_async); linalg_lecture_sections.push_back(linalg_section_1);
     CourseOfferings linear_algebra("Linear Algebra", "MAT188", linalg_lecture_sections, empty_vec,
 empty_vec);
 
-    unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> offerings;
-    offerings.insert(calculus);
-    offerings.insert(linear_algebra);
+    priority_queue<CourseOfferings, vector<CourseOfferings>, greater<CourseOfferings>> offerings;
+    offerings.push(calculus);
+    offerings.push(linear_algebra);
     Scheduler scheduler;
     scheduler.schedule_classes(offerings);
 }
@@ -370,9 +370,9 @@ class_async); linalg_lecture_sections.push_back(linalg_section_2);
     CourseOfferings linear_algebra("Linear Algebra", "MAT188", linalg_lecture_sections, empty_vec,
 empty_vec);
 
-    unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> offerings;
-    offerings.insert(calculus);
-    offerings.insert(linear_algebra);
+    priority_queue<CourseOfferings, vector<CourseOfferings>, greater<CourseOfferings>> offerings;
+    offerings.push(calculus);
+    offerings.push(linear_algebra);
     Scheduler scheduler;
     scheduler.schedule_classes(offerings);
 }
@@ -463,9 +463,9 @@ class_async); linalg_lecture_sections.push_back(linalg_section_2);
     CourseOfferings linear_algebra("Linear Algebra", "MAT188", linalg_lecture_sections, empty_vec,
 empty_vec);
 
-    unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> offerings;
-    offerings.insert(calculus);
-    offerings.insert(linear_algebra);
+    priority_queue<CourseOfferings, vector<CourseOfferings>, greater<CourseOfferings>> offerings;
+    offerings.push(calculus);
+    offerings.push(linear_algebra);
     Scheduler scheduler;
     scheduler.schedule_classes(offerings);
 }
@@ -591,10 +591,10 @@ class_async); mech_lecture_sections.push_back(mech_section_2);
 empty_vec); CourseOfferings mechanics("Mechanics", "CIV100", mech_lecture_sections, empty_vec,
 empty_vec);
 
-    unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> offerings;
-    offerings.insert(calculus);
-    offerings.insert(linear_algebra);
-    offerings.insert(mechanics);
+    priority_queue<CourseOfferings, vector<CourseOfferings>, greater<CourseOfferings>> offerings;
+    offerings.push(calculus);
+    offerings.push(linear_algebra);
+    offerings.push(mechanics);
     Scheduler scheduler;
     scheduler.schedule_classes(offerings);
 }
@@ -686,15 +686,15 @@ class_async); linalg_lecture_sections.push_back(linalg_section_2);
     CourseOfferings linear_algebra("Linear Algebra", "MAT188", linalg_lecture_sections, empty_vec,
 empty_vec);
 
-    unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> offerings;
-    offerings.insert(calculus);
-    offerings.insert(linear_algebra);
+    priority_queue<CourseOfferings, vector<CourseOfferings>, greater<CourseOfferings>> offerings;
+    offerings.push(calculus);
+    offerings.push(linear_algebra);
     Scheduler scheduler;
     scheduler.schedule_classes(offerings);
 }
 */
 // Test 8
-unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> test_three_classes_conflict() {/*
+priority_queue<CourseOfferings, vector<CourseOfferings>, greater<CourseOfferings>> test_three_classes_conflict() {/*
     vector<Section> calc_lecture_sections;
     vector<Section> linalg_lecture_sections;
     vector<Section> mech_lecture_sections;
@@ -815,10 +815,10 @@ class_async); mech_lecture_sections.push_back(mech_section_2);
 empty_vec); CourseOfferings mechanics("Mechanics", "CIV100", mech_lecture_sections, empty_vec,
 empty_vec);
 
-    unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> offerings;
-    offerings.insert(calculus);
-    offerings.insert(linear_algebra);
-    offerings.insert(mechanics);
+    priority_queue<CourseOfferings, vector<CourseOfferings>, greater<CourseOfferings>> offerings;
+    offerings.push(calculus);
+    offerings.push(linear_algebra);
+    offerings.push(mechanics);
     return offerings; */
 }
 
@@ -850,7 +850,7 @@ void test_sample_questions() {
     //test_three_classes_conflict();
 }
 
-void remove_course(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>& offerings, string course_id) {
+void remove_course(priority_queue<CourseOfferings, vector<CourseOfferings>, greater<CourseOfferings>>& offerings, string course_id) {
     // We need to find the element with the matching course code then remove it
     CourseData course_data;
 
@@ -861,7 +861,21 @@ void remove_course(unordered_set<CourseOfferings, CourseOfferings::CourseOfferin
 
     CourseOfferings class_offering("Circuit Analysis", course_id, lec_sections, tut_sections,
 pra_sections);
-
+    priority_queue<CourseOfferings, vector<CourseOfferings>, greater<CourseOfferings>> new_offerings;
+    bool found = false;
+    while(!offerings.empty()){
+        auto course = offerings.top();
+        if(course.course_id_ != course_id){
+            new_offerings.push(course);
+        }else{
+            found = true;
+        }
+        offerings.pop();
+    }
+    if(!found){
+        cout << "Is " << course_id << " the course id of the course you want to delete?" << endl;
+    }
+    /*
     auto search = offerings.find(class_offering);
     if (search == offerings.end()) {
         // course wasn't found, no need to remove it
@@ -871,7 +885,8 @@ pra_sections);
         // it was found in the unordered set
         offerings.erase(class_offering);
     }
-
+    */
+    offerings = new_offerings;
 }
 
 void get_schedule() {

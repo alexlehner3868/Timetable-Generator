@@ -32,7 +32,7 @@ struct set_cmp {
 */
 int non_test_count = 0;
 vector<TimeTable> Scheduler::schedule_classes(
-    unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> &courses,
+    priority_queue<CourseOfferings, vector<CourseOfferings>, greater<CourseOfferings>> &courses,
     ConstraintHandler* constraint_handler) {
     if(constraint_handler_ == nullptr && constraint_handler->any_constraints_exists()){
         constraint_handler_ = constraint_handler;
@@ -49,8 +49,11 @@ vector<TimeTable> Scheduler::schedule_classes(
     // create timetable
     TimeTable timetable;
     // Calculate num section in full timetable
-    for(auto offering : courses) {
-         maximum_number_of_sections_ += offering.numCourses();
+    priority_queue<CourseOfferings, vector<CourseOfferings>, greater<CourseOfferings>> pq_copy = courses;
+    while(!pq_copy.empty()) {
+        auto offering = pq_copy.top();
+        maximum_number_of_sections_ += offering.numCourses();
+        pq_copy.pop();
     }
 
     // run scheduling algorithm
@@ -90,7 +93,7 @@ string Scheduler::get_result_string() {
 int print = 1;
 
 void Scheduler::schedule_classes_helper(
-    unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> &courses,
+    priority_queue<CourseOfferings, vector<CourseOfferings>, greater<CourseOfferings>> &courses,
     TimeTable &timetable) {
 
 /*
@@ -151,7 +154,7 @@ void Scheduler::schedule_classes_helper(
    // for (auto course : courses) {
         // Attempt to add a section
         //auto start = std::chrono::system_clock::now();
-        bool success = attempt_to_add_section(timetable, LEC, *courses.begin(), courses, char());
+        bool success = attempt_to_add_section(timetable, LEC, courses.top(), courses, char());
         //auto end = std::chrono::system_clock::now();
 
         //cout << "Time for run is " << (int) std::chrono::duration_cast<std::chrono::microseconds>(end - start).count() << endl;
@@ -168,7 +171,7 @@ bool Scheduler::attempt_to_add_section(
     TimeTable &timetable,
     int class_type,
     CourseOfferings course,
-    unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> &courses, char sem) {
+    priority_queue<CourseOfferings, vector<CourseOfferings>, greater<CourseOfferings>> &courses, char sem) {
     int num_sections = 0;
     optional<Semester> semester = nullopt;
     bool found_at_least_one_option = false; 
@@ -226,7 +229,8 @@ bool Scheduler::attempt_to_add_section(
    }
    if (!max_abide && num_sections > 0) {
     max_abide = 1;
-   }
+   }    
+
     for (int section_indx = 0; section_indx < num_sections; section_indx++) { //num_sections
         Section section;
         if (class_type == LEC) {
@@ -369,9 +373,9 @@ bool Scheduler::attempt_to_add_section(
                     
                 // cout << "type PRA and removing course" << endl;
                 // print_timetable(timetable);
-                unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>
+                priority_queue<CourseOfferings, vector<CourseOfferings>, greater<CourseOfferings>>
                     remaining_classes = courses;
-                remaining_classes.erase(course);
+                remaining_classes.pop();
                 // cout << " (section exists) is courses empty?: " << remaining_classes.empty() << endl;
                 schedule_classes_helper(remaining_classes, timetable);
    
@@ -391,7 +395,7 @@ bool Scheduler::attempt_to_add_section(
             }
         }
         if(max_abide <section_indx && found_at_least_one_option){
-            break; // TODO: AMaybe delete so we get more than one
+           break; // TODO: AMaybe delete so we get more than one
         }
     }
     
@@ -408,9 +412,9 @@ bool Scheduler::attempt_to_add_section(
         } else {
             // cout << "type PRA and removing course" << endl;
             // print_timetable(timetable);
-            unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>
+            priority_queue<CourseOfferings, vector<CourseOfferings>, greater<CourseOfferings>>
                 remaining_classes = courses;
-            remaining_classes.erase(course);
+            remaining_classes.pop();
 
             // cout << "(section doesn't exist) is courses empty?: " << remaining_classes.empty() <<
             // endl; cout << "erasing course: " << course.course_id_ << endl;
