@@ -351,7 +351,7 @@ ConstraintHandler::ConstraintHandler() {
 
     back_to_back_constraint_ = make_pair(24, NO_PRIORITY);
     no_classes_after_X_ = make_pair(24, NO_PRIORITY);
-    no_classes_before_X_ = make_pair(0, NO_PRIORITY); 
+    no_classes_before_X_ = make_pair(24, NO_PRIORITY); 
     no_breaks_larger_than_X_ = make_pair(24, NO_PRIORITY);
     no_more_than_X_hours_per_day_ = make_pair(24, NO_PRIORITY);
 

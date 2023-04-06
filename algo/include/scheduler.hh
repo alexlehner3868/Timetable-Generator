@@ -37,7 +37,7 @@ private:
     int partial_timetables_pruned_ = 0;
     int full_timetable_pruned_ = 0;
     int timetables_not_explored_ = 0;
-    bool output_stats = false;
+    bool output_stats = true;
     int unique_timetables_found_ = 0;
     bool check_for_constraint_ = false;
     // For output

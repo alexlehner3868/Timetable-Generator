@@ -58,16 +58,7 @@ vector<TimeTable> Scheduler::schedule_classes(
     schedule_classes_helper(courses, timetable);   
     auto current_time = std::chrono::system_clock::now();
     auto durantion = std::chrono::duration_cast<std::chrono::seconds>(current_time - start_schedule_time_).count();
-    
-    /*
-    // If we didnt find one within a time, run again with dif seed 
-    TimeTable new_timetable;
-    if(durantion > MAX_SEARCH_TIME && timetables_.size() == 0){
-        start_schedule_time_ = std::chrono::system_clock::now();
-        srand(QUICK_SEED);
-        schedule_classes_helper(courses, new_timetable);  
-    }   
-   */
+      
     // Convert pq to vector and return
     int num_tables = timetables_.size();
     vector<TimeTable> best_time_tables(num_tables);
@@ -158,7 +149,6 @@ void Scheduler::schedule_classes_helper(
 
     
     for (auto course : courses) {
-        
         // Attempt to add a section
         //auto start = std::chrono::system_clock::now();
         bool success = attempt_to_add_section(timetable, LEC, course, courses, char());
