@@ -41,7 +41,12 @@ public:
         tutorial_sections_ = tut;
         practical_sections_ = pra;
         semester_ = nullopt;
-        num_courses_ = numCourses();
+        int num_lec = lec.size();
+        int num_tut = tut.size();
+        int num_pra = pra.size();
+        min_sections_ =  (num_lec > 0 ? num_lec : INT_MAX);
+        if(num_tut > 0 && num_tut < min_sections_) min_sections_ = num_tut;
+        if(num_pra > 0 && num_pra < min_sections_) min_sections_ = num_pra;
     }
 
     void semester(Semester &&semester) {
@@ -76,12 +81,6 @@ public:
         }
     };
 
-    struct CourseOfferingCmp {
-        bool operator()(const CourseOfferings &c1, const CourseOfferings &c2) const {
-            cout<<"c1 "<<c1.num_courses_<<" v "<<c2.num_courses_<<endl;
-            return c1.num_courses_ > c2.num_courses_;
-        }
-    };
 
    int numCourses(){
          int num_lec = (lecture_sections_.size() > 0 ) ? lecture_sections_[0].num_hours_in_section() : 0;
@@ -90,11 +89,7 @@ public:
          return num_lec+num_pra+num_tut;
      }
 
-    int getNumCourses() {
-        if(num_courses_ > 0) return num_courses_;
-        return numCourses();
-    }
-    
+   
     pair<int, int> sec_per_sem(){
         int f_count = 0;
         int w_count = 0;
@@ -138,7 +133,7 @@ public:
     vector<Section> tutorial_sections_;
     vector<Section> practical_sections_;
     optional<Semester> semester_;
-    int num_courses_;
+    int min_sections_ = 0;
 };
 
 #endif

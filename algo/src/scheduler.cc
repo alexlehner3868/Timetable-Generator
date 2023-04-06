@@ -391,7 +391,7 @@ bool Scheduler::attempt_to_add_section(
             }
         }
         if(max_abide <section_indx && found_at_least_one_option){
-            break;
+            break; // TODO: AMaybe delete so we get more than one
         }
     }
     

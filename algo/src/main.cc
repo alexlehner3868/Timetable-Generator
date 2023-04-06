@@ -62,12 +62,12 @@ pair<unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash>, unorde
 */
 
 unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> reorder_offerings(unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> &original_offerings){
-    priority_queue<pair<int, int>, vector<pair<int,int>>, greater<pair<int,int>>> pq; 
+    priority_queue<pair<int, int>, vector<pair<int,int>>, less<pair<int,int>>> pq; 
     unordered_set<CourseOfferings, CourseOfferings::CourseOfferingHash> ordered_set;
     vector<CourseOfferings> vector_of_offerings(original_offerings.begin(), original_offerings.end());
     int num_off = vector_of_offerings.size();
     for(int i = 0 ; i < num_off; i++){
-        pq.push({vector_of_offerings[i].num_courses_, i});
+        pq.push({vector_of_offerings[i].min_sections_, i});
     }
     while(!pq.empty()){
         ordered_set.insert(vector_of_offerings[pq.top().second]);
