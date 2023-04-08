@@ -218,7 +218,8 @@ bool Scheduler::attempt_to_add_section(
     //auto rng = std::default_random_engine{};
     //shuffle(begin(shuffled_sections), end(shuffled_sections), rng);
    // #pragma omp parallel for
-      int max_abide;
+   /**/
+    int max_abide;
    switch (courses.size()) {
     case (1): max_abide = (int)num_sections; break;
     case (2): max_abide = (int)num_sections; break;

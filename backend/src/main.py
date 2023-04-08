@@ -6,11 +6,13 @@
 import argparse
 import logging
 import subprocess
-
+import sys 
+sys.path.append( '/opt/homebrew/lib/python3.10/site-packages')
 from flask import Flask, Response, jsonify, request
 from flask_cors import CORS
 
 from db import Courses
+
 
 
 def main():
@@ -18,7 +20,6 @@ def main():
     logging.basicConfig(
         format="[%(asctime)s %(levelname)s %(name)s] %(message)s", level=logging.INFO
     )
-
     # Initialize parser
     parser = argparse.ArgumentParser()
     parser.add_argument(

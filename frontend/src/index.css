@@ -89,7 +89,7 @@ code {
 
 .control-buttons {
   display: grid;
-  grid-gap: 5%;
+  grid-gap: 3%;
   padding-top: 3%;
   grid-template-areas: "generate-button generate-button" "clear-class clear-constraints" "clear-all clear-all"; 
 }
@@ -495,7 +495,7 @@ code {
   position: relative;
   /*this is the color of the scroll bar */
   background-color: rgb(233, 233, 233);
-  height: 400px;
+  height: 320px;
   width: 100%;
   overflow: auto;
   display: none;
@@ -507,4 +507,8 @@ code {
 }
 .list_course {
   max-height:100%
+}
+
+#mini-text {
+  font-size: smaller;
 }
