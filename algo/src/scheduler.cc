@@ -161,7 +161,6 @@ void Scheduler::schedule_classes_helper(
         }
     }
     //#pragma omp parallel for
-
    // for (auto course : courses) {
         // Attempt to add a section
         //auto start = std::chrono::system_clock::now();
@@ -177,6 +176,7 @@ void Scheduler::schedule_classes_helper(
             //break;
         }*/
     //}
+    
     
 }
 bool Scheduler::attempt_to_add_section(
@@ -228,7 +228,7 @@ bool Scheduler::attempt_to_add_section(
         cout << shuffled_sections[i] <<endl;
     }*/
 
-    int max_abide;
+    /*int max_abide = 0;
     //if (courses.size() > 2) {cout << courses.size() <<endl;}
     switch (courses.size()) {
         case (1): max_abide = (int)num_sections/10; break;
@@ -247,8 +247,8 @@ bool Scheduler::attempt_to_add_section(
    }
    if (!max_abide && num_sections > 0) {
     max_abide = 1;
-   }    
-
+   }    */
+    //cout << max_abide << endl;
     for (int section_indx = 0; section_indx < num_sections; section_indx++) { //num_sections
         Section section;
         if (class_type == LEC) {
@@ -277,6 +277,8 @@ bool Scheduler::attempt_to_add_section(
         if(class_type != LEC){
             if(sem != class_chosen.semester && course.numLecSections() != 0){
                 continue;
+            } else {
+               // cout << "ignoring" << endl;
             }
         }
         bool successfully_inserted = true;
@@ -298,12 +300,14 @@ bool Scheduler::attempt_to_add_section(
                 // If the class is in the winter offset the day by 5 ([1,5] = fall, [6,10] = winter)
                 period = make_pair(section.day_.at(class_in_section) + semester_offset,
                                    section.start_time_.at(class_in_section) + i);
-
                 // Insert a non-async class into timetable
                 successfully_inserted = timetable.insert(std::make_pair(period, class_chosen));
                 
                 // Check if the class was sucessfully inserted
                 if (!successfully_inserted) {
+                    //cout << section.day_.at(class_in_section) + semester_offset << endl;
+                    //cout << section.start_time_.at(class_in_section) + i << endl;
+                    //cout << "failing whyyyy";
                     break;
                     // Combination is invalid
                     // Time occupied by another course offering or constraint
@@ -412,7 +416,7 @@ bool Scheduler::attempt_to_add_section(
                 }
             }
         }
-        if(max_abide <section_indx && found_at_least_one_option){
+        if(/*max_abide <section_indx && */found_at_least_one_option){
            //break; // TODO: AMaybe delete so we get more than one
         }
     }

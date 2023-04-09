@@ -220,8 +220,7 @@ std::vector<Section> CourseData::add_course(string course_id, int section_type) 
         if (old_section_num[0] != current_section_num[0]) {
 
             // create a section containing all the information we just queried from SQL DB
-            // cout << "adding a class with the section number " << old_section_num << " and course
-            // id " << course_id << endl;
+            //cout << "adding a class with the section number " << old_section_num[0] << " and course id " << course_id << endl << "at " << class_start_time[0] << endl;
             // the way the loop is set up, we are
             Section add_section(old_section_num,
                                 class_durations,
@@ -348,8 +347,8 @@ std::vector<Section> CourseData::add_course(string course_id, int section_type) 
     //cout << endl << endl;
     // make sure this is error free
 
-    for (auto section: available_sections_pruned) {
-        //cout << section.section_id_[0] << endl;
-    }
+    //for (auto section: available_sections_pruned) {
+        //cout << "adding sections " << section.section_id_[0] << endl;
+    //}
     return available_sections_pruned;
 }
