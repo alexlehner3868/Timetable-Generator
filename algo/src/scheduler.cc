@@ -114,7 +114,7 @@ void Scheduler::schedule_classes_helper(
     if(durantion > MAX_SEARCH_TIME && timetables_.size() == 0){
         return;
     }
-*/
+*/  
     if (timetables_.size() > 0 && number_of_explored_timetables > max_number_of_timetables_to_explore) {
         timetables_not_explored_++;
         return;
@@ -307,7 +307,7 @@ bool Scheduler::attempt_to_add_section(
                 if (!successfully_inserted) {
                     //cout << section.day_.at(class_in_section) + semester_offset << endl;
                     //cout << section.start_time_.at(class_in_section) + i << endl;
-                    //cout << "failing whyyyy";
+                    //cout << class_type;
                     break;
                     // Combination is invalid
                     // Time occupied by another course offering or constraint
@@ -343,7 +343,32 @@ bool Scheduler::attempt_to_add_section(
                     }
                    
                 }
-
+                /* TO MAKE PARTIAL TIMETABLES
+                if (timetable.size()) {
+                    found_at_least_one_option = true;
+                    timetable.add_cost(section_cost);
+                    // cout << "type PRA and removing course" << endl;
+                    // print_timetable(timetable);
+                    priority_queue<CourseOfferings, vector<CourseOfferings>, greater<CourseOfferings>>
+                        remaining_classes = courses;
+                    remaining_classes.pop();
+                    // cout << " (section exists) is courses empty?: " << remaining_classes.empty() << endl;
+                    schedule_classes_helper(remaining_classes, timetable);
+    
+                    // remove class from timetable
+                    for (int remove_class = 0; remove_class < class_in_section;
+                        remove_class++) { // should this be < or <= (<= seg faults)
+                        if(section.async_.at(remove_class)){
+                        timetable.erase(class_chosen);
+                        }else{
+                            for (int i = 0; i < section.duration_.at(remove_class); i++) {
+                                Date period = make_pair(section.day_.at(remove_class)+semester_offset,
+                                                        section.start_time_.at(remove_class) + i);
+                                timetable.erase(period);
+                            }
+                        }
+                    }
+                }*/
                 break;
             } else {
                 found_at_least_one_option = true;
