@@ -6,6 +6,7 @@
 #include <string>
 #include <unordered_map>
 #include <vector>
+#include <climits>
 
 #include "section.hh"
 
@@ -100,12 +101,18 @@ public:
         return left.min_sections_ > right.min_sections_;
     }
 
-   int numCourses(){
+    int numCourses(){
          int num_lec = (lecture_sections_.size() > 0 ) ? lecture_sections_[0].num_hours_in_section() : 0;
          int num_pra = (practical_sections_.size() > 0 ) ? practical_sections_[0].num_hours_in_section() : 0;
          int num_tut = (tutorial_sections_.size() > 0 ) ? tutorial_sections_[0].num_hours_in_section() : 0;
          return num_lec+num_pra+num_tut;
-     }
+    }
+    int numSections () {
+        int num_lec_sections = (lecture_sections_.size() > 0 ) ? lecture_sections_.size() : 0;
+        int num_pra_sections = (practical_sections_.size() > 0 ) ? practical_sections_.size() : 0;
+        int num_tut_sections = (tutorial_sections_.size() > 0 ) ? tutorial_sections_.size() : 0;
+        return num_lec_sections+num_pra_sections+num_tut_sections;
+    }
 
    
     pair<int, int> sec_per_sem(){

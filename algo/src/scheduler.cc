@@ -42,6 +42,7 @@ vector<TimeTable> Scheduler::schedule_classes(
     if(courses.size() == 0) return vector<TimeTable>();
     // Clear saved before scheduling 
     maximum_number_of_sections_ = 0; 
+    int max_sections_total = 0;
     number_of_explored_timetables = 0; 
     timetables_ = priority_queue<TimeTable, vector<TimeTable>, CompareTimeTable>();
     timetables_str.clear();
@@ -52,16 +53,27 @@ vector<TimeTable> Scheduler::schedule_classes(
     priority_queue<CourseOfferings, vector<CourseOfferings>, greater<CourseOfferings>> pq_copy = courses;
     while(!pq_copy.empty()) {
         auto offering = pq_copy.top();
+        /*for (auto lectures:offering.lecture_sections_) {
+            cout << lectures.section_id_[0] << endl;
+        }for (auto lectures:offering.tutorial_sections_) {
+            cout << lectures.section_id_[0] << endl;
+        }for (auto lectures:offering.practical_sections_) {
+            cout << lectures.section_id_[0] << endl;
+        }*/
+        
         maximum_number_of_sections_ += offering.numCourses();
+        max_sections_total += offering.numSections();
+        //cout << offering.course_id_ << endl;
         pq_copy.pop();
     }
-
+    //cout << "The max num of sections is " << maximum_number_of_sections_ << endl;
+    //cout << "The max num of sections is " << max_sections_total << endl;
     // run scheduling algorithm
-   start_schedule_time_ = std::chrono::system_clock::now();
+    start_schedule_time_ = std::chrono::system_clock::now();
     schedule_classes_helper(courses, timetable);   
     auto current_time = std::chrono::system_clock::now();
-    auto durantion = std::chrono::duration_cast<std::chrono::seconds>(current_time - start_schedule_time_).count();
-      
+    auto duration = std::chrono::duration_cast<std::chrono::seconds>(current_time - start_schedule_time_).count();
+    //cout << "It took " << duration << " seconds." << endl;
     // Convert pq to vector and return
     int num_tables = timetables_.size();
     vector<TimeTable> best_time_tables(num_tables);
@@ -72,7 +84,7 @@ vector<TimeTable> Scheduler::schedule_classes(
         best_time_tables[i] = t;
         timetables_.pop();
     }
-
+    //cout << "We found " << num_tables << " unique timetables." << endl;
     //Reverse order so best are first 
 
     if (num_tables == 0) {
@@ -115,7 +127,7 @@ void Scheduler::schedule_classes_helper(
             timetable.add_cost(timetable_additional_cost);
         }
            
-        if (timetable.size() ==  maximum_number_of_sections_  && unique_check(timetable)) { 
+        if (/*timetable.size() ==  maximum_number_of_sections_  && */unique_check(timetable)) { 
             unique_timetables_found_++;
             // Priority queue has less than the max num of timetables
             if ((int)timetables_.size() < (int)max_num_of_timetables_to_show) {
@@ -153,7 +165,7 @@ void Scheduler::schedule_classes_helper(
    // for (auto course : courses) {
         // Attempt to add a section
         //auto start = std::chrono::system_clock::now();
-        bool success = attempt_to_add_section(timetable, LEC, courses.top(), courses, char());
+        /*bool success = */attempt_to_add_section(timetable, LEC, courses.top(), courses, char());
         //auto end = std::chrono::system_clock::now();
 
         //cout << "Time for run is " << (int) std::chrono::duration_cast<std::chrono::microseconds>(end - start).count() << endl;
@@ -173,7 +185,7 @@ bool Scheduler::attempt_to_add_section(
     CourseOfferings course,
     priority_queue<CourseOfferings, vector<CourseOfferings>, greater<CourseOfferings>> &courses, char sem) {
     int num_sections = 0;
-    optional<Semester> semester = nullopt;
+    //optional<Semester> semester = nullopt;
     bool found_at_least_one_option = false; 
 /*
     auto current_time = std::chrono::system_clock::now();
@@ -190,9 +202,9 @@ bool Scheduler::attempt_to_add_section(
     } else {
         num_sections = (int)course.numPraSections();
     }
-    //int srand_val = abs(time(nullptr)*cos(time(nullptr)) + time(nullptr)*sin(time(nullptr)));
+    int srand_val = abs(time(nullptr)*cos(time(nullptr)) + time(nullptr)*sin(time(nullptr)));
     //value for second semester
-    //srand(srand_val);//20874366//1418983059//55662427(long, not worth it)//1859965549(quick)//302889345
+    if (courses.size() && courses.size() < 3) { srand(srand_val);} //20874366//1418983059//55662427(long, not worth it)//1859965549(quick)//302889345
     //55662427(kinda)
     //1680587506);//1680628838//1680628943
     /*if (print) {
@@ -205,29 +217,33 @@ bool Scheduler::attempt_to_add_section(
     for (int i = 0; i < num_sections; i++) {
         shuffled_sections.push_back(i);
     }
-    /*
+    
     int size = shuffled_sections.size();
     for (int i = 0; i < size - 1; i++) {
       int j = i + rand() % (size - i);
       swap(shuffled_sections[i], shuffled_sections[j]);
     }
-    */
+    
    /*for (int i = 0; i < num_sections; i++) {
         cout << shuffled_sections[i] <<endl;
     }*/
-    //auto rng = std::default_random_engine{};
-    //shuffle(begin(shuffled_sections), end(shuffled_sections), rng);
-   // #pragma omp parallel for
-   /**/
+
     int max_abide;
-   switch (courses.size()) {
-    case (1): max_abide = (int)num_sections; break;
-    case (2): max_abide = (int)num_sections; break;
-    case (3): max_abide = (int)num_sections; break;
-    case (4): max_abide = (int)num_sections/3; break;
-    case (5): max_abide = (int)num_sections/4; break;
-    case (6): max_abide = (int)num_sections/8; break;
-    default: max_abide = (int)num_sections/10; break;
+    //if (courses.size() > 2) {cout << courses.size() <<endl;}
+    switch (courses.size()) {
+        case (1): max_abide = (int)num_sections/10; break;
+        case (2): max_abide = (int)num_sections/9; break;
+        case (3): max_abide = (int)num_sections/8; break;
+        case (4): max_abide = (int)num_sections/6; break;
+        case (5): max_abide = (int)num_sections/5; break;
+        case (6): max_abide = (int)num_sections/3; break;
+        case (7): max_abide = (int)num_sections/3; break;
+        case (8): max_abide = (int)num_sections/3; break;
+        case (9): max_abide = (int)num_sections/4; break;
+        case (10): max_abide = (int)num_sections/5; break;
+        case (11): max_abide = (int)num_sections/6; break;
+        case (12): max_abide = (int)num_sections/7; break;
+        default: max_abide = (int)num_sections/5; break;
    }
    if (!max_abide && num_sections > 0) {
     max_abide = 1;

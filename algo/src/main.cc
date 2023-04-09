@@ -230,21 +230,21 @@ int exec(vector<string> courses, vector<string> constraints, int num_timetables)
     Scheduler scheduler_handler;
     scheduler_handler.set_num_timetables(num_timetables);
     switch(courses.size()) {
-        case 1: scheduler_handler.set_max_explore(500); break;
-        case 2: scheduler_handler.set_max_explore(500); break;
-        case 3: scheduler_handler.set_max_explore(1000); break;
-        case 4: scheduler_handler.set_max_explore(4000); break;
-        case 5: scheduler_handler.set_max_explore(5000); break;
-        case 6: scheduler_handler.set_max_explore(6000); break;
-        case 7: scheduler_handler.set_max_explore(10000); break;
-        case 8: scheduler_handler.set_max_explore(20000); break;
-        case 9: scheduler_handler.set_max_explore(30000); break;
-        case 10: scheduler_handler.set_max_explore(40000); break;
-        case 11: scheduler_handler.set_max_explore(40000); break;
-        case 12: scheduler_handler.set_max_explore(50000); break;
-        case 13: scheduler_handler.set_max_explore(60000); break;
-        case 14: scheduler_handler.set_max_explore(70000); break;
-        default: scheduler_handler.set_max_explore(4000); break;
+        case 1: scheduler_handler.set_max_explore(50); break;
+        case 2: scheduler_handler.set_max_explore(50); break;
+        case 3: scheduler_handler.set_max_explore(20); break;
+        case 4: scheduler_handler.set_max_explore(20); break;
+        case 5: scheduler_handler.set_max_explore(20); break;
+        case 6: scheduler_handler.set_max_explore(20); break;
+        case 7: scheduler_handler.set_max_explore(20); break;
+        case 8: scheduler_handler.set_max_explore(20); break;
+        case 9: scheduler_handler.set_max_explore(20); break;
+        case 10: scheduler_handler.set_max_explore(20); break;
+        case 11: scheduler_handler.set_max_explore(20); break;
+        case 12: scheduler_handler.set_max_explore(20); break;
+        case 13: scheduler_handler.set_max_explore(20); break;
+        case 14: scheduler_handler.set_max_explore(20); break;
+        default: scheduler_handler.set_max_explore(20); break;
     }
     
     if(constraint_handler.blocked_off_time_exists()){
