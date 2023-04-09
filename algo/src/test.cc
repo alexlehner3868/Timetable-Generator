@@ -19,25 +19,25 @@ priority_queue<CourseOfferings, vector<CourseOfferings>, greater<CourseOfferings
     CourseData course_data;
     std::vector<Section> empty_vec;
     // add lectures
-    std::vector<Section> course_one_lecture_sections = course_data.add_course("MIE210H1", 1);
-    std::vector<Section> course_two_lecture_sections = course_data.add_course("MIE221H1", 1);
-    std::vector<Section> course_three_lecture_sections = course_data.add_course("MIE222H1", 1);
+    std::vector<Section> course_one_lecture_sections = course_data.add_course("APS100H1", 1);
+    std::vector<Section> course_two_lecture_sections = course_data.add_course("APS111H1", 1);
+    std::vector<Section> course_three_lecture_sections = course_data.add_course("CIV100H1", 1);
     std::vector<Section> course_four_lecture_sections = course_data.add_course("APS110H1", 1);
     std::vector<Section> course_five_lecture_sections = course_data.add_course("MAT188H1", 1);
     std::vector<Section> course_six_lecture_sections = course_data.add_course("MAT186H1", 1);
 
     // add tutorials
-    std::vector<Section> course_one_tutorial_sections = course_data.add_course("MIE210H1", 2);
-    std::vector<Section> course_two_tutorial_sections = course_data.add_course("MIE221H1", 2);
-    std::vector<Section> course_three_tutorial_sections = course_data.add_course("MIE222H1", 2);
+    std::vector<Section> course_one_tutorial_sections = course_data.add_course("APS100H1", 2);
+    std::vector<Section> course_two_tutorial_sections = course_data.add_course("APS111H1", 2);
+    std::vector<Section> course_three_tutorial_sections = course_data.add_course("CIV100H1", 2);
     std::vector<Section> course_four_tutorial_sections = course_data.add_course("APS110H1", 2);
     std::vector<Section> course_five_tutorial_sections = course_data.add_course("MAT188H1", 2);
     std::vector<Section> course_six_tutorial_sections = course_data.add_course("MAT186H1", 2);
 
     // add practicals
-    std::vector<Section> course_one_practical_sections = course_data.add_course("MIE210H1", 3);
-    std::vector<Section> course_two_practical_sections = course_data.add_course("MIE221H1", 3);
-    std::vector<Section> course_three_practical_sections = course_data.add_course("MIE222H1", 3);
+    std::vector<Section> course_one_practical_sections = course_data.add_course("APS100H1", 3);
+    std::vector<Section> course_two_practical_sections = course_data.add_course("APS111H1", 3);
+    std::vector<Section> course_three_practical_sections = course_data.add_course("CIV100H1", 3);
     std::vector<Section> course_four_practical_sections = course_data.add_course("APS110H1", 3);
     std::vector<Section> course_five_practical_sections = course_data.add_course("MAT188H1", 3);
     std::vector<Section> course_six_practical_sections = course_data.add_course("MAT186H1", 3);
@@ -80,11 +80,11 @@ priority_queue<CourseOfferings, vector<CourseOfferings>, greater<CourseOfferings
     class_six.semester(Semester::Fall);
 
     priority_queue<CourseOfferings, vector<CourseOfferings>, greater<CourseOfferings>> offerings;
-  offerings.push(class_one);
+  //offerings.push(class_one);
   // offerings.push(class_two);
  offerings.push(class_three);
-    //offerings.push(class_four);
-    //offerings.push(class_five);
+  //  offerings.push(class_four);
+   // offerings.push(class_five);
    //offerings.push(class_six);
 
     std::vector<Section> course_seven_lecture_sections = course_data.add_course("APS105H1", 1);

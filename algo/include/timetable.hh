@@ -127,6 +127,10 @@ public:
     void add_cost(int c) {
         current_time_table_cost += c;
     }
+    
+    void remove_cost(int c){
+        current_time_table_cost -= c;
+    }
 
     bool balanced() {
       return std::abs(this->chose_fall - this->chose_winter) <= 3;

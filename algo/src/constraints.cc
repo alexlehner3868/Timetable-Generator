@@ -221,6 +221,7 @@ int ConstraintHandler::cost_of_class(Date d) {
     // Penalize class for being in a prefered time (decrease cost)
     if (no_morning_classes_ != NO_PRIORITY && d.second < 11) {
         cost += no_morning_classes_;
+        
     }
     // Penalize class for being in a prefered time (decrease cost)
     if (no_evening_classes_ != NO_PRIORITY && d.second > 4) {
@@ -359,7 +360,7 @@ ConstraintHandler::ConstraintHandler() {
     no_more_than_X_hours_per_day_ = make_pair(24, NO_PRIORITY);
 
     minimize_days_at_school_ = NO_PRIORITY;
-    no_morning_classes_ = NO_PRIORITY; 
+    no_morning_classes_ = NO_PRIORITY;  
     no_afternoon_classes_ = NO_PRIORITY; 
     no_evening_classes_ = NO_PRIORITY; 
     prefer_async_classes_ = NO_PRIORITY;

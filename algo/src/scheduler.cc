@@ -122,8 +122,9 @@ void Scheduler::schedule_classes_helper(
     // All sections have been added
     if (courses.size() == 0) {
         number_of_explored_timetables++;
+        int timetable_additional_cost = 0;
         if(check_for_constraint_){
-            int timetable_additional_cost = constraint_handler_->cost_of_timetable(timetable.classes());
+            timetable_additional_cost = constraint_handler_->cost_of_timetable(timetable.classes());
             timetable.add_cost(timetable_additional_cost);
         }
            
@@ -145,6 +146,7 @@ void Scheduler::schedule_classes_helper(
         }else{
             non_test_count++;
         }
+        timetable.remove_cost(timetable_additional_cost);
         return;
     }
 
@@ -284,6 +286,7 @@ bool Scheduler::attempt_to_add_section(
         bool successfully_inserted = true;
         // Is this class an async class
         Date period;
+        int section_cost = 0;
         // Try adding all of the lecture sections for that section and class to the timetable
         for (class_in_section = 0; class_in_section < (int)section.duration_.size();
              class_in_section++) {
@@ -293,7 +296,7 @@ bool Scheduler::attempt_to_add_section(
                 successfully_inserted = timetable.insert(class_chosen);
                 found_at_least_one_option = true;
             }
-            int section_cost = 0;
+            
             // Add a entry for every hour that the lecure has
             for (int i = 0; i < section.duration_.at(class_in_section); i++) {
        
@@ -440,6 +443,7 @@ bool Scheduler::attempt_to_add_section(
                     }
                 }
             }
+            timetable.remove_cost(section_cost);
         }
         if(/*max_abide <section_indx && */found_at_least_one_option){
            //break; // TODO: AMaybe delete so we get more than one
