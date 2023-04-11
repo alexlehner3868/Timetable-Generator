@@ -90,7 +90,7 @@ bool ConstraintHandler::preprocess_high_priority_classes_out(priority_queue<Cour
   // copy original_offerings so we can loop through it and delete at the same time
   //priority_queue<CourseOfferings, vector<CourseOfferings>, greater<CourseOfferings>>::iterator offerings_iterator = original_offerings.begin();
   while(!original_offerings.empty()){
-       auto it;
+    unordered_map<Date, int, Date_Hash>::iterator it;
     auto offering = original_offerings.top();
     bool lec_exists = offering.lecture_sections_.size() > 0;
     bool tut_exists = offering.tutorial_sections_.size() > 0;
