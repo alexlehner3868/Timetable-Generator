@@ -288,7 +288,7 @@ int exec(vector<string> courses, vector<string> constraints, int num_timetables)
         best_timetables_post_constraints.push_back(in_timetable);
 
     }
-     scheduler_handler.print_timetables(best_timetables_post_constraints, result_string);
+    scheduler_handler.print_timetables(best_timetables_post_constraints, result_string);
 
     return 0;
 }

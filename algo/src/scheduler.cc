@@ -53,21 +53,12 @@ vector<TimeTable> Scheduler::schedule_classes(
     priority_queue<CourseOfferings, vector<CourseOfferings>, greater<CourseOfferings>> pq_copy = courses;
     while(!pq_copy.empty()) {
         auto offering = pq_copy.top();
-        /*for (auto lectures:offering.lecture_sections_) {
-            cout << lectures.section_id_[0] << endl;
-        }for (auto lectures:offering.tutorial_sections_) {
-            cout << lectures.section_id_[0] << endl;
-        }for (auto lectures:offering.practical_sections_) {
-            cout << lectures.section_id_[0] << endl;
-        }*/
-        
+
         maximum_number_of_sections_ += offering.numCourses();
         max_sections_total += offering.numSections();
-        //cout << offering.course_id_ << endl;
         pq_copy.pop();
     }
-    //cout << "The max num of sections is " << maximum_number_of_sections_ << endl;
-    //cout << "The max num of sections is " << max_sections_total << endl;
+
     // run scheduling algorithm
     start_schedule_time_ = std::chrono::system_clock::now();
     schedule_classes_helper(courses, timetable);   
@@ -128,7 +119,7 @@ void Scheduler::schedule_classes_helper(
             timetable.add_cost(timetable_additional_cost);
         }
            
-        if (/*timetable.size() ==  maximum_number_of_sections_  && */unique_check(timetable)) { 
+        if (/*timetable.size() ==  maximum_number_of_sections_  &&*/ unique_check(timetable)) { 
             unique_timetables_found_++;
             // Priority queue has less than the max num of timetables
             if ((int)timetables_.size() < (int)max_num_of_timetables_to_show) {
@@ -162,41 +153,20 @@ void Scheduler::schedule_classes_helper(
             return;
         }
     }
-    //#pragma omp parallel for
-   // for (auto course : courses) {
-        // Attempt to add a section
-        //auto start = std::chrono::system_clock::now();
-        /*bool success = */attempt_to_add_section(timetable, LEC, courses.top(), courses, char());
-        //auto end = std::chrono::system_clock::now();
-
-        //cout << "Time for run is " << (int) std::chrono::duration_cast<std::chrono::microseconds>(end - start).count() << endl;
-        /*if ((int) std::chrono::duration_cast<std::chrono::microseconds>(end - start).count() > 20000) {
-            cout << "abnormally long run for course " << course.course_id_ << "of " << (int) std::chrono::duration_cast<std::chrono::microseconds>(end - start).count() << endl;
-            print_timetable(timetable, 0);
-        }*/
-        /*if(!success){
-            //break;
-        }*/
-    //}
-    
-    
+    // Schedule the next course in the courses list 
+    attempt_to_add_section(timetable, LEC, courses.top(), courses, char());   
 }
+
 bool Scheduler::attempt_to_add_section(
     TimeTable &timetable,
     int class_type,
     CourseOfferings course,
     priority_queue<CourseOfferings, vector<CourseOfferings>, greater<CourseOfferings>> &courses, char sem) {
     int num_sections = 0;
-    //optional<Semester> semester = nullopt;
+
     bool found_at_least_one_option = false; 
-/*
-    auto current_time = std::chrono::system_clock::now();
-    auto durantion = std::chrono::duration_cast<std::chrono::seconds>(current_time - start_schedule_time_).count();
-    // If we search for longer than 30 seconds  ALEX
-    if(durantion > MAX_SEARCH_TIME && timetables_.size() == 0){
-        return false;
-    }
-*/
+
+
     if (class_type == LEC) {
         num_sections = (int)course.numLecSections();
     } else if (class_type == TUT) {
@@ -225,33 +195,10 @@ bool Scheduler::attempt_to_add_section(
       int j = i + rand() % (size - i);
       swap(shuffled_sections[i], shuffled_sections[j]);
     }
-    
-   /*for (int i = 0; i < num_sections; i++) {
-        cout << shuffled_sections[i] <<endl;
-    }*/
 
-    /*int max_abide = 0;
-    //if (courses.size() > 2) {cout << courses.size() <<endl;}
-    switch (courses.size()) {
-        case (1): max_abide = (int)num_sections/10; break;
-        case (2): max_abide = (int)num_sections/9; break;
-        case (3): max_abide = (int)num_sections/8; break;
-        case (4): max_abide = (int)num_sections/6; break;
-        case (5): max_abide = (int)num_sections/5; break;
-        case (6): max_abide = (int)num_sections/3; break;
-        case (7): max_abide = (int)num_sections/3; break;
-        case (8): max_abide = (int)num_sections/3; break;
-        case (9): max_abide = (int)num_sections/4; break;
-        case (10): max_abide = (int)num_sections/5; break;
-        case (11): max_abide = (int)num_sections/6; break;
-        case (12): max_abide = (int)num_sections/7; break;
-        default: max_abide = (int)num_sections/5; break;
-   }
-   if (!max_abide && num_sections > 0) {
-    max_abide = 1;
-   }    */
-    //cout << max_abide << endl;
+    //cout<<"Scheduling "<<class_type<<" and there are #sections: "<<num_sections<<endl;
     for (int section_indx = 0; section_indx < num_sections; section_indx++) { //num_sections
+       //cout<<" Adding "<<class_type<<" sec id "<< section_indx<<" cost before "<<timetable.cost()<<endl;
         Section section;
         if (class_type == LEC) {
             section = course.lecture_sections_.at(shuffled_sections[section_indx]);
@@ -279,8 +226,6 @@ bool Scheduler::attempt_to_add_section(
         if(class_type != LEC){
             if(sem != class_chosen.semester && course.numLecSections() != 0){
                 continue;
-            } else {
-               // cout << "ignoring" << endl;
             }
         }
         bool successfully_inserted = true;
@@ -290,7 +235,6 @@ bool Scheduler::attempt_to_add_section(
         // Try adding all of the lecture sections for that section and class to the timetable
         for (class_in_section = 0; class_in_section < (int)section.duration_.size();
              class_in_section++) {
-
             class_chosen.async = section.async_.at(class_in_section);
             if(class_chosen.async){
                 successfully_inserted = timetable.insert(class_chosen);
@@ -308,19 +252,20 @@ bool Scheduler::attempt_to_add_section(
                 
                 // Check if the class was sucessfully inserted
                 if (!successfully_inserted) {
-                    //cout << section.day_.at(class_in_section) + semester_offset << endl;
-                    //cout << section.start_time_.at(class_in_section) + i << endl;
-                    //cout << class_type;
                     break;
                     // Combination is invalid
                     // Time occupied by another course offering or constraint
                 } else {
                     // Keep track of which semester we chose
                     if(check_for_constraint_){
+                        int per_class_cost = 0;
+                        int async_vs_sync_cost= 0;
                         if(!class_chosen.async){
-                            section_cost += constraint_handler_->cost_of_class(period);
+                            per_class_cost += constraint_handler_->cost_of_class(period);
                         }
-                        section_cost  += constraint_handler_ ->sync_vs_async_cost(class_chosen.async);
+                        async_vs_sync_cost  += constraint_handler_ ->sync_vs_async_cost(class_chosen.async);
+                        //cout<<"     two costs are: "<<per_class_cost<<" "<<async_vs_sync_cost<<endl;
+                        section_cost += per_class_cost + async_vs_sync_cost;
                     }
                 }
             }
@@ -328,6 +273,7 @@ bool Scheduler::attempt_to_add_section(
             // There is a conflict with the class section that was just inputted so remove it
             // Don't remove the class that it conflicted with - simply remove the others
             if (!successfully_inserted ) {
+                //cout<<" Unsucessful"<<endl;
                 // loop through each class in the section
                 for (int remove_class = 0; remove_class <= class_in_section; remove_class++) {
                     // loop through each hour of the class (ex. if one is a two hour class this will
@@ -346,46 +292,20 @@ bool Scheduler::attempt_to_add_section(
                     }
                    
                 }
-                /* TO MAKE PARTIAL TIMETABLES
-                if (timetable.size()) {
-                    found_at_least_one_option = true;
-                    timetable.add_cost(section_cost);
-                    // cout << "type PRA and removing course" << endl;
-                    // print_timetable(timetable);
-                    priority_queue<CourseOfferings, vector<CourseOfferings>, greater<CourseOfferings>>
-                        remaining_classes = courses;
-                    remaining_classes.pop();
-                    // cout << " (section exists) is courses empty?: " << remaining_classes.empty() << endl;
-                    schedule_classes_helper(remaining_classes, timetable);
-    
-                    // remove class from timetable
-                    for (int remove_class = 0; remove_class < class_in_section;
-                        remove_class++) { // should this be < or <= (<= seg faults)
-                        if(section.async_.at(remove_class)){
-                        timetable.erase(class_chosen);
-                        }else{
-                            for (int i = 0; i < section.duration_.at(remove_class); i++) {
-                                Date period = make_pair(section.day_.at(remove_class)+semester_offset,
-                                                        section.start_time_.at(remove_class) + i);
-                                timetable.erase(period);
-                            }
-                        }
-                    }
-                }*/
                 break;
             } else {
                 found_at_least_one_option = true;
-                timetable.add_cost(section_cost);
             }
         }
 
-        // cout << "start" << endl;
         /**
          * Call this function recursively to place the remaining classes
          * Remove the current class from the courses list and then recall this function to place the
          * rest of the classes
          */
         if(successfully_inserted){
+            // Add the cost of this section to the timetable since the whole section has been added 
+             timetable.add_cost(section_cost);
             if (class_type == LEC) {
                 // add TUT now
                 attempt_to_add_section(timetable, TUT, course, courses, class_chosen.semester);
@@ -404,7 +324,6 @@ bool Scheduler::attempt_to_add_section(
                     
                 }
             } else if (class_type == TUT) {
-                // cout << "type tut and about to call PRA" << endl;
                 attempt_to_add_section(timetable, PRA, course, courses, sem);
 
                 for (int remove_class = 0; remove_class < class_in_section;
@@ -420,13 +339,10 @@ bool Scheduler::attempt_to_add_section(
                     }
                 }
             } else {
-                    
-                // cout << "type PRA and removing course" << endl;
-                // print_timetable(timetable);
                 priority_queue<CourseOfferings, vector<CourseOfferings>, greater<CourseOfferings>>
                     remaining_classes = courses;
                 remaining_classes.pop();
-                // cout << " (section exists) is courses empty?: " << remaining_classes.empty() << endl;
+
                 schedule_classes_helper(remaining_classes, timetable);
    
                 // remove class from timetable
@@ -445,15 +361,9 @@ bool Scheduler::attempt_to_add_section(
             }
             timetable.remove_cost(section_cost);
         }
-        if(/*max_abide <section_indx && */found_at_least_one_option){
-           //break; // TODO: AMaybe delete so we get more than one
-        }
     }
     
     if (num_sections < 1) {
-        // if section is empty DO SOMETHING
-        // cout << "there are no sections for class "<< course.course_id_ << " and of type " <<
-        // class_type << endl;
         if (class_type == LEC) {
             // add TUT now
              found_at_least_one_option = attempt_to_add_section(timetable, TUT, course, courses, sem);
@@ -461,14 +371,11 @@ bool Scheduler::attempt_to_add_section(
         } else if (class_type == TUT) {
             found_at_least_one_option =  attempt_to_add_section(timetable, PRA, course, courses, sem);
         } else {
-            // cout << "type PRA and removing course" << endl;
-            // print_timetable(timetable);
+
             priority_queue<CourseOfferings, vector<CourseOfferings>, greater<CourseOfferings>>
                 remaining_classes = courses;
             remaining_classes.pop();
 
-            // cout << "(section doesn't exist) is courses empty?: " << remaining_classes.empty() <<
-            // endl; cout << "erasing course: " << course.course_id_ << endl;
             schedule_classes_helper(remaining_classes, timetable);
         }
     }

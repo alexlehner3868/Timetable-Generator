@@ -237,17 +237,17 @@ int ConstraintHandler::cost_of_class(Date d) {
     if (time_constraints_.find(d) != time_constraints_.end()) {
         cost += (time_constraints_[d]);
     }
-    // Penalize class for being in a prefered time (decrease cost)
+    // Penalize class for being in a prefered time (increase cost)
     if (no_morning_classes_ != NO_PRIORITY && d.second < 11) {
         cost += no_morning_classes_;
         
     }
-    // Penalize class for being in a prefered time (decrease cost)
-    if (no_evening_classes_ != NO_PRIORITY && d.second > 4) {
+    // Penalize class for being in a prefered time (increase cost)
+    if (no_evening_classes_ != NO_PRIORITY && d.second >= 18) {
         cost += no_evening_classes_;
     }
-    // Penalize class for being in a prefered time (decrease cost)
-    if (no_afternoon_classes_ != NO_PRIORITY && d.second > 12 && d.second < 4) {
+    // Penalize class for being in a prefered time (increase cost)
+    if (no_afternoon_classes_ != NO_PRIORITY && d.second > 12 && d.second <= 16) {
         cost += no_afternoon_classes_;
     }
     // Penalize class for being after time (increase cost)

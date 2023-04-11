@@ -36,9 +36,9 @@ enum constraint_priority {
 class ConstraintHandler {
 private:
     // Constraints handled per section
-    int no_morning_classes_;                           // int = priority
-    int no_evening_classes_;                           // int = priority
-    int no_afternoon_classes_;                         // int = priority
+    int no_morning_classes_;                           // int = priority [Morning  = before 11 am]
+    int no_evening_classes_;                           // int = priority [Evening = 6pm and later]
+    int no_afternoon_classes_;                         // int = priority [Afternoon = between 1 and 4 inclusive]
     pair<int, int> no_classes_after_X_;                    // <X, priority>
     pair<int, int> no_classes_before_X_;                   // <X, priority>
     int prefer_async_classes_;                             // int = priority 
