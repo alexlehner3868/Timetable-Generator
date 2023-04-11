@@ -70,7 +70,6 @@ const ActiveCourseList = ({courses, setCourses, setMessage}) => {
           setCourses(prev => new Set(prev.add("CIV220H1")))
           setCourses(prev => new Set(prev.add("CIV235H1")))
           setCourses(prev => new Set(prev.add("CIV280H1")))
-          setCourses(prev => new Set(prev.add("CME210H1")))
           setCourses(prev => new Set(prev.add("CME261H1")))
           setCourses(prev => new Set(prev.add("CME270H1")))
           
