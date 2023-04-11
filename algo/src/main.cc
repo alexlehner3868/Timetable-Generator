@@ -223,7 +223,6 @@ int exec(vector<string> courses, vector<string> constraints, int num_timetables)
             }
         } else {
             //pass, bad
-            
         }
     }
     //constraint_handler.add_time_constraint(10, 2, 2, 'F', MUST_HAVE); // tuesday at 10 am for 2 hours in the fall with

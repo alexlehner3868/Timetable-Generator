@@ -90,6 +90,7 @@ bool ConstraintHandler::preprocess_high_priority_classes_out(priority_queue<Cour
   // copy original_offerings so we can loop through it and delete at the same time
   //priority_queue<CourseOfferings, vector<CourseOfferings>, greater<CourseOfferings>>::iterator offerings_iterator = original_offerings.begin();
   while(!original_offerings.empty()){
+       auto it;
     auto offering = original_offerings.top();
     bool lec_exists = offering.lecture_sections_.size() > 0;
     bool tut_exists = offering.tutorial_sections_.size() > 0;
@@ -102,7 +103,12 @@ bool ConstraintHandler::preprocess_high_priority_classes_out(priority_queue<Cour
       //cout << lect_section.day_[0] << " and time " << lect_section.start_time_[0] << endl;
       for(int i = 0; i < (*lect_section).num_classes_in_section() && !section_removed; i++){
         for(int j = 0; j < (*lect_section).duration_[i] && !section_removed; j++){
-          auto it = time_constraints_.find({(*lect_section).day_[i], (*lect_section).start_time_[i]+j});
+          
+          if ((*lect_section).semester_[i] == 'F') {
+             it = time_constraints_.find({(*lect_section).day_[i], (*lect_section).start_time_[i]+j});
+          } else {
+             it = time_constraints_.find({(*lect_section).day_[i]+5, (*lect_section).start_time_[i]+j});
+          }
           if(it != time_constraints_.end() && it->second == MUST_HAVE && !section_removed){
             // found a class that occurs at the same time as a constraint that is priority 4, MUST_HAVE
             // take it out of original_offerings
@@ -126,15 +132,17 @@ bool ConstraintHandler::preprocess_high_priority_classes_out(priority_queue<Cour
     }
     while(tut_section != offering.tutorial_sections_.end()){
 
-      
 
       //cout << lect_section.section_id_ << " and course id is " << offering.course_id_ << endl;
       for(int i = 0; i < (*tut_section).num_classes_in_section() && !section_removed; i++){
        // cout << "There are " << (*tut_section).num_classes_in_section() << " classes in the tutorial section." << endl;
         for(int j = 0; j < (*tut_section).duration_[i] && !section_removed; j++){
-          auto it = time_constraints_.find({(*tut_section).day_[i]+5, (*tut_section).start_time_[i]+j});
-          //cout << " Looking for a constraint on day " << (*tut_section).day_[i]+5 << " and time " << (*tut_section).start_time_[i]+j << endl;
-          
+          if ( (*tut_section).semester_[i] == 'F') {
+            it = time_constraints_.find({(*tut_section).day_[i], (*tut_section).start_time_[i]+j});
+          } else {
+            //cout << " Looking for a constraint on day " << (*tut_section).day_[i]+5 << " and time " << (*tut_section).start_time_[i]+j << endl;
+            it = time_constraints_.find({(*tut_section).day_[i]+5, (*tut_section).start_time_[i]+j});
+          }
           if(it != time_constraints_.end() && it->second == MUST_HAVE && !section_removed){
             // found a class that occurs at the same time as a constraint that is priority 4, MUST_HAVE
             // take it out of original_offerings
@@ -158,7 +166,12 @@ bool ConstraintHandler::preprocess_high_priority_classes_out(priority_queue<Cour
       //cout << lect_section.day_[0] << " and time " << lect_section.start_time_[0] << endl;
       for(int i = 0; i < (*pra_section).num_classes_in_section() && !section_removed; i++){
         for(int j = 0; j < (*pra_section).duration_[i] && !section_removed; j++){
-          auto it = time_constraints_.find({(*pra_section).day_[i], (*pra_section).start_time_[i]+j});
+          if ((*pra_section).semester_[i] == 'F') {
+             it = time_constraints_.find({(*pra_section).day_[i], (*pra_section).start_time_[i]+j});
+          } else {
+             it = time_constraints_.find({(*pra_section).day_[i]+5, (*pra_section).start_time_[i]+j});
+          }
+          
           if(it != time_constraints_.end() && it->second == MUST_HAVE && !section_removed){
             // found a class that occurs at the same time as a constraint that is priority 4, MUST_HAVE
             // take it out of original_offerings
