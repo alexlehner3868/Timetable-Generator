@@ -70,6 +70,8 @@ const ActiveCourseList = ({courses, setCourses, setMessage}) => {
           setCourses(prev => new Set(prev.add("CIV220H1")))
           setCourses(prev => new Set(prev.add("CIV235H1")))
           setCourses(prev => new Set(prev.add("CIV280H1")))
+          //alternating section
+          //setCourses(prev => new Set(prev.add("CME210H1")))
           setCourses(prev => new Set(prev.add("CME261H1")))
           setCourses(prev => new Set(prev.add("CME270H1")))
           
@@ -99,8 +101,8 @@ const ActiveCourseList = ({courses, setCourses, setMessage}) => {
         case 5:
           //2nd Year EngSci
           removeAllCourses();
-          setCourses(prev => new Set(prev.add("AER210H1")))
-          setCourses(prev => new Set(prev.add("CHE260H1")))
+          //setCourses(prev => new Set(prev.add("AER210H1")))
+          //setCourses(prev => new Set(prev.add("CHE260H1")))
           setCourses(prev => new Set(prev.add("ECE253H1")))
           setCourses(prev => new Set(prev.add("ESC203H1")))
           setCourses(prev => new Set(prev.add("MAT292H1")))
@@ -131,7 +133,7 @@ const ActiveCourseList = ({courses, setCourses, setMessage}) => {
         case 7:
           //2nd Year Mineral
           removeAllCourses();
-          setCourses(prev => new Set(prev.add("CME210H1")))
+          //setCourses(prev => new Set(prev.add("CME210H1")))
           setCourses(prev => new Set(prev.add("CME261H1")))
           setCourses(prev => new Set(prev.add("CME270H1")))
           setCourses(prev => new Set(prev.add("ESS262H1")))
@@ -178,6 +180,11 @@ const ActiveCourseList = ({courses, setCourses, setMessage}) => {
           break;
 
       }
+      
+      if (courses) {
+        const sortedCourses = Array.from(courses).sort();
+        setCourses(new Set(sortedCourses));
+      }  
       setMessage("Please generate timetables.");
 
     } 
