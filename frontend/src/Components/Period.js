@@ -27,7 +27,12 @@ var blockedOffLevelColors = [
 const Period = (props) => {
   // Extract course properties
   const code = props.code || null;
-  let color = colors[props.color || 0];
+  let color = 0;
+  if (code != "BLOCKED") {
+     color = colors[props.color || 0];
+  } else {
+     color = "Red";
+  }
   const section = (props.section) ? "01" + String(props.section).padStart(2, "0") : null;
   const type = props.type || null;
   const blockedOffLevel = props.blockedOffLevel || null;

@@ -31,9 +31,11 @@ const Timetable = (props) => {
   let idx = 1;
   let colors = {};
   for (const course of courses)
-    if (colors[course] === undefined)
-      colors[course] = idx++;
-
+    if (colors[course] === undefined) {
+      if (course != "BLOCKED") {
+        colors[course] = idx++;
+      }
+    } 
   // Process the timetable
   let async_courses = new Set()
   if (props.timetable) {
@@ -49,6 +51,7 @@ const Timetable = (props) => {
       }
       grid[meet.time][meet.day - 1] = meet;
     }
+    //
   }
 
 
@@ -203,7 +206,6 @@ const Timetable = (props) => {
       }
     }
   }
-  
   // Render the timetable
   return (
   <div>
