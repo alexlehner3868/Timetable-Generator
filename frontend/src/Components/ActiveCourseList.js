@@ -27,6 +27,7 @@ const ActiveCourseList = ({courses, setCourses, setMessage}) => {
       switch (parseInt(timetable_value)) {
         case 0:
           //no preset defined
+          removeAllCourses();
           break;
         case 1:
           //1st year ECE
