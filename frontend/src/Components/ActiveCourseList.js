@@ -180,11 +180,8 @@ const ActiveCourseList = ({courses, setCourses, setMessage}) => {
           break;
 
       }
+      setCourses(prev => new Set(Array.from(prev).sort()));
       
-      if (courses) {
-        const sortedCourses = Array.from(courses).sort();
-        setCourses(new Set(sortedCourses));
-      }  
       setMessage("Please generate timetables.");
 
     } 
