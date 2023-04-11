@@ -34,10 +34,9 @@ int non_test_count = 0;
 vector<TimeTable> Scheduler::schedule_classes(
     priority_queue<CourseOfferings, vector<CourseOfferings>, greater<CourseOfferings>> &courses,
     ConstraintHandler* constraint_handler) {
-    if(constraint_handler_ == nullptr && constraint_handler->any_constraints_exists()){
         constraint_handler_ = constraint_handler;
         check_for_constraint_ = true;
-    }
+
 
     if(courses.size() == 0) return vector<TimeTable>();
     // Clear saved before scheduling 
@@ -113,11 +112,11 @@ void Scheduler::schedule_classes_helper(
     // All sections have been added
     if (courses.size() == 0) {
         number_of_explored_timetables++;
-        int timetable_additional_cost = 0;
-        if(check_for_constraint_){
-            timetable_additional_cost = constraint_handler_->cost_of_timetable(timetable.classes());
-            timetable.add_cost(timetable_additional_cost);
-        }
+
+        // Get timetable cost and add it to the timetable 
+        int timetable_additional_cost = constraint_handler_->cost_of_timetable(timetable.classes());
+        timetable.add_cost(timetable_additional_cost);
+     
            
         if (/*timetable.size() ==  maximum_number_of_sections_  &&*/ unique_check(timetable)) { 
             unique_timetables_found_++;
@@ -256,17 +255,17 @@ bool Scheduler::attempt_to_add_section(
                     // Combination is invalid
                     // Time occupied by another course offering or constraint
                 } else {
-                    // Keep track of which semester we chose
-                    if(check_for_constraint_){
-                        int per_class_cost = 0;
-                        int async_vs_sync_cost= 0;
-                        if(!class_chosen.async){
-                            per_class_cost += constraint_handler_->cost_of_class(period);
-                        }
-                        async_vs_sync_cost  += constraint_handler_ ->sync_vs_async_cost(class_chosen.async);
-                        //cout<<"     two costs are: "<<per_class_cost<<" "<<async_vs_sync_cost<<endl;
-                        section_cost += per_class_cost + async_vs_sync_cost;
+                    
+                    // Add cost of the section to timetable [2 kinds of costs]
+                    int per_class_cost = 0;
+                    int async_vs_sync_cost= 0;
+                    if(!class_chosen.async){
+                        per_class_cost += constraint_handler_->cost_of_class(period);
                     }
+                    async_vs_sync_cost  += constraint_handler_ ->sync_vs_async_cost(class_chosen.async);
+            
+                    section_cost += per_class_cost + async_vs_sync_cost;
+                    
                 }
             }
 
