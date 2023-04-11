@@ -106,8 +106,8 @@ bool ConstraintHandler::preprocess_high_priority_classes_out(priority_queue<Cour
           if(it != time_constraints_.end() && it->second == MUST_HAVE && !section_removed){
             // found a class that occurs at the same time as a constraint that is priority 4, MUST_HAVE
             // take it out of original_offerings
-            //                                                        offering.lecture_sections_.begin() +section_num
-            //cout << "Erased lecture " << offering.course_id_ << " in section " << (*lect_section).section_id_ << endl;
+            // offering.lecture_sections_.begin() +section_num
+            //cout << "Erased lecture " << offering.course_id_ << " in section " << (*lect_section).section_id_[0] << endl;
             //cout << offering.lecture_sections_[offering.lecture_sections_.begin()+section_num].section_id_ << endl;
 
             lect_section = offering.lecture_sections_.erase(lect_section);
@@ -125,15 +125,21 @@ bool ConstraintHandler::preprocess_high_priority_classes_out(priority_queue<Cour
       section_removed = false;
     }
     while(tut_section != offering.tutorial_sections_.end()){
+
+      
+
       //cout << lect_section.section_id_ << " and course id is " << offering.course_id_ << endl;
       for(int i = 0; i < (*tut_section).num_classes_in_section() && !section_removed; i++){
+       // cout << "There are " << (*tut_section).num_classes_in_section() << " classes in the tutorial section." << endl;
         for(int j = 0; j < (*tut_section).duration_[i] && !section_removed; j++){
-          auto it = time_constraints_.find({(*tut_section).day_[i], (*tut_section).start_time_[i]+j});
+          auto it = time_constraints_.find({(*tut_section).day_[i]+5, (*tut_section).start_time_[i]+j});
+          //cout << " Looking for a constraint on day " << (*tut_section).day_[i]+5 << " and time " << (*tut_section).start_time_[i]+j << endl;
+          
           if(it != time_constraints_.end() && it->second == MUST_HAVE && !section_removed){
             // found a class that occurs at the same time as a constraint that is priority 4, MUST_HAVE
             // take it out of original_offerings
             //                                                        offering.lecture_sections_.begin() +section_num
-            //cout << "Erased tutorial " << offering.course_id_ << " in section " << (*tut_section).section_id_ << endl;
+            //cout << "Erased tutorial " << offering.course_id_ << " in section " << (*tut_section).section_id_[0] << endl;
             tut_section = offering.tutorial_sections_.erase(tut_section);
             number_of_classes_preprossed_out++;
             section_removed = true;
@@ -157,7 +163,7 @@ bool ConstraintHandler::preprocess_high_priority_classes_out(priority_queue<Cour
             // found a class that occurs at the same time as a constraint that is priority 4, MUST_HAVE
             // take it out of original_offerings
             //                                                        offering.lecture_sections_.begin() +section_num
-            //cout << "Erased practical " << offering.course_id_ << " in section " << (*pra_section).section_id_ << endl;
+            //cout << "Erased practical " << offering.course_id_ << " in section " << (*pra_section).section_id_[0] << endl;
             pra_section = offering.practical_sections_.erase(pra_section);
             number_of_classes_preprossed_out++;
             section_removed = true;
@@ -181,11 +187,11 @@ bool ConstraintHandler::preprocess_high_priority_classes_out(priority_queue<Cour
       valid_sections_after_removal = false;
     }
     if (tut_exists && new_tut_sections.size() == 0) {
-      result += offering.name_ + ": could not schedule; all tutorials conflict with hard constraints ";
+      result += offering.name_ + ": could not schedule; all tutorials conflict with hard constraints. ";
       valid_sections_after_removal = false;
     }
     if (pra_exists && new_pra_sections.size() == 0) {
-      result +=offering.name_ + ": could not schedule; all practicals conflict with hard constraints ";
+      result +=offering.name_ + ": could not schedule; all practicals conflict with hard constraints. ";
       valid_sections_after_removal = false;
     }
     std::string new_course_name = offering.name_;
