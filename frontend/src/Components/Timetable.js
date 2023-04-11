@@ -55,7 +55,7 @@ const Timetable = (props) => {
   }
 
 
-  let async_course_list = ""
+  let async_course_list = " "
   if(async_courses.size > 0){
     async_course_list = "Asynchronous Courses: "
     for(const meet of async_courses){

@@ -31,17 +31,17 @@ const DownloadButton = (props) => {
     }
   
     function downloadPDFWithjsPDF() {
-      const doc = new jsPDF('l', 'pt');
+      const doc = new jsPDF('l', 'pt', [624, 1000]); 
       doc.setFontSize(500);
       let course_txt = getTimetableCourseTxt();
       doc.html(document.querySelector('#timetable'), {
         callback: function (doc) {
-          doc.addPage('l', 'pt');
+          doc.addPage('l', 'pt', [624, 1000]);
           doc.text(course_txt, '20', '20');
           doc.save("TimetableOption"+ (props.ttbIndex+1) + ".pdf");
         },
         margin: [30, 30, 30, 30],
-        width: 552,
+        width: 500,
       });     
     }
 
