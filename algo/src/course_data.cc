@@ -197,15 +197,27 @@ std::vector<Section> CourseData::add_course(string course_id, int section_type) 
         //there is no course_data so skip setting the old_section_num
         old_section_num = 1;
     }*/
-    char old_sem = 'F';
-    char sem = 'F';
+    char old_sem;
+    char sem ;
     old_section_num.clear();
     old_section_num.push_back(1);
+    //cout << "start seg" << endl;
+    if (!course_data.empty()) {
+        if (course_data[0].size()) {
+            if (!course_data[0][0].empty()) {
+                old_sem = course_data[0][0][0];
+                sem = course_data[0][0][0];
+                //cout << " set to " << course_data[0][0][0] << endl;
+            }
+        }
+    } 
+    //cout << "no seg" << endl;
     for (std::vector<std::string> section : course_data) {
         // error checking on this - make sure it is valid
         current_section_num.clear();
         current_section_num.push_back(stoi(section[2]) - SECTION_OFFSET);
         
+        sem = section[0][0];
         //cout << "pushing back section " << current_section_num[0] << " and course id " << course_id << endl;
         // << endl;
         //  each vector contains all the info for one section of a lecture
@@ -218,7 +230,7 @@ std::vector<Section> CourseData::add_course(string course_id, int section_type) 
         // 6 - session id
 
         // if no more sections need to be added to the vectors
-        if (old_section_num[0] != current_section_num[0] || old_sem != section[0][0]) {
+        if (old_section_num[0] != current_section_num[0] || old_sem != sem) {
 
             // create a section containing all the information we just queried from SQL DB
             //cout << "adding a class with the section number " << old_section_num[0] << " and course id " << course_id << endl << "at " << class_start_time[0] << endl;
@@ -231,6 +243,10 @@ std::vector<Section> CourseData::add_course(string course_id, int section_type) 
                                 class_async);
             old_section_num.clear();
             old_section_num.push_back(current_section_num[0]);
+
+
+            old_sem = sem;
+
             available_sections.push_back(add_section);
             class_durations.clear();
             class_start_time.clear();
@@ -252,7 +268,6 @@ std::vector<Section> CourseData::add_course(string course_id, int section_type) 
         
         // take the first char of the string 'F' or 'W' or 'Y'
         old_sem = sem;
-        sem = section[0][0];
         if(sem == 'Y'){
             if(section[6].back() == '9'){
                 class_semester.insert(class_semester.end(), 'F');
@@ -302,7 +317,6 @@ std::vector<Section> CourseData::add_course(string course_id, int section_type) 
     int vector_top = 0;
     int vector_inner = 0;
     set<int> sections;
-
     for (auto section: available_sections) {
         // compare each section
         vector_inner = vector_top + 1;
@@ -353,5 +367,6 @@ std::vector<Section> CourseData::add_course(string course_id, int section_type) 
     //for (auto section: available_sections_pruned) {
         //cout << "adding sections " << section.section_id_[0] << endl;
     //}
+
     return available_sections_pruned;
 }
