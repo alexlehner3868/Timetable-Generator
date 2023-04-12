@@ -197,7 +197,8 @@ std::vector<Section> CourseData::add_course(string course_id, int section_type) 
         //there is no course_data so skip setting the old_section_num
         old_section_num = 1;
     }*/
-
+    char old_sem = 'F';
+    char sem = 'F';
     old_section_num.clear();
     old_section_num.push_back(1);
     for (std::vector<std::string> section : course_data) {
@@ -205,7 +206,7 @@ std::vector<Section> CourseData::add_course(string course_id, int section_type) 
         current_section_num.clear();
         current_section_num.push_back(stoi(section[2]) - SECTION_OFFSET);
         
-        // cout << "pushing back section " << current_section_num << " and course id " << course_id
+        //cout << "pushing back section " << current_section_num[0] << " and course id " << course_id << endl;
         // << endl;
         //  each vector contains all the info for one section of a lecture
         // 0 - section F/W
@@ -217,7 +218,7 @@ std::vector<Section> CourseData::add_course(string course_id, int section_type) 
         // 6 - session id
 
         // if no more sections need to be added to the vectors
-        if (old_section_num[0] != current_section_num[0]) {
+        if (old_section_num[0] != current_section_num[0] || old_sem != section[0][0]) {
 
             // create a section containing all the information we just queried from SQL DB
             //cout << "adding a class with the section number " << old_section_num[0] << " and course id " << course_id << endl << "at " << class_start_time[0] << endl;
@@ -250,12 +251,13 @@ std::vector<Section> CourseData::add_course(string course_id, int section_type) 
         
         
         // take the first char of the string 'F' or 'W' or 'Y'
-        char sem = section[0][0];
+        old_sem = sem;
+        sem = section[0][0];
         if(sem == 'Y'){
             if(section[6].back() == '9'){
                 class_semester.insert(class_semester.end(), 'F');
             } else{
-                 class_semester.insert(class_semester.end(), 'W'); 
+                class_semester.insert(class_semester.end(), 'W'); 
             }
         }else{
             class_semester.insert(class_semester.end(), {section[0][0]});
@@ -339,9 +341,10 @@ std::vector<Section> CourseData::add_course(string course_id, int section_type) 
         }
     }
 
-
     for (auto section_to_add: new_sections) {
         //cout << "Section " << section_to_add << "is in the final list" << endl;
+        //cout << "Adding section " << available_sections[section_to_add].section_id_[0] << " in semester " << available_sections[section_to_add].semester_[0] << " on day " 
+        //<< available_sections[section_to_add].day_[0] << " at time " << available_sections[section_to_add].start_time_[0] << " for " << available_sections[section_to_add].duration_[0] << " hours." << endl;
         available_sections_pruned.push_back(available_sections[section_to_add]);
     }
     //cout << endl << endl;

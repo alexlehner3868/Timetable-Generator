@@ -118,7 +118,7 @@ int exec(vector<string> courses, vector<string> constraints, int num_timetables)
     priority_queue<CourseOfferings, vector<CourseOfferings>, greater<CourseOfferings>> offerings;
     if (courses.empty()){
         offerings = get_classes();
-        cout<<"ALEX IN MAIN "<<offerings.top().lecture_sections_.size()<<endl;
+        //cout<<"ALEX IN MAIN "<<offerings.top().lecture_sections_.size()<<endl;
    } else {
         CourseData data;
         for (auto &&code : courses) {
@@ -256,6 +256,15 @@ int exec(vector<string> courses, vector<string> constraints, int num_timetables)
     // Reorder the offerings based on number of things that need to be scheduled 
     //offerings = reorder_offerings(offerings);
     
+        /*cout<<"ALEX IN MAIN "<<offerings.top().lecture_sections_.size()<<endl;
+        for (auto section:offerings.top().lecture_sections_ ) {
+            cout << section.semester_[1] << endl;
+            cout << section.day_[1] << endl;
+            cout << section.start_time_[1] << endl;
+            cout << section.duration_[1] << endl;
+            cout << section.section_id_[1] << endl;
+            cout << endl;
+        }*/
     vector<TimeTable> best_timetables  = scheduler_handler.schedule_classes(offerings, &constraint_handler);
     result_string += scheduler_handler.get_result_string(); 
 

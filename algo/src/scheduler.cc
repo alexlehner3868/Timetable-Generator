@@ -57,7 +57,9 @@ vector<TimeTable> Scheduler::schedule_classes(
         max_sections_total += offering.numSections();
         pq_copy.pop();
     }
-    cout<<"ALEX: num of lecture section ins schedule classes"<<courses.top().lecture_sections_.size()<<endl;
+    //cout<<"ALEX: num of lecture section ins schedule classes is "<<courses.top().lecture_sections_.size()<<endl;
+    //cout<<"ALEX: num of tut section ins schedule classes is "<<courses.top().tutorial_sections_.size()<<endl;
+    //cout<<"ALEX: num of pra section ins schedule classes is "<<courses.top().practical_sections_.size()<<endl;
     // run scheduling algorithm
     start_schedule_time_ = std::chrono::system_clock::now();
     schedule_classes_helper(courses, timetable);   
@@ -223,11 +225,11 @@ bool Scheduler::attempt_to_add_section(
             .async = section.async_.at(0)
 
         };
-        cout<<"ALEX: trying to add "<<class_chosen.course_code<<" section "<<class_chosen.section<<" in "<<class_chosen.semester<<endl;
+        ///cout<<"ALEX: trying to add "<<class_chosen.course_code<<" section "<<class_chosen.section<<" in "<<class_chosen.semester<<endl;
         int semester_offset = (class_chosen.semester == 'F') ? 0 : 5;
         if(class_type != LEC){
             if(sem != class_chosen.semester && course.numLecSections() != 0){
-                cout<<"ALEX SEM FAIL"<<endl;
+                //cout<<"ALEX SEM FAIL"<<endl;
                 continue;
             }
         }
@@ -272,7 +274,7 @@ bool Scheduler::attempt_to_add_section(
                     
                 }
             }
-
+            //cout << successfully_inserted << endl;
             // There is a conflict with the class section that was just inputted so remove it
             // Don't remove the class that it conflicted with - simply remove the others
             if (!successfully_inserted ) {
@@ -307,8 +309,9 @@ bool Scheduler::attempt_to_add_section(
          * rest of the classes
          */
         if(successfully_inserted){
+            //cout << "got to the end" <<endl;
             // Add the cost of this section to the timetable since the whole section has been added 
-             timetable.add_cost(section_cost);
+            timetable.add_cost(section_cost);
             if (class_type == LEC) {
                 // add TUT now
                 attempt_to_add_section(timetable, TUT, course, courses, class_chosen.semester);
@@ -326,6 +329,7 @@ bool Scheduler::attempt_to_add_section(
                     }
                     
                 }
+                //cout << "in lec" << endl;
             } else if (class_type == TUT) {
                 attempt_to_add_section(timetable, PRA, course, courses, sem);
 
@@ -341,11 +345,12 @@ bool Scheduler::attempt_to_add_section(
                         }
                     }
                 }
+                //cout << "in tut" << endl;
             } else {
                 priority_queue<CourseOfferings, vector<CourseOfferings>, greater<CourseOfferings>>
                     remaining_classes = courses;
                 remaining_classes.pop();
-
+                //cout << "size is " << remaining_classes.size() << endl;
                 schedule_classes_helper(remaining_classes, timetable);
    
                 // remove class from timetable
