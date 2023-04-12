@@ -371,7 +371,7 @@ int ConstraintHandler::cost_of_timetable(std::unordered_map<Date, SelectedCourse
 ConstraintHandler::ConstraintHandler() {
     time_constraints_.clear();
 
-    back_to_back_constraint_ = make_pair(2, MUST_HAVE);
+    back_to_back_constraint_ = make_pair(24, NO_PRIORITY);
     no_classes_after_X_ = make_pair(24, NO_PRIORITY);
     no_classes_before_X_ = make_pair(24, NO_PRIORITY); 
     no_breaks_larger_than_X_ = make_pair(24, NO_PRIORITY);
