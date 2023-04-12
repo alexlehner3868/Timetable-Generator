@@ -198,8 +198,8 @@ code {
   background-color:lightskyblue;
   box-shadow: inset 0px 1px 0px lightskyblue, 0px 5px 0px 0px rgb(55, 130, 177)/*, 0px 10px 5px #999*/;
 } .active-course-list:nth-child(8){
-  background-color:lavender;
-  box-shadow: inset 0px 1px 0px lavender, 0px 5px 0px 0px rgb(178, 178, 252)/*, 0px 10px 5px #999*/;
+  background-color:plum;
+  box-shadow: inset 0px 1px 0px plum, 0px 5px 0px 0px rgb(158,92,158)/*, 0px 10px 5px #999*/;
 } .active-course-list:nth-child(9){
   background-color:hotpink;
   box-shadow: inset 0px 1px 0px hotpink, 0px 5px 0px 0px rgb(150, 45, 98)/*, 0px 10px 5px #999*/;
@@ -210,8 +210,8 @@ code {
   background-color:lightseagreen;
   box-shadow: inset 0px 1px 0px lightseagreen, 0px 5px 0px 0px rgb(8, 74, 71)/*, 0px 10px 5px #999*/;
 } .active-course-list:nth-child(12){
-  background-color:salmon;
-  box-shadow: inset 0px 1px 0px salmon, 0px 5px 0px 0px rgb(190, 78, 66)/*, 0px 10px 5px #999*/;
+  background-color:yellowgreen;
+  box-shadow: inset 0px 1px 0px yellowgreen, 0px 5px 0px 0px rgb(92, 127, 23)/*, 0px 10px 5px #999*/;
 }
 
 

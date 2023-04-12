@@ -11,11 +11,11 @@ var colors = [
   "Pink",
   "Salmon",
   "LightSkyBlue",
-  "Lavender",
+  "plum",
   "HotPink",
   "LightBlue",
   "LightSeaGreen",
-  "Salmon",
+  "yellowgreen",
 ];
 
 var blockedOffLevelColors = [
