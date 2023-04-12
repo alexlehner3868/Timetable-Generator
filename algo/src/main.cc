@@ -232,19 +232,19 @@ int exec(vector<string> courses, vector<string> constraints, int num_timetables)
     scheduler_handler.set_num_timetables(num_timetables);
     switch(courses.size()) {
         case 1: scheduler_handler.set_max_explore(1000); break;
-        case 2: scheduler_handler.set_max_explore(500); break;
-        case 3: scheduler_handler.set_max_explore(100); break;
-        case 4: scheduler_handler.set_max_explore(100); break;
-        case 5: scheduler_handler.set_max_explore(100); break;
-        case 6: scheduler_handler.set_max_explore(100); break;
-        case 7: scheduler_handler.set_max_explore(100); break;
+        case 2: scheduler_handler.set_max_explore(800); break;
+        case 3: scheduler_handler.set_max_explore(500); break;
+        case 4: scheduler_handler.set_max_explore(500); break;
+        case 5: scheduler_handler.set_max_explore(500); break;
+        case 6: scheduler_handler.set_max_explore(500); break;
+        case 7: scheduler_handler.set_max_explore(500); break;
         case 8: scheduler_handler.set_max_explore(100); break;
         case 9: scheduler_handler.set_max_explore(100); break;
         case 10: scheduler_handler.set_max_explore(100); break;
-        case 11: scheduler_handler.set_max_explore(100); break;
-        case 12: scheduler_handler.set_max_explore(100); break;
-        case 13: scheduler_handler.set_max_explore(100); break;
-        case 14: scheduler_handler.set_max_explore(100); break;
+        case 11: scheduler_handler.set_max_explore(350); break;
+        case 12: scheduler_handler.set_max_explore(400); break;
+        case 13: scheduler_handler.set_max_explore(400); break;
+        case 14: scheduler_handler.set_max_explore(400); break;
         default: scheduler_handler.set_max_explore(100); break;
     }
     
