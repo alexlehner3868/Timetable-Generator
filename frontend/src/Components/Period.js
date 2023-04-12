@@ -15,7 +15,7 @@ var colors = [
   "HotPink",
   "LightBlue",
   "LightSeaGreen",
-  "yellowgreen",
+  "yellowgreen"
 ];
 
 var blockedOffLevelColors = [
