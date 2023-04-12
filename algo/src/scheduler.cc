@@ -57,7 +57,7 @@ vector<TimeTable> Scheduler::schedule_classes(
         max_sections_total += offering.numSections();
         pq_copy.pop();
     }
-
+    cout<<"ALEX: num of lecture section ins schedule classes"<<courses.top().lecture_sections_.size()<<endl;
     // run scheduling algorithm
     start_schedule_time_ = std::chrono::system_clock::now();
     schedule_classes_helper(courses, timetable);   
@@ -223,9 +223,11 @@ bool Scheduler::attempt_to_add_section(
             .async = section.async_.at(0)
 
         };
+        cout<<"ALEX: trying to add "<<class_chosen.course_code<<" section "<<class_chosen.section<<" in "<<class_chosen.semester<<endl;
         int semester_offset = (class_chosen.semester == 'F') ? 0 : 5;
         if(class_type != LEC){
             if(sem != class_chosen.semester && course.numLecSections() != 0){
+                cout<<"ALEX SEM FAIL"<<endl;
                 continue;
             }
         }

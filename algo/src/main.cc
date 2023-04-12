@@ -118,6 +118,7 @@ int exec(vector<string> courses, vector<string> constraints, int num_timetables)
     priority_queue<CourseOfferings, vector<CourseOfferings>, greater<CourseOfferings>> offerings;
     if (courses.empty()){
         offerings = get_classes();
+        cout<<"ALEX IN MAIN "<<offerings.top().lecture_sections_.size()<<endl;
    } else {
         CourseData data;
         for (auto &&code : courses) {
