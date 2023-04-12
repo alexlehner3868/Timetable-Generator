@@ -37,7 +37,7 @@ vector<TimeTable> Scheduler::schedule_classes(
         constraint_handler_ = constraint_handler;
         check_for_constraint_ = true;
 
-
+    
     if(courses.size() == 0) return vector<TimeTable>();
     // Clear saved before scheduling 
     maximum_number_of_sections_ = 0; 
@@ -105,6 +105,7 @@ void Scheduler::schedule_classes_helper(
         return;
     }
 */  
+   
     if (timetables_.size() > 0 && number_of_explored_timetables > max_number_of_timetables_to_explore) {
         timetables_not_explored_++;
         return;
@@ -173,6 +174,7 @@ bool Scheduler::attempt_to_add_section(
     } else {
         num_sections = (int)course.numPraSections();
     }
+
     int srand_val = abs(time(nullptr)*cos(time(nullptr)) + time(nullptr)*sin(time(nullptr)));
     //value for second semester
     if (courses.size() && courses.size() < 3) { srand(srand_val);} //20874366//1418983059//55662427(long, not worth it)//1859965549(quick)//302889345

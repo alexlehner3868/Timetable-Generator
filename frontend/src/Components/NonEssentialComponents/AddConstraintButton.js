@@ -402,14 +402,14 @@ const AddConstraintButton = (props) => {
                 <option class="great_to_have" value="2">Great To Have</option>
                 <option class="must_have" value="3">Must Have</option>
             </select> <br></br>
-            <label>Prefer Async Classes</label>
+            <label>Prefer Sync Classes</label>
             <select list="Priority" defaultValue={async} class="dropdown" id="async_priorities" onChange = {handleSubmitAsync}>
                 <option value="0"></option>
                 <option class="good_to_have" value="1">Good To Have</option>
                 <option class="great_to_have" value="2">Great To Have</option>
                 <option class="must_have" value="3">Must Have</option>
             </select> <br></br>
-            <label>Prefer Sync Classes</label>
+            <label>Prefer Async Classes</label>
             <select list="Priority" defaultValue={sync} class="dropdown" id="sync_priorities" onChange = {handleSubmitSync}>
                 <option value="0"></option>
                 <option class="good_to_have" value="1">Good To Have</option>
