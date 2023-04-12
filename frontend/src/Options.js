@@ -7,6 +7,7 @@ import ToggleDownloadButton from "./Components/NonEssentialComponents/ToggleDown
 
 // -- Module --
 const Options = ({timetables, ttbIndex, setTtbIndex, num_timetables, setNumTimetables, setTabIndex}) => {
+
   let timetable_index_str;
   if (timetables.length === 0 || ttbIndex == NaN) {
    // timetable_index_str = "";
@@ -26,7 +27,9 @@ const Options = ({timetables, ttbIndex, setTtbIndex, num_timetables, setNumTimet
     }
   } 
   //console.log(num_timetables)
-
+  if (!num_timetables || num_timetables == 0) {
+    setNumTimetables(20)
+  }
   return (
     <div className="control-bar">
       
