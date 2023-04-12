@@ -211,12 +211,13 @@ int exec(vector<string> courses, vector<string> constraints, int num_timetables)
             if (int(constraint[2])-48 < 5) {
                 //add_time_constraint(int start_time, int duration, int day, char semester, int priority);
                 //cout << "adding time constraints" << endl;
-                constraint_handler.add_time_constraint(hours, 1, int(constraint[2])-48/*this is really the day*/, 'F', 10);
+                //cout << int(constraint[2])-48 << endl;
+                constraint_handler.add_time_constraint(hours, 1, int(constraint[2])-48+1/*this is really the day*/, 'F', 10);
                 block_semesters.insert(block_semesters.end(), 'F');
                 block_day.insert(block_day.end(), int(constraint[2])-48);
                 block_start_time.insert(block_start_time.end(), hours);
             } else {
-                constraint_handler.add_time_constraint(hours, 1, int(constraint[2])-48-4, 'S', 10);
+                constraint_handler.add_time_constraint(hours, 1, int(constraint[2])-48+1-5, 'S', 10);
                 block_semesters.insert(block_semesters.end(), 'S');
                 block_day.insert(block_day.end(), int(constraint[2])-48);
                 block_start_time.insert(block_start_time.end(), hours);
