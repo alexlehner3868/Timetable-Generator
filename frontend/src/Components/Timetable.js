@@ -70,7 +70,7 @@ const Timetable = (props) => {
 
   // Convert from time index to hour string
   const int2hour = hour => {
-    return (hour <= 12) ? hour + "AM": (hour - 12) + "PM"
+    return (hour < 12) ? hour + "AM": (hour - 12) + "PM"
   };
 
 
